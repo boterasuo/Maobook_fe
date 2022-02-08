@@ -1,4 +1,11 @@
+// 覆蓋預設樣式顏色為毛毛橘(primary) 毛毛棕(secondary)
 $primary: #f6bc54;
 $secondary: #6a5f4b;
+// 新增顏色變數 (顏色為原 bs 顏色)
+$bs-primary: #007bff;
+$bs-secondary: #6c757d;
 
+// Import Bootstrap and its default variables
 @import "~bootstrap/scss/bootstrap.scss";
+
+// 其它要導入覆蓋掉原本的預設bootstrap樣式-類別-要放在這下面
