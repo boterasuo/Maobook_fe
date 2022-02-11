@@ -8,9 +8,12 @@
 
   <body>
     <div>
-      <button onclick="calenderReplace(nowM)">《</button>
+      <input id="hiddenYear" type="hidden" value="" />
+      <input id="hiddenMonth" type="hidden" value="" />
+
+      <button onclick="calenderMonthChange(1)">《</button>
       <h2 id="yearAndMonth"></h2>
-      <button onclick="calenderReplace(nowM)">》</button>
+      <button onclick="calenderMonthChange(-1)">》</button>
     </div>
     <hr />
     <div>
@@ -21,5 +24,8 @@
     </div>
 
     <script src="./component/Calender.js"></script>
+    <script>
+      calenderNow();
+    </script>
   </body>
 </html>

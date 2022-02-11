@@ -1,25 +1,32 @@
+// 1. 在HTML呼叫calenderNow()，取得年與月，呼叫函式calenderReplace
+
+function calenderNow(){
+  //得到目前的年月的語法
+  const now = new Date();
+  //用分開定義年和日的寫法
+  const nowYear = now.getFullYear();
+  //月份注意回傳為0~11，0代表1月，11代表12月
+  const nowMonth = now.getMonth() + 1;
+  calenderReplace(nowYear, nowMonth);
+}
+
+// 2. calenderReplace()中跑完行事曆語法
+
 function calenderReplace(nowY, nowM) {
 
+const hiddenYear = document.getElementById('hiddenYear')
+const hiddenMonth = document.getElementById('hiddenMonth')
 const yearAndMonth = document.getElementById('yearAndMonth')
 const title = document.getElementById('title')
 const data = document.getElementById('data')
 // const nowYEAR = document.getElementById('nowYEAR')
 
-
+hiddenYear.value = nowY
+hiddenMonth.value = nowM
 
 //如果要得到某個年月日的日曆用下面的語法
 // const now = new Date('2020/3/1')
 
-//得到目前的年月的語法
-const now = new Date()
-
-//用樣版字串的寫法
-//yearAndMonth.innerHTML = `${now.getFullYear()}-${now.getMonth() + 1}`
-
-//用分開定義年和日的寫法
-const nowY = now.getFullYear()
-//月份注意回傳為0~11，0代表1月，11代表12月
-const nowM = now.getMonth() + 1
 const monthlist= ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL','AUG','SEP','OCT','NOV','DEC']
 
 // 呈現在網頁上
@@ -87,4 +94,20 @@ data.innerHTML = `${dataDisplay}`
 
 }
 
-calenderReplace(); 
+// 3. button onClick事件，取得前後一個月的月份
+
+function calenderMonthChange(monthNum) {  
+
+  const hiddenYear = Number(document.getElementById('hiddenYear').value)  //轉數字
+  const hiddenMonth = Number(document.getElementById('hiddenMonth').value)
+  const newMonth = hiddenMonth + Number(monthNum)
+  if (newMonth <= 0) {
+    calenderReplace ( hiddenYear - 1 , newMonth + 12)
+  } else {
+    if (newMonth > 12 ) {
+      calenderReplace ( hiddenYear + 1 , newMonth - 12 )
+    } else {
+      calenderReplace ( hiddenYear, newMonth )
+    }
+  }
+}
