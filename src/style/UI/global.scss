@@ -19,3 +19,8 @@ body {
   padding: 0;
   font-family: $roboto;
 }
+
+::selection {
+    background: hsla(79, 60%, 65%, 1);
+    color: white;
+}
