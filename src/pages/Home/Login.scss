@@ -1,40 +1,25 @@
-.main-content {
-  height: calc(100vh - 80px);
-  // padding-top: 150px;
-  // 減去 index.scss 中預設的 margin-top (不然 viewport 會變 100vh + 80px)
-}
-// 空白區塊
-.login-space-section {
-  height: 60%;
-}
-// 登入區塊
-.login-section {
-  height: 40%;
-}
-
 // maobook 字 logo
 .login-logo-word {
   max-width: 370px;
-  padding-top: 15%;
+  padding-top: 25%;
 }
 
 // 大圖 logo
 .login-logo-noword {
   max-width: 350px;
-  top: -130%;
+  top: -100%;
   left: 15%;
 }
 
 // maobook 和 logo 的 RWD for pad (992px)
 @media only screen and (max-width: 992px) {
   .login-logo-word {
-    max-width: 370px;
     margin: auto;
-    padding-top: 50px;
+    padding-top: 20%;
   }
   .login-logo-noword {
     max-width: 300px;
-    top: -190px;
+    top: -40%;
     left: 50%;
     transform: translateX(-55%);
   }
@@ -43,12 +28,11 @@
 @media only screen and (max-width: 768px) {
   .login-logo-word {
     max-width: 220px;
-    margin: auto;
-    padding-top: 10px;
+    padding-top: 15%;
   }
   .login-logo-noword {
-    max-width: 200px;
-    top: -120px;
+    max-width: 160px;
+    top: -30%;
     left: 50%;
     transform: translateX(-55%);
   }
@@ -58,11 +42,11 @@
 .img-login-word {
   max-width: 200px;
   left: 14%;
-  top: -53%;
+  top: -40%;
 }
 // 登入表單
 .login-form {
-  padding: 10px 50px;
+  padding: 1.2rem 3rem;
 }
 .login-form input {
   background: none;
@@ -70,23 +54,29 @@
   border-radius: 2rem;
   height: 2rem;
   transition: 0.4s;
+  &::placeholder {
+    color: grey;
+    font-size: 0.9rem;
+  }
+  &:focus {
+    background: rgba($color: #6a5f4b, $alpha: 0.3);
+  }
 }
-.login-form input::placeholder {
-  color: grey;
-  font-size: 0.9rem;
-}
-.login-btn {
+
+// 登入按鈕樣式
+.login-btn button {
   margin-bottom: 2rem;
   padding: 0;
-}
-.login-btn:hover .paw-btn path {
-  fill: #6a5f4b;
-  transition: 0.4s;
+  &:hover .paw-btn path {
+    fill: #6a5f4b;
+    transition: 0.4s;
+  }
 }
 
 // 第三方登入
 .thirdParty-login {
   justify-content: center;
+  padding: 0.8rem 1rem 7rem 1rem;
 }
 .thirdParty-icon-login {
   margin: 30px 15px;
@@ -97,55 +87,45 @@
 
 // 註冊區塊的 RWD for pad (992px)
 @media only screen and (max-width: 992px) {
-  .signup-form {
-    padding: 100px 80px 0 80px;
+  .login-form {
+    padding: 20px 200px;
+    input {
+      height: 3rem;
+      &::placeholder {
+        font-size: 1.2rem;
+      }
+    }
   }
-  .divider {
-    margin: 20px auto;
-    height: 1px;
-    width: 70vw;
-    background: white;
-    border: none;
+  .login-btn {
+    text-align: center;
+    margin-bottom: 10rem;
+    padding: 0;
   }
   .thirdParty-login {
     justify-content: center;
+    margin-top: 17%;
+    margin-bottom: 15%;
   }
-  .thirdParty-icon {
+  .thirdParty-icon-login {
     margin: 20px;
-  }
-  .thirdParty-icon:last-child {
-    margin-right: 20px;
-  }
-  .signUp-btn {
-    text-align: center;
-    margin-top: 20px;
-  }
-  .signUp-btn button {
-    margin-right: 0;
-  }
-  .img-paws-lg {
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 // 註冊區塊的 RWD for mobile (768px)
 @media only screen and (max-width: 768px) {
-  .signup-form {
-    padding: 60px 50px 0 50px;
+  .login-form {
+    padding: 10px 40px 0px 40px;
+    input {
+      height: 2rem;
+    }
   }
-  .signup-form input {
-    height: 1.5rem;
+  .login-btn {
+    margin-bottom: 5rem;
   }
-  .divider {
-    margin: auto;
+  .thirdParty-login {
+    margin-top: 20%;
+    margin-bottom: 10%;
   }
-  .thirdParty-icon {
+  .thirdParty-icon-login {
     border-radius: 50%;
-  }
-  .signUp-btn {
-    margin-top: 0;
-  }
-  .img-paws-lg {
-    bottom: -25%;
   }
 }
