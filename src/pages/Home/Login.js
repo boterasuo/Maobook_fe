@@ -1,4 +1,13 @@
+// 引入 React 功能
 import React from 'react';
+import {useState} from "react";
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
+
+// 引入 utils
+import {API_URL} from "../../utils/config";
+
+// 引入圖片們
 import Logo from "../../img/LOGO_no_word.svg";
 import LogoWord from "../../img/LOGO_word.svg";
 import LoginWord from "../../img/Login/login_word.svg";
@@ -7,10 +16,44 @@ import "./Login.scss";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 
 function Login(props) {
+  // 來自 App 的登入狀態
+  const {auth, setAuth} = props;
+  // 導頁用
+  const history = useHistory();
+
+  const [member, setMember] = useState({
+    email:"",
+    password: "",
+  });
+
+  function handleChange(e) {
+    setMember({...member, [e.target.name]:e.target.value});
+  };
+
+  async function handleSubmit(e) {
+    // 關掉原本預設送出行為
+    e.preventDefault();
+
+    try {
+      let response = await axios.post(`${API_URL}/auth/login`, member, {
+        // 跨源存取 cookies
+        withCredentials: true,
+      });
+      console.log(response.data);
+      setAuth(true);
+      // 自動導向會員頁面
+      history.push("/member");      
+    } catch(e) {
+      console.error("login error", e.response.data);
+    };
+  }
+
   return (
     <div>
       <div className="container">
-          <div className="row no-gutters">
+          <form 
+            className="row no-gutters"
+            onSubmit={handleSubmit}>
               {/* 排版用空白區塊 */}
               <div className="col-lg-6 d-none d-lg-block"></div>
               {/* 登入區塊 */}
@@ -21,22 +64,36 @@ function Login(props) {
                 </div>
                 <h4 className="text-secondary text-center py-3 m-0">It's Mao Life!</h4>
                 {/* 登入欄位 */}
-                <form className="login-form">
-                  <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="帳號" />
+                <div className="login-form">
+                  <div className="form-group mb-3">
+                    <input 
+                      type="email" 
+                      className="form-control" 
+                      placeholder="帳號" 
+                      name="email"
+                      value={member.email}
+                      onChange={handleChange}
+                    />
                   </div>
-                  <div className="input-group mb-3">
-                      <input type="password" className="form-control" placeholder="密碼" />
+                  <div className="form-group mb-3">
+                      <input 
+                        type="password" 
+                        className="form-control" 
+                        placeholder="密碼"
+                        name="password"
+                        value={member.password}
+                        onChange={handleChange}
+                      />
                   </div>
-                </form>
+                </div>
               </div>
               {/* 登入按鈕 */}
               <div className="col-lg-2 align-self-end login-btn">
-                <button className="btn">
+                <button className="btn" type="submit">
                   <PawBtn className="paw-btn" />
                 </button>
               </div>
-          </div>
+          </form>
         
     </div>
     <div className='bg-primary position-relative login-section'>       

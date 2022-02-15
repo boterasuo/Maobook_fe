@@ -56,8 +56,6 @@ function SignUp(props) {
                 password: e.response.data.password,
                 confirmPassword: e.response.data.confirmPassword,
             });
-
-
         }
     }
 
@@ -88,7 +86,6 @@ function SignUp(props) {
                 <div className="col-lg-3">
                     <form 
                         className="signup-form" 
-                        // onInvalid={handleValidation}
                         onSubmit={handleSubmit}>
                         <div className="form-group mb-2">
                             <input 

@@ -1,25 +1,50 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 // 引入頁面
 import Home from "./pages/Home";
 import Member from "./pages/Member";
 import Login from "./pages/Home/Login";
 import Store from "./pages/Store.js";
 import NotFound404 from "./pages/Home/NotFound404";
+// 引入 utils
+import {API_URL} from "./utils/config";
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
 import ScrollToTop from "./component/UI/ScrollToTop";
 import Footer from "./component/UI/Footer";
-
+import axios from 'axios';
 
 
 function App() {
+  
+  const [auth, setAuth] = useState(false);
+  // 檢查登入狀態函式
+  let checkLogin = async () => {
+    try {
+      let response = await axios.get(`${API_URL}/member`, {
+        withCredentials: true,
+      });
+      if(response.data.id > 0) {
+        setAuth(true);
+      };
+    } catch(e){
+      console.log(e.response.data);
+    }
+  };
+  // 檢查登入狀態
+  // 若有查到 session --> 更改 auth 為 true
+  useEffect(() => {
+    if(!auth) {
+      checkLogin();
+    }
+  },[]);
+
 
   return (
     <Router>
       <>
-        <MyNav />
+        <MyNav auth={auth} setAuth={setAuth} />
           <ScrollToTop>
             <Switch>
               <Route path="/member">
@@ -29,9 +54,9 @@ function App() {
                 <Store />
               </Route>
               <Route path="/login">
-                <Login/>
+                <Login auth={auth} setAuth={setAuth} />
               </Route>
-              <Route path="/" exact>
+              <Route exact path="/">
                 <Home />
               </Route>
               <Route path="*">
