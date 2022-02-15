@@ -1,13 +1,17 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
-// 引入頁面
-import Home from "./pages/Home";
-import Member from "./pages/Member";
-import Login from "./pages/Home/Login";
-import Store from "./pages/Store.js";
+
+// 錯誤頁面
 import NotFound404 from "./pages/Home/NotFound404";
 // 引入 utils
 import {API_URL} from "./utils/config";
+// 主頁面
+import Home from "./pages/Home.js";
+import Login from "./pages/Home/Login";
+import Schedule from "./pages/Schedule.js"
+import Store from "./pages/Store.js";
+import Community from "./pages/Community.js"
+import Assistance from "./pages/Assistance.js"
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
@@ -47,11 +51,20 @@ function App() {
         <MyNav auth={auth} setAuth={setAuth} />
           <ScrollToTop>
             <Switch>
-              <Route path="/member">
-                <Member />
+              <Route path="/Assistance">
+                <Assistance />
+              </Route>
+              <Route path="/Community">
+                <Community />
               </Route>
               <Route path="/store">
                 <Store />
+              </Route>
+              <Route path="/Schedule">
+                <Schedule />
+              </Route>
+              <Route path="/Home">
+                <Home />
               </Route>
               <Route path="/login">
                 <Login auth={auth} setAuth={setAuth} />
@@ -63,8 +76,8 @@ function App() {
                 <NotFound404/>
               </Route>
             </Switch>
-          </ScrollToTop>
-          <Footer/>
+          </ScrollToTop> 
+           <Footer/>
       </>
     </Router>
   )
