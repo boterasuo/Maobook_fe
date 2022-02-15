@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
     addMonths,
     subMonths,
@@ -7,7 +7,7 @@ import {
     endOfMonth,
     setDate,
     startOfMonth,
-} from 'date-fns'
+} from 'date-fns';
 
 export const MONTHS = [
     'January',
@@ -22,8 +22,8 @@ export const MONTHS = [
     'October',
     'November',
     'December',
-]
-export const WEEKS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+];
+export const WEEKS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const useCalendar = () => {
     const [today, setToday] = useState(new Date())
@@ -96,4 +96,4 @@ const useCalendar = () => {
         selectDate,
     }
 }
-export default useCalendar
+export default useCalendar;

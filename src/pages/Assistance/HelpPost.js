@@ -35,4 +35,4 @@ function HelpPost(props) {
 }
 
 
-export default HelpPost
+export default HelpPost;

@@ -1,11 +1,11 @@
-import React from 'react'
-import { format, getDate, isSameDay } from 'date-fns'
-import useCalendar, { WEEKS } from './components/UseCalendar'
-import 'react-bootstrap'
-import './components/UseCalendar'
-import buttonIconL from './img/calArrowL.svg'
-import buttonIconR from './img/calArrowR.svg'
-import dateCircle from './img/calDateCircle.svg'
+import React from 'react';
+import { format, getDate, isSameDay } from 'date-fns';
+import useCalendar, { WEEKS } from './components/UseCalendar';
+import 'react-bootstrap';
+import './components/Calendar.scss';
+import buttonIconL from './img/calArrowL.svg';
+import buttonIconR from './img/calArrowR.svg';
+import dateCircle from './img/calDateCircle.svg';
 
 const HelpCalendar = () => {
     const calendar = useCalendar()
@@ -109,4 +109,4 @@ const HelpCalendar = () => {
 }
 
 
-export default HelpCalendar
+export default HelpCalendar;

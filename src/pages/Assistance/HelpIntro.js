@@ -15,5 +15,5 @@ function HelpIntro(props) {
 }
 
 
-export default HelpIntro
+export default HelpIntro;
 

@@ -60,4 +60,4 @@ function DayHelps(props) {
 }
 
 
-export default DayHelps
+export default DayHelps;

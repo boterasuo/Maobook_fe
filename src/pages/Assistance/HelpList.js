@@ -42,4 +42,4 @@ function HelpList(props) {
 }
 
 
-export default HelpList
+export default HelpList;

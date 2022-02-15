@@ -45,4 +45,4 @@ function HelpDetail(props) {
 }
 
 
-export default HelpDetail
+export default HelpDetail;
