@@ -10,8 +10,10 @@ import Home from "./pages/Home.js";
 import Login from "./pages/Home/Login";
 import Schedule from "./pages/Schedule.js"
 import Store from "./pages/Store.js";
-import Community from "./pages/Community.js"
-import Assistance from "./pages/Assistance.js"
+import Community from "./pages/Community.js";
+import Assistance from "./pages/Assistance.js";
+import Member from "./pages/Member.js";
+
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
@@ -51,20 +53,20 @@ function App() {
         <MyNav auth={auth} setAuth={setAuth} />
           <ScrollToTop>
             <Switch>
-              <Route path="/Assistance">
+              <Route path="/assistance">
                 <Assistance />
               </Route>
-              <Route path="/Community">
+              <Route path="/community">
                 <Community />
+              </Route>
+              <Route path="/member">
+                <Member />
               </Route>
               <Route path="/store">
                 <Store />
               </Route>
-              <Route path="/Schedule">
+              <Route path="/schedule">
                 <Schedule />
-              </Route>
-              <Route path="/Home">
-                <Home />
               </Route>
               <Route path="/login">
                 <Login auth={auth} setAuth={setAuth} />
