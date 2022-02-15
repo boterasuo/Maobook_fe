@@ -1,0 +1,97 @@
+// Google fonts
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+// font variable
+$roboto: "Roboto", sans-serif;
+
+body {
+  margin-top: 80px;
+  padding: 0;
+  font-family: $roboto;
+}
+
+// 覆蓋預設樣式顏色為毛毛橘(primary) 毛毛棕(secondary)
+$primary: #f6bc54;
+$secondary: #6a5f4b;
+// 新增顏色變數 (顏色為原 bs 顏色)
+$bs-primary: #007bff;
+$bs-secondary: #6c757d;
+
+// Import Bootstrap and its default variables
+@import "~bootstrap/scss/bootstrap.scss";
+
+// 其它要導入覆蓋掉原本的預設bootstrap樣式-類別-要放在這下面
+
+.calenderButton {
+  background-color: #f6bc54;
+}
+
+.thisYear {
+  color: #f6bc54;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.week {
+  color: #6a5f4b;
+  font-size: 20px;
+  opacity: 0.4;
+}
+.today {
+  color: #6a5f4b;
+  font-size: 20px;
+  margin: 5px;
+}
+
+hr {
+  border: #6a5f4b 1px solid;
+}
+
+.calenderHead {
+  vertical-align: bottom;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+}
+img.imgIcon {
+  vertical-align: middle;
+}
+
+table {
+  border-spacing: 0;
+}
+
+table td {
+  width: 100px;
+  height: 30px;
+}
+
+tr {
+  width: 25px;
+  height: 30px;
+}
+
+.linkCircle {
+  position: relative;
+}
+
+.dateCircle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+}
+
+.circleText {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  color: white;
+}
