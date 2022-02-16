@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react'
 // 引入 context
 import { AuthContext } from './context/auth';
 
+//錯誤頁面
+import NotFound404 from "./pages/Home/NotFound404";
+
+//主頁面
 // 引入 API 相關工具
 import {API_URL} from "./utils/config";
 import axios from 'axios';

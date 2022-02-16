@@ -6,7 +6,7 @@
   width: 650vw;
   max-width: 100%;
   height: 650px;
-  background-color: grey;
+  // background-color: grey;
   margin-top: 90px;
   // margin-left: 100px;
   // margin-right: 40px;
@@ -15,16 +15,17 @@
 
 // 左上方介紹詞
 .scheduleInfoTxt {
-  justify-content: flex-start;
-  // position: absolute;
-  z-index: 0.8;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  // left: 20%;
-  margin-left: 100px;
+  // justify-content: flex-start;
+  // z-index: 0.8;
+  // height: 100%;
+  // width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // text-align: left;
+  // margin-left: 100px;
+  position: absolute;
+  left: 15%;
+  top: 5%;
 }
 
 // 左上方文字設定
@@ -40,11 +41,9 @@
 }
 
 .cheduleInfochat {
-  position: relative;
-  max-width: 80%;
-  height: auto;
-  top: 30px;
-  justify-content: flex-end;
+  position: absolute;
+  left: 60%;
+  top: 15%;
 }
 
 .IntroTop {
@@ -67,10 +66,12 @@
   // /* position: absolute; */
 
   // display: block;
-  margin: auto auto;
+  // margin: auto auto;
   // background-size: cover;
-  background-color: hotpink;
-  z-index: 0.8;
+  // background-color: hotpink;
+  // z-index: 0.8;
+  position: absolute;
+  top: 35%;
 }
 
 .chedulePhoto .img {
@@ -98,16 +99,35 @@
     position: relative;
   } */
 
+// 中文背景字
 .scheduleIntro .cTxt {
-  /* display: block;
-  margin: 200px 50px auto;
-  background-size: cover;
-  background-color: hotpink; */
+  position: absolute;
+  left: 65%;
+  top: 78%;
 }
 
-// .scheduleCalender {
-//   position: relative;
-//   width: 800px;
-//   height: 500px;
-//   margin: 20px;
-// }
+// 下方文字
+
+.aaaaa {
+}
+.arrowtextP1 {
+  position: absolute;
+  transform: translateX(-50%);
+
+  top: 105%;
+  margin-top: 30px;
+  margin-bottom: 3px;
+  color: #6a5f4b;
+}
+.arrowtextP2 {
+  position: absolute;
+  transform: translateX(-50%);
+  top: 105%;
+  color: #6a5f4b;
+}
+
+.arrowtextImg {
+  position: absolute;
+  transform: translateX(-50%);
+  top: 115%;
+}

@@ -16,8 +16,8 @@
 
 .Schedulecontainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
   z-index: 0.1;
   flex: 1;
 }
@@ -39,14 +39,16 @@
   left: 10%;
   z-index: 1;
 }
+
 .Introdiv {
-  width: 80vw;
+  // width: 70vw;
   justify-content: center;
   align-items: center;
 }
 
 .Calendardiv {
-  width: 80vw;
+  margin-top: 150px;
+  // width: 100vw;
   justify-content: center;
   align-items: center;
 }
