@@ -1,0 +1,113 @@
+// 整體佈局
+.scheduleIntro {
+  display: flex;
+  flex-direction: column;
+  z-index: 0.8;
+  width: 650vw;
+  max-width: 100%;
+  height: 650px;
+  background-color: grey;
+  margin-top: 90px;
+  // margin-left: 100px;
+  // margin-right: 40px;
+  position: relative;
+}
+
+// 左上方介紹詞
+.scheduleInfoTxt {
+  justify-content: flex-start;
+  // position: absolute;
+  z-index: 0.8;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  // left: 20%;
+  margin-left: 100px;
+}
+
+// 左上方文字設定
+.scheduleInfoTxt h2 {
+  font-size: 2.1rem;
+  line-height: 45px;
+  white-space: nowrap;
+}
+.scheduleInfoTxt h5 {
+  font-size: 1.2rem;
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+.cheduleInfochat {
+  position: relative;
+  max-width: 80%;
+  height: auto;
+  top: 30px;
+  justify-content: flex-end;
+}
+
+.IntroTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Introdowm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// 主視覺圖像
+.chedulePhoto {
+  // /* position: relative;
+  // display: block;
+  // /* max-width: 100%; */
+  // /* position: absolute; */
+
+  // display: block;
+  margin: auto auto;
+  // background-size: cover;
+  background-color: hotpink;
+  z-index: 0.8;
+}
+
+.chedulePhoto .img {
+  // justify-content: center;
+  // align-items: center;
+  // max-width: 50%;
+  // height: auto;
+}
+
+// 下方箭頭與文字
+.arrowtext {
+}
+/* @media screen and (min-width: 576px) {
+  .scheduleIntro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0.8;
+    max-width: 100%;
+    height: 650px;
+    background-color: grey;
+    margin-top: 90px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+  } */
+
+.scheduleIntro .cTxt {
+  /* display: block;
+  margin: 200px 50px auto;
+  background-size: cover;
+  background-color: hotpink; */
+}
+
+// .scheduleCalender {
+//   position: relative;
+//   width: 800px;
+//   height: 500px;
+//   margin: 20px;
+// }
