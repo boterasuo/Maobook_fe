@@ -1,14 +1,15 @@
 import React from 'react';
+import SignUp from "./Home/SignUp";
 
 
 function Home(props) {
   return (
-      <>
-    <div>這裡是臨時首頁</div>
-    <br/>
-    <div>請用/進入各分頁</div>
-    </>
+    <div>
+      <h1>這是首頁</h1>
+      <SignUp/>
+    </div>
   )
 }
 
 export default Home;
+

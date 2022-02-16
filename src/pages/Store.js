@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 function Store(props) {
   return (
@@ -7,6 +6,5 @@ function Store(props) {
   )
 }
 
-Store.propTypes = {}
 
 export default Store
