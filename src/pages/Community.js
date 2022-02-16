@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 function Community(props) {
   return (
@@ -7,6 +6,5 @@ function Community(props) {
   )
 }
 
-Community.propTypes = {}
 
 export default Community

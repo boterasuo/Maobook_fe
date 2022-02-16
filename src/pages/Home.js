@@ -1,12 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import SignUp from "./Home/SignUp";
+
 
 function Home(props) {
   return (
-    <div>Home</div>
+    <div>
+      <h1>這是首頁</h1>
+      <SignUp/>
+    </div>
   )
 }
 
-Home.propTypes = {}
+export default Home;
 
-export default Home

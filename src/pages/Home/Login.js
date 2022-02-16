@@ -1,8 +1,10 @@
 // 引入 React 功能
 import React from 'react';
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+// 引入 user context
+import { useAuth } from '../../context/auth';
 
 // 引入 utils
 import {API_URL} from "../../utils/config";
@@ -16,15 +18,19 @@ import "./Login.scss";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 
 function Login(props) {
-  // 來自 App 的登入狀態
-  const {auth, setAuth} = props;
-  // 導頁用
-  const history = useHistory();
-
+  const [auth, setAuth] = useState(false);
+  // 來自 App 的登入狀態 (舊寫法)
+  // const {auth, setAuth} = props;
+  
+  // 來自 context 的 user 狀態
+  const {user, setUser} = useAuth();
+  // 登入 inpuut 輸入
   const [member, setMember] = useState({
     email:"",
     password: "",
   });
+  // 登入驗證錯誤訊息
+  const [errMsg, setErrMsg] = useState({ msg: "",});
 
   function handleChange(e) {
     setMember({...member, [e.target.name]:e.target.value});
@@ -40,13 +46,32 @@ function Login(props) {
         withCredentials: true,
       });
       console.log(response.data);
+      // 登入成功 --> 將 user 資料存入 context 中
+      setUser(response.data.data);
+      // 登入成功 --> auth 狀態改為 true
       setAuth(true);
-      // 自動導向會員頁面
-      history.push("/member");      
+      // 登入成功 --> user 狀態存入對應資料
+      // TODO: 為什麼這樣寫 user 內容存不起來?
+      // setUser({...user, 
+      //   id:response.data.id,
+      //   name:response.data.name,
+      //   email:response.data.email,
+      //   image:response.data.image,
+      // });
+      
+
     } catch(e) {
       console.error("login error", e.response.data);
+      // 登入失敗錯誤訊息
+      setErrMsg({...errMsg, msg:e.response.data.msg,});
     };
   }
+
+  if (auth) {
+    // 登入成功 --> 自動導向會員頁面
+    return <Redirect to="/member" />
+  }
+
 
   return (
     <div>
@@ -84,6 +109,10 @@ function Login(props) {
                         value={member.password}
                         onChange={handleChange}
                       />
+                  </div>
+                  {/* 登入錯誤訊息 */}
+                  <div className="errMsg">
+                    {errMsg.msg ? errMsg.msg : " "}
                   </div>
                 </div>
               </div>
