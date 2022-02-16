@@ -10,8 +10,7 @@ import NotFound404 from "./pages/Home/NotFound404";
 // 引入 API 相關工具
 import {API_URL} from "./utils/config";
 import axios from 'axios';
-// 錯誤頁面
-import NotFound404 from "./pages/Home/NotFound404";
+
 // 主頁面
 import Home from "./pages/Home.js";
 import Login from "./pages/Home/Login";
