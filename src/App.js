@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 
-// 錯誤頁面
+//錯誤頁面
 import NotFound404 from "./pages/Home/NotFound404";
-// 引入 utils
+//引入 utils
 import {API_URL} from "./utils/config";
-// 主頁面
+//主頁面
 import Home from "./pages/Home.js";
 import Login from "./pages/Home/Login";
 import Schedule from "./pages/Schedule.js"
@@ -15,7 +15,7 @@ import Assistance from "./pages/Assistance.js";
 import Member from "./pages/Member.js";
 
 
-// 引入元件
+//引入元件
 import MyNav from "./component/UI/MyNav";
 import ScrollToTop from "./component/UI/ScrollToTop";
 import Footer from "./component/UI/Footer";

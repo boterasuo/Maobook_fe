@@ -20,7 +20,6 @@ import Calendar from './Schedule/calendarE.js'
 // import Notes from './Schedule/Notes.js'
 
 
-
 function calandar() {
   
   return (
