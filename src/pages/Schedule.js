@@ -17,7 +17,21 @@ import scheduleIcon1 from './Schedule/img/scheduleIcon1.svg'
 // 引入 component
 import Intro from './Schedule/Intro.js'
 import Calendar from './Schedule/calendarE.js'
-// import Notes from './Schedule/Notes.js'
+import Notes from './Schedule/Notes.js'
+
+
+// const Schedule = () => {
+//   const [error, setError] = useState(null);
+//   const [data, setData] = useState([]);
+
+//   useEffect(() => {
+//     let getSchedule = async () => {
+//       // http://localhost:3002/api/schedule
+//       let response = await axios.get(`${API_URL}/schedule`);
+//       setData(response.data);
+//     };
+//     getSchedule();
+//   }, []);
 
 
 function calandar() {
@@ -42,7 +56,7 @@ function calandar() {
       <Calendar/>
       </div>
       <div className="scheduleNotes">
-      {/* <Notes/> */}
+      <Notes/>
       </div>
       <div className="scheduleCharts"></div>
       <div className="schedulePost">

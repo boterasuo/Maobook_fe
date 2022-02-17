@@ -4,14 +4,14 @@ import React, { useState, useEffect } from 'react'
 import { AuthContext } from './context/auth';
 
 //錯誤頁面
-import NotFound404 from "./pages/Home/NotFound404";
+// import NotFound404 from "./pages/Home/NotFound404";
 
 //主頁面
 // 引入 API 相關工具
 import {API_URL} from "./utils/config";
 import axios from 'axios';
 // 錯誤頁面
-import NotFound404 from "./pages/Home/NotFound404";
+// import NotFound404 from "./pages/Home/NotFound404";
 // 主頁面
 import Home from "./pages/Home.js";
 import Login from "./pages/Home/Login";
@@ -63,19 +63,19 @@ function App() {
   // };
   // 檢查登入狀態 (新寫法: context)
   // 若有查到 session --> 重新設定 user 的內容
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        let result = await axios.get(`${API_URL}/member`, {
-              withCredentials: true,
-            });
-            setUser(result.data);
-      } catch(e) {
-        console.error(e.response.data);
-      }
-    };
-    getUser();
-  },[]);
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       let result = await axios.get(`${API_URL}/member`, {
+  //             withCredentials: true,
+  //           });
+  //           setUser(result.data);
+  //     } catch(e) {
+  //       console.error(e.response.data);
+  //     }
+  //   };
+  //   getUser();
+  // },[]);
 
 
   return (
@@ -107,7 +107,7 @@ function App() {
                   <Home />
                 </Route>
                 <Route path="*">
-                  <NotFound404/>
+                  {/* <NotFound404/> */}
                 </Route>
               </Switch>
             </ScrollToTop> 
