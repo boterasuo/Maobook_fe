@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  Form,
-  FormControl,
-  NavDropdown,
-  Container,
-} from "react-bootstrap";
-
-import "../../style/UI/global.scss";
+import { Navbar, Nav, Container, Form, NavDropdown } from "react-bootstrap";
 import Logo from "../../img/Logo_nav.svg";
 
 // 要使用能有active css效果的NavLink元件
 import { NavLink } from "react-router-dom";
 
-function MyNav(props) {
+function MyNavbar(props) {
+  console.log('props', props);
   const { auth } = props;
 
   return (
@@ -29,11 +21,11 @@ function MyNav(props) {
         <Navbar.Brand href="/">
           <img className="navbar-logo mr-2" src={Logo} width="200" alt="Logo" />
         </Navbar.Brand>
-      {/* Nav中間 連結各平台頁面 */}
+      {/* Nav中間 */}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Container>
-            <Nav className="me-auto px-4">
+            <Nav className="nav-links me-auto">
               <Nav.Link as={NavLink} to="/">
                 HOME
               </Nav.Link>
@@ -95,12 +87,14 @@ function MyNav(props) {
               <NavDropdown.Item as={NavLink} to="/member/AssistanceHistory">
                 互助紀錄
               </NavDropdown.Item>
+
             {/* 登出按鈕 */}
               <Nav.Link as={NavLink} to="">
                 登出
               </Nav.Link>
             </NavDropdown>
             <div className="d-inline-block"></div>
+
             {/* 會員頭像 */}
             <Nav.Link as={NavLink} to="/member/MemberData">
             <div className="avatar rounded-circle mx-2"></div>
@@ -112,4 +106,4 @@ function MyNav(props) {
   );
 }
 
-export default MyNav;
+export default MyNavbar;

@@ -35,3 +35,21 @@ body {
     top: -50%;
   }
 }
+
+
+// 導覽列
+.navbar{
+  background-color: white;
+  box-shadow: 0 5px 5px #ccc;
+  text-align: center;
+  // 登入按鈕
+  .nav-login-btn{
+    width: 200px;
+  }
+  // 會員頭像
+  .avatar{
+    height: 40px;
+    width: 40px;
+    background: $primary;
+  }
+}
