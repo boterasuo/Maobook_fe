@@ -69,7 +69,7 @@ $secondary: #6a5f4b;
 // 會員資料區塊
 .member-info {
   padding: 0.5rem 4rem 2rem 4rem;
-  > div {
+  > .info-card {
     height: 100%;
     padding: 2rem;
     border: 1px solid $primary;
