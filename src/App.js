@@ -69,6 +69,7 @@ function App() {
               withCredentials: true,
             });
             setUser(result.data);
+
       } catch(e) {
         console.error(e.response.data);
       }
