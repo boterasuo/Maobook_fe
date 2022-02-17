@@ -7,7 +7,7 @@ import React from 'react';
 // 引入 utils
 // import {API_URL} from "../../utils/config";
 import {Container} from 'react-bootstrap' 
-import 'bootstrap'
+// import 'bootstrap'
 import './schedule.scss'
 
 // 引入圖片們
