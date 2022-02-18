@@ -1,6 +1,7 @@
 // 引入 React 功能
 import React from 'react';
 import {useState} from "react";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 // 引入 utils
 import {API_URL} from "../../utils/config";
@@ -31,6 +32,8 @@ function SignUp(props) {
         password:"",
         confirmPassword:"",
     });
+    // 轉頁用
+    const history = useHistory();
 
     function handleChange(e) {
         setMember({...member, [e.target.name]:e.target.value});
@@ -47,7 +50,12 @@ function SignUp(props) {
 
         try {
             let response = await axios.post(`${API_URL}/auth/register`, member);
-            console.log(response);
+            console.log(response.data.message);
+            if(response.data.message === "ok") {
+                // TODO: 客製化 modal
+                alert("註冊成功！請登入")
+                history.push("/login");
+            }
         } catch(e) {
             console.error("error", e.response.data);
             setSignUpErr({...signUpErr,
