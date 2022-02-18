@@ -10,13 +10,14 @@ import dateCircle from './img/calDateCircle.svg';
 const HelpCalendar = () => {
     const calendar = useCalendar()
     return (
-        <div>
+        <>
+        <div className="calendar">
 
         {/* 年月 & setState前後按鈕 */}
-        <table border="0" cellPadding="0" cellSpacing="0" className="">
+        <table>
                 <thead>
                     <tr>
-                        <td colSpan="100%" className="calenderHead">
+                        <td colSpan="100%" className="calendarHead">
                         <div className="d-flex justify-content-center">
 
                         <img src={buttonIconL} className="imgIcon mx-5" onClick={calendar.setPreMonth} alt="上一個月"/>
@@ -47,7 +48,7 @@ const HelpCalendar = () => {
                     
         {/* 分隔線 */}
                     <tr>
-                    <td colSpan="100%"> <hr/> </td>
+                    <td colSpan="100%"> <hr className="divider"/> </td>
                     </tr> 
 
         {/* 印出日期 */}
@@ -59,10 +60,10 @@ const HelpCalendar = () => {
                                 {week.map((date, i) => {
                             
                                     const otherMonth = date.otherMonth
-                                    const isSelected = isSameDay(calendar.today,date.date)
-                                    const className = `${
-                                        otherMonth && 'other'
-                                    } ${isSelected && 'selected'}`
+                                    //const isSelected = isSameDay(calendar.today,date.date)
+                                    //const className = `${
+                                    //    otherMonth && 'other'
+                                    //} ${isSelected && 'selected'}`
                                     const selectedToday = () => {
                                         calendar.selectDate(date.date)
                                     }
@@ -104,7 +105,8 @@ const HelpCalendar = () => {
                     
                 </tbody>
                 </table>
-        </div>
+                </div>
+        </>
     )
 }
 

@@ -40,7 +40,7 @@ function HelpIntro(props) {
             <div className="leadingdown">
               <div className="arrowtext1">找一位朋友</div>
               <div className="arrowtext2">一起來幫你吧</div>
-              <img className="arrowicon" src={downarrow} alt="" />
+              <div className="downarrow" ><img src={downarrow} alt="" /></div>
             </div>
 
         </div>

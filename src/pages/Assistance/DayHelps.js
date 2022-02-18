@@ -15,6 +15,7 @@ function DayHelps(props) {
      
 
         <div className="mainframe"> 
+        
         <div className="bars">
 
         <div className="headdate">3/11</div>
@@ -25,18 +26,43 @@ function DayHelps(props) {
         <div className="category">狗狗</div>
         <div className="tags">代遛</div>
         <div className="price">NT$1000</div>
-        <div className="casetitle">我是標題標題標題標題標題</div>
+        <div className="casetitle">我是標題標題標題標題標題...</div>
         <div className="arrowicon"><img src={arrowright} alt="" /></div>
 
         </div>
         
-        <div className="pawicon">
-        <img src={pawicon} alt="" />
-        <div>已有＿人應徵</div>
+        <div className="pawbox">
+        <img className="pawicon" src={pawicon} alt="" />  
+        <div className="icontext">已有＿人應徵</div>
+        </div>
+        </div>
+
+        <div className="bars">
+
+        <div className="headdate">3/11</div>
+
+        <div className="datadisplay">
+
+        <div className="region">台北市</div>
+        <div className="category">狗狗</div>
+        <div className="tags">代遛</div>
+        <div className="price">NT$1000</div>
+        <div className="casetitle">我是標題標題標題標題標題...</div>
+        <div className="arrowicon"><img src={arrowright} alt="" /></div>
+
+        </div>
+        
+        <div className="pawbox">
+        <img className="pawicon" src={pawicon} alt="" />  
+        <div className="icontext">已有＿人應徵</div>
         </div>
 
         <br/>
         </div>
+
+
+
+
 
         </div>
         </div>

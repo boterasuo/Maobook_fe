@@ -1,5 +1,9 @@
-.calenderButton {
-  background-color: #f6bc54;
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120px;
+  margin-bottom: 50px;
 }
 
 .thisYear {
@@ -19,11 +23,11 @@
   margin: 5px;
 }
 
-hr {
+.divider {
   border: #6a5f4b 1px solid;
 }
 
-.calenderHead {
+.calendarHead {
   vertical-align: bottom;
 }
 
@@ -31,13 +35,6 @@ th,
 td {
   text-align: center;
   padding: 10px 10px 10px 10px;
-}
-img.imgIcon {
-  vertical-align: middle;
-}
-
-table {
-  border-spacing: 0;
 }
 
 table td {
