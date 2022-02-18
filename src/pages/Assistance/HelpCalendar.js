@@ -2,7 +2,7 @@ import React from 'react';
 import { format, getDate, isSameDay } from 'date-fns';
 import useCalendar, { WEEKS } from './components/UseCalendar';
 import 'react-bootstrap';
-import './components/Calendar.scss';
+import './components/HelpCalendar.scss';
 import buttonIconL from './img/calArrowL.svg';
 import buttonIconR from './img/calArrowR.svg';
 import dateCircle from './img/calDateCircle.svg';
