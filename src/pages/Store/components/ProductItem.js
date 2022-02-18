@@ -22,8 +22,8 @@ function ProductItem() {
                 </button>
                 <ProductDetails show={show} setShow={setShow} />
                 <div >
-                    <h6 className=" title m-0">美味無添加<br />香草貓貓化毛膏</h6>
-                    <div className="price m-0">$1000</div>
+                    <h6 className=" s-title m-0">美味無添加<br />香草貓貓化毛膏</h6>
+                    <div className="s-price m-0">$1000</div>
                 </div>
                 <Link className="productCartIcon"> <img src={productCartIcon} alt="productCartIcon" /></Link>
             </div>

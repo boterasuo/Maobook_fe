@@ -57,12 +57,12 @@
   background: white;
   margin: auto;
   width: 150px;
-  border: none;
+  border: none !important;
 }
 .accordion > .categoryCard > .categoryHeader {
-  background: none;
-  border-bottom: 1px solid #f6bc54;
-  margin: 0;
+  background: none !important;
+  border-bottom: 1px solid #f6bc54 !important;
+  margin: 0 !important;
 }
 
 //分頁區
