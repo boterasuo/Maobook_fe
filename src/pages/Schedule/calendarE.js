@@ -1,7 +1,7 @@
 import React from 'react'
 import { format, getDate, isSameDay } from 'date-fns'
 import {useCalendar ,eventSelect,WEEKS} from './component/useCalendarE'
-import 'react-bootstrap'
+// import 'react-bootstrap'
 import './calendarE.scss'
 import buttonIconL from './img/scheduleIcon4.svg'
 import buttonIconR from './img/scheduleIcon4.svg'

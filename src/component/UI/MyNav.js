@@ -7,15 +7,25 @@ import {
   NavDropdown,
   Container,
 } from "react-bootstrap";
-
-import "../../style/UI/global.scss";
+import axios from "axios";
+// 引入 context
+import { useAuth } from "../../context/auth";
+// 引入 utils
+import {API_URL} from "../../utils/config";
 import Logo from "../../img/Logo_nav.svg";
+
 
 // 要使用能有active css效果的NavLink元件
 import { NavLink } from "react-router-dom";
 
 function MyNav(props) {
-  const { auth } = props;
+  // 來自 context 的 user 狀態
+  const {user, setUser} = useAuth();
+  // 登出功能
+  const handleLogout = async () => {
+    await axios.get(`${API_URL}/auth/logout`, {withCredentials:true});
+    setUser(null);
+  }
 
   return (
     <>
@@ -55,22 +65,26 @@ function MyNav(props) {
         {/* Nav右側*/}
           {/* 登入前 */}
           {/* Sign in按鈕 */}
-          {/* <Nav className="nav-login-btn ">
+          {!user && (
+            <Nav className="nav-login-btn ">
             <Nav.Link as={NavLink} to="/login">
               <div className="btn btn-outline-primary">
                 SIGN IN
               </div>
             </Nav.Link>
-            {auth && (
+            {/* {auth && (
               <Nav.Link as={NavLink} to="/member">
                 會員專區
               </Nav.Link>
-            )}
-          </Nav> */}
+            )} */}
+          </Nav>
+          )}
+          
 
           {/* 登入後 */}
           {/* 會員專區 下拉式選單 */}
-          <Form className="d-flex">
+          {user && (
+            <Form className="d-flex">
             <NavDropdown title="會員專區" id="collasible-nav-dropdown">
               <NavDropdown.Item>
                 <p>HI, 毛毛日記 <br></br>
@@ -96,7 +110,7 @@ function MyNav(props) {
                 互助紀錄
               </NavDropdown.Item>
             {/* 登出按鈕 */}
-              <Nav.Link as={NavLink} to="">
+              <Nav.Link as={NavLink} to="/" onClick={handleLogout}>
                 登出
               </Nav.Link>
             </NavDropdown>
@@ -106,6 +120,8 @@ function MyNav(props) {
             <div className="avatar rounded-circle mx-2"></div>
             </Nav.Link>
           </Form>
+          )}
+          
         </Navbar.Collapse>
       </Navbar>
     </>

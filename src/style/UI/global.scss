@@ -27,8 +27,19 @@ body {
 }
 
 ::selection {
-    background: hsla(79, 60%, 65%, 1);
-    color: white;
+  background: hsla(79, 60%, 65%, 1);
+  color: white;
+}
+
+.spinner-grow {
+  background-color: transparent;
+  .sr-only {
+    width: auto;
+    height: auto;
+    clip: auto;
+    left: -50%;
+    top: -50%;
+  }
 }
 
 
