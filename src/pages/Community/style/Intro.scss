@@ -1,0 +1,17 @@
+@import '../../Community.scss';
+
+
+// 連結滑鼠樣式
+.pointer {
+  cursor: pointer;
+}
+.titleBold{
+  display: none;
+}
+
+@media (max-width:767px ) {
+  .titleBold{
+    display: block;
+  }
+}
+

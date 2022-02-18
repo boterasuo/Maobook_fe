@@ -1,0 +1,83 @@
+@import '../style/UI/global.scss';
+
+
+// 錨點設定
+$page-height: calc(100vh - $nav-height);
+.Intro-Page{
+    // min-height: $page-height;
+    margin: 80px 0 0 0;
+  }
+  .Intro-Page, .Daily-Page, .Discuss-Page, .Post-Page{
+  min-height: $page-height;
+}
+
+  // lg
+  @media (min-width: 992px) {
+     // Mao Community
+    $container-distance: 9vw ;
+    .text-community{
+      position: fixed;
+      left: $container-distance;
+      img{
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    // lg寬度
+    .w-lg-75{
+      width: 75%;
+    }
+    .w-lg-50{
+      width: 50%;
+    }
+  }
+  
+  // md
+  @media (min-width: 768px) {
+     // Mao Community
+    $container-distance: 9vw ;
+    .text-community{
+      position: fixed;
+      left: $container-distance;
+      img{
+        height: auto;
+        width: 100%;
+      }
+    }
+    // md 寬度
+    .W-md-75{
+      width: 75%;
+    }
+    .w-md-50{
+      width: 50%;
+    }
+  }
+  
+  // sm
+  @media screen and (max-width: 767px) {
+     // Mao Community
+     .text-community{
+       display: none;
+     }
+    .w-sm-50{
+      width: 50%;
+    }
+    .w-sm-75{
+      width: 75%;
+    }
+  }
+
+   // xs
+   @media (max-width: 575px) {
+      // Mao Community
+      .text-community{
+       }
+  }
+
+  // 滑鼠游標
+  .pointer{
+    cursor: pointer;
+  }
+
+  
