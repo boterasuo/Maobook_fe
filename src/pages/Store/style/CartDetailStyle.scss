@@ -1,0 +1,64 @@
+.cartbg {
+  position: relative;
+  height: 350px;
+}
+.MaoStore2 {
+  position: fixed;
+  left: 10%;
+}
+
+.cartListBG {
+  position: relative;
+  left: 10%;
+  top: 5%;
+}
+
+//清單框
+.cart-list {
+  margin: auto;
+  width: 705px;
+  border: 1px solid#fcb736;
+  border-radius: 10px;
+}
+
+//結帳區
+.delivery-area {
+  color: #6a5f4b;
+  font-size: 1.1rem;
+}
+.delivery {
+  margin-left: 50px;
+}
+.deliveryWay {
+  width: 230px;
+  color: #6a5f4b;
+  border: 2px solid #fcb736;
+}
+.fintotal {
+  margin: 20px 0 20px 0;
+  color: #fcb736;
+  font-size: 1.4rem;
+  position: relative;
+}
+.fintotal::before {
+  content: "";
+  width: 600px;
+  height: 2px;
+  background: #fcb736;
+  position: absolute;
+  top: -60%;
+  left: 8%;
+}
+.cart-arrow {
+  position: relative;
+  margin: 40px 0 20px 0;
+  top: 50%;
+  left: 49.5%;
+}
+.gobuyBtn {
+  width: 150px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  border-radius: 30px;
+  color: #ffff;
+}

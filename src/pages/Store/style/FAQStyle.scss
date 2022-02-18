@@ -1,0 +1,19 @@
+.FAQarea {
+  margin-top: 70px;
+  width: 700px;
+  color: white;
+}
+.FAQcard {
+  border: none;
+}
+.accordion > .FAQcard > .FAQHeader {
+  border-radius: 20px;
+  margin: 1px 0 1px 0;
+  background: #f6bc54;
+}
+.FAQBody {
+  background: white;
+  color: black;
+  border: 1px solid #f6bc54;
+  border-radius: 30px;
+}
