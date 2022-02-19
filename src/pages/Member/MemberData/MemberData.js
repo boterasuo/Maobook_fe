@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Table } from "react-bootstrap";
 import axios from 'axios';
-// 引入 user context
-import { useAuth } from '../../../context/auth';
 // 引入 utils
-import { API_URL } from '../../../utils/config';
+import { API_URL, IMG_URL } from '../../../utils/config';
 // 引入 icon
 import { BsPencilSquare } from "react-icons/bs";
 // 引入圖片
 import defaultAvatar from "../../../img/avatar_user.png";
 import loading from "../../../img/loading_paw.svg";
+// 引入元件
+import MemberEdit from "./MemberEdit"
 
 function MemberData(props) {
-    const [avatar, setAvatar] = useState(defaultAvatar);
   // 來自 context 的 user 狀態
-  const {user, setUser} = useAuth();
   const [userInfo, setUserInfo] = useState();
+  const [edit, setEdit] = useState(false);
 
   // 取得使用者詳細資料
   useEffect(() => {
     let getUserInfo = async () => {
       try {
         let result = await axios.get(`${API_URL}/member/info`, {withCredentials: true,});
-        console.log(result.data.data);
+        // console.log(result.data.data);
         setUserInfo(result.data.data);
       } catch(e) {
         console.error("user info 錯誤", e.response.data);
@@ -38,15 +37,19 @@ function MemberData(props) {
         </div>
     </div>    
   );
+  
+  function handleEdit() {
+    setEdit(true);
+  }
 
   return (
     <>
-      { userInfo ? (
+      { userInfo ? ( edit ? <MemberEdit userInfo={userInfo} edit={edit} setEdit={setEdit} /> : (
         <div className="row position-relative info-card">
                 {/* 大頭照區域 */}
                 <div className="col-lg-5 w-100">
                   <div className="embed-responsive embed-responsive-1by1 avatar">
-                    <img alt="" className="cover-fit embed-responsive-item" src={avatar}/>
+                    <img alt="" className="cover-fit embed-responsive-item" src={userInfo.image ? `${IMG_URL}${userInfo.image}` : defaultAvatar}/>
                   </div>
                   {/* 使用者姓名變數 */}
                   <div className="text-center pt-3 h4 text-secondary font-weight-bold">
@@ -67,8 +70,8 @@ function MemberData(props) {
                         <td>密碼</td>
                         <td  className="text-grey">**********</td>
                       </tr>
-                      <tr>
-                        <td><br className="d-lg-block d-none"/></td>
+                      <tr className="d-lg-block d-none">
+                        <td></td>
                         <td></td>
                       </tr>
                       <tr>
@@ -96,11 +99,11 @@ function MemberData(props) {
                     </tbody>
                   </Table>
                 </div>
-                <button className="edit-icon" title="編輯會員資料">
+                <button className="edit-icon" title="編輯會員資料" onClick={handleEdit}>
                   <BsPencilSquare color="white" fontSize="1.3rem" />
                 </button>
-            </div>
-      ) : loadingPaw }
+            </div>)) 
+       : loadingPaw }
         
     </>
   )
