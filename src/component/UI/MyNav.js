@@ -91,22 +91,22 @@ function MyNav(props) {
                   您有 3 則提醒未讀</p>
               </NavDropdown.Item>
               {/* 主要資訊功能 */}
-              <NavDropdown.Item as={NavLink} to="/member">
+              {/* <NavDropdown.Item as={NavLink} to="/member">
                 查看會員專區
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/member/MemberData">
+              </NavDropdown.Item> */}
+              <NavDropdown.Item as={NavLink} to="/member/data">
                 會員資料
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/member/PetList">
+              <NavDropdown.Item as={NavLink} to="/member/pet">
                 毛孩資料
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/member/OrderHistory">
+              <NavDropdown.Item as={NavLink} to="/member/order">
                 選物紀錄
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/member/CommunityHistory">
+              <NavDropdown.Item as={NavLink} to="/member/community">
                 社群紀錄
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/member/AssistanceHistory">
+              <NavDropdown.Item as={NavLink} to="/member/assistance">
                 互助紀錄
               </NavDropdown.Item>
             {/* 登出按鈕 */}
