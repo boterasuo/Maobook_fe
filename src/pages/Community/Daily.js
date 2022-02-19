@@ -8,6 +8,7 @@ import "../Community.scss";
 
 // 元件
 import Search from '../Community/component/DailySearch'
+import DailyCard from './component/DailyCard'
 // 插圖
 import daily from "./images/text-daily.svg";
 
@@ -15,7 +16,7 @@ function Daily(props) {
   return (
     <>
     
-      <Container>
+      {/* <Container> */}
       <div className="w-50 w-sm-75 container-fluid">
       <Search/>
       </div>
@@ -30,12 +31,14 @@ function Daily(props) {
             </Button>
           </Col>
         </Row>
-        <div className="daily-posts border border-primary mao-rounded mt-lg-3 mt-md-2">
-          123
-          <br />
-          456
+        <div className="daily-post-area border border-primary mao-rounded mt-lg-2 mt-md-2">
+        <div className="d-inline-block">
+         <DailyCard/>
+         <DailyCard/>
+         <DailyCard/>
+         </div>
         </div>
-        </Container>
+        {/* </Container> */}
     </>
   );
 }
