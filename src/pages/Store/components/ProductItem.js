@@ -16,7 +16,7 @@ function ProductItem() {
     return (
         <>
             {/* 商品*/}
-            <div className="product">
+            <div className="product mt-4">
                 <button className="productImg" onClick={() => setShow(true)}>
                     <img className="Hill cover-fit" src={Hill} alt="Hill" />
                 </button>

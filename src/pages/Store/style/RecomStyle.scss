@@ -1,12 +1,12 @@
 // Recom start
-.yourpets {
+.recom-yourpets {
   // section1
   width: 600px;
   border: 1px solid #f6bc54;
   border-radius: 25px;
   padding: 18px 54px 18px 54px;
 }
-.pet {
+.recom-pet {
   width: 50px;
   height: 50px;
   background: #f6bc54;
@@ -23,7 +23,7 @@
   margin-top: 90px;
   padding-left: 40px;
 }
-.avatar {
+.recom-avatar {
   width: 200px;
   height: 200px;
   background: #f6bc54;
@@ -42,8 +42,8 @@
   left: 40%;
   top: -80px;
 }
-.petname,
-.describe {
+.recom-petname,
+.recom-describe {
   position: relative;
   top: -5%;
 }
