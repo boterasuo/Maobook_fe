@@ -1,19 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav {
-  position: fixed;
-  background-color: gray;
-  width: 100%;
-  height: 79.2px;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
 .Schedulecontainer {
   display: flex;
   // justify-content: center;
@@ -26,7 +10,7 @@
   position: fixed;
   width: 40 px;
   height: 40 px;
-  top: 99.11px;
+  top: 65px;
   left: 85%;
   z-index: 1;
 }
@@ -48,7 +32,33 @@
 
 .Calendardiv {
   margin-top: 150px;
+  // width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+.Notesdiv {
+  margin-top: 50px;
   // width: 100vw;
   justify-content: center;
   align-items: center;
 }
+
+.Postdiv {
+  margin-top: 50px;
+  // position: fixed;
+  // width: 100vw;
+  // justify-content: center;
+  // align-items: center;
+  background-size: auto auto;
+  background-color: #f6bc54;
+  text-align: center; //格字內元素置中
+}
+
+// .a {
+//   width: 100vw;
+//   height: 690px;
+//   background-size: cover;
+//   background-color: aqua;
+//   z-index: 0.1;
+//   display: flexbox;
+// }

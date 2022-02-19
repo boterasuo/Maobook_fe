@@ -1,9 +1,12 @@
 import React from 'react'
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 import { format, getDate, isSameDay } from 'date-fns'
 import {useCalendar ,eventSelect,WEEKS} from './component/useCalendarE'
 import 'react-bootstrap'
 import './calendarE.scss'
-import buttonIconL from './img/scheduleIcon4.svg'
+import buttonIconL from './img/scheduleIcon3.svg'
 import buttonIconR from './img/scheduleIcon4.svg'
 
 // const AddZero = function(num){
@@ -11,6 +14,18 @@ import buttonIconR from './img/scheduleIcon4.svg'
 // }
 
 const Calendar = () => {
+    // const [err, setError] = useState(null)
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        let queryEvent = async () => {
+            let response = await axios.get("http://localhost:3002/api/calendarE");
+            setData(response.data);  
+        }
+        queryEvent();
+    },[]);
+
+
     const calendar = useCalendar()
     return (
         <>
@@ -61,9 +76,14 @@ const Calendar = () => {
                                         calendar.selectDate(date.date)   
                                 }
                                 const iconsvg =[]
-                                for(let i = 0; i < date.calenderImgIcon.length; i++){
-                                    iconsvg.push(eventSelect(date.calenderImgIcon[i]))
+                                let checkdate = data.find(a => { 
+                                    return a.date == getDate(date.date);
+                                });
+                                let icondata = checkdate === undefined ? [] : checkdate.category_id;
+                                for(let i = 0; i < icondata.length; i++){
+                                    iconsvg.push(eventSelect(icondata[i]))
                                 }
+                               
                                     return ( 
                                         <>                                        
                                         <td
