@@ -1,0 +1,43 @@
+.helplisttitle {
+  display: flex;
+  position: relative;
+}
+
+.listfilter {
+  position: absolute;
+  bottom: 10%;
+  left: 35%;
+}
+
+.listpost {
+  position: absolute;
+  bottom: 10%;
+  right: 3%;
+}
+
+.helpcards {
+  display: inline-block;
+  position: relative;
+  margin: 50px 60px;
+}
+
+.helpsinglecard {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.penimg {
+  margin-left: 10px;
+}
+
+.listmorebutton {
+  border-radius: 10px;
+  border: 1px solid #f6bc54;
+  background-color: hsl(39, 90%, 65%);
+  color: white;
+  text-align: center;
+  width: 20%;
+  position: absolute;
+  left: 40%;
+  margin-top: 20px;
+}
