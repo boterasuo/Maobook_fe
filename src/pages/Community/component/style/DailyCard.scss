@@ -10,7 +10,7 @@ $avatar-length: 4rem ;
     width: 230px;
     min-height: 63vh;
     max-height: 66vh;
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     display: flex;
     margin: 0 0.1rem;
         // 發文者頭貼
@@ -48,5 +48,13 @@ $avatar-length: 4rem ;
         text-decoration: none;
         color: $secondary;
     }
+  }
+}
+
+// RWD
+
+@media (max-width: 767px) {
+  .daily-card {
+    width: 260px;
   }
 }
