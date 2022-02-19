@@ -6,30 +6,36 @@ import HelpList from './Assistance/HelpList';
 import HelpPost from './Assistance/HelpPost';
 import HelpDetail from './Assistance/HelpDetail';
 
+import './Assistance/components/Assistance.scss';
+
+import posticon from './Assistance/img/posticon.svg';
+import maoassistance from './Assistance/img/maoassistance.svg';
+
 function Assistance() {
   return (
     <>
-    <HelpIntro/>
+    <div className="container">
+
+    <div className="leftandright">
+    <div className="leftbackground"><img src={maoassistance} alt="" /></div>
+    <div className="posticon"><img src={posticon} alt="" /></div>
+    </div>
+
+    <div className="middle">
+    <div className="helpintro"><HelpIntro/></div>
     <br/>
+    <div className="helpcalendar"><HelpCalendar/></div>
     <br/>
+    <div className="dayhelps"><DayHelps/></div>
     <br/>
-    <HelpCalendar/>
+    <div className="helplist"><HelpList/></div>
     <br/>
+    <div className="helppost"><HelpPost/></div>
     <br/>
-    <br/>
-    <DayHelps/>
-    <br/>
-    <br/>
-    <br/>
-    <HelpList/>
-    <br/>
-    <br/>
-    <br/>
-    <HelpPost/>
-    <br/>
-    <br/>
-    <br/>
-    <HelpDetail />
+    <div className="helpdetail"><HelpDetail /></div>
+    </div>
+
+    </div>
     </>
   );
 }

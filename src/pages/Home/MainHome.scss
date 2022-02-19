@@ -1,0 +1,43 @@
+.home1{
+    padding-top: 180px;
+    padding-bottom: 180px;
+}
+
+
+// 背景腳印
+.bg-paw {
+        width: 500px;
+        height: auto;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        overflow: hidden;
+        z-index: -1;
+    img {
+        margin-left: 50px;
+        transform: rotate(25deg);
+      }
+}
+
+// 登入註冊按鈕
+.login-signup-section {
+    .home-login-btn {
+        border-radius: 20px;
+        margin: 1rem;
+    }
+    .home-signup-btn {
+        border-radius: 20px;
+        margin: 1rem;
+    }
+}
+
+
+  // RWD for pad (992px)
+  @media only screen and (max-width: 992px) {
+
+  }
+  // RWD for mobile (768px)
+  @media only screen and (max-width: 768px) {
+
+  }
+  

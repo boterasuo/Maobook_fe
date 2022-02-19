@@ -1,0 +1,182 @@
+@import "../../../style/UI/global.scss";
+
+// border弧度
+$mao-border: 33px;
+
+// 固定頭貼比例 1:1
+$avatar-length: 4rem;
+
+.helpavatar {
+  height: $avatar-length;
+  width: $avatar-length;
+  margin: 20px 20px 5px 20px;
+}
+
+.helpdetail {
+  position: relative;
+  display: inline-block;
+  clear: both;
+}
+
+.lefeside {
+  float: left;
+  width: 50%;
+  border: 1px solid;
+}
+
+.rightside {
+  float: left;
+  width: 50%;
+  border: 1px solid;
+}
+
+.helpdetailimg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.righthead {
+  display: inline-flex;
+}
+
+.helpdetailuser {
+  margin: 30px 20px 5px 5px;
+}
+
+.helpdetailclose {
+  position: absolute;
+  margin: 30px 20px 5px 5px;
+  right: 0%;
+}
+
+.rightdivider {
+  border: #f6bc54 1px solid;
+  margin: 10px 10px;
+}
+
+.rightbody {
+  display: block;
+}
+
+.bodyinfo1 {
+  display: flex;
+  position: relative;
+  margin: 5px 20px;
+}
+
+.detailregion {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  margin: 5px 2px;
+  padding: 3px;
+}
+
+.detailcategory,
+.detailtags {
+  border: 1px solid #6a5f4b;
+  background-color: #6a5f4b;
+  color: white;
+  margin: 5px 2px;
+  padding: 3px;
+}
+
+.detailimg {
+  position: absolute;
+  right: 3%;
+}
+
+.bodyinfo2 {
+  margin: 5px 20px;
+}
+
+.detailcasetitle {
+  font-size: 20px;
+}
+.bodyinfo3 {
+  margin: 10px 20px 15px 20px;
+}
+
+.detailtime,
+.detailprice {
+  color: grey;
+}
+
+.rightfoot {
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  padding-bottom: 30px;
+}
+
+.showpaw {
+  float: left;
+  width: 30%;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.takerpost {
+  float: left;
+  width: 70%;
+}
+
+.helpshare {
+  position: absolute;
+  right: 5%;
+}
+
+.contactchoice {
+  display: flex;
+  margin: 5px 2px;
+}
+
+.choosetitle {
+  margin: 0 20px 0 0;
+}
+
+.choosephone {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  margin-right: 10px;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.chooseemail {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.takepostbutton {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  padding: 3px;
+  border-radius: 10px;
+  width: 75px;
+  right: 10%;
+  position: absolute;
+}
+
+.takerpost {
+  display: block;
+}
+
+.textpost {
+  display: flex;
+}
+
+textarea {
+  border: 1px solid #f6bc54;
+  margin-left: 15px;
+}
+
+.sendpost {
+  margin: 10px 0;
+}

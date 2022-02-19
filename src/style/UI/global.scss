@@ -14,13 +14,53 @@ $bs-secondary: #6c757d;
 // font variable
 $roboto: "Roboto", sans-serif;
 
+// navbar的高度
+$nav-height:80px;
+
+// border的弧度
+$mao-rounded: 33px;
+
 body {
-  margin-top: 80px;
+  margin-top: $nav-height;
   padding: 0;
   font-family: $roboto;
 }
 
 ::selection {
-    background: hsla(79, 60%, 65%, 1);
-    color: white;
+  background: hsla(79, 60%, 65%, 1);
+  color: white;
+}
+
+.spinner-grow {
+  background-color: transparent;
+  .sr-only {
+    width: auto;
+    height: auto;
+    clip: auto;
+    left: -50%;
+    top: -50%;
+  }
+}
+
+
+// 導覽列
+.navbar{
+  background-color: white;
+  box-shadow: 0 5px 5px #ccc;
+  text-align: center;
+  // 登入按鈕
+  .nav-login-btn{
+    width: 200px;
+  }
+  // 會員頭像
+  .avatar{
+    height: 40px;
+    width: 40px;
+    background: $primary;
+  }
+}
+
+// 滑鼠樣式:手指
+.pointer{
+  cursor: pointer;
 }
