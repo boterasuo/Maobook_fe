@@ -69,7 +69,7 @@ function Login(props) {
 
   if (auth) {
     // 登入成功 --> 自動導向會員頁面
-    return <Redirect to="/member" />
+    return <Redirect to="/member/data" />
   }
 
 
