@@ -14,7 +14,7 @@ $secondary: #6a5f4b;
 // TODO: 減去的高度需根據 final 的 body margin 和 footer 高度調整
 // member 區塊高度設定
 .member-content {
-  height: calc(100vh - 130.4px);
+  min-height: calc(100vh - 130.4px);
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   > .container {
     > .row {
@@ -24,21 +24,21 @@ $secondary: #6a5f4b;
 }
 @media only screen and (max-width: 768px) {
   .member-content {
-    height: calc(100vh - 110.4px);
+    min-height: calc(100vh - 110.4px);
     margin-top: -20px;
   }
 }
 
 // sidenav
 .member-sidenav {
-  padding: 3rem 2rem;
+  padding: 2rem 2rem 4rem 2rem;
   border-right: 2px solid $primary;
   font-size: 0.9rem;
   font-weight: bold;
-  .nav {
+  nav {
     height: 100%;
     .nav-link {
-      padding: 1.2rem 1rem;
+      padding: 1rem 1rem;
     }
     .active {
       color: $secondary;
@@ -100,6 +100,14 @@ $secondary: #6a5f4b;
       margin-top: 1rem;
       color: $secondary;
       font-weight: 550;
+      td {
+        vertical-align: middle;
+      }
+      .form-control {
+        height: auto;
+        padding: 0.1rem 0.75rem;
+        text-align: center;
+      }
     }
   }
 }
