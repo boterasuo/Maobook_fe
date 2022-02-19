@@ -1,0 +1,35 @@
+
+// {{P-2}}
+// [[[ Tools.js ==> 浮游小工具 ]]] //
+.toolbox {
+  min-height: 9rem;
+  width: 4rem;
+  position: fixed;
+  top: 15%;
+  // 工具離側邊的距離
+  left: 82%;
+  // right: 3%;
+  z-index: 999;
+  a {
+    cursor:pointer;
+    height: auto;
+    width: 100%;
+    img {
+      height: auto;
+      width: 3rem;
+      margin: 20% 0 20% 0;
+    }
+    // 通知訊息
+   .bouble-counter{
+     width: 1.8rem;
+     height: 1.8rem;
+    //  color: #ddd;
+     text-decoration: none;
+     background: url("../../images/icon-bouble-counter.svg") no-repeat;
+     background-size: contain;
+     position: absolute;
+     top: -1rem;
+     right: -0.5rem;
+   }
+  }
+}

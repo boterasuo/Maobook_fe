@@ -6,7 +6,7 @@ function HelpList(props) {
     <>
       <div className="container">
 
-      <div className="container" style={ { display:"flex"} }>
+      <div className="head" style={ { display:"flex"} }>
       
         <div className="">互助專區</div>
         <div className="">filter選單</div>

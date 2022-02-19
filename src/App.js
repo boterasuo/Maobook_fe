@@ -8,7 +8,7 @@ import NotFound404 from "./pages/Home/NotFound404";
 
 //主頁面
 // 引入 API 相關工具
-import {API_URL} from "./utils/config";
+import { API_URL } from "./utils/config";
 import axios from 'axios';
 
 // 主頁面
@@ -16,6 +16,9 @@ import Home from "./pages/Home.js";
 import Login from "./pages/Home/Login";
 import Schedule from "./pages/Schedule.js"
 import Store from "./pages/Store.js";
+import CartDetail from "./pages/Store/CartDetail";
+import ProductDetails from "./pages/Store/ProductDetails";
+import OrderDetail from "./pages/Store/OrderDetail";
 import Community from "./pages/Community.js";
 import Assistance from "./pages/Assistance.js";
 import Member from "./pages/Member.js";
@@ -48,13 +51,13 @@ function App() {
   //     console.log(response.data);
   //     if(response.data.id > 0) {
   //       setAuth(true);
-        // 舊寫法 (改為 useContext)
-        // setUser({...user, 
-        //   id:response.data.id,
-        //   name:response.data.name,
-        //   email:response.data.email,
-        //   image:response.data.image,
-        // });
+  // 舊寫法 (改為 useContext)
+  // setUser({...user, 
+  //   id:response.data.id,
+  //   name:response.data.name,
+  //   email:response.data.email,
+  //   image:response.data.image,
+  // });
   //     };
   //   } catch(e){
   //     console.log(e.response.data);
@@ -66,16 +69,16 @@ function App() {
     const getUser = async () => {
       try {
         let result = await axios.get(`${API_URL}/member`, {
-              withCredentials: true,
-            });
-            setUser(result.data);
+          withCredentials: true,
+        });
+        setUser(result.data);
 
-      } catch(e) {
+      } catch (e) {
         console.error(e.response.data);
       }
     };
     getUser();
-  },[]);
+  }, []);
 
 
   return (
@@ -83,35 +86,44 @@ function App() {
       <Router>
         <>
           <MyNav />
-            <ScrollToTop>
-              <Switch>
-                <Route path="/assistance">
-                  <Assistance />
-                </Route>
-                <Route path="/community">
-                  <Community />
-                </Route>
-                <Route path="/member">
-                  <Member />
-                </Route>
-                <Route path="/store">
-                  <Store />
-                </Route>
-                <Route path="/schedule">
-                  <Schedule />
-                </Route>
-                <Route path="/login">
-                  <Login />
-                </Route>
-                <Route exact path="/">
-                  <Home />
-                </Route>
-                <Route path="*">
-                  <NotFound404/>
-                </Route>
-              </Switch>
-            </ScrollToTop> 
-            <Footer/>
+          <ScrollToTop>
+            <Switch>
+              <Route path="/assistance">
+                <Assistance />
+              </Route>
+              <Route path="/community">
+                <Community />
+              </Route>
+              <Route path="/member">
+                <Member />
+              </Route>
+              <Route path="/ProductDetails">
+                <ProductDetails />
+              </Route>
+              <Route path="/Store/CartDetail/OrderDetail">
+                <OrderDetail />
+              </Route>
+              <Route path="/Store/CartDetail">
+                <CartDetail />
+              </Route>
+              <Route path="/store">
+                <Store />
+              </Route>
+              <Route path="/schedule">
+                <Schedule />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="*">
+                <NotFound404 />
+              </Route>
+            </Switch>
+          </ScrollToTop>
+          <Footer />
         </>
       </Router>
     </AuthContext.Provider>

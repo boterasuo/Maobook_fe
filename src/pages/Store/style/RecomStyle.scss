@@ -1,0 +1,99 @@
+// Recom start
+.yourpets {
+  // section1
+  width: 600px;
+  border: 1px solid #f6bc54;
+  border-radius: 25px;
+  padding: 18px 54px 18px 54px;
+}
+.pet {
+  width: 50px;
+  height: 50px;
+  background: #f6bc54;
+  border-radius: 50%;
+  margin: 0 15px 0 15px;
+}
+
+.recomArea {
+  //section2
+  width: 800px;
+  height: 420px;
+  border: 1px solid #f6bc54;
+  border-radius: 25px;
+  margin-top: 90px;
+  padding-left: 40px;
+}
+.avatar {
+  width: 200px;
+  height: 200px;
+  background: #f6bc54;
+  border-radius: 50%;
+  position: relative;
+  top: -60px;
+}
+.text6 {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.weRecom {
+  position: relative;
+  left: 40%;
+  top: -80px;
+}
+.petname,
+.describe {
+  position: relative;
+  top: -5%;
+}
+.cover-fit {
+  padding: 10px 0 10px 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.recomPro {
+  position: relative;
+  top: -20%;
+  left: 15%;
+}
+
+//產品card
+.product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  width: 10em;
+}
+.product::before {
+  content: "";
+  border: 1px solid#fcb736;
+  border-radius: 30px;
+  width: 130px;
+  height: 220px;
+  position: absolute;
+  top: 18%;
+}
+.productImg {
+  width: 110%;
+  position: relative;
+  left: -14%;
+}
+.productCartIcon {
+  position: absolute;
+  top: 95%;
+  left: 65%;
+}
+.s-title {
+  padding: 0 15px 0 10px;
+  font-size: 0.8rem;
+  margin: 0;
+}
+.s-price {
+  padding: 0 10px 0 10px;
+}
