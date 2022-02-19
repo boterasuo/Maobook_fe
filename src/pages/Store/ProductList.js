@@ -1,7 +1,7 @@
 import '../Store/style/ProductListStyle.scss';
 import React from 'react'
 import { Col, Row, Accordion, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 //元件
 import ProductItem from "./components/ProductItem"
@@ -30,7 +30,7 @@ function ProductList () {
             </section>
 
 
-            <section className='mt-4' >
+            <section >
                 <Row className='wrap2' xs={1} md={2}>
                     <Col xs={6} md={3}>
                         <Row xs={1} md={1} className='d-flex mt-5'>
@@ -75,22 +75,22 @@ function ProductList () {
                     </Col>
                     <Col xs={12} md={6}>    {/* 商品列表*/}
                         <Row xs={2} md={3}>
-                            <Col className="mb-5" >
+                            <Col className="mb-3" >
                                 <ProductItem />
                             </Col>
-                            <Col className="mb-5" >
+                            <Col className="mb-3" >
                                 <ProductItem />
                             </Col>
-                            <Col className="mb-5" >
+                            <Col className="mb-3" >
                                 <ProductItem />
                             </Col>
-                            <Col className="mb-5" >
+                            <Col className="mb-3" >
                                 <ProductItem />
                             </Col>
-                            <Col className="mb-5" >
+                            <Col className="mb-3" >
                                 <ProductItem />
                             </Col>
-                            <Col className="mb-5" >
+                            <Col className="mb-3" >
                                 <ProductItem />
                             </Col>
                         </Row>
