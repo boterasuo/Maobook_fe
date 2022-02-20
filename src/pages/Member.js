@@ -13,6 +13,7 @@ import loading from "../img/loading_paw.svg";
 
 // 引入元件
 import MemberData from './Member/MemberData/MemberData';
+import MemberEdit from "./Member/MemberData/MemberEdit"
 import PetList from "./Member/PetList/PetList";
 import OrderHistory from "./Member/OrderHistory/OrderHistory";
 import CommunityHistory from "./Member/CommunityHistory/CommunityHistory";
@@ -22,8 +23,32 @@ import AssistanceHistory from "./Member/AssistanceHistory/AssistanceHistory";
 function Member(props) {
   // 來自 context 的 user 狀態
   const {user, setUser} = useAuth();
-  const history = useHistory();
   console.log(user);
+  // 取得詳細資料
+  const [userInfo, setUserInfo] = useState();
+
+  const history = useHistory();
+
+  // 取得使用者詳細資料
+  useEffect(() => {
+    let getUserInfo = async () => {
+      try {
+        let result = await axios.get(`${API_URL}/member/info`, {withCredentials: true,});
+        // console.log(result.data.data);
+        setUserInfo(result.data.data);
+        // setUser({...user, image:userInfo.image});
+      } catch(e) {
+        console.error("user info 錯誤", e.response.data);
+      }
+    };
+    getUserInfo();
+    // setUser({...user, image:userInfo.image});
+
+  }, []);
+
+  // useEffect(() => {
+  //   setUser({...user, image:userInfo.image});
+  // }, [userInfo]);
 
   // loading 動圖
   const loadingPaw = (
@@ -85,8 +110,11 @@ function Member(props) {
           {/* 可切換資料卡 */}
           <div className="col-lg-10 member-info">
           <Switch>
+            <Route path="/member/data/edit">
+              <MemberEdit userInfo={userInfo} setUserInfo={setUserInfo} />
+            </Route>
             <Route path="/member/data">
-              <MemberData />
+              <MemberData userInfo={userInfo} setUserInfo={setUserInfo} />
             </Route>
             <Route path="/member/pet">
               <PetList />

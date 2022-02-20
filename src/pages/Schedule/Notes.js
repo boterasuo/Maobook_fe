@@ -12,7 +12,7 @@ import './Notes.scss'
 
 // 引入圖片
 import star from './img/scheduleIcon5.svg' 
-import event1 from './img/event1.svg';
+// import event1 from './img/event1.svg';
 import event9 from './img/event9.svg';
 import event0 from './img/event0.svg';
 import event5 from './img/event5.svg';
@@ -21,24 +21,26 @@ import event5 from './img/event5.svg';
 function Notes() {
   return (
     <>
-        <div className="ScheduleNotes">
-          <div className="notesStar">
-            <div className="notesStarTitle">
+        <div className="scheduleNotes">
+          <div className="scheduleNotesStar">
+            <div className="scheduleNotesStarTitle">
               <img src={star} className="notesStarImg"/>
-              <h1 className="notesStarH1" bg-light border>本月重要記事</h1>
+              <h3 className="scheduleNotesStarH1" bg-light border>本月重要記事</h3>
             </div>
-            <div className="notesStarbox">
-              <div className="events">
-                <div className="events1">
-                  <img src={event1} className="events1Img" /></div>
-                <div className="events2">
-                  <img src={event9}  className="events2Img" /></div>
-                <div className="events3">
+            <div className="scheduleNotesStarbox">
+              <div className="scheduleEvents">
+                <div className="scheduleEvents1">
+                  <p className="scheduleEventDay">12</p>
+                  {/* <img src={event1} className="events1Img" /> */}
+                  </div>
+                <div className="scheduleEvents2">
+                  <img src={event9}  className="scheduleEvents2Img" /></div>
+                <div className="scheduleEvents3">
                    <img src={event0} /></div>
-                <div className="events4">
+                <div className="scheduleEvents4">
                    <img src={event5} /></div>
-                <div className="events5">
-                  倒底是有沒有在水平
+                <div className="scheduleEvents5">
+                  這個水平線是有什麼障礙
                 </div>
               </div>
 
@@ -48,9 +50,9 @@ function Notes() {
 
           <div ></div>
 
-          <div className="notesToday">
-            <h1 className="notesTodayTitle"> 日期 </h1>
-            <div className="notesTodaybox"></div>
+          <div className="scheduleNotesToday">
+            <h3 className="scheduleNotesTodayTitle"> 當日行程 </h3>
+            <div className="scheduleNotesTodaybox"></div>
           </div>
         </div>
     </>

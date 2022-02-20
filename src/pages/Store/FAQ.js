@@ -5,7 +5,7 @@ import '../Store/style/FAQStyle.scss';
 
 function FAQ () {
     return (
-        <section className='d-flex justify-content-center'>
+        <section className='d-flex justify-content-center mb-5'>
             <Accordion className='FAQarea' defaultActiveKey="0">
                 <Card className='FAQcard'>
                     <Accordion.Toggle className='FAQHeader' as={Card.Header} eventKey="0">
