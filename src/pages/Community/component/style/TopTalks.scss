@@ -59,33 +59,33 @@
 //\\ [[[{ R }]]] //\\
 //\\ [[[{ W }]]] //\\
 //\\ [[[{ D }]]] //\\
+// $page-height: calc((100vh - $nav-height) * 0.18);
 // lg
 @media (min-width: 992px) {
   // Intro主圖
-  $page-height: calc((100vh - $nav-height) * 0.18);
-  .cover {
-    height: auto;
-    max-width: 80vw;
-    margin-top: $page-height;
-    img {
-      height: auto;
-      width: 85%;
-    }
-  }
+  // .cover {
+  //   height: auto;
+  //   max-width: 80vw;
+  //   margin-top: $page-height;
+  //   img {
+  //     height: auto;
+  //     width: 85%;
+  //   }
+  // }
 }
 // md
 @media (min-width: 768px) {
   // Intro主圖
-  $page-height: calc((100vh - $nav-height) * 0.24);
-  .cover {
-    height: 80vh;
-    max-width: 80vw;
-    margin-top: $page-height;
-    img {
-      height: auto;
-      max-width: 90%;
-    }
-  }
+  // $page-height: calc((100vh - $nav-height) * 0.24);
+  // .cover {
+  //   height: 80vh;
+  //   max-width: 80vw;
+  //   margin-top: $page-height;
+  //   img {
+  //     height: auto;
+  //     max-width: 90%;
+  //   }
+  // }
   .top-talks-container {
     height: 40%;
     left: 28%;

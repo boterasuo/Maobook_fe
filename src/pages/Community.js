@@ -20,6 +20,7 @@ function Community() {
   // console.log();
   return (
     <>
+    
     <Tools/>
     <img src={coummunity} className="text-community " alt="coummunity" />
 
@@ -34,10 +35,9 @@ function Community() {
       <div className="Discuss-Page">
         <Discuss/>
       </div>
+      </div>
       <div className="Post-Page"> 
         <Post/>
-      </div>
-
       </div>
     </>
   );

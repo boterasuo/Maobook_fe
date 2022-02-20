@@ -15,7 +15,9 @@ $bs-secondary: #6c757d;
 $roboto: "Roboto", sans-serif;
 
 // navbar的高度
-$nav-height: 80px;
+$nav-height:80px;
+// 每一個錨點的高度
+$page-height: calc(100vh - $nav-height);
 
 // border的弧度
 $mao-rounded: 33px;
@@ -64,3 +66,15 @@ body {
 .pointer {
   cursor: pointer;
 }
+<<<<<<< HEAD
+=======
+
+// 按鈕
+.btn-outline-primary{
+
+  &:hover{
+    color: snow;
+    font-weight: bold;
+  }
+}
+>>>>>>> ac579bc1f6383fdc7c37c0fd9f1d4bd06de94be3

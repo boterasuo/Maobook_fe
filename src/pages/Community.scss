@@ -7,9 +7,14 @@ $page-height: calc(100vh - $nav-height);
     // min-height: $page-height;
     // margin: 80px 0 0 0;
   }
-  .Community-Intro-Page, .Daily-Page, .Discuss-Page, .Post-Page{
+  .Community-Intro-Page, 
+  .Daily-Page, 
+  .Discuss-Page{
   min-height: $page-height;
 }
+  .Post-Page{
+  min-height: calc($page-height * 0.45);
+  }
 
   // lg
   @media (min-width: 992px) {

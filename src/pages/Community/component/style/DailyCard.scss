@@ -13,6 +13,7 @@ $avatar-length: 4rem ;
     // border: 1px solid #ccc;
     display: flex;
     margin: 0 0.1rem;
+    overflow: hidden;
         // 發文者頭貼
         .daily-avatar{
             height: $avatar-length;

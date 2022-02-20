@@ -36,6 +36,8 @@ function Daily(props) {
          <DailyCard/>
          <DailyCard/>
          <DailyCard/>
+         <DailyCard/>
+      
          </div>
         </div>
         {/* </Container> */}

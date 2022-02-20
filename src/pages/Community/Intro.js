@@ -70,15 +70,15 @@ function Intro() {
           </div>
           {/* sm版標題 */}
           <img src={titleBold} className="titleBold" />
-        </Col>
-      </Row>
-      <div className="go-on">
+      <div className="go-on ">
         一起來看看
         <br />
         大家最平凡的毛孩生活吧
         <br />
         <img src={drownArrow}/>
       </div>
+        </Col>
+      </Row>
     </>
   );
 }
