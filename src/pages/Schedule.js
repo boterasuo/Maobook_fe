@@ -9,7 +9,7 @@ import {API_URL} from "../utils/config";
 import {Container} from 'react-bootstrap' 
 // import 'bootstrap'
 import './schedule.scss'
-import 'cors'
+// import 'cors' React 說找不到所以先註解起來
 
 // 引入圖片們
 import scheduleText2 from './Schedule/img/scheduleText2.svg'

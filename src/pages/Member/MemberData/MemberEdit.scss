@@ -1,0 +1,34 @@
+// 顏色變數
+$primary: #f6bc54;
+$secondary: #6a5f4b;
+
+// 錯誤訊息
+.info-card {
+  .errMsg {
+    padding: 0.3rem;
+    color: rgb(175, 2, 2);
+    font-size: 0.5rem;
+  }
+}
+// 性別 radio 區塊
+.edit-gender {
+  input {
+    display: none;
+  }
+  label {
+    margin: 0 3px;
+    padding: 1px 5px;
+    border: 1px solid $primary;
+    border-radius: 0.3rem;
+    color: $primary;
+  }
+  .active-label {
+    background: $primary;
+    color: white;
+  }
+}
+
+// 儲存按鈕
+.edit-icon {
+  font-size: 1.6rem;
+}

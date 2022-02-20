@@ -11,8 +11,10 @@ import axios from "axios";
 // 引入 context
 import { useAuth } from "../../context/auth";
 // 引入 utils
-import {API_URL} from "../../utils/config";
+import {API_URL, IMG_URL} from "../../utils/config";
 import Logo from "../../img/Logo_nav.svg";
+// 引入圖片
+import defaultAvatar from "../../img/avatar_user.png";
 
 
 // 要使用能有active css效果的NavLink元件
@@ -87,7 +89,7 @@ function MyNav(props) {
             <Form className="d-flex">
             <NavDropdown title="會員專區" id="collasible-nav-dropdown">
               <NavDropdown.Item>
-                <p>HI, 毛毛日記 <br></br>
+                <p>HI, {user.name} <br></br>
                   您有 3 則提醒未讀</p>
               </NavDropdown.Item>
               {/* 主要資訊功能 */}
@@ -115,9 +117,16 @@ function MyNav(props) {
               </Nav.Link>
             </NavDropdown>
             <div className="d-inline-block"></div>
-            {/* 會員頭像 */}
-            <Nav.Link as={NavLink} to="/member/MemberData">
-            <div className="avatar rounded-circle mx-2"></div>
+            {/* 會員頭像: 暫時修改 by 歐 for 測試 Navbar */}
+            <Nav.Link as={NavLink} to="/member/data">
+            <div className="nav-avatar rounded-circle overflow-hidden">
+              <img alt="" className="img-fluid h-100" 
+              src={user.image !== null ? `${IMG_URL}${user.image}` : defaultAvatar}/>
+            </div>
+            {/* <div className="nav-avatar mx-2"> */}
+              {/* <img alt="" scr={user.image !== null ? `${IMG_URL}${user.image}` : defaultAvatar}/> */}
+              {/* <img alt="" className="img-fluid" scr={defaultAvatar}/> */}
+            {/* </div> */}
             </Nav.Link>
           </Form>
           )}

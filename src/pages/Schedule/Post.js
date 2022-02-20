@@ -3,10 +3,10 @@ import React from 'react';
 // import {useState} from "react";
 // import axios from 'axios';
 // import { useHistory } from "react-router-dom";
+import 'react-bootstrap';
 
 // 引入 utils
 // import {API_URL} from "../../utils/config";
-import {ButtonGroup , Button , Form} from 'react-bootstrap'
 import '../Schedule/Post.scss'
 
 // 引入圖片
@@ -66,9 +66,9 @@ function Post() {
       
           <div className="postSaySomethingDiv">
             <div className="postSaySomething">
-              <Form>
+              <form>
                 <textarea className="scheduleTextarea" >寫一些記錄吧！</textarea>
-              </Form>
+              </form>
             </div>
             {/* <div className="buttonDiv"> */}
               <button className="scheduleSummitButton">送  出</button>
