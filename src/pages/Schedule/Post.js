@@ -3,16 +3,12 @@ import React from 'react';
 // import {useState} from "react";
 // import axios from 'axios';
 // import { useHistory } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 
 // 引入 utils
 // import {API_URL} from "../../utils/config";
-<<<<<<< HEAD
-import {ButtonGroup , Button , Form} from 'react-bootstrap'
-import '../Schedule/Post.scss'
-=======
 // import 'react-bootstrap'
 import '../Schedule/Intro.scss'
->>>>>>> 5aad96c1ef5d7d88642ef02b2e3107c3e69c86ba
 
 // 引入圖片
 import scheduleIcon6 from './img/scheduleIcon6.svg'

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Table } from "react-bootstrap";
-import { NavLink, Route, Switch, useHistory, Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Table, Modal, Button } from "react-bootstrap";
+import { NavLink} from "react-router-dom";
 import axios from "axios";
 // 引入 context
 import { useAuth } from "../../../context/auth";
@@ -16,6 +16,8 @@ import loading from "../../../img/loading_paw.svg";
 function MemberData(props) {
   const {userInfo, setUserInfo} = props;  
   const {user, setUser} = useAuth();
+  // Modal 切換顯示狀態用
+  // const [showModal, setShowModal] = useState(true);
 
   // 性別顯示用陣列
   const gender = ["尚未提供", "生理男", "生理女", "不透漏"];
@@ -41,6 +43,7 @@ function MemberData(props) {
     }
   }, [userInfo]);
 
+  // loading 腳掌動圖
   const loadingPaw = (
     <div className="text-center">
         <div className="spinner-grow text-primary" role="status">
@@ -48,12 +51,28 @@ function MemberData(props) {
         </div>
     </div>    
   );
+
+  // 更改 Modal 顯示狀態函式
+  // const handleCloseModal = () => {
+  //   setShowModal(false);
+  // };
+  // // 註冊成功 Modal html
+  // const loginModal = (
+  //     <Modal show={showModal} onHide={handleCloseModal} style={{borderBottom:"none"}} animation={false}>
+  //     <Modal.Header closeButton>
+  //       <Modal.Title>歡迎！{user && user.name}</Modal.Title>
+  //     </Modal.Header>
+  //     <Modal.Body>開始書寫您與毛孩的日記吧</Modal.Body>
+  //   </Modal>
+  // );
+  // TODO: 如何判斷是剛登入才跳出 "歡迎" 的 Modal?
   
 
   return (
     <>
       { userInfo ? (        
         <div className="row position-relative info-card">
+          {/* {loginModal} */}
                 {/* 大頭照區域 */}
                 <div className="col-lg-5 w-100">
                   <div className="embed-responsive embed-responsive-1by1 avatar-info">
