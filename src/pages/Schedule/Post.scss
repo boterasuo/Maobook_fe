@@ -31,7 +31,10 @@
   border-color: #f6bc54;
   border-width: 50px;
   border: 2px solid white;
-  width: 150px;
+  width: 160px;
+  padding: auto 5px;
+  cursor: pointer;
+
   &:focus {
     outline: 2px hsla(79, 60%, 65%, 1) solid;
   }
@@ -137,10 +140,17 @@
   background-color: white;
   border: 2px solid #f6bc54;
   transition-duration: 0.4s;
-  border-radius: 10px;
-
-  // btn btn-secondary btn-sm dropdown-toggle
+  border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  // &:hover .dropbtn
+  //   background-color: hsla(79, 60%, 65%, 1);
+  // &::content {
+  //   background-color: hsla(79, 60%, 65%, 1);
 }
+
+// btn btn-secondary btn-sm dropdown-toggle
 
 .scheduleInput {
   width: 60%;
@@ -286,6 +296,7 @@
 
 .scheduleSummitButton {
   margin-top: 5px;
+  margin-left: 15px;
   background-color: white;
   color: #f6bc54;
   border: 2px solid #f6bc54;

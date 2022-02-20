@@ -1,8 +1,4 @@
-import { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
-import axios from "axios";
-// import { API_URL } from "../../../utils/config";
-
+import { useState } from "react";
 import {
     addMonths,
     subMonths,
@@ -16,8 +12,6 @@ import enentIcon1 from '../img/eventIcon1.svg'
 import enentIcon2 from '../img/eventIcon2.svg'
 import enentIcon3 from '../img/eventIcon3.svg'
 import enentIcon4 from '../img/eventIcon4.svg'
-// import {getschedulebyyearmonth} from '../../../../../back-end/routers/calenderE'
-
 
 export const MONTHS = [
     'JANuary',
@@ -45,16 +39,6 @@ const useCalendar = () => {
     const setPreMonth = () => {
         setToday(subMonths(today, 1))
     }
-    // const yearmonth = '2022-02'
-    // const [datasql, setData] = useState([]);
-
-    // useEffect(() => {
-    //   let getCalendar = async () => {
-    //     let response = await axios.get(`${API_URL}/calenderE/${yearmonth}`);
-    //     setData(response.data);
-    //   };
-    //   getCalendar();
-    // }, []);
 
     const daysInMonth = () => {
         let month = []
@@ -69,15 +53,6 @@ const useCalendar = () => {
         let preDate = endOfMonth(preMonth).getDate() - firstDay + 1
         let nextDate = 1
         let nextMonth = addMonths(today, 1)
-        // let datasql=[{date:1,category:[1,2,3]},{date:5,category:[1,4]},{date:17,category:[2,3]},{date:20,category:[1,2,3,4]},{date:28,category:[2,3,4]}]
-        // let datasql= getschedulebyyearmonth('2022/2')
-
-        // let response = axios.get("http://localhost:3002/api/calendarE")
-        // console.log(response)
-        // let datasql = response.data
-        // console.log(datasql)
-
-
 
         for (let weekNum = 0; weekNum < weekNums; weekNum++) {
             let week = []
@@ -108,8 +83,6 @@ const useCalendar = () => {
                     nextDate++
                 } else {
                     //這個月
-                    // let checkdate=datasql.find(a=>a.date==currentDate)
-                    // let icondata=checkdate===undefined?[]:checkdate.category
                     week.push({
                         ...dateInfo,
                         date: setDate(today, currentDate),
@@ -155,7 +128,5 @@ const eventSelect=(category)=>{
           return '';
       }
 }
-
-
 
     export {useCalendar, eventSelect}

@@ -6,13 +6,8 @@ import React from 'react';
 
 // 引入 utils
 // import {API_URL} from "../../utils/config";
-<<<<<<< HEAD
 import {ButtonGroup , Button , Form} from 'react-bootstrap'
 import '../Schedule/Post.scss'
-=======
-// import 'react-bootstrap'
-import '../Schedule/Intro.scss'
->>>>>>> 5aad96c1ef5d7d88642ef02b2e3107c3e69c86ba
 
 // 引入圖片
 import scheduleIcon6 from './img/scheduleIcon6.svg'
@@ -47,9 +42,9 @@ function Post() {
                   要帶誰出門呢？
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">小喵</button>
-                  <button class="dropdown-item" type="button">布魯托</button>
-                  <button class="dropdown-item" type="button">唐基柯德</button>
+                  <button className="dropdown-item" type="button">小喵</button>
+                  <button className="dropdown-item" type="button">布魯托</button>
+                  <button className="dropdown-item" type="button">唐基柯德</button>
                 </div>
               </div>
               <form>
@@ -62,10 +57,10 @@ function Post() {
 
             </div>
             <div className="schedulePostTag2">
-                <button className="scheduleButIcon1">疫苗保健</button>
-                <button className="scheduleButIcon2">定期美容</button>
-                <button className="scheduleButIcon3">補貨罐罐</button>
-                <button className="scheduleButIcon4">紀錄提醒</button>
+                <button className="scheduleButIcon1">疫苗<br/>保健</button>
+                <button className="scheduleButIcon2">定期<br/>美容</button>
+                <button className="scheduleButIcon3">補貨<br/>罐罐</button>
+                <button className="scheduleButIcon4">紀錄<br/>提醒</button>
             </div>
           </div>
       
