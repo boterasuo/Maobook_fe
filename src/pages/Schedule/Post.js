@@ -13,7 +13,6 @@ import '../Schedule/Post.scss'
 import scheduleIcon6 from './img/scheduleIcon6.svg'
 
 
-
 function Post() {
   return (
     <>
