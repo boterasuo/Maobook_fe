@@ -1,6 +1,7 @@
 目前安裝套件:<br>
 yarn add dotenv<br>
 yarn add  react-bootstrap bootstrap@1.6.4<br>
+react-icon [ℹ️](https://react-icons.github.io/react-icons/)
 yarn add sass<br>
 yarn add react-router-dom@5.3.0<br>
 yarn add jquery<br>
@@ -9,4 +10,3 @@ npm i yarn<br>
 
 yarn add date-fns (npm i date-fns)
 
-react-icon [ℹ️](https://react-icons.github.io/react-icons/)
