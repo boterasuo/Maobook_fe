@@ -1,0 +1,30 @@
+// 顏色變數
+$primary: #f6bc54;
+$secondary: #6a5f4b;
+//PetList 頁面
+.pet-avatar {
+    margin: 1rem;
+    width: 130px;
+    border-radius: 50%;
+}
+.add-pet-btn {
+    width: 100px;
+    height: 100px;
+    border: 7px solid $primary;
+    border-radius: 50%;
+    font-size: 3rem;
+    color: $primary;
+    .plus-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+// AddPet 頁面
+.health-checkbox {
+    label {
+        margin: 2px;
+    }
+}
