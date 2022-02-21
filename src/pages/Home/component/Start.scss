@@ -1,0 +1,29 @@
+.hompage2 {
+    height: 640px;
+    width: auto;
+    p {
+        color: #6a5f4b;
+        // color: $secondary;
+    }
+}
+
+
+//TODO:容器要符合content
+.content-up {
+    display: inline-block;
+    padding-bottom: 30px;
+    img {
+        .paw1 {
+            transform: rotate(25deg);
+                }
+        .paw2 {
+            transform: rotate(-25deg);
+                }
+    }
+
+}
+
+
+
+
+

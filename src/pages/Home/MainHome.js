@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../../img/Logo.svg";
 import LogoWord from "../../img/LOGO_word.svg";
-import BgPaw from "../../img/MainHome/bg_paw.svg"
+import BgPaw from "./img/bg_paw.svg"
 import Button from "react-bootstrap/Button";
 
 // 引入SCSS樣式
@@ -39,13 +39,14 @@ function MainHome(props) {
                       <Button 
                       className="home-login-btn" 
                       variant="primary text-white" 
-                      href="#Login">
+                      href="/login">
                         立即登入
                       </Button>
+                    {/* 下滑至最下面 */}
                       <Button 
                       className="home-signup-btn" 
                       variant="outline-primary" 
-                      href="#SignUp">
+                      href="#signup">
                         立即註冊
                       </Button>
                   </div>
@@ -56,12 +57,13 @@ function MainHome(props) {
               </div>
               <div className="col-md-auto">{/* SPACE */}</div>
               {/* 右側內容 大Logo */}
-              <div className="col col-lg-3">
+              <div className="col col-lg-3 text-center">
                 <div className="p-2">
                   <img className="home-logo img-fluid" src={Logo} alt="" />
+                  <div className="">{/* SPACE */}</div>
+                  <p>It’s mao life!</p>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
