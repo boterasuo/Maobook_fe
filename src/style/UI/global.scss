@@ -22,6 +22,18 @@ $page-height: calc(100vh - $nav-height);
 // border的弧度
 $mao-rounded: 33px;
 
+// 頁面滾動斷點效果 scroll-top
+// https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap
+// [[ [母層] ]] 
+html{
+  scroll-snap-type: y mandatory; 
+// [[[ 要卡住的物件(子層) ]]]
+.scroll-page{
+  scroll-snap-align: start; //斷點最上面要停留在子層的起始位置
+  scroll-margin-top: $nav-height; //設定與navbar的間距
+}
+}
+
 body {
   margin-top: $nav-height;
   padding: 0;
