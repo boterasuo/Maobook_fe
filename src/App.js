@@ -1,35 +1,43 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 // 引入 context
-import { AuthContext } from './context/auth';
+import { AuthContext } from "./context/auth";
 
 //錯誤頁面
 import NotFound404 from "./pages/Home/NotFound404";
 
-//主頁面
+//[[[ 主頁面 ]]]\\
 // 引入 API 相關工具
 import { API_URL } from "./utils/config";
-import axios from 'axios';
+import axios from "axios";
 
-// 主頁面
-import Home from "./pages/Home.js";
+// 首頁Home - Pages
+import Home from "./pages/Home";
 import Login from "./pages/Home/Login";
-import Schedule from "./pages/Schedule.js"
-import Store from "./pages/Store.js";
+
+// 會員Member - Pages
+import Member from "./pages/Member";
+
+// 行事曆Schedule - Pages
+import Schedule from "./pages/Schedule";
+
+// 電商Store - Pages
+import Store from "./pages/Store";
 import CartDetail from "./pages/Store/CartDetail";
 import ProductDetails from "./pages/Store/ProductDetails";
 import OrderDetail from "./pages/Store/OrderDetail";
-import Community from "./pages/Community.js";
-import Assistance from "./pages/Assistance.js";
-import Member from "./pages/Member.js";
+
+// 社群Community - Pages
+import Community from "./pages/Community";
+
+// 互助Assistance - Pages
+import Assistance from "./pages/Assistance";
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
 // import Navbar from "./component/UI/Navbar";
 import ScrollToTop from "./component/UI/ScrollToTop";
 import Footer from "./component/UI/Footer";
-
-
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,7 +60,7 @@ function App() {
   //     if(response.data.id > 0) {
   //       setAuth(true);
   // 舊寫法 (改為 useContext)
-  // setUser({...user, 
+  // setUser({...user,
   //   id:response.data.id,
   //   name:response.data.name,
   //   email:response.data.email,
@@ -72,14 +80,12 @@ function App() {
           withCredentials: true,
         });
         setUser(result.data);
-
       } catch (e) {
         console.error(e.response.data);
       }
     };
     getUser();
   }, []);
-
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -88,18 +94,22 @@ function App() {
           <MyNav />
           <ScrollToTop>
             <Switch>
+              {/* [[[  互助路徑  ]]] */}
               <Route path="/assistance">
                 <Assistance />
               </Route>
+              {/* [[[  社群路徑  ]]] */}
               <Route path="/community">
                 <Community />
               </Route>
+              {/* [[[  會員路徑  ]]] */}
               <Route path="/member">
                 <Member />
               </Route>
               <Route path="/ProductDetails">
                 <ProductDetails />
               </Route>
+              {/* [[[  電商路徑  ]]] */}
               <Route path="/Store/CartDetail/OrderDetail">
                 <OrderDetail />
               </Route>
@@ -109,15 +119,22 @@ function App() {
               <Route path="/store">
                 <Store />
               </Route>
+              {/* [[[  行事曆路徑  ]]] */}
               <Route path="/schedule">
                 <Schedule />
               </Route>
+              {/* [[[  登入路徑  ]]] */}
               <Route path="/login">
                 <Login />
               </Route>
+              {/* [[[  首頁  ]]] */}
               <Route exact path="/">
                 <Home />
               </Route>
+              <Route exact path="/home">
+                <Home />
+              </Route>
+              {/* [[[  錯誤訊息  ]]] */}
               <Route path="*">
                 <NotFound404 />
               </Route>
@@ -127,7 +144,7 @@ function App() {
         </>
       </Router>
     </AuthContext.Provider>
-  )
+  );
 }
 
 export default App;
