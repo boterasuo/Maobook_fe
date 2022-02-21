@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     addMonths,
     subMonths,
@@ -30,7 +30,6 @@ export const MONTHS = [
 export const WEEKS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 const useCalendar = () => {
     const [today, setToday] = useState(new Date())
-    
 
     const setNextMonth = () => {
         setToday(addMonths(today, 1))

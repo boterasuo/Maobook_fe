@@ -9,11 +9,13 @@ import './calendarE.scss'
 import 'date-fns'
 import buttonIconL from './img/scheduleIcon3.svg'
 import buttonIconR from './img/scheduleIcon4.svg'
+import { Alert } from 'react-bootstrap';
 
-const Calendar = () => {
+const Calendar = (props) => {
     // const [err, setError] = useState(null)
     const [data, setData] = useState([])
     const calendar = useCalendar()
+
     let todaynow = new Date();
     const queryEvent = async () => {
         let response = await axios.get("http://localhost:3002/api/calendarE/"+todaynow.getFullYear()+"/"+(todaynow.getMonth()+1));
@@ -26,17 +28,18 @@ const Calendar = () => {
     const PreMonth = () => {
         calendar.setPreMonth();
         todaynow=subMonths(calendar.today,1) 
+        props.setNoteDate(todaynow)
         queryEvent();
     }
     const NextMonth = () => {
         calendar.setNextMonth();
         todaynow=addMonths(calendar.today,1)
+        props.setNoteDate(todaynow)
         queryEvent();
     }
     return (
         <>
         <div className="calendarE">
-
         {/* 年月 & setState前後按鈕 */}
         <table  border="0" cellPadding="0" cellSpacing="0" className="m-5 mx-auto" >
                 <thead >
@@ -93,8 +96,11 @@ const Calendar = () => {
                                             key={i}
                                             className="dayE tdsizeE"
                                             // className={calendarEvent}
-                                            onClick={selectedToday}>
-                                            <tr className="tr123">
+                                            >
+                                            <button onClick={() => {
+                                                props.setNoteDate(date.date)
+                                                }}>                              
+                                             <tr className="tr123">
                                             <td className="tdsizeE">
                                             {!otherMonth && getDate(date.date)}
                                             </td>
@@ -106,6 +112,8 @@ const Calendar = () => {
                                             {iconsvg.map(srcItem =>{return(<img src={srcItem}/>)})}
                                         
                                             </tr>} 
+                                            </button>
+ 
                                                                                     
                                         </td>
 

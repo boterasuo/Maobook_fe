@@ -1,14 +1,26 @@
 // 引入 React 功能
 import React from 'react';
-// import {useState} from "react";
-// import axios from 'axios';
-// import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+import {useCalendar ,eventSelect,WEEKS} from './component/useCalendarE'
 
 // 引入 utils
 // import {API_URL} from "../../utils/config";
 import 'react-bootstrap';
 import 'bootstrap'
 import './Notes.scss'
+import {
+  format,
+  addMonths,
+  subMonths,
+  getDaysInMonth,
+  getDay,
+  endOfMonth,
+  setDate,
+  startOfMonth,
+  getDate,
+} from 'date-fns'
 
 // 引入圖片
 import star from './img/scheduleIcon5.svg' 
@@ -18,9 +30,32 @@ import event0 from './img/event0.svg';
 import event5 from './img/event5.svg';
 
 
-function Notes() {
+function Notes({NoteDate}) {
+  // const {notedate, setNotedate}=props;
+   const [data, setData] = useState([])
+   console.log(NoteDate) 
+
+
+  // API
+    const queryEvent = async () => {
+        let response = await axios.get("http://localhost:3002/api/calenderNote/"+ NoteDate.getFullYear()+"/"+(NoteDate.getMonth()+1));
+        setData(response.data); 
+
+        
+    }
+    useEffect(() => {
+        queryEvent();
+    },[NoteDate]);
+    let CheckData = data.filter(a => { 
+      return a.DATE == NoteDate.getDate();
+  })
+
+    
+
   return (
     <>
+
+    
         <div className="scheduleNotes">
           <div className="scheduleNotesStar">
             <div className="scheduleNotesStarTitle">
@@ -29,19 +64,49 @@ function Notes() {
             </div>
             <div className="scheduleNotesStarbox">
               <div className="scheduleEvents">
-                <div className="scheduleEvents1">
-                  <p className="scheduleEventDay">12</p>
-                  {/* <img src={event1} className="events1Img" /> */}
-                  </div>
-                <div className="scheduleEvents2">
-                  <img src={event9}  className="scheduleEvents2Img" /></div>
-                <div className="scheduleEvents3">
-                   <img src={event0} /></div>
-                <div className="scheduleEvents4">
-                   <img src={event5} /></div>
-                <div className="scheduleEvents5">
-                  這個水平線是有什麼障礙
-                </div>
+
+
+              {data.map((item,i) => {
+              return (
+                <>
+                  <div className="asd">
+                      <div className="scheduleEvents1">
+                        <p className="scheduleEventDay">
+                        {item.DATE}
+                        </p>
+                        {/* <img src={event1} className="events1Img" /> */}
+                        </div>
+                      <div className="scheduleEvents2">
+                        <img src={event9}  className="scheduleEvents2Img" />
+                        </div>
+                      <div className="scheduleEvents3">
+                        <img src={event0} />{item.importer}
+                        </div>
+                      <div className="scheduleEvents4">
+                        {(item.tags).map((tag,i)=> {
+                          return (
+                          <>
+                            <div className="bbb">
+                             <img src={event5} className="scheduleEvents4tags"/>
+                             <div className="scheduleEvents4tagsText">{tag}</div>
+                            </div>
+                          </>
+                          )
+                         })}
+                      </div>
+                      <div className="aaaaaa"></div>
+                      <div className="scheduleEvents5">
+                        {item.title}
+                      </div>
+
+                      <br/>
+                
+                   </div>
+                </>
+              )
+              })}
+             
+
               </div>
 
 
@@ -51,8 +116,55 @@ function Notes() {
           <div ></div>
 
           <div className="scheduleNotesToday">
-            <h3 className="scheduleNotesTodayTitle"> 當日行程 </h3>
-            <div className="scheduleNotesTodaybox"></div>
+            <h3 className="scheduleNotesTodayTitle"> 當日行程 {format(NoteDate,'yyyy/MM/dd')}</h3>
+            <div className="scheduleNotesTodaybox">
+              <div>
+              {
+                (CheckData===undefined?[]:CheckData).map((Dateitem,i) => {
+              return (
+                <>
+                  <div className="asd">
+                      <div className="scheduleEvents1">
+                        <p className="scheduleEventDay">
+                        </p>
+                        {/* <img src={event1} className="events1Img" /> */}
+                        </div>
+                      <div className="scheduleEvents2">
+                        <img src={event9}  className="scheduleEvents2Img" />
+                        </div>
+                      <div className="scheduleEvents3">
+                        <img src={event0} />{Dateitem.importance}
+                        </div>
+                      <div className="scheduleEvents4">
+                        {(Dateitem.tags).map((Datetag,i)=> {
+                          return (
+                          <>
+                            <div className="bbb">
+                             <img src={event5} className="scheduleEvents4tags"/>
+                             <div className="scheduleEvents4tagsText">{Datetag}</div>
+                            </div>
+                          </>
+                          )
+                         })}
+                      </div>
+                      <div className="aaaaaa"></div>
+                      <div className="scheduleEvents5">
+                        {Dateitem.title}
+                      </div>
+
+                      <br/>
+                
+                   </div>
+                </>
+              )
+              })
+              }
+
+
+
+              </div>
+
+            </div>
           </div>
         </div>
     </>
