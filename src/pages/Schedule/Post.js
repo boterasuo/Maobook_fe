@@ -3,16 +3,14 @@ import React from 'react';
 // import {useState} from "react";
 // import axios from 'axios';
 // import { useHistory } from "react-router-dom";
-import Form from "react-bootstrap/Form";
+import 'react-bootstrap';
 
 // 引入 utils
 // import {API_URL} from "../../utils/config";
-// import 'react-bootstrap'
-import '../Schedule/Intro.scss'
+import '../Schedule/Post.scss'
 
 // 引入圖片
 import scheduleIcon6 from './img/scheduleIcon6.svg'
-
 
 
 function Post() {
@@ -43,9 +41,9 @@ function Post() {
                   要帶誰出門呢？
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">小喵</button>
-                  <button class="dropdown-item" type="button">布魯托</button>
-                  <button class="dropdown-item" type="button">唐基柯德</button>
+                  <button className="dropdown-item" type="button">小喵</button>
+                  <button className="dropdown-item" type="button">布魯托</button>
+                  <button className="dropdown-item" type="button">唐基柯德</button>
                 </div>
               </div>
               <form>
@@ -58,18 +56,18 @@ function Post() {
 
             </div>
             <div className="schedulePostTag2">
-                <button className="scheduleButIcon1">疫苗保健</button>
-                <button className="scheduleButIcon2">定期美容</button>
-                <button className="scheduleButIcon3">補貨罐罐</button>
-                <button className="scheduleButIcon4">紀錄提醒</button>
+                <button className="scheduleButIcon1">疫苗<br/>保健</button>
+                <button className="scheduleButIcon2">定期<br/>美容</button>
+                <button className="scheduleButIcon3">補貨<br/>罐罐</button>
+                <button className="scheduleButIcon4">紀錄<br/>提醒</button>
             </div>
           </div>
       
           <div className="postSaySomethingDiv">
             <div className="postSaySomething">
-              <Form>
+              <form>
                 <textarea className="scheduleTextarea" >寫一些記錄吧！</textarea>
-              </Form>
+              </form>
             </div>
             {/* <div className="buttonDiv"> */}
               <button className="scheduleSummitButton">送  出</button>
