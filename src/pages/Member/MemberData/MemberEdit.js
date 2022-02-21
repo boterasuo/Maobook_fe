@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Table, Modal, Button } from "react-bootstrap";
 import axios from "axios";
 
 // 引入 utils
@@ -21,35 +21,13 @@ function MemberEdit(props) {
         mobile:"",
         birthday:"",
     });
-    
-    // const [editInfo, setEditInfo] = useState({
-    //     id:userInfo.id,
-    //     image:userInfo.image,
-    //     name:userInfo.name,
-    //     email:userInfo.email,
-    //     gender:userInfo.gender,
-    //     mobile:userInfo.mobile,
-    //     birthday:userInfo.birthday,
-    //     address:userInfo.address,
-    // });
+    // Modal 切換顯示狀態用
+    const [showModal, setShowModal] = useState(false);
 
     // 性別 radio
     const genderValues = ["1", "2", "3"];
     const genderOptions = ["生理男", "生理女", "不透漏"];
     
-    // useEffect(() => {
-    //     setEditInfo({...editInfo, 
-    //         id:userInfo.id,
-    //         image:userInfo.image,
-    //         name:userInfo.name,
-    //         email:userInfo.email,
-    //         gender:userInfo.gender,
-    //         mobile:userInfo.mobile,
-    //         birthday:userInfo.birthday,
-    //         address:userInfo.address,
-    //     });
-    //     console.log(userInfo);
-    // }, []);
     
     function handleChange(e) {
         setUserInfo({...userInfo, [e.target.name]:e.target.value});
@@ -121,18 +99,37 @@ function MemberEdit(props) {
                 });
                 console.log(response.data);
                 if(response.data.message === "ok") {
-                    alert("修改成功");
-                    history.push("/member/data");
+                    setShowModal(true)
                 };
     
             } catch(e) {
                 console.error("更新失敗: ", e.response.data);
             }
         }
-    }
+    };
+    
+    // 更改 Modal 顯示狀態函式
+    const handleCloseModal = () => {
+        setShowModal(false);
+        history.push("/member/data");
+    };
+    // 註冊成功 Modal html
+    const editModal = (
+        <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>修改成功！</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            確認
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
 
   return (
     <form className="row position-relative info-card">
+        {editModal}
             {/* 大頭照區域 */}
             <div className="col-lg-5 w-100">
                 <div className="embed-responsive embed-responsive-1by1 avatar-info">

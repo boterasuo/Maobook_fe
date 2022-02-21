@@ -60,6 +60,7 @@ body {
   color: white;
 }
 
+// loading 手掌的樣式
 .spinner-grow {
   background-color: transparent;
   .sr-only {
@@ -80,11 +81,11 @@ body {
   .nav-login-btn {
     width: 200px;
   }
-  // 會員頭像
-  .avatar {
+  // 會員頭像 (暫時修改 for 測試 navbar)
+  .nav-avatar {
     height: 40px;
     width: 40px;
-    background: $primary;
+    // background: $primary;
   }
 }
 

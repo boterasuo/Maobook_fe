@@ -1,8 +1,10 @@
 // 引入 React 功能
-import React from 'react';
+import React, { useEffect } from "react";
 import {useState} from "react";
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+
 // 引入 utils
 import {API_URL} from "../../utils/config";
 
@@ -34,13 +36,16 @@ function SignUp(props) {
     });
     // 轉頁用
     const history = useHistory();
+    // Modal 切換顯示狀態用
+    const [showModal, setShowModal] = useState(false);
 
+    // 偵測表單內容變化 (onChange)
     function handleChange(e) {
         setMember({...member, [e.target.name]:e.target.value});
         setSignUpErr({...signUpErr, [e.target.name]:""});
     };
 
-    // 表單有不合法的檢查出現時
+    // 表單有不合法的檢查出現時 (onChange 即時檢查)
     // name 欄位前端檢查
     const handleNameInvalid = (e) => {
         e.preventDefault();
@@ -78,7 +83,7 @@ function SignUp(props) {
         }
     };
 
-    // 送出表單
+    // 送出表單 (onSubmit)
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -86,9 +91,8 @@ function SignUp(props) {
             let response = await axios.post(`${API_URL}/auth/register`, member);
             console.log(response.data.message);
             if(response.data.message === "ok") {
-                // TODO: 客製化 modal
-                alert("註冊成功！請登入")
-                history.push("/login");
+                // 客製化 Modal
+                setShowModal(true);
             }
         } catch(e) {
             console.error("error", e.response.data);
@@ -100,13 +104,36 @@ function SignUp(props) {
                 confirmPassword: e.response.data.confirmPassword,
             });
         }
-    }
+    };
+
+    // 更改 Modal 顯示狀態函式
+    const handleCloseModal = () => {
+        setShowModal(false);
+        history.push("/login");
+    };
+    // 註冊成功 Modal html
+    const signUpModal = (
+        <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>註冊成功！</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>請登入並設定個人資料</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            確認
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+
+    
 
   return (
   <div>
     {/* 排版用空白區塊 */}
     <div className="container">
         {/* maobook 字 logo */}
+        {signUpModal}
         <div className="logo-word">
             <img alt="" className="img-fluid" src={LogoWord}/>
         </div>
