@@ -31,6 +31,7 @@ function MemberData(props) {
         setUserInfo(result.data.data);
       } catch(e) {
         console.error("user info 錯誤", e.response.data);
+        
       }
     };
     getUserInfo();

@@ -15,6 +15,7 @@ import loading from "../img/loading_paw.svg";
 import MemberData from './Member/MemberData/MemberData';
 import MemberEdit from "./Member/MemberData/MemberEdit"
 import PetList from "./Member/PetList/PetList";
+import AddPet from "./Member/PetList/AddPet";
 import OrderHistory from "./Member/OrderHistory/OrderHistory";
 import CommunityHistory from "./Member/CommunityHistory/CommunityHistory";
 import AssistanceHistory from "./Member/AssistanceHistory/AssistanceHistory";
@@ -109,6 +110,9 @@ function Member(props) {
             <Route path="/member/data">
               <MemberData userInfo={userInfo} setUserInfo={setUserInfo} />
             </Route>
+            <Route path="/member/pet/add">
+              <AddPet />
+            </Route>
             <Route path="/member/pet">
               <PetList />
             </Route>
@@ -147,6 +151,7 @@ function Member(props) {
       }
     };
     getUser();
+    
   },[]);
 
   // 更改 Modal 顯示狀態函式
