@@ -15,7 +15,7 @@ $bs-secondary: #6c757d;
 $roboto: "Roboto", sans-serif;
 
 // navbar的高度
-$nav-height:80px;
+$nav-height: 80px;
 // 每一個錨點的高度
 $page-height: calc(100vh - $nav-height);
 
@@ -24,14 +24,29 @@ $mao-rounded: 33px;
 
 // 頁面滾動斷點效果 scroll-top
 // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap
-// [[ [母層] ]] 
-html{
-  scroll-snap-type: y mandatory; 
-// [[[ 要移動的物件(子層) ]]]
-.scroll-page{
-  scroll-snap-align: start; //斷點最上面要停留在子層的起始位置
-  scroll-margin-top: $nav-height; //設定與navbar的間距
-}
+// [[ [母層] ]]
+html {
+  scroll-snap-type: y mandatory;
+  // [[[ 要移動的物件(子層) ]]]
+  .scroll-page {
+    scroll-snap-align: start; //斷點最上面要停留在子層的起始位置
+    scroll-margin-top: $nav-height; //設定與navbar的間距
+  }
+  // 輪軸背景
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+  }
+  // 輪軸bar
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px #8a7e67d0;
+    background-color: #6a5f4b;
+    &:active {
+      background-color: #54534a;
+      -webkit-box-shadow: inset 0 0 6px rgba(71, 70, 63, 0.878)
+    }
+  }
 }
 
 body {
@@ -56,18 +71,17 @@ body {
   }
 }
 
-
 // 導覽列
-.navbar{
+.navbar {
   background-color: white;
   box-shadow: 0 5px 5px #ccc;
   text-align: center;
   // 登入按鈕
-  .nav-login-btn{
+  .nav-login-btn {
     width: 200px;
   }
   // 會員頭像
-  .avatar{
+  .avatar {
     height: 40px;
     width: 40px;
     background: $primary;
@@ -75,17 +89,14 @@ body {
 }
 
 // 滑鼠樣式:手指
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
 // 按鈕
-.btn-outline-primary{
-
-  &:hover{
+.btn-outline-primary {
+  &:hover {
     color: snow;
     font-weight: bold;
   }
 }
-
-
