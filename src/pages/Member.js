@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, NavDropdown, Table } from "react-bootstrap";
-import { NavLink, Route, Switch, useHistory, Redirect } from "react-router-dom";
+import { NavDropdown, Table, Modal, Button } from "react-bootstrap";
+import { NavLink, Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../utils/config";
 
@@ -13,6 +13,7 @@ import loading from "../img/loading_paw.svg";
 
 // 引入元件
 import MemberData from './Member/MemberData/MemberData';
+import MemberEdit from "./Member/MemberData/MemberEdit"
 import PetList from "./Member/PetList/PetList";
 import OrderHistory from "./Member/OrderHistory/OrderHistory";
 import CommunityHistory from "./Member/CommunityHistory/CommunityHistory";
@@ -22,17 +23,34 @@ import AssistanceHistory from "./Member/AssistanceHistory/AssistanceHistory";
 function Member(props) {
   // 來自 context 的 user 狀態
   const {user, setUser} = useAuth();
-  const history = useHistory();
   console.log(user);
+  // 取得詳細資料
+  const [userInfo, setUserInfo] = useState();
+  // 導頁用
+  const history = useHistory();
+  // Modal 切換顯示狀態用
+  const [showModal, setShowModal] = useState(false);
 
-  // loading 動圖
-  const loadingPaw = (
-    <div className="text-center">
-        <div className="spinner-grow text-primary" role="status">
-          <img alt="" className="sr-only" src={loading} />
-        </div>
-    </div>    
-  );
+  // 取得使用者詳細資料 (這邊不用取 --> 在 MemberData 那邊取就好)
+  // useEffect(() => {
+  //   let getUserInfo = async () => {
+  //     try {
+  //       let result = await axios.get(`${API_URL}/member/info`, {withCredentials: true,});
+  //       // console.log(result.data.data);
+  //       setUserInfo(result.data.data);
+  //     } catch(e) {
+  //       console.error("user info 錯誤", e.response.data);
+  //     }
+  //   };
+  //   getUserInfo();
+
+  // }, []);
+
+  // useEffect(() => {
+  //   setUser({...user, image:userInfo.image});
+  // }, [userInfo]);
+
+  
   // 會員後台頁面
   const memberPage = (
     <div className="member-content">
@@ -85,8 +103,11 @@ function Member(props) {
           {/* 可切換資料卡 */}
           <div className="col-lg-10 member-info">
           <Switch>
+            <Route path="/member/data/edit">
+              <MemberEdit userInfo={userInfo} setUserInfo={setUserInfo} />
+            </Route>
             <Route path="/member/data">
-              <MemberData />
+              <MemberData userInfo={userInfo} setUserInfo={setUserInfo} />
             </Route>
             <Route path="/member/pet">
               <PetList />
@@ -110,7 +131,7 @@ function Member(props) {
   );
 
   
-  // TODO: 未登入者導頁
+  // 未登入者導頁
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -121,13 +142,43 @@ function Member(props) {
       } catch(e) {
         console.error(e.response.data);
         if (e.response.data) {
-          alert("尚未登入");
-          history.push("/login");
+          setShowModal(true);
         }        
       }
     };
     getUser();
-  },[])
+  },[]);
+
+  // 更改 Modal 顯示狀態函式
+  const handleCloseModal = () => {
+    setShowModal(false);
+    history.push("/login");
+  };
+  // 註冊成功 Modal html
+  const notLoginModal = (
+      <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>尚未登入</Modal.Title>
+      </Modal.Header>
+      <Modal.Footer>
+        <Button variant="primary" onClick={handleCloseModal}>
+          確認
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+
+  // loading 動圖
+  const loadingPaw = (
+    <div className="member-content position-relative">
+      {notLoginModal}
+      <div className="text-center position-absolute loading-paw">
+          <div className="spinner-grow text-primary" role="status">
+            <img alt="" className="sr-only" src={loading} />
+          </div>
+      </div>    
+    </div>
+  );
 
   return (
     <>

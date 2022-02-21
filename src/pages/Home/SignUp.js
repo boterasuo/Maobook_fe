@@ -1,8 +1,10 @@
 // 引入 React 功能
-import React from 'react';
+import React, { useEffect } from "react";
 import {useState} from "react";
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+
 // 引入 utils
 import {API_URL} from "../../utils/config";
 
@@ -34,17 +36,54 @@ function SignUp(props) {
     });
     // 轉頁用
     const history = useHistory();
+    // Modal 切換顯示狀態用
+    const [showModal, setShowModal] = useState(false);
 
+    // 偵測表單內容變化 (onChange)
     function handleChange(e) {
         setMember({...member, [e.target.name]:e.target.value});
         setSignUpErr({...signUpErr, [e.target.name]:""});
     };
 
-    // function handleValidation(e) {
-    //     e.preventDefault();
-    //     setSignUpErr({...signUpErr, [e.target.name]:e.target.validationMessage});
-    // };
+    // 表單有不合法的檢查出現時 (onChange 即時檢查)
+    // name 欄位前端檢查
+    const handleNameInvalid = (e) => {
+        e.preventDefault();
+        if (!e.target.value) {
+            setSignUpErr({...signUpErr, [e.target.name]:"此欄位不可為空"});
+        }
+    };
+    // Email 欄位前端檢查
+    const handleEmailInvalid = (e) => {
+        e.preventDefault();
+        const regEmail=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        if (!e.target.value) {
+            setSignUpErr({...signUpErr, [e.target.name]:"此欄位不可為空"});
+        } else if (!regEmail.test(e.target.value)) {
+            setSignUpErr({...signUpErr, [e.target.name]:"email 格式不符"});
+        }
+    };
+    // password 欄位前端檢查
+    const handlePswInvalid = (e) => {
+        e.preventDefault();
+        const regPassword=/.{8}/;
+        if (!e.target.value) {
+            setSignUpErr({...signUpErr, [e.target.name]:"此欄位不可為空"});
+        } else if (!regPassword.test(e.target.value)) {
+            setSignUpErr({...signUpErr, [e.target.name]:"密碼長度至少為 8"});
+        }
+    };
+    // confirmPassword 欄位前端檢查
+    const handleConfirmPswInvalid = (e) => {
+        e.preventDefault();
+        if (!e.target.value) {
+            setSignUpErr({...signUpErr, [e.target.name]:"此欄位不可為空"});
+        } else if (e.target.value !== member.password) {            
+            setSignUpErr({...signUpErr, [e.target.name]:"密碼驗證不一致"});
+        }
+    };
 
+    // 送出表單 (onSubmit)
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -52,12 +91,12 @@ function SignUp(props) {
             let response = await axios.post(`${API_URL}/auth/register`, member);
             console.log(response.data.message);
             if(response.data.message === "ok") {
-                // TODO: 客製化 modal
-                alert("註冊成功！請登入")
-                history.push("/login");
+                // 客製化 Modal
+                setShowModal(true);
             }
         } catch(e) {
             console.error("error", e.response.data);
+            // 後端驗證
             setSignUpErr({...signUpErr,
                 name: e.response.data.name, 
                 email:e.response.data.email,
@@ -65,13 +104,36 @@ function SignUp(props) {
                 confirmPassword: e.response.data.confirmPassword,
             });
         }
-    }
+    };
+
+    // 更改 Modal 顯示狀態函式
+    const handleCloseModal = () => {
+        setShowModal(false);
+        history.push("/login");
+    };
+    // 註冊成功 Modal html
+    const signUpModal = (
+        <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>註冊成功！</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>請登入並設定個人資料</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            確認
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+
+    
 
   return (
   <div>
     {/* 排版用空白區塊 */}
     <div className="container">
         {/* maobook 字 logo */}
+        {signUpModal}
         <div className="logo-word">
             <img alt="" className="img-fluid" src={LogoWord}/>
         </div>
@@ -83,7 +145,7 @@ function SignUp(props) {
             <div className="logo-noword position-absolute">
                 <img alt="" className="img-fluid" src={Logo}/>
             </div>            
-            <div className="row">
+            <form className="row" onSubmit={handleSubmit}>
                 {/* 左方註冊區塊 */}
                 <div className="col-lg-3">
                     {/* 立即註冊文字圖 */}
@@ -92,9 +154,7 @@ function SignUp(props) {
                     </div>
                 </div>
                 <div className="col-lg-3">
-                    <form 
-                        className="signup-form" 
-                        onSubmit={handleSubmit}>
+                    <div className="signup-form">
                         <div className="form-group mb-2">
                             <input 
                                 type="text"
@@ -102,7 +162,10 @@ function SignUp(props) {
                                 placeholder="姓名"
                                 name="name"
                                 value={member.name}
-                                onChange={handleChange}
+                                onChange={(e) => {handleChange(e); handleNameInvalid(e)}}
+                                // onChange={handleChange}
+                                // onInvalid={handleNameInvalid}
+                                required
                             />
                             {/* name 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -111,12 +174,14 @@ function SignUp(props) {
                         </div>
                         <div className="form-group mb-2">
                             <input 
-                                type="text"
+                                type="email"
                                 className="form-control"
                                 placeholder="Email 帳號"
                                 name="email"
                                 value={member.email}
-                                onChange={handleChange}
+                                onChange={(e) => {handleChange(e); handleEmailInvalid(e)}}
+                                // onInvalid={handleEmailInvalid}
+                                required
                             />
                             {/* email 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -130,7 +195,11 @@ function SignUp(props) {
                                 placeholder="密碼" 
                                 name="password"
                                 value={member.password}
-                                onChange={handleChange}
+                                onChange={(e) => {handleChange(e); handlePswInvalid(e)}}
+                                // onChange={handleChange}
+                                // onInvalid={handlePswInvalid}
+                                minLength="8"
+                                required
                             />
                             {/* password 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -144,7 +213,11 @@ function SignUp(props) {
                                 placeholder="確認密碼" 
                                 name="confirmPassword"
                                 value={member.confirmPassword}
-                                onChange={handleChange}
+                                onChange={(e) => {handleChange(e); handleConfirmPswInvalid(e)}}
+                                // onChange={handleChange}
+                                // onInvalid={handleConfirmPswInvalid}
+                                minLength="8"
+                                required
                              />
                             {/* confirmPassword 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -152,7 +225,7 @@ function SignUp(props) {
                             </div>
                         </div>
                         {/* 註冊按鈕 */}
-                        <div className="signUp-btn position-absolute">
+                        {/* <div className="signUp-btn position-absolute">
                             <img alt="" className="img-fluid d-lg-none left-paw" src={PawsLeft}/>
                             <button 
                                 className="btn px-4 py-1 text-primary"
@@ -160,15 +233,15 @@ function SignUp(props) {
                                 立即註冊
                             </button>
                             <img alt="" className="img-fluid d-lg-none right-paw" src={PawsRight}/>
-                        </div>
-                    </form>
+                        </div> */}
+                    </div>
                 </div>
                 {/* 右方第三方註冊區塊 */}
                 <div className="col-lg-6 position-relative">
                     <h2 className="text-white text-right d-none d-lg-block sigh-slogan">
                         最貼心的寵物管家
                     </h2>
-                    <hr className="d-lg-none divider"/>
+                    <hr className="d-lg-none login-divider"/>
                     <div className='d-flex thirdParty-signup'>
                         <div className="thirdParty-icon">
                             <BsGoogle color="white" fontSize="2.5rem"/>
@@ -181,18 +254,18 @@ function SignUp(props) {
                         <img alt="" className="img-fluid" src={Paws}/>
                     </div>
                     {/* 註冊按鈕 */}
-                    {/* <div className="signUp-btn">
+                    <div className="signUp-btn">
                         <img alt="" className="img-fluid d-lg-none left-paw" src={PawsLeft}/>
                         <button 
                             className="btn px-4 py-1 text-primary"
-                            onClick={handleSubmit}>
+                            type="submit">
                             立即註冊
                         </button>
                         <img alt="" className="img-fluid d-lg-none right-paw" src={PawsRight}/>
-                    </div> */}
+                    </div>
                     
                 </div>
-            </div>
+            </form>
         </div>
     </div>
   </div>

@@ -1,14 +1,15 @@
 // 引入 React 功能
 import React from 'react';
-// import {useState} from "react";
-// import axios from 'axios';
+import {useState, useEffect} from "react";
+import axios from 'axios';
 // import { useHistory } from "react-router-dom";
 
 // 引入 utils
-// import {API_URL} from "../../utils/config";
+import {API_URL} from "../utils/config";
 import {Container} from 'react-bootstrap' 
 // import 'bootstrap'
 import './schedule.scss'
+// import 'cors' React 說找不到所以先註解起來
 
 // 引入圖片們
 import scheduleText2 from './Schedule/img/scheduleText2.svg'
@@ -18,28 +19,37 @@ import scheduleIcon1 from './Schedule/img/scheduleIcon1.svg'
 import Intro from './Schedule/Intro.js'
 import Calendar from './Schedule/calendarE.js'
 import Notes from './Schedule/Notes.js'
+import Post from './Schedule/Post'
 
 
-// const Schedule = () => {
-//   const [error, setError] = useState(null);
-//   const [data, setData] = useState([]);
 
-//   useEffect(() => {
-//     let getSchedule = async () => {
-//       // http://localhost:3002/api/schedule
-//       let response = await axios.get(`${API_URL}/schedule`);
-//       setData(response.data);
-//     };
-//     getSchedule();
-//   }, []);
 
 
 function calandar() {
+
+  // // const Schedule = () => {
+  // //   const [error, setError] = useState(null);
+  //   const [data, setData] = useState();
   
+  //     let getSchedule = async () => {
+  //       // http://localhost:3002/api/schedule
+  //       try {
+  //         let response = await axios.get(`${API_URL}/calenderE/Schedule`);
+  //         console.log(response.data);
+  //         // setData(response.data);
+
+
+  //       } catch(e) {
+  //         console.error(e.response);
+  //       }
+  //     };
+  //     getSchedule();
+  // // }
+
   return (
     <>
     <div>
-    <nav className="nav"></nav>
+    {/* <nav className="nav"></nav> */}
 
     <Container>
       <div className="etext">
@@ -55,15 +65,18 @@ function calandar() {
       <div className="Calendardiv">
       <Calendar/>
       </div>
-      <div className="scheduleNotes">
+      <div className="Notesdiv">
       <Notes/>
       </div>
-      <div className="scheduleCharts"></div>
-      <div className="schedulePost">
-        <footer></footer>
+      <div className="scheduleCharts">
+      {/* <Charts/> */}
       </div>
+        <div className="Postdiv bg-primary position-relative">
+          {/* <footer></footer> */}
+        </div>
     </Container>
 
+        <Post/>
     </div>
     </>
   )

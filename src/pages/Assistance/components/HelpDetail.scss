@@ -105,17 +105,78 @@ $avatar-length: 4rem;
 
 .rightfoot {
   display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  padding-bottom: 30px;
 }
 
 .showpaw {
   float: left;
   width: 30%;
-  top: 30%;
-  justify-content: center;
+  padding-top: 30px;
   text-align: center;
 }
 
 .takerpost {
   float: left;
   width: 70%;
+}
+
+.helpshare {
+  position: absolute;
+  right: 5%;
+}
+
+.contactchoice {
+  display: flex;
+  margin: 5px 2px;
+}
+
+.choosetitle {
+  margin: 0 20px 0 0;
+}
+
+.choosephone {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  margin-right: 10px;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.chooseemail {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.takepostbutton {
+  border: 1px solid #f6bc54;
+  background-color: #f6bc54;
+  color: white;
+  padding: 3px;
+  border-radius: 10px;
+  width: 75px;
+  right: 10%;
+  position: absolute;
+}
+
+.takerpost {
+  display: block;
+}
+
+.textpost {
+  display: flex;
+}
+
+textarea {
+  border: 1px solid #f6bc54;
+  margin-left: 15px;
+}
+
+.sendpost {
+  margin: 10px 0;
 }

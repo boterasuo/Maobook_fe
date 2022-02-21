@@ -1,47 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import { Table } from "react-bootstrap";
-import axios from 'axios';
+import { Table, Modal, Button } from "react-bootstrap";
+import axios from "axios";
 
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../utils/config';
 
-// 引入 圖片 icon
+// 引入 圖片 icon css
 import { BsReply } from "react-icons/bs";
 import defaultAvatar from "../../../img/avatar_user.png";
+import "./MemberEdit.scss";
 
 
 function MemberEdit(props) {
     const history = useHistory();
-    const {userInfo} =props;
+    const {userInfo, setUserInfo} =props;
+    console.log(userInfo);
     const [preview, setPreview] = useState("");
-    const [editInfo, setEditInfo] = useState({
-        id:userInfo.id,
-        image:userInfo.image,
-        name:userInfo.name,
-        email:userInfo.email,
-        gender:userInfo.gender,
-        mobile:userInfo.mobile,
-        birthday:userInfo.birthday,
-        address:userInfo.address,
+    const [editErr, setEditErr] = useState({
+        mobile:"",
+        birthday:"",
     });
+    // Modal 切換顯示狀態用
+    const [showModal, setShowModal] = useState(false);
+
+    // 性別 radio
+    const genderValues = ["1", "2", "3"];
+    const genderOptions = ["生理男", "生理女", "不透漏"];
     
-    // useEffect(() => {
-    //     setEditInfo({...editInfo, 
-    //         id:userInfo.id,
-    //         image:userInfo.image,
-    //         name:userInfo.name,
-    //         email:userInfo.email,
-    //         gender:userInfo.gender,
-    //         mobile:userInfo.mobile,
-    //         birthday:userInfo.birthday,
-    //         address:userInfo.address,
-    //     });
-    //     console.log(userInfo);
-    // }, []);
     
     function handleChange(e) {
-        setEditInfo({...editInfo, [e.target.name]:e.target.value});
+        setUserInfo({...userInfo, [e.target.name]:e.target.value});
+        setEditErr({...editErr, [e.target.name]:""});
     };
 
     function handlePreview(e) {
@@ -57,46 +47,96 @@ function MemberEdit(props) {
     }
 
     function handleImage(e) {
-        setEditInfo({...editInfo, image:e.target.files[0]});        
+        setUserInfo({...userInfo, image:e.target.files[0]});        
+    };
+
+    // 表單有不合法的檢查出現時
+    // name 欄位前端檢查
+    const handleNameInvalid = (e) => {
+        e.preventDefault();
+        if (!e.target.value) {
+            setEditErr({...editErr, [e.target.name]:"此欄位不可為空"});
+        }
+    };
+    // mobile 欄位前端檢查
+    const handleMobileInvalid = (e) => {
+        e.preventDefault();
+        const regMobile=/^09\d{8}$/;
+        if (e.target.value && !regMobile.test(e.target.value)) {
+            setEditErr({...editErr, [e.target.name]:"手機號碼格式不符"});
+        }
+    };
+    // birthday 欄位前端檢查
+    const handleBirthInvalid = (e) => {
+        e.preventDefault();
+        const today = Date.parse((new Date()).toDateString());
+        const inputDate = Date.parse(e.target.value);
+        console.log(today, inputDate);
+        if (e.target.value && inputDate > today) {
+            setEditErr({...editErr, [e.target.name]:"請選擇早於今天的日期"});
+        }
     };
 
     // 上傳圖片用 formData
     async function handleSubmit(e) {
         e.preventDefault();
-        try {
-            let formData = new FormData();
-            formData.append("id", editInfo.id);
-            formData.append("image", editInfo.image);
-            formData.append("name", editInfo.name);
-            formData.append("email", editInfo.email);
-            formData.append("gender", editInfo.gender);
-            formData.append("mobile", editInfo.mobile);
-            formData.append("birthday", editInfo.birthday);
-            formData.append("address", editInfo.address);
-
-            let response = await axios.post(`${API_URL}/member/edit`, formData, {
-                withCredentials: true,
-            });
-            console.log(response.data);
-            if(response.data.message === "ok") {
-                alert("修改成功");
-                window.location.reload();
-            };
-
-        } catch(e) {
-            console.error("更新失敗: ", e.response.data);
+        if(editErr.name || editErr.mobile || editErr.birthday) {
+            return
+        } else {
+            try {
+                let formData = new FormData();
+                formData.append("id", userInfo.id);
+                formData.append("image", userInfo.image);
+                formData.append("name", userInfo.name);
+                formData.append("email", userInfo.email);
+                formData.append("gender", userInfo.gender);
+                formData.append("mobile", userInfo.mobile);
+                formData.append("birthday", userInfo.birthday);
+                formData.append("address", userInfo.address);
+    
+                let response = await axios.post(`${API_URL}/member/edit`, formData, {
+                    withCredentials: true,
+                });
+                console.log(response.data);
+                if(response.data.message === "ok") {
+                    setShowModal(true)
+                };
+    
+            } catch(e) {
+                console.error("更新失敗: ", e.response.data);
+            }
         }
-    }
+    };
+    
+    // 更改 Modal 顯示狀態函式
+    const handleCloseModal = () => {
+        setShowModal(false);
+        history.push("/member/data");
+    };
+    // 註冊成功 Modal html
+    const editModal = (
+        <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>修改成功！</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            確認
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
 
   return (
     <form className="row position-relative info-card">
+        {editModal}
             {/* 大頭照區域 */}
             <div className="col-lg-5 w-100">
-                <div className="embed-responsive embed-responsive-1by1 avatar">
-                    <img alt="" className="cover-fit embed-responsive-item" src=
-                    {editInfo.image ? `${IMG_URL}${editInfo.image}` : defaultAvatar}
+                <div className="embed-responsive embed-responsive-1by1 avatar-info">
+                    <img alt="" className="avatar-cover-fit embed-responsive-item" src=
+                    {userInfo.image ? `${IMG_URL}${userInfo.image}` : defaultAvatar}
                     />
-                    <img alt="" className="cover-fit embed-responsive-item" src=
+                    <img alt="" className="avatar-cover-fit embed-responsive-item" src=
                     {preview}
                     />
                 </div>
@@ -111,9 +151,12 @@ function MemberEdit(props) {
                         type="text"
                         className="form-control text-center w-50 m-auto"
                         name="name"
-                        value={editInfo.name}
-                        onChange={handleChange}
+                        value={userInfo.name}
+                        onChange={(e) => {handleChange(e); handleNameInvalid(e)}}
                     />
+                    <div className="errMsg">
+                        {editErr.name ? editErr.name : ""}
+                    </div>
                 </div>
             </div>
             {/* 個人資料表格 */}
@@ -123,7 +166,7 @@ function MemberEdit(props) {
                       <tr>
                         <td>帳號</td>
                         <td className="text-grey">
-                          {editInfo.email} (帳號不可修改)
+                          {userInfo.email} (帳號不可修改)
                         </td>
                       </tr>
                       <tr>
@@ -140,14 +183,33 @@ function MemberEdit(props) {
                       </tr>
                       <tr>
                         <td>性別</td>
-                        <td>
-                            <input 
+                        <td className="edit-gender">
+                            {genderValues.map((v, i) => {
+                                return (
+                                    <React.Fragment key={i}>
+                                        <input
+                                            type="radio"
+                                            id={v}
+                                            value={v}
+                                            checked={v === `${userInfo.gender}`}
+                                            onChange={handleChange}
+                                            name="gender"
+                                        />
+                                        <label 
+                                            htmlFor={v}
+                                            className={v===`${userInfo.gender}` ? "active-label" : ""}>
+                                            {genderOptions[i]}
+                                        </label>
+                                    </React.Fragment>
+                                )
+                            })}
+                            {/* <input 
                                 type="text"
                                 className="form-control"
                                 name="gender"
                                 value={editInfo.gender ? editInfo.gender : ""}
                                 onChange={handleChange}
-                            />
+                            /> */}
                         </td>
                       </tr>
                       <tr>
@@ -157,9 +219,12 @@ function MemberEdit(props) {
                                 type="tel"
                                 className="form-control"
                                 name="mobile"
-                                value={editInfo.mobile ? editInfo.mobile : ""}
-                                onChange={handleChange}
+                                value={userInfo.mobile ? userInfo.mobile : ""}
+                                onChange={(e) => {handleChange(e); handleMobileInvalid(e)}}
                             />
+                            <div className="errMsg">
+                                {editErr.mobile ? editErr.mobile : ""}
+                            </div>
                         </td>
                       </tr>
                       <tr>
@@ -169,15 +234,18 @@ function MemberEdit(props) {
                                 type="date"
                                 className="form-control"
                                 name="birthday"
-                                value={editInfo.birthday ? editInfo.birthday : ""}
-                                onChange={handleChange}
+                                value={userInfo.birthday ? userInfo.birthday : ""}
+                                onChange={(e) => {handleChange(e); handleBirthInvalid(e)}}
                             />
+                            <div className="errMsg">
+                                {editErr.birthday ? editErr.birthday : ""}
+                            </div>
                         </td>
                       </tr>
                       <tr>
                         <td>信箱</td>
                         <td>
-                            {editInfo.email} (信箱同帳號不可修改)
+                            {userInfo.email} (信箱同帳號不可修改)
                         </td>
                       </tr>
                       <tr>
@@ -187,7 +255,7 @@ function MemberEdit(props) {
                                 type="text"
                                 className="form-control"
                                 name="address"
-                                value={editInfo.address ? editInfo.address : ""}
+                                value={userInfo.address ? userInfo.address : ""}
                                 onChange={handleChange}
                             />
                         </td>

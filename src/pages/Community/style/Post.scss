@@ -3,16 +3,25 @@
   background-size: cover;
   background-color: #f6bc54;
 }
-// 整體區域
-.schedulePost {
+
+.Schedulepost {
+  // margin: auto;
   width: 100%;
-  height: 500px;
+  height: 100%;
   margin: auto auto;
   text-align: center; //格字內元素置中
+
+  // flex-direction: column;
+  // justify-content: space-around;
 }
 
+.abc {
+  align-items: center;
+  margin-right: 10px;
+  width: 100%;
+}
 // 重要的事
-.schedulePostH1 {
+.postH1 {
   color: #f6bc54;
   font-size: 3.5rem;
   margin-top: -20px;
@@ -20,46 +29,31 @@
 }
 
 // 寫下來提醒自己吧
-
-.schedulePostH2 {
+.posttext {
+  width: 800px;
+  height: 10px;
+  // font-size: 2.5rem;
+  color: white;
+}
+.postH2 {
   color: white;
   font-size: 2rem;
-  padding-top: 5px;
-}
-// 日曆樣式
-.scheduleData {
-  border-radius: 20px;
-  border-color: #f6bc54;
-  border-width: 50px;
-  border: 2px solid white;
-  width: 200px;
-  padding: auto 5px;
-  margin-top: 30px;
-  cursor: pointer;
-
-  &:focus {
-    outline: 2px hsla(79, 60%, 65%, 1) solid;
-  }
 }
 
 // 下方表格區
-.schedulePostInput {
+.postinput {
   margin-top: 50px;
+
   display: flex;
+  // margin: auto;
   justify-content: center;
+  // text-align: fiex-end; //格字內元素置中
+  // flex-direction: row;
 }
 
-// 下方表格區第一格
-
-.schedulePostDate {
+.postDate {
   display: flex;
-  width: 175px;
-  height: 250px;
-  border: 2px white solid;
-  border-radius: 20px;
-  margin-bottom: 10px;
 }
-
 .scheduleIcon6 {
   justify-content: center;
   text-align: center;
@@ -67,17 +61,29 @@
   width: 25%;
   height: 25%;
   transform: rotate(30deg);
+  // transform: translateY(-50%);
+  // transform: translateX(-50%);
+}
+
+// 日期填寫
+.postDate {
+  // display: inline-block;
+  width: 175px;
+  height: 250px;
+  border: 2px white solid;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
 
 // 重要按鈕
-.schedulePostClass {
+.postClass {
   // display: inline-block;
   width: 100px;
   height: 200px;
   margin-bottom: 10px;
 }
 
-.schedulePostButton1 {
+.button1 {
   background-color: #f6bc54;
   color: white;
   border: 2px solid white;
@@ -88,16 +94,16 @@
   border-radius: 20px 20px 0px 0px;
   // border: 2px solid #f6bc54;
   font-size: 20px;
-  &:hover {
-    background-color: white;
-    color: #f6bc54;
-  }
-  &:focus {
-    background-color: white;
-    color: #f6bc54;
-  }
 }
-.schedulePostButton2 {
+.button1:hover {
+  background-color: white;
+  color: #f6bc54;
+}
+.button1:focus {
+  background-color: white;
+  color: #f6bc54;
+}
+.button2 {
   background-color: #f6bc54;
   color: white;
   border: 2px solid white;
@@ -106,18 +112,18 @@
   width: 60px;
   border-radius: 0px 0px 20px 20px;
   font-size: 20px;
-  &:hover {
-    background-color: white;
-    color: #f6bc54;
-  }
-  &:focus {
-    background-color: white;
-    color: #f6bc54;
-  }
+}
+.button2:hover {
+  background-color: #f6bc54;
+  color: white;
+}
+.button2:focus {
+  background-color: white;
+  color: #f6bc54;
 }
 
 // 標籤
-.schedulePostTag {
+.postTag {
   // display: inline-block;
   width: 175px;
   height: 250px;
@@ -127,7 +133,7 @@
   margin-bottom: 10px;
 }
 // TAG 上方
-.schedulePostTag1 {
+.postTag1 {
   // display: inline-block;
   width: 175px;
   height: 125px;
@@ -137,23 +143,6 @@
   padding-top: 8px;
 }
 
-.takeMaoOut {
-  color: #f6bc54;
-  background-color: white;
-  border: 2px solid #f6bc54;
-  transition-duration: 0.4s;
-  border-radius: 20px;
-  width: 150px;
-  height: 30px;
-  cursor: pointer;
-  // &:hover .dropbtn
-  //   background-color: hsla(79, 60%, 65%, 1);
-  // &::content {
-  //   background-color: hsla(79, 60%, 65%, 1);
-}
-
-// btn btn-secondary btn-sm dropdown-toggle
-
 .scheduleInput {
   width: 60%;
   padding: auto auto;
@@ -162,19 +151,15 @@
   border: none;
   border-bottom: 2px solid white;
   background-color: #f6bc54;
-  &:focus {
-    outline: 2px hsla(79, 60%, 65%, 1) solid;
-    border-radius: 10px;
-  }
 }
 
-.schedulePostLabel {
+.postLabel {
   font-size: 20px;
   color: white;
 }
 
 // TAG 下方
-.schedulePostTag2 {
+.postTag2 {
   width: 175px;
   height: 125px;
   border: 2px white solid;
@@ -182,7 +167,7 @@
   margin-top: -2px;
   padding-top: 5px;
 }
-.scheduleButIcon1 {
+.butIcon1 {
   margin: 3px 3px 1px 1px;
   font-size: 15px;
   width: 60px;
@@ -191,19 +176,19 @@
   border: 2px #97bbbd solid;
   color: white;
   opacity: 0.5;
-  &:hover {
-    background-color: #97bbbd;
-    color: white;
-    opacity: 1;
-  }
-  &:focus {
-    background-color: #97bbbd;
-    color: white;
-    opacity: 1;
-  }
+}
+.butIcon1:hover {
+  background-color: #97bbbd;
+  color: white;
+  opacity: 1;
+}
+.butIcon1:focus {
+  background-color: #97bbbd;
+  color: white;
+  opacity: 1;
 }
 
-.scheduleButIcon2 {
+.butIcon2 {
   margin: 3px 3px 1px 1px;
   font-size: 15px;
   width: 60px;
@@ -212,18 +197,18 @@
   border: 2px #b29096 solid;
   color: white;
   opacity: 0.5;
-  &:hover {
-    background-color: #b29096;
-    color: white;
-    opacity: 1;
-  }
-  &:focus {
-    background-color: #b29096;
-    color: white;
-    opacity: 1;
-  }
 }
-.scheduleButIcon3 {
+.butIcon2:hover {
+  background-color: #b29096;
+  color: white;
+  opacity: 1;
+}
+.butIcon2:focus {
+  background-color: #b29096;
+  color: white;
+  opacity: 1;
+}
+.butIcon3 {
   margin: 3px 3px 1px 1px;
   font-size: 15px;
   width: 60px;
@@ -232,19 +217,19 @@
   border: 2px #6a5f4b solid;
   color: white;
   opacity: 0.5;
-  &:hover {
-    background-color: #6a5f4b;
-    color: white;
-    opacity: 1;
-  }
-  &:focus {
-    background-color: #6a5f4b;
-    color: white;
-    opacity: 1;
-  }
+}
+.butIcon3:hover {
+  background-color: #6a5f4b;
+  color: white;
+  opacity: 1;
+}
+.butIcon3:focus {
+  background-color: #6a5f4b;
+  color: white;
+  opacity: 1;
 }
 
-.scheduleButIcon4 {
+.butIcon4 {
   margin: 3px 3px 1px 1px;
   font-size: 15px;
   width: 60px;
@@ -253,20 +238,20 @@
   border: 2px #becdbe solid;
   color: white;
   opacity: 0.5;
-  &:hover {
-    background-color: #becdbe;
-    color: white;
-    opacity: 1;
-  }
-  &:focus {
-    background-color: #becdbe;
-    color: white;
-    opacity: 1;
-  }
+}
+.butIcon4:hover {
+  background-color: #becdbe;
+  color: white;
+  opacity: 1;
+}
+.butIcon4:focus {
+  background-color: #becdbe;
+  color: white;
+  opacity: 1;
 }
 
 // 文字輸入區
-.postSaySomethingDiv {
+.postSaySomethingdiv {
   width: 350px;
   height: 250px;
   margin-right: 10px;
@@ -279,7 +264,7 @@
   display: flex;
 }
 
-.scheduleTextarea {
+.scheduletextarea {
   width: 350px;
   height: 200px;
   resize: none;
@@ -291,14 +276,13 @@
   font-size: 18px;
   color: white;
   justify-content: flex-end;
-  &:focus {
-    outline: 3px hsla(79, 60%, 65%, 1) solid;
-  }
 }
 
+.buttonDiv {
+  // height: 50px;
+}
 .scheduleSummitButton {
   margin-top: 5px;
-  margin-left: 15px;
   background-color: white;
   color: #f6bc54;
   border: 2px solid #f6bc54;
@@ -308,9 +292,14 @@
   border-radius: 20px;
   font-size: 18px;
   justify-content: flex-end;
-  &:hover {
-    background-color: #f6bc54;
-    color: white;
-    border: 2px solid white;
-  }
+}
+
+.scheduleSummitButton:hover {
+  background-color: #f6bc54;
+  color: white;
+  border: 2px solid white;
+}
+
+.l-01{
+  letter-spacing: 0.1rem;
 }

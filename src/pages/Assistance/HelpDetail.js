@@ -57,16 +57,25 @@ function HelpDetail(props) {
         </div>
 
         <div className="takerpost">
-        <div className="contactchoice">聯絡方式</div><br/>
-        <div className="takercontent">我要留言</div><br/>
-        <div className="takepostbutton">送出按鈕</div>
+
+        <div className="contactchoice">
+        <div className="choosetitle">聯絡方式</div>
+        <div className="choosephone">提供手機</div>
+        <div className="chooseemail">提供信箱</div>
         </div>
 
+        <div className="textpost">
+        <div className="takercontent" >我要留言</div>
+        <textarea></textarea>
         </div>
         
-        <hr className="rightdivider"/>
-        <div className="">分享按鈕</div>
+        <div className="sendpost">
+        <div className="takepostbutton">送出信件</div>
+        </div>
 
+        </div>
+
+        </div>
         </div>
         </div>
         </div>
