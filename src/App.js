@@ -25,7 +25,6 @@ import Member from "./pages/Member.js";
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
-// import Navbar from "./component/UI/Navbar";
 import ScrollToTop from "./component/UI/ScrollToTop";
 import Footer from "./component/UI/Footer";
 
