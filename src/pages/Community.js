@@ -20,24 +20,23 @@ function Community() {
   // console.log();
   return (
     <>
-    
     <Tools/>
     <img src={coummunity} className="text-community " alt="coummunity" />
 
       <div className="container">
-      <div className="Intro-Page">
-        <Intro/>
+      <div className="Comunity-Intro-Page scroll-page">
+        <Intro className=""/>
       </div>
-      <div className="Daily-Page">
-        <Daily/>
+      <div className="Daily-Page scroll-page">
+        <Daily className=""/>
 
       </div>
-      <div className="Discuss-Page">
-        <Discuss/>
+      <div className="Discuss-Page scroll-page">
+        <Discuss className=""/>
       </div>
       </div>
-      <div className="Post-Page"> 
-        <Post/>
+      <div className="Post-Page scroll-page"> 
+        <Post className=""/>
       </div>
     </>
   );

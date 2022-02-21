@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import "./style/UI/global.scss";
 import App from './App'
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -70,13 +70,17 @@ function Intro() {
           </div>
           {/* sm版標題 */}
           <img src={titleBold} className="titleBold" />
-      <div className="go-on ">
-        一起來看看
-        <br />
-        大家最平凡的毛孩生活吧
-        <br />
-        <img src={drownArrow}/>
-      </div>
+
+          {/* <a
+            className="go-on text-dark  text-decoration-none"
+            href="#Daily-Page"
+          >
+            一起來看看
+            <br />
+            大家最平凡的毛孩生活吧
+            <br />
+            <img src={drownArrow} />
+          </a> */}
         </Col>
       </Row>
     </>
