@@ -7,7 +7,7 @@ import React from 'react';
 // 引入 utils
 // import {API_URL} from "../../utils/config";
 import {ButtonGroup , Button , Form, Row, Col} from 'react-bootstrap'
-import './style/Post.scss'
+import './style/ComPost.scss'
 
 // 引入圖片
 import scheduleIcon6 from './images/icon-camera.svg'
@@ -53,10 +53,10 @@ function Post() {
 
             </div>
             <div className="postTag2">
-                <button className="butIcon1">疫苗<br/>保健</button>
-                <button className="butIcon2">定期<br/>美容</button>
-                <button className="butIcon3">補貨<br/>罐罐</button>
-                <button className="butIcon4">紀錄<br/>提醒</button>
+                <button className="button0">問卦</button>
+                <button className="button0">求助</button>
+                <button className="button0">求助</button>
+                <button className="button0">黑特</button>
             </div>
           </div>
       
