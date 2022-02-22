@@ -15,6 +15,7 @@ import loading from "../img/loading_paw.svg";
 import MemberData from './Member/MemberData/MemberData';
 import MemberEdit from "./Member/MemberData/MemberEdit"
 import PetList from "./Member/PetList/PetList";
+import PetInfo from "./Member/PetList/PetInfo";
 import AddPet from "./Member/PetList/AddPet";
 import OrderHistory from "./Member/OrderHistory/OrderHistory";
 import CommunityHistory from "./Member/CommunityHistory/CommunityHistory";
@@ -25,8 +26,10 @@ function Member(props) {
   // 來自 context 的 user 狀態
   const {user, setUser} = useAuth();
   console.log(user);
-  // 取得詳細資料
+  // 取得會員詳細資料
   const [userInfo, setUserInfo] = useState();
+  // 取得毛孩詳細資料
+  const [petList, setPetList] = useState([]);
   // 導頁用
   const history = useHistory();
   // Modal 切換顯示狀態用
@@ -113,8 +116,11 @@ function Member(props) {
             <Route path="/member/pet/add">
               <AddPet />
             </Route>
+            <Route path="/member/pet/:petId">
+              <PetInfo petList={petList} setPetList={setPetList} />
+            </Route>
             <Route path="/member/pet">
-              <PetList />
+              <PetList petList={petList} setPetList={setPetList} />
             </Route>
             <Route path="/member/order">
               <OrderHistory />
