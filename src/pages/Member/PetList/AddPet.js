@@ -255,7 +255,7 @@ function AddPet(props) {
             </tr>
             <tr>
               <td>種類</td>
-              <td className="edit-gender d-flex">
+              <td className="edit-gender">
                 {cateValues.map((v, i) => {
                   return (
                     <div key={i} className="form-check-inline">
@@ -278,8 +278,7 @@ function AddPet(props) {
                     </div>
                   );
                 })}
-                {/* TODO: 位置再修一下 */}
-                <div className="errMsg">{editErr.cate ? editErr.cate : ""}</div>
+                <div className=" form-check-inline errMsg">{editErr.cate ? editErr.cate : ""}</div>
               </td>
             </tr>
             <tr>

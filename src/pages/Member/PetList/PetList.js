@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { NavLink} from "react-router-dom";
+import { NavLink, withRouter, Link } from "react-router-dom";
 // 引入 context
 import { useAuth } from "../../../context/auth";
 // 引入 utils
@@ -12,8 +12,8 @@ import loading from "../../../img/loading_paw.svg";
 import "./PetList.scss";
 
 function PetList(props) {
+  const {petList, setPetList} = props;
   const {user, setUser} = useAuth();
-  const [petList, setPetList] = useState([]);
   console.log("petList:", user);
   const loadingPaw = (
         <div className="text-center">
@@ -24,6 +24,7 @@ function PetList(props) {
   );
 
   // 取得毛孩列表
+  // TODO: 加分頁
   useEffect(() => {
     let getPetList = async () => {
       try {
@@ -46,12 +47,14 @@ function PetList(props) {
         <div className="d-flex justify-content-around flex-wrap">
           {petList.map((pet, i) => {
             return (
-              <div key={pet.id} className="d-flex flex-column">
-                <div className="embed-responsive embed-responsive-1by1 pet-avatar">
-                    <img alt="" className="avatar-cover-fit embed-responsive-item" 
-                      src={pet.image.length ? `${IMG_URL}${pet.image}` : defaultPet}/>
-                </div>
-                <div className="text-center">{pet.name}</div>
+              <div key={pet.id} className="d-flex flex-column pet-list-card">
+                <Link to={`/member/pet/${pet.id}`}>
+                  <div className="embed-responsive embed-responsive-1by1 pet-avatar">
+                      <img alt="" className="avatar-cover-fit embed-responsive-item" 
+                        src={pet.image.length ? `${IMG_URL}${pet.image}` : defaultPet}/>
+                  </div>
+                  <div className="text-center text-secondary">{pet.name}</div>
+                </Link>
               </div>
             )
           })}
@@ -67,4 +70,4 @@ function PetList(props) {
 }
 
 
-export default PetList
+export default withRouter(PetList)

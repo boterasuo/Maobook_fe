@@ -106,9 +106,14 @@ function MemberEdit(props) {
         }
       } catch (e) {
         console.error("更新失敗: ", e.response.data);
-      }
-    }
-  }
+        setEditErr({...editErr,
+          name: e.response.data.name,
+          mobile: e.response.data.mobile,
+          birthday: e.response.data.birthday
+        });
+      };
+    };
+  };
 
   // 更改 Modal 顯示狀態函式
   const handleCloseModal = () => {
