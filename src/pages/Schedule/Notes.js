@@ -3,23 +3,13 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import {useCalendar ,eventSelect,WEEKS} from './component/useCalendarE'
-
 // 引入 utils
 // import {API_URL} from "../../utils/config";
 import 'react-bootstrap';
 import 'bootstrap'
 import './Notes.scss'
 import {
-  format,
-  addMonths,
-  subMonths,
-  getDaysInMonth,
-  getDay,
-  endOfMonth,
-  setDate,
-  startOfMonth,
-  getDate,
+  format
 } from 'date-fns'
 
 // 引入圖片
@@ -27,7 +17,7 @@ import star from './img/scheduleIcon5.svg'
 // import event1 from './img/event1.svg';
 import event9 from './img/event9.svg';
 import event0 from './img/event0.svg';
-import event5 from './img/event5.svg';
+// import event5 from './img/event5.svg';
 
 
 function Notes({NoteDate}) {
@@ -35,13 +25,10 @@ function Notes({NoteDate}) {
    const [data, setData] = useState([])
    console.log(NoteDate) 
 
-
   // API
     const queryEvent = async () => {
         let response = await axios.get("http://localhost:3002/api/calenderNote/"+ NoteDate.getFullYear()+"/"+(NoteDate.getMonth()+1));
         setData(response.data); 
-
-        
     }
     useEffect(() => {
         queryEvent();
@@ -66,7 +53,9 @@ function Notes({NoteDate}) {
               <div className="scheduleEvents">
 
 
-              {data.map((item,i) => {
+              {
+                data.length==0?<div><b>NO body gives a shit</b></div>:
+                data.map((item,i) => {
               return (
                 <>
                   <div className="asd">
@@ -82,18 +71,18 @@ function Notes({NoteDate}) {
                       <div className="scheduleEvents3">
                         <img src={event0} />{item.importer}
                         </div>
-                      <div className="scheduleEvents4">
                         {(item.tags).map((tag,i)=> {
                           return (
-                          <>
+                          
+                      <div className="scheduleEvents4 d-flex">
                             <div className="bbb">
-                             <img src={event5} className="scheduleEvents4tags"/>
-                             <div className="scheduleEvents4tagsText">{tag}</div>
+                              <div className="scheduleEvents4tagsText">{tag}</div>
+                              {/* <img src={event5} className="scheduleEvents4tags"/> */}
                             </div>
-                          </>
+                          
+                      </div>
                           )
                          })}
-                      </div>
                       <div className="aaaaaa"></div>
                       <div className="scheduleEvents5">
                         {item.title}
@@ -120,9 +109,12 @@ function Notes({NoteDate}) {
             <div className="scheduleNotesTodaybox">
               <div>
               {
-                (CheckData===undefined?[]:CheckData).map((Dateitem,i) => {
+                CheckData.length==0?<div><b>NO body givea a shit</b></div>:
+                CheckData.map((Dateitem,i) => {
+
               return (
                 <>
+ 
                   <div className="asd">
                       <div className="scheduleEvents1">
                         <p className="scheduleEventDay">
@@ -140,7 +132,7 @@ function Notes({NoteDate}) {
                           return (
                           <>
                             <div className="bbb">
-                             <img src={event5} className="scheduleEvents4tags"/>
+                             {/* <img src={event5} className="scheduleEvents4tags"/> */}
                              <div className="scheduleEvents4tagsText">{Datetag}</div>
                             </div>
                           </>

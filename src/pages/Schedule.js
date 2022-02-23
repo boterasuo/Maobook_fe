@@ -81,7 +81,6 @@ function Calandar() {
       {/* <PetData /> */}
     </Container>
 
-        <Post/>
     </div>
     </>
   )

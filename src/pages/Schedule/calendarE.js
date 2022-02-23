@@ -2,41 +2,28 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { addMonths, format, getDate,subMonths } from 'date-fns'
+import { format, getDate} from 'date-fns'
 import {useCalendar ,eventSelect,WEEKS} from './component/useCalendarE'
 import 'react-bootstrap'
 import './calendarE.scss'
 import 'date-fns'
 import buttonIconL from './img/scheduleIcon3.svg'
 import buttonIconR from './img/scheduleIcon4.svg'
-import { Alert } from 'react-bootstrap';
 
 const Calendar = (props) => {
     // const [err, setError] = useState(null)
     const [data, setData] = useState([])
     const calendar = useCalendar()
 
-    let todaynow = new Date();
     const queryEvent = async () => {
-        let response = await axios.get("http://localhost:3002/api/calendarE/"+todaynow.getFullYear()+"/"+(todaynow.getMonth()+1));
+        let response = await axios.get("http://localhost:3002/api/calendarE/"+calendar.today.getFullYear()+"/"+(calendar.today.getMonth()+1));
         setData(response.data);  
     }
     useEffect(() => {
+        props.setNoteDate(calendar.today)
         queryEvent();
-    },[]);
+    },[calendar.today]);
     
-    const PreMonth = () => {
-        calendar.setPreMonth();
-        todaynow=subMonths(calendar.today,1) 
-        props.setNoteDate(todaynow)
-        queryEvent();
-    }
-    const NextMonth = () => {
-        calendar.setNextMonth();
-        todaynow=addMonths(calendar.today,1)
-        props.setNoteDate(todaynow)
-        queryEvent();
-    }
     return (
         <>
         <div className="calendarE">
@@ -46,11 +33,11 @@ const Calendar = (props) => {
                     <tr calssName="tr123">
                         <td colSpan="100%" calssName="abc">
                         <div className="d-flex justify-content-center">
-                            <img src={buttonIconL} className="imgIconE mx-5" onClick={PreMonth} alt="上一個月"/>
+                            <img src={buttonIconL} className="imgIconE mx-5" onClick={calendar.setPreMonth} alt="上一個月"/>
                             {/* 可替換format: dd(加上日期) MM(數字月) MMMM(完整英文月) */}
                             <div className="thisYearE d-inline-block">
                             {format(calendar.today, 'MMM  yyyy')}</div>
-                            <img src={buttonIconR} className="mx-5" onClick={NextMonth} alt="下一個月"/>
+                            <img src={buttonIconR} className="mx-5" onClick={calendar.setNextMonth} alt="下一個月"/>
                             </div>
                         </td>
                     </tr>
