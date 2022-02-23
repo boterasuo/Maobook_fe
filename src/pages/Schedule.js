@@ -79,7 +79,6 @@ function Calandar() {
         </div>
     </Container>
 
-        <Post/>
     </div>
     </>
   )
