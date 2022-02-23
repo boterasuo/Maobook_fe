@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Modal, Button } from "react-bootstrap";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 // 引入 context
 import { useAuth } from "../../../context/auth";

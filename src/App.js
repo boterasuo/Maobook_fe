@@ -22,6 +22,8 @@ import OrderDetail from "./pages/Store/OrderDetail";
 import Community from "./pages/Community.js";
 import Assistance from "./pages/Assistance.js";
 import Member from "./pages/Member.js";
+import PetDataTest from "./pages/PetDataTest.js";
+
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
@@ -58,6 +60,9 @@ function App() {
           <MyNav />
           <ScrollToTop>
             <Switch>
+              <Route path="/petdata">
+                <PetDataTest />
+              </Route>
               <Route path="/assistance">
                 <Assistance />
               </Route>

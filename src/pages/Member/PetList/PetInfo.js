@@ -71,7 +71,7 @@ function PetInfo(props) {
     if (foundPet) {
         console.log(foundPet);
         const getMoreInfo = async () => {
-            let result = await axios.get(`${API_URL}/pet/${petId}`, 
+            let result = await axios.get(`${API_URL}/pet/info/${petId}`, 
             {withCredentials: true});
             console.log(result.data);
             setPet({...foundPet,

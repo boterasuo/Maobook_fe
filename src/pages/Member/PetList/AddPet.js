@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Table, Modal, Button } from "react-bootstrap";
 import axios from "axios";
 // 引入 context
@@ -42,6 +43,9 @@ function AddPet(props) {
   const healthValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const healthOptions = ["慢性腎衰竭", "糖尿病", "下泌尿道症候群", "體重過重", "關節炎", "腸胃敏感", "皮膚敏感", "心臟疾病", "心血管疾病"];
   const [healthList, setHealthList] = useState([]);
+  // Modal 切換顯示狀態用
+  const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
   
   function handleChange(e) {
     setAddPet({ ...addPet, [e.target.name]: e.target.value });
@@ -121,7 +125,7 @@ function AddPet(props) {
         });
         console.log(response.data);
         if (response.data.message === "ok") {
-          // setShowModal(true);
+          setShowModal(true);
         }
       } catch (e) {
         console.error("更新失敗: ", e.response.data);
@@ -134,10 +138,28 @@ function AddPet(props) {
       }
     }
   }
+  // 更改 Modal 顯示狀態函式
+  const handleCloseModal = () => {
+    setShowModal(false);
+    history.push("/member/pet");
+  };
+  // 新增成功 Modal html
+  const addPetModal = (
+    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>新增成功！</Modal.Title>
+      </Modal.Header>
+      <Modal.Footer>
+        <Button variant="primary" onClick={handleCloseModal}>
+          確認
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 
   return (
     <form className="row position-relative info-card">
-      {/* {editModal} */}
+      {addPetModal}
       {/* 大頭照區域 */}
       <div className="col-lg-5 w-100">
         <div className="embed-responsive embed-responsive-1by1 avatar-info position-relative">

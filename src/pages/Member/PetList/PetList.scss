@@ -104,7 +104,8 @@ $secondary: #6a5f4b;
 // PetInfo 頁面
 .petList-table {
     .newest-data {
-        padding: 2px;
+        // align-self: center;
+        padding: 2px 2px 0px 2px;
         font-size: 0.8rem;
         font-weight: 400;
         border: 1px solid red;
