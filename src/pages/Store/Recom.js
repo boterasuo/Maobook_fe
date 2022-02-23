@@ -1,7 +1,8 @@
 // import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import '../Store/style/RecomStyle.scss';
-
+import axios from 'axios';
+import { useState,useEffect } from 'react';
 //元件
 import ProductItem from "./components/ProductItem"
 //圖片

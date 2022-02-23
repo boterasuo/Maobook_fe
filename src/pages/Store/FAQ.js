@@ -6,7 +6,7 @@ import '../Store/style/FAQStyle.scss';
 function FAQ () {
     return (
         <section className='d-flex justify-content-center mb-5'>
-            <Accordion className='FAQarea' defaultActiveKey="0">
+            <Accordion className='FAQarea  pointer' defaultActiveKey="0">
                 <Card className='FAQcard'>
                     <Accordion.Toggle className='FAQHeader' as={Card.Header} eventKey="0">
                         如何使用 7-11 交貨便退貨 FAQ
