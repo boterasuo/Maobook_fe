@@ -20,6 +20,7 @@ import Intro from './Schedule/Intro.js'
 import Calendar from './Schedule/calendarE.js'
 import Notes from './Schedule/Notes.js'
 import Post from './Schedule/Post'
+import PetData from "./PetData/PetData"
 
 
 
@@ -77,6 +78,7 @@ function Calandar() {
         <div className="Postdiv bg-primary position-relative">
           {/* <footer></footer> */}
         </div>
+      {/* <PetData /> */}
     </Container>
 
         <Post/>

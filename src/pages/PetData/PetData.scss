@@ -1,0 +1,70 @@
+// 顏色變數
+$primary: #f6bc54;
+$secondary: #6a5f4b;
+
+.pet-data {
+    padding: 3rem 7rem;
+    .nav-tabs {
+        border-bottom: none;
+        .nav-link:hover {
+            border-bottom: 1px solid white;
+        }
+    }
+    .pet-data-card {
+        padding: 2rem 6rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        color: $secondary;
+        font-weight: 550;
+        > div {
+            border: 1.5px solid $primary;
+            border-radius: 8px;
+            position: relative;
+        }
+        .pet-data-avatar {
+            margin: 1rem auto;
+            max-width: 150px;
+            border-radius: 50%;
+        }
+        .pet-height-chart,
+        .pet-weight-chart {
+            margin: 1rem auto 2rem;
+            .chart {
+                height: 150px;
+                margin: 0.5rem 1rem;
+                padding: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                position: relative;
+                span {
+                    position: absolute;
+                    top: 2px;
+                    left: 4px;
+                    font-size: 0.5rem;
+                    font-weight: 400;
+                    color: #ccc;
+                }
+                .no-data-word {
+                    position: relative;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: $primary;
+                }
+            }
+        }
+        .edit-icon {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 40px;
+            height: 40px;
+            background: $primary;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+    }
+}
