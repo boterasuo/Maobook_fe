@@ -10,27 +10,22 @@ import NotFound404 from "./pages/Home/NotFound404";
 // 引入 API 相關工具
 import { API_URL } from "./utils/config";
 import axios from "axios";
-
-// 首頁Home - Pages
+// [[[ 首頁 Home       ]]] 
 import Home from "./pages/Home";
 import Login from "./pages/Home/Login";
-
-// 會員Member - Pages
+// [[[ 會員 Member     ]]] 
 import Member from "./pages/Member";
-
-// 行事曆Schedule - Pages
+import PetDataTest from "./pages/PetDataTest.js";
+// [[[ 行事曆 Schedule ]]] 
 import Schedule from "./pages/Schedule";
-
-// 電商Store - Pages
+// [[[ 電商 Store      ]]] 
 import Store from "./pages/Store";
 import CartDetail from "./pages/Store/CartDetail";
 import ProductDetails from "./pages/Store/ProductDetails";
 import OrderDetail from "./pages/Store/OrderDetail";
-
-// 社群Community - Pages
+// [[[ 社群 Community  ]]] 
 import Community from "./pages/Community";
-
-// 互助Assistance - Pages
+// [[[ 互助 Assistance ]]] 
 import Assistance from "./pages/Assistance";
 
 // 引入元件
@@ -94,6 +89,9 @@ function App() {
           <ScrollToTop>
             <Switch>
               {/* [[[  互助路徑  ]]] */}
+              <Route path="/petdata">
+                <PetDataTest />
+              </Route>
               <Route path="/assistance">
                 <Assistance />
               </Route>
