@@ -1,5 +1,5 @@
 // 引入 React 功能
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {useState} from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -45,7 +45,21 @@ function SignUp(props) {
         setSignUpErr({...signUpErr, [e.target.name]:""});
     };
 
-    // 表單有不合法的檢查出現時 (onChange 即時檢查)
+    // 表單有不合法的檢查出現時 (onChange 即時檢查 TODO: 改成 Debounce 寫法)
+    // Debounce
+    // const testDB = () => console.log("小明");
+    const debounce = (func, delay=3000) => {
+        let timer = null;
+        return () => {
+            let context = this;
+            let args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                func.apply(context, args);
+            }, delay);
+        }
+    };
+
     // name 欄位前端檢查
     const handleNameInvalid = (e) => {
         e.preventDefault();
@@ -129,7 +143,7 @@ function SignUp(props) {
     
 
   return (
-  <div>
+  <div id="sign-up">
     {/* 排版用空白區塊 */}
     <div className="container">
         {/* maobook 字 logo */}
@@ -163,9 +177,6 @@ function SignUp(props) {
                                 name="name"
                                 value={member.name}
                                 onChange={(e) => {handleChange(e); handleNameInvalid(e)}}
-                                // onChange={handleChange}
-                                // onInvalid={handleNameInvalid}
-                                required
                             />
                             {/* name 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -180,8 +191,6 @@ function SignUp(props) {
                                 name="email"
                                 value={member.email}
                                 onChange={(e) => {handleChange(e); handleEmailInvalid(e)}}
-                                // onInvalid={handleEmailInvalid}
-                                required
                             />
                             {/* email 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -195,11 +204,7 @@ function SignUp(props) {
                                 placeholder="密碼" 
                                 name="password"
                                 value={member.password}
-                                onChange={(e) => {handleChange(e); handlePswInvalid(e)}}
-                                // onChange={handleChange}
-                                // onInvalid={handlePswInvalid}
-                                minLength="8"
-                                required
+                                onChange={(e) => {handleChange(e); debounce(handlePswInvalid(e))}}
                             />
                             {/* password 欄位錯誤訊息 */}
                             <div className="errMsg">
@@ -214,10 +219,6 @@ function SignUp(props) {
                                 name="confirmPassword"
                                 value={member.confirmPassword}
                                 onChange={(e) => {handleChange(e); handleConfirmPswInvalid(e)}}
-                                // onChange={handleChange}
-                                // onInvalid={handleConfirmPswInvalid}
-                                minLength="8"
-                                required
                              />
                             {/* confirmPassword 欄位錯誤訊息 */}
                             <div className="errMsg">

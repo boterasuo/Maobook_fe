@@ -2,7 +2,7 @@
 import React from 'react';
 import {useState, useEffect} from "react";
 import axios from 'axios';
-// import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 // 引入 utils
 import {API_URL} from "../utils/config";
@@ -20,12 +20,13 @@ import Intro from './Schedule/Intro.js'
 import Calendar from './Schedule/calendarE.js'
 import Notes from './Schedule/Notes.js'
 import Post from './Schedule/Post'
+import PetData from "./PetData/PetData"
 
 
 
 
 
-function calandar() {
+function Calandar() {
 
   // // const Schedule = () => {
   // //   const [error, setError] = useState(null);
@@ -45,6 +46,7 @@ function calandar() {
   //     };
   //     getSchedule();
   // // }
+  const [NoteDate,setNoteDate]=useState(new Date())
 
   return (
     <>
@@ -56,17 +58,19 @@ function calandar() {
         <img src={scheduleText2} alt="" className="img-fld" />
       </div>
       <div className="iconPost">
+        <Link to={`/Container`}>
         <img src={scheduleIcon1} alt="" />
+        </Link>
       </div>
       
       <div className="Introdiv">
       <Intro/>
       </div>
       <div className="Calendardiv">
-      <Calendar/>
+      <Calendar setNoteDate={setNoteDate}/>
       </div>
       <div className="Notesdiv">
-      <Notes/>
+      <Notes NoteDate={NoteDate}/>
       </div>
       <div className="scheduleCharts">
       {/* <Charts/> */}
@@ -74,9 +78,9 @@ function calandar() {
         <div className="Postdiv bg-primary position-relative">
           {/* <footer></footer> */}
         </div>
+      {/* <PetData /> */}
     </Container>
 
-        <Post/>
     </div>
     </>
   )
@@ -88,4 +92,4 @@ function calandar() {
 
 
 
-export default calandar;
+export default Calandar;

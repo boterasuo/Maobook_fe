@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Modal, Button } from "react-bootstrap";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 // 引入 context
 import { useAuth } from "../../../context/auth";
@@ -31,6 +31,7 @@ function MemberData(props) {
         setUserInfo(result.data.data);
       } catch(e) {
         console.error("user info 錯誤", e.response.data);
+        
       }
     };
     getUserInfo();

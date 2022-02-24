@@ -57,9 +57,14 @@
 }
 
 // 事件
+.asd {
+  // width: 800px;
+  display: flex;
+  // flex-direction: column;
+}
 
 .scheduleEvents {
-  display: flex;
+  // display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -94,10 +99,63 @@
   padding: 3px 3px 3px 3px;
 }
 .scheduleEvents4 {
-  padding: 3px 3px 3px 3px;
+  padding: 3px 5px 3px 5px;
+  display: flex;
 }
+
+.bbb {
+  height: 10px;
+  padding-right: 50px;
+
+  // padding: 3px 3px 3px 3px;
+  // padding: auto;
+  // margin: auto;
+  // font-size: 16px;
+  // justify-content: flex-start;
+  // position: absolute;
+  // z-index: 5;
+  // text-align: center;
+  // color: red;
+}
+
+.scheduleEvents4tags {
+  padding: 1px 3px 1px 3px;
+  // width: 100px;
+  position: absolute;
+  // display: flex;
+
+  justify-content: flex-start;
+  // left: 50%;
+  // transform: translateX(-50%);
+  // width: 100%;
+  // height: 100%;
+  z-index: 3;
+}
+
+.scheduleEvents4tagsText {
+  padding: 1px 5px 1px 5px;
+  margin: 1px 5px 1px 5px;
+  font-size: 16px;
+  background-color: sandybrown;
+  border-radius: 10px;
+
+  // width: 100%;
+  justify-content: flex-start;
+  position: absolute;
+  // left: 50%;
+  // transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  color: white;
+}
+
 .scheduleEvents5 {
   padding: 3px 3px 3px 3px;
   color: #6a5f4b;
-  font-size: 20px;
+  font-size: 16px;
+}
+.aaaaaa {
+  width: 100px;
+  height: 10px;
+  padding: 10px 10px 10px 10px;
 }
