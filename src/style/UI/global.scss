@@ -69,13 +69,11 @@ body {
 
 // 外框線按鈕
 .btn-outline-primary {
-  &:hover {
+  svg, a{
+    vertical-align: middle;
+  }
+  &:hover{
     color: white;
     font-weight: bold;
   }
-  &:active {
-    color: wheat;
-
-  }
-  
 }
