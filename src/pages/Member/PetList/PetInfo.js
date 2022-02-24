@@ -44,9 +44,11 @@ function PetInfo(props) {
   // 健康狀態 checkbox
   const healthValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const healthOptions = ["慢性腎衰竭", "糖尿病", "下泌尿道症候群", "體重過重", "關節炎", "腸胃敏感", "皮膚敏感", "心臟疾病", "心血管疾病"];
+  // TODO: 有時間的話改將 vaccine 和 health 統一存入 pet 狀態中
+  // 這樣就只要改變一次狀態就好
   const [healthList, setHealthList] = useState([]);
 
-  // 處理歲數
+  // 處理歲數 TODO: 應可將歲數處理改寫成 function ?
   let ageY, ageM;
   if (pet.birthday) {
       const today = new Date();
@@ -144,7 +146,7 @@ function PetInfo(props) {
                         {pet.height || pet.weight ? (
                             <div className="mx-1 newest-data">最新資料</div>
                         ) : ""}
-                        {pet.height ? (<div className="mx-2">身高 {pet.height} cm</div>) : ""}
+                        {pet.height ? (<div className="mx-2">身長 {pet.height} cm</div>) : ""}
                         {pet.weight ? (<div className="mx-2">體重 {pet.weight} kg</div>) : ""}
                         {!pet.height && !pet.weight ? (
                             <div className="mx-1">尚未提供</div>
@@ -155,7 +157,7 @@ function PetInfo(props) {
                 </tr>
                 <tr>
                 <td>疫苗</td>
-                <td className="edit-gender">
+                <td className="edit-gender readOnly-checkbox">
                     {vaccineValues.map((v, i) => {
                         return (
                             <div key={i} className="form-check-inline">
@@ -181,7 +183,7 @@ function PetInfo(props) {
                 </tr>
                 <tr>
                 <td className="align-baseline">狀態</td>
-                <td className="edit-gender">
+                <td className="edit-gender readOnly-checkbox">
                 <div className="d-flex flex-wrap health-checkbox">                
                 {healthValues.map((v, i) => {
                   return (
