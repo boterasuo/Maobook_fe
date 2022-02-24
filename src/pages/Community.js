@@ -8,7 +8,7 @@ import "./Community.scss";
 import Intro from "./Community/Intro";
 import Discuss from "./Community/Discuss";
 import Daily from "./Community/Daily";
-import Post from "./Community/Post";
+import Post from "./Community/ComPost";
 
 // 懸浮元件
 import Tools from './Community/component/Tools'

@@ -8,7 +8,9 @@ import "../Community.scss";
 
 function DailyDetail(props) {
   return (
-    <div>DailyDetail</div>
+    <>
+      
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
-@import "../../Community.scss";
+@import "../../../Community.scss";
 
 
 .container {
@@ -42,7 +42,7 @@ $avatar-length: 4rem;
   .datadisplay {
     display: flex;
     border: 1px $primary solid;
-    max-width: 80vw;
+    width: 40vw;
     border-radius: 30px;
     padding-left: 15px;
     padding-right: 15px;

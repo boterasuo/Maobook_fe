@@ -9,6 +9,11 @@
   display: none;
 }
 
+.cover{
+  img{
+    max-width: 85%;
+  }
+}
 
 .go-on{
 width: 180px;
@@ -31,10 +36,7 @@ width: 180px;
     height: auto;
     max-width: 80vw;
     margin-top: $page-margin;
-    img {
-      height: auto;
-      width: 85%;
-    }
+    
   }
 }
 // RWD
