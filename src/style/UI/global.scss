@@ -95,7 +95,7 @@ html {
   // 輪軸背景
   &::-webkit-scrollbar {
     background-color: #f5f5f5;
-   
+    scrollbar-width: thin;
   }
   // 輪軸bar
   &::-webkit-scrollbar-thumb {
@@ -133,7 +133,7 @@ html {
   }
 }
 
-// 取消focus時的outline效果
+// 取消 :focus{outline}效果
 .outline-none{
   &:focus{
     outline: none;
