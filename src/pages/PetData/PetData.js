@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import "./PetData.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import axios from "axios";
 import differenceInMonths from "date-fns/differenceInMonths";
 import differenceInDays from 'date-fns/differenceInDays'
@@ -48,7 +48,7 @@ function PetData(props) {
 
     // 取得毛孩基資 & 數值資料
     useEffect(() => {
-        let getUserInfo = async () => {
+        let getPetInfo = async () => {
         try {
             // 先取得已登入使用者所有毛孩列表
             let listResult = await axios.get(`${API_URL}/pet`, {withCredentials: true,});
@@ -67,7 +67,7 @@ function PetData(props) {
             console.error("pet data 錯誤", e.response.data);
             
         }};
-        getUserInfo();
+        getPetInfo();
     }, []);
 
     useEffect(() => {
@@ -251,7 +251,10 @@ function PetData(props) {
                         <div className="chart">
                         {petInfo.heightData.length ? (
                             <>
-                            <span>最新十筆資料</span>
+                            <span className="data-length">最新{petInfo.heightData.length}筆資料</span>
+                            {petInfo.heightData.length === 1 ? (
+                                <span className="one-data">試試新增更多資料吧！</span>
+                            ) : ""}
                             <Line options={optionsHeight} data={dataHeight} />
                             </>
                         ) : (
@@ -264,7 +267,10 @@ function PetData(props) {
                         <div className="chart">
                         {petInfo.weightData.length ? (
                             <>
-                            <span>最新十筆資料</span>
+                            <span className="data-length">最新{petInfo.weightData.length}筆資料</span>
+                            {petInfo.weightData.length === 1 ? (
+                                <span className="one-data">試試新增更多資料吧！</span>
+                            ) : ""}
                             <Line options={options} data={dataWeight} />
                             </>
                         ) : (
@@ -273,8 +279,8 @@ function PetData(props) {
                         </div>
                     </div>
                 </div>
-                <NavLink as={NavLink} to="/member/pet">
-                    <button className="edit-icon" title="編輯毛孩身長體重">
+                <NavLink as={NavLink} to={`/member/pet/data/edit/${selectedPet}`}>
+                    <button className="edit-icon" title="新增/編輯毛孩數值">
                     <BsPencilSquare color="white" fontSize="1.3rem" />
                     </button>
                 </NavLink>
@@ -285,4 +291,4 @@ function PetData(props) {
 }
 
 
-export default PetData
+export default withRouter(PetData)

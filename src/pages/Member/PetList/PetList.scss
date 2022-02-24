@@ -112,6 +112,11 @@ $secondary: #6a5f4b;
         border-radius: 3px;
         color: red;
     }
+    .readOnly-checkbox {
+        label {
+            cursor: default;
+        }
+    }
 }
 // AddPet 頁面
 .health-checkbox {

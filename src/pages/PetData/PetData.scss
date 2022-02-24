@@ -2,6 +2,7 @@
 $primary: #f6bc54;
 $secondary: #6a5f4b;
 
+// PetData 頁面
 .pet-data {
     padding: 3rem 7rem;
     .nav-tabs {
@@ -36,13 +37,21 @@ $secondary: #6a5f4b;
                 border: 1px solid #ddd;
                 border-radius: 8px;
                 position: relative;
-                span {
+                .data-length {
                     position: absolute;
                     top: 2px;
                     left: 4px;
                     font-size: 0.5rem;
                     font-weight: 400;
                     color: #ccc;
+                }
+                .one-data {
+                    position: absolute;
+                    top: 20px;
+                    left: 4px;
+                    font-size: 0.5rem;
+                    font-weight: 400;
+                    color: $primary;
                 }
                 .no-data-word {
                     position: relative;
@@ -65,6 +74,59 @@ $secondary: #6a5f4b;
             align-items: center;
             justify-content: center;
             border: none;
+        }
+    }
+}
+
+// AddPetData 頁面
+.pet-data-edit {
+    .btn {
+        margin: 0 2px;
+        padding: 0 0.5rem;
+        border: 1px solid $primary;
+        color: $primary;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        &:hover {
+            background: $primary;
+            color: white;
+        }
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+    .form-control {
+        margin: 0 0.6rem;
+        padding: 3px 12px;
+        height: 1.8rem;
+        font-size: 0.9rem;
+    }
+}
+.pet-data-select {
+    margin-bottom: 1rem;
+}
+
+.pet-data-table {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    > thead > tr {
+        height: 1rem;
+        > th {
+            padding: 0.3rem;
+        }
+    }
+    > tbody > tr {
+        height: 1rem;
+        > td {
+            padding: 0.3rem;
+        }
+    }
+    .date-form {
+        .form-control {
+            width: 90%;
+            margin: auto;
         }
     }
 }
