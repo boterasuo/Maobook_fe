@@ -78,7 +78,7 @@ function Calandar() {
         <div className="Postdiv bg-primary position-relative">
           {/* <footer></footer> */}
         </div>
-      {/* <PetData /> */}
+      <PetData />
     </Container>
 
     </div>
