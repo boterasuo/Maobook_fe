@@ -15,7 +15,9 @@ $bs-secondary: #6c757d;
 $roboto: "Roboto", sans-serif;
 
 // navbar的高度
-$nav-height: 80px;
+$nav-height: 56px;
+// footer的高度
+$footer-height: 60px;
 // 每一個錨點的高度
 $page-height: calc(100vh - $nav-height);
 
@@ -47,18 +49,29 @@ body {
 
 // 導覽列
 .navbar {
+  height: $nav-height;
   background-color: white;
   box-shadow: 0 5px 5px #ccc;
   text-align: center;
+  //手機版下拉選單 
+  .collapse {
+    background-color: white;
+  }
   // 登入按鈕
   .nav-login-btn {
-    width: 200px;
+    width: 100px;
+    border-radius: 2rem;
   }
-  // 會員頭像 (暫時修改 for 測試 navbar)
-  .nav-avatar {
-    height: 40px;
-    width: 40px;
-    // background: $primary;
+  // 會員專區
+  form.member {
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+    // 會員頭像 (暫時修改 for 測試 navbar)
+    .nav-avatar {
+      height: 40px;
+      width: 40px;
+    }
   }
 }
 
@@ -138,4 +151,12 @@ html {
   &:focus{
     outline: none;
   }
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: $secondary;
+  text-align: center;
 }
