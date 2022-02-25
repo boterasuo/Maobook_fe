@@ -64,15 +64,16 @@ function Footer(props) {
   const [modalShow, setModalShow] = React.useState(false);
   return (
     <>
-      <footer className="bg-secondary mt-auto py-3 text-center">
+      <footer>
         <div className="container">
           <span className="text-white">
-            © 2022 Maobook{" "}
+   {/* 黃貓:🐈; 黑貓:🐈‍⬛／狗狗:🐕; 服務犬:🐕‍🦺; 導盲犬:🦮／paw:🐾 */}
+           ＠2022 Maobook 🐈🐕
             <a
               className="text-white pointer"
               onClick={() => setModalShow(true)}
             >
-              作業版權免責說明
+              專題版權免責聲明 
             </a>
           </span>
         </div>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { format, getDate, isSameDay } from 'date-fns';
 import useCalendar, { WEEKS } from './components/UseCalendar';
 import 'react-bootstrap';
@@ -8,7 +9,20 @@ import buttonIconR from './img/calArrowR.svg';
 import dateCircle from './img/calDateCircle.svg';
 
 const HelpCalendar = () => {
+
+    const [data, setData] = useState([])
     const calendar = useCalendar()
+
+    useEffect(() => {
+        let getCaseNum = async () => {
+            let response = await axios.get("http://localhost:3000/api/helpcalendar/"+calendar.today.getFullYear()+"/"+(calendar.today.getMonth()+1));
+          //("${API_URL}/helpcalendar/");
+          setData(response.data);
+        };
+        getCaseNum();
+      },[calendar.today]);
+
+
     return (
         <>
         <div className="calendar">
@@ -67,6 +81,15 @@ const HelpCalendar = () => {
                                     const selectedToday = () => {
                                         calendar.selectDate(date.date)
                                     }
+                                    
+                                    const daycases =[]
+                                    let checkdate = data.find(a => { 
+                                    return a.date == getDate(date.date);
+                                    });
+                                    let showdaycases = checkdate === undefined ? [] : checkdate.id;
+                                    for(let i = 0; i < showdaycases.length; i++){
+                                    daycases.push(showdaycases[i])
+                                }
         
                                     return (
                                         <>
@@ -85,7 +108,7 @@ const HelpCalendar = () => {
                                            {!otherMonth &&                                            
                                             <div className="linkCircle">
                                             <img src={dateCircle} className="dateCircle" alt=""/>
-                                            <div className="circleText">{getDate(date.date)}</div>
+                                            <div className="circleText">{daycases.length}</div>
                                             </div>
                                             }
                                             </td>
