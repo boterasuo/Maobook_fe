@@ -128,7 +128,7 @@ function AddPet(props) {
           setShowModal(true);
         }
       } catch (e) {
-        console.error("更新失敗: ", e.response.data);
+        console.error("新增毛孩失敗: ", e.response.data);
         setEditErr({...editErr,
           name: e.response.data.name,
           arrDay: e.response.data.arrDay,

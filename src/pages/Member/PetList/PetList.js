@@ -48,7 +48,7 @@ function PetList(props) {
           {petList.map((pet, i) => {
             return (
               <div key={pet.id} className="d-flex flex-column pet-list-card">
-                <Link to={`/member/pet/${pet.id}`}>
+                <Link to={`/member/pet/info/${pet.id}`}>
                   <div className="embed-responsive embed-responsive-1by1 pet-avatar">
                       <img alt="" className="avatar-cover-fit embed-responsive-item" 
                         src={pet.image.length ? `${IMG_URL}${pet.image}` : defaultPet}/>
