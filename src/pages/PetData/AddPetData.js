@@ -9,14 +9,14 @@ import SwitchBTN from "./SwitchBTN";
 function AddPetData(props) {
     // 取得當前 selected pet id (來自 match params)
     const selectedPetId = parseInt(props.match.params.selectedPet, 10);
+    // 被選取毛孩
+    const [selectedPet, setSelectedPet] = useState(selectedPetId);
     // 按鈕狀態 (true 體重 / false 身長)
     const [switchBTN, setSwitchBTN] = useState(false);
     // 身高體重 (height / weight)
     // const [hwSwitch, setHwSwitch] = useState("height");
     // 毛孩列表
     const [petList, setPetList] = useState([]);
-    // 被選取毛孩
-    const [selectedPet, setSelectedPet] = useState(selectedPetId);
     // 存取身長/體重資料狀態
     const [petHWInfo, setPetHWInfo] = useState([]);
     const petHeightRef = useRef();
@@ -30,12 +30,6 @@ function AddPetData(props) {
     const toggleSwitchBTN = () => {
         setSwitchBTN(!switchBTN);
     };
-    // 如果按鈕狀態改變, 同步改變身高體重狀態
-    // useEffect(() => {
-    //     if(switchBTN) {
-    //         setHwSwitch("weight");
-    //     } else setHwSwitch("height");
-    // }, [switchBTN]);
 
     // 取得毛孩 id & name
     useEffect(() => {
@@ -65,31 +59,36 @@ function AddPetData(props) {
         getPetInfo();
     }, []);
 
+    // 抓身高函式
+    let getHeight = async () => {
+        try {
+            let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`, {withCredentials: true});
+            // console.log(heightResult.data);
+            // 用 Ref 只有剛開始有用, 後面還是會跟著 petHWInfo 跑??
+            // petHeightRef.current = heightResult.data.data; 
+            setPetHWInfo([...heightResult.data.data]);
+        } catch(e) {
+            console.error("all height 錯誤", e.response.data);
+        }};
+    
+    // 抓體重函式
+    let getWeight = async () => {
+        try {
+            let weightResult = await axios.get(`${API_URL}/pet/weight/${selectedPet}`, {withCredentials: true});
+            // console.log(weightResult.data);
+            // petWeightRef.current = weightResult.data.data;
+            setPetHWInfo([...weightResult.data.data]);
+        } catch(e) {
+            console.error("all weight 錯誤", e.response.data);
+        }};
+
     // 選取毛孩狀態改變時 => 取得被選取毛孩身長 or 體重資料
     useEffect(() => {
         if(selectedPet) {
-            if(switchBTN === false) {
-                let getHeight = async () => {
-                    try {
-                        let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`, {withCredentials: true});
-                        // console.log(heightResult.data);
-                        // petHeightRef.current = heightResult.data.data; 用 Ref 只有剛開始有用, 後面還是會跟著 petHWInfo 跑??
-                        setPetHWInfo(heightResult.data.data);
-                    } catch(e) {
-                        console.error("all height 錯誤", e.response.data);
-                    }
-                }; getHeight();
+            if(switchBTN === false) { 
+                getHeight();
             } else if(switchBTN === true) {
-                let getWeight = async () => {
-                    try {
-                        let weightResult = await axios.get(`${API_URL}/pet/weight/${selectedPet}`, {withCredentials: true});
-                        // console.log(weightResult.data);
-                        // petWeightRef.current = weightResult.data.data;
-                        setPetHWInfo(weightResult.data.data);
-                    } catch(e) {
-                        console.error("all height 錯誤", e.response.data);
-                    }
-                }; getWeight();
+                getWeight();
             }
         }
     }, [selectedPet, switchBTN]);
@@ -103,33 +102,25 @@ function AddPetData(props) {
     };
     const handleCancel = () => {
         setEdit();
+        setEditData({});
         if(switchBTN === false) {
-            // alert("確認取消修改?")
-            let getHeight = async () => {
-                try {
-                    let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`, {withCredentials: true});
-                    // console.log(heightResult.data);
-                    setPetHWInfo(heightResult.data.data);
-                } catch(e) {
-                    console.error("all height 錯誤", e.response.data);
-                }
-            }; getHeight();
+            // const originalData = [...petHeightRef.current];
+            // setPetHWInfo([...originalData]);
+            getHeight();
         }else {
-            // alert("確認取消修改?")
-            let getWeight = async () => {
-                try {
-                    let weightResult = await axios.get(`${API_URL}/pet/weight/${selectedPet}`, {withCredentials: true});
-                    // console.log(weightResult.data);
-                    setPetHWInfo(weightResult.data.data);
-                } catch(e) {
-                    console.error("all height 錯誤", e.response.data);
-                }
-            }; getWeight();
+            // const originalData = [...petWeightRef.current];
+            // setPetHWInfo([...originalData]);
+            getWeight();
         }
-    }
+    };
 
     // input onChange 函式
     function handleChange(e) {
+        if(switchBTN === false) {
+            setEditData({...editData, id:edit, [e.target.name]:e.target.value, type:"height"});
+        } else {
+            setEditData({...editData, id:edit, [e.target.name]:e.target.value, type:"weight"});
+        }
         const editId = petHWInfo.findIndex((data) => {
             return data.id === parseInt(edit)
         });
@@ -138,8 +129,27 @@ function AddPetData(props) {
         newEditData[e.target.name] = e.target.value;
         let temPetHWInfo = [...petHWInfo];
         temPetHWInfo[editId] = newEditData;
-        setPetHWInfo(temPetHWInfo);
+        setPetHWInfo([...temPetHWInfo]);
     };
+
+    // 確認修改函式
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+            try {
+                let editResult = await axios.post(`${API_URL}/pet/editData`, editData, 
+                {withCredentials:true});
+                console.log(editResult.data);
+                if(editResult.data.message === "ok") {
+                    alert("修改成功!");
+                    setEdit();
+                }
+            } catch(e) {
+                console.error("資料更新失敗")
+            }
+    }
+
+    // 新增資料函式
  
 
   return (
@@ -176,7 +186,12 @@ function AddPetData(props) {
                             return (
                                 <tr key={data.id}>
                                     <td className="d-none">
-                                        <input type="text" value={data.id} name="dataId" readOnly/>
+                                        <input 
+                                            type="text" 
+                                            value={data.id} 
+                                            name="id"
+                                            onChange={(e) => handleChange(e)}
+                                            />
                                     </td>
                                     <td>{edit !== data.id.toString() ? data.value : 
                                         <input 
@@ -203,12 +218,12 @@ function AddPetData(props) {
                                         <div className="d-flex">
                                             {edit !== data.id.toString() ? (
                                                 <>
-                                                    <button name={data.id} type="button" className="btn" onClick={(e) => handleEdit(e)}>修改</button>
+                                                    <button name={data.id} type="button" className="btn" onClick={handleEdit}>修改</button>
                                                     <button type="button" className="btn">刪除</button>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <button type="button" className="btn">確認</button>
+                                                    <button type="button" className="btn" onClick={handleSubmit}>確認</button>
                                                     <button type="button" className="btn" onClick={handleCancel}>取消</button>
                                                 </>
                                             )}
