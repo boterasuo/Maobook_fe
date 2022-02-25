@@ -77,7 +77,7 @@ function OrderHistory(props) {
     ],
   };
   return (
-    <div style={{width:"600px", height:"400px"}}>
+    <div style={{width:"600px", height:"500px"}}>
       <Line options={options} data={data1}/>
       <Line options={options} data={data2}/>
     </div>
