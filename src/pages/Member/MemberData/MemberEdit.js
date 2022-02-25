@@ -135,8 +135,9 @@ function MemberEdit(props) {
   );
 
   return (
-    <form className="row position-relative info-card">
+    <form className="position-relative info-card">
       {editModal}
+      <div className="row">
       {/* 大頭照區域 */}
       <div className="col-lg-5 w-100">
         <div className="embed-responsive embed-responsive-1by1 avatar-info position-relative">
@@ -286,6 +287,7 @@ function MemberEdit(props) {
             </tr>
           </tbody>
         </Table>
+      </div>
       </div>
       <button className="edit-icon" title="儲存會員資料" onClick={handleSubmit}>
         <BsReply color="white" fontSize="1.6rem" />
