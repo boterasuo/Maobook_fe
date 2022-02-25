@@ -54,7 +54,7 @@ function Notes({NoteDate}) {
 
 
               {
-                data.length==0?<div><b>NO body gives a shit</b></div>:
+                data.length==0?<div><b className="restTime">目前沒有重要記事喔</b></div>:
                 data.map((item,i) => {
               return (
                 <>
@@ -109,7 +109,7 @@ function Notes({NoteDate}) {
             <div className="scheduleNotesTodaybox">
               <div>
               {
-                CheckData.length==0?<div><b>NO body givea a shit</b></div>:
+                CheckData.length==0?<div><b className="restTime">本日沒有行程喔～快去安排吧！</b></div>:
                 CheckData.map((Dateitem,i) => {
 
               return (

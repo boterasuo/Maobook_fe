@@ -78,6 +78,8 @@ function Calandar() {
           {/* <footer></footer> */}
         </div>
     </Container>
+      <Post/>
+
 
     </div>
     </>
