@@ -161,7 +161,7 @@ function PetData(props) {
             },
         }
     };
-    const options = {
+    const optionsWeight = {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
@@ -173,8 +173,8 @@ function PetData(props) {
             },
             y: {
                 display: false,
-                // min: Math.min(...petInfo.heightData) * 0.95, 
-                // max: Math.max(...petInfo.heightData) * 1.05,
+                min: Math.min(...petInfo.weightData) * 0.95, 
+                max: Math.max(...petInfo.weightData) * 1.05,
                 // grid: {
                 //     display: false,
                 // }
@@ -271,7 +271,7 @@ function PetData(props) {
                             {petInfo.weightData.length === 1 ? (
                                 <span className="one-data">試試新增更多資料吧！</span>
                             ) : ""}
-                            <Line options={options} data={dataWeight} />
+                            <Line options={optionsWeight} data={dataWeight} />
                             </>
                         ) : (
                             <div className="no-data-word">未有資料，點擊下方立即新增</div>

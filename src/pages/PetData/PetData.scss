@@ -111,16 +111,42 @@ $secondary: #6a5f4b;
     margin-bottom: 1rem;
     font-size: 0.9rem;
     text-align: center;
-    > thead > tr {
-        height: 1rem;
-        > th {
-            padding: 0.3rem;
+    .form-control {
+        margin: 0;
+    }
+    .sorting-icon {
+        margin: 0 1px;
+        color: grey;
+    }
+    > thead {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        > tr {
+            height: 1rem;
+            > th {
+                padding: 0.3rem;
+            }
+            > th:first-child {
+                width: 145px;
+            }
+            > th:last-child {
+                width: 178px;
+            }
         }
     }
-    > tbody > tr {
-        height: 1rem;
-        > td {
-            padding: 0.3rem;
+    > tbody {
+        width: 100%;
+        height: 245px;
+        overflow-y: auto;
+        display: block;
+        > tr {
+            display: table;
+            width: 100%;
+            height: 1rem;
+            > td {
+                padding: 0.3rem;
+            }
         }
     }
     .date-form {
@@ -129,4 +155,11 @@ $secondary: #6a5f4b;
             margin: auto;
         }
     }
+    .errMsg {
+        padding: 0.3rem 0.3rem 0 0.3rem;
+    }
+}
+.detail-chart {
+    padding: 2.2rem 0;
+    height: 400px;
 }
