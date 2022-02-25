@@ -1,8 +1,11 @@
 // 引入 React 功能
 import React from 'react'
 import { useEffect, useState } from 'react'
-// import axios from 'axios';
+import axios from 'axios'
 import 'react-bootstrap'
+
+// 引入 context
+import { useAuth } from '../../context/auth'
 
 // 引入 utils
 // import {API_URL} from "../../utils/config";
@@ -26,10 +29,50 @@ function Post(props) {
   // 文字 textarea
   const [textareaValue, setTextareaValue] = useState('')
 
+  // 處理會員
+  const { user, setUser } = useAuth()
+  // console.log('會員編號', user.id)
+
+  // 處理比對會員寵物
+  const petSelect = async () => {
+    let response = await axios.get(
+      'http://localhost:3002/api/calenderPost/' + user.id
+    )
+    console.log(response.data)
+    setData(response.data)
+  }
+  const [data, setData] = useState([])
+  useEffect(() => {
+    petSelect()
+  }, [])
+
+  // // 送出表單 (onSubmit)
+  // async function handleSubmit(e) {
+  //   e.preventDefault()
+
+  //   try {
+  //     let response = await axios.post(`${API_URL}/auth/register`, member)
+  //     console.log(response.data.message)
+  //     if (response.data.message === 'ok') {
+  //       // 客製化 Modal
+  //       setShowModal(true)
+  //     }
+  //   } catch (e) {
+  //     console.error('error', e.response.data)
+  //     // 後端驗證
+  //     setSignUpErr({
+  //       ...signUpErr,
+  //       name: e.response.data.name,
+  //       email: e.response.data.email,
+  //       password: e.response.data.password,
+  //       confirmPassword: e.response.data.confirmPassword,
+  //     })
+  //   }
+  // }
+
   return (
     <>
       <h1 className="schedulePostH1">重要的事情</h1>
-
       <div className="bg-primary position-relative">
         <div className="schedulePost">
           <h2 className="schedulePostH2">寫下來提醒自己吧</h2>
@@ -99,7 +142,14 @@ function Post(props) {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <option value="小喵" className="dropdown-item">
+                    {data.map((item, i) => {
+                      return (
+                        <option value={item.petname} className="dropdown-item">
+                          {item.petname}
+                        </option>
+                      )
+                    })}
+                    {/* <option value="小喵" className="dropdown-item">
                       小喵
                     </option>
                     <option value="布魯托" className="dropdown-item">
@@ -107,7 +157,7 @@ function Post(props) {
                     </option>
                     <option value="唐基柯德" className="dropdown-item">
                       唐基柯德
-                    </option>
+                    </option> */}
                   </select>
                 </div>
                 {/* 輸入TAG標籤 */}
@@ -238,7 +288,9 @@ function Post(props) {
                 </div>
               </div>
               {/* <div className="buttonDiv"> */}
-              <button className="scheduleSummitButton">送 出</button>
+              <button className="scheduleSummitButton" type="submit">
+                送 出
+              </button>
               {/* </div> */}
             </div>
           </form>
