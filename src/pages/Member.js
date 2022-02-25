@@ -119,7 +119,7 @@ function Member(props) {
             <Route path="/member/pet/data/edit/:selectedPet">
               <AddPetData />
             </Route>
-            <Route path="/member/pet/:petId">
+            <Route path="/member/pet/info/:petId">
               <PetInfo petList={petList} setPetList={setPetList} />
             </Route>
             <Route path="/member/pet/add">
