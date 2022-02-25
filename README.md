@@ -9,6 +9,6 @@ npm i yarn<br>
 (請自行 npm i)
 
 yarn add date-fns (npm i date-fns)<br>
-yarn add react-anchor-link-smooth-scroll<br>
+yarn add react-anchor-link-smooth-scroll // 錨點滑動效果<br>
 yarn add animate.css<br>
 
