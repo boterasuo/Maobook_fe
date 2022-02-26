@@ -3,13 +3,10 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import 'react-bootstrap'
-
 // 引入 context
 import { useAuth } from '../../context/auth'
-
 // 引入 utils
-// import {API_URL} from "../../utils/config";
-
+import { API_URL } from '../../utils/config'
 // 引入美術
 import '../Schedule/Post.scss'
 import scheduleIcon6 from './img/scheduleIcon6.svg'
@@ -29,6 +26,8 @@ function Post(props) {
   // 文字 textarea
   const [textareaValue, setTextareaValue] = useState('')
 
+  // 處理錯誤
+  const [errMsg, setErrMsg] = useState({ msg: '' })
   // 處理會員
   const { user, setUser } = useAuth()
   // console.log('會員編號', user.id)
@@ -46,7 +45,37 @@ function Post(props) {
     petSelect()
   }, [])
 
-  // // 送出表單 (onSubmit)
+  // 送出表單 (onSubmit)
+  const [schedule, setSchedule] = useState({
+    date: '2022-02-22 00:00:00',
+    important: '0',
+    pets: '0',
+    tagOne: '輸入關鍵字',
+    tagTwo: '輸入關鍵字',
+    category: '1',
+    textareaValue: '寫一些記事吧！',
+  })
+
+  function handleChange(e) {
+    setSchedule({ ...schedule, [e.target.name]: e.target.value })
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault() //關掉預設行為
+    try {
+      let response = await axios.post(
+        'http://localhost:3002/api/calenderForm/register',
+        schedule,
+        {
+          withCredentials: true,
+        }
+      )
+    } catch (e) {
+      console.error('寫入行事曆失敗', e.response.data)
+      setErrMsg({ ...errMsg, msg: e.response.data.msg })
+    }
+  }
+
   // async function handleSubmit(e) {
   //   e.preventDefault()
 
@@ -79,11 +108,9 @@ function Post(props) {
           <input
             className="scheduleData"
             type="date"
-            name="data"
-            value={date}
-            onChange={(e) => {
-              setDate(e.target.value)
-            }}
+            name="date"
+            value={schedule.date}
+            onChange={handleChange}
           />
 
           <form className="schedulePostInput">
@@ -93,17 +120,15 @@ function Post(props) {
 
             {/* 重要與普通radio */}
             <div className="schedulePostClass">
-              <fieldset id="importent">
+              <fieldset id="important">
                 <label for="0" className="schedulePostButton1 lg">
                   <input
                     type="radio"
                     id="0"
-                    name="importent"
+                    name="important"
                     value={0}
                     check={'0' === important}
-                    onChange={(e) => {
-                      setImportant(e.target.value)
-                    }}
+                    onChange={handleChange}
                     className="schedulePostCircle"
                   />
                   <span className="schedulePostButtontext">重 要</span>
@@ -113,12 +138,10 @@ function Post(props) {
                   <input
                     type="radio"
                     id="1"
-                    name="importent"
+                    name="important"
                     value={1}
                     check={'1' === important}
-                    onChange={(e) => {
-                      setImportant(e.target.value)
-                    }}
+                    onChange={handleChange}
                     className="schedulePostCircle"
                   />
                   <span className="schedulePostButtontext">普 通</span>
@@ -134,18 +157,16 @@ function Post(props) {
                     name="pets"
                     className="takeMaoOut"
                     type="select"
-                    value={selectedValue}
-                    onChange={(e) => {
-                      setSelectedValue(e.target.value)
-                    }}
+                    value={schedule.selectedValue}
+                    onChange={handleChange}
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    {data.map((item, i) => {
+                    {data.map((pets, i) => {
                       return (
-                        <option value={item.petname} className="dropdown-item">
-                          {item.petname}
+                        <option value={pets.petsid} className="dropdown-item">
+                          {pets.petname}
                         </option>
                       )
                     })}
@@ -162,32 +183,28 @@ function Post(props) {
                 </div>
                 {/* 輸入TAG標籤 */}
                 <div>
-                  <label for="fname" className="schedulePostLabel">
+                  <label for="tagOne" className="schedulePostLabel">
                     ＃
                   </label>
                   <input
                     className="scheduleInput"
                     type="text"
-                    value={tagOne}
-                    onChange={(e) => {
-                      setTagOne(e.target.value)
-                    }}
-                    id="fname"
-                    name="fname"
+                    value={schedule.tagOne}
+                    onChange={handleChange}
+                    id="tagOne"
+                    name="tagOne"
                   />
                   <br />
-                  <label for="lname" className="schedulePostLabel">
+                  <label for="tagTwo" className="schedulePostLabel">
                     ＃
                   </label>
                   <input
                     className="scheduleInput"
                     type="text"
-                    value={tagTwo}
-                    onChange={(e) => {
-                      setTagTwo(e.target.value)
-                    }}
-                    id="lname"
-                    name="lname"
+                    value={schedule.tagTwo}
+                    onChange={handleChange}
+                    id="tagTwo"
+                    name="tagTwo"
                   />
                 </div>
               </div>
@@ -201,9 +218,7 @@ function Post(props) {
                       name="category"
                       value={1}
                       check={'1' === eventTag}
-                      onChange={(e) => {
-                        setEventTag(e.target.value)
-                      }}
+                      onChange={handleChange}
                       className="schedulePostCircle"
                     />
                     <span className="schedulePostTagtext">
@@ -220,9 +235,7 @@ function Post(props) {
                       name="category"
                       value={2}
                       check={'2' === eventTag}
-                      onChange={(e) => {
-                        setEventTag(e.target.value)
-                      }}
+                      onChange={handleChange}
                       className="schedulePostCircle"
                     />
                     <span className="schedulePostTagtext">
@@ -239,9 +252,7 @@ function Post(props) {
                       name="category"
                       value={3}
                       check={'3' === eventTag}
-                      onChange={(e) => {
-                        setEventTag(e.target.value)
-                      }}
+                      onChange={handleChange}
                       className="schedulePostCircle"
                     />
                     <span className="schedulePostTagtext">
@@ -258,9 +269,7 @@ function Post(props) {
                       name="category"
                       value={4}
                       check={'4' === eventTag}
-                      onChange={(e) => {
-                        setEventTag(e.target.value)
-                      }}
+                      onChange={handleChange}
                       className="schedulePostCircle"
                     />
                     <span className="schedulePostTagtext">
@@ -278,17 +287,20 @@ function Post(props) {
                 <div>
                   <textarea
                     className="scheduleTextarea"
-                    value={textareaValue}
-                    onChange={(e) => {
-                      setTextareaValue(e.target.value)
-                    }}
+                    name="textareaValue"
+                    value={schedule.textareaValue}
+                    onChange={handleChange}
                   >
                     寫一些記錄吧！
                   </textarea>
                 </div>
               </div>
               {/* <div className="buttonDiv"> */}
-              <button className="scheduleSummitButton" type="submit">
+              <button
+                className="scheduleSummitButton"
+                type="submit"
+                onClick={handleSubmit}
+              >
                 送 出
               </button>
               {/* </div> */}
