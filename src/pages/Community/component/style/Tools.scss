@@ -10,14 +10,17 @@
   left: 82%;
   // right: 3%;
   z-index: 999;
+  transition: .8s;
   a {
     cursor:pointer;
     height: auto;
     width: 100%;
+    transition: .8s;
     img {
       height: auto;
       width: 3rem;
       margin: 20% 0 20% 0;
+    transition: .8s;
     }
     // 通知訊息
    .bouble-counter{
@@ -31,5 +34,28 @@
      top: -1rem;
      right: -0.5rem;
    }
+  }
+}
+
+// 查看貼文按鈕
+.btn-viewer{
+  transition: .6s;
+  &:hover b, &:hover a{
+    color: cadetblue;
+  }
+  &:hover img{
+    background-blend-mode: screen;
+    filter: sepia(80%);
+  }
+}
+// 撰寫貼文按鈕
+.btn-poster{
+  transition: .6s;
+  &:hover b{
+    color: cadetblue;
+  }
+  &:hover img{
+    background-blend-mode: screen;
+    filter: sepia(80%);
   }
 }

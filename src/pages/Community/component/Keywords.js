@@ -6,7 +6,7 @@ const Keywords = () => {
     return <>
     {
         keywordArr.map(keywords => 
-            <a div className="hashtags h-keywords">
+            <a div className="hashtags h-keywords" >
             {/* <span className="hashtag d-block h3"> */}
             #{keywords}
             {/* </span> */}

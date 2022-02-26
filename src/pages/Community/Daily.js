@@ -16,7 +16,7 @@ import "../Community.scss";
 
 // 元件
 import Search from "../Community/component/DailySearch";
-import DailyCard from "./component/DailyCard";
+import DailyCard from "./component/DailyCard/DailyCard";
 // 插圖
 import daily from "./images/text-daily.svg";
 
@@ -35,7 +35,7 @@ function Daily(props) {
         <Col></Col>
         <Col lg={3}>
           <Button variant="outline-primary rounded-pill text-end">
-            <HiPlus /> 發個文吧
+            <HiPlus /> <a>發個文吧</a>
           </Button>
         </Col>
       </Row>

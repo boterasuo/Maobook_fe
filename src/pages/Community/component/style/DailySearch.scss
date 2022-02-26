@@ -1,7 +1,12 @@
 @import "../../../../style/UI/global.scss";
 
 .daily-search {
+  width: 40vw;
+  display: inline-block;
     input {
+      min-width: 65%;
+      max-width: 80%;
+      height: 3rem;
     }
     Button{
       height: 3rem ;
@@ -13,7 +18,13 @@
   }
   }
   
+  // md以下
   @media (max-width: 767px) {
-    
+    .vw-md-50 {
+     width: 40vw;
+    }
+  }
 
+  .vertical-middle{
+    vertical-align: middle;
   }
