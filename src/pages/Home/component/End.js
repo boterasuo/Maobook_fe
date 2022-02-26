@@ -2,37 +2,31 @@ import React from "react";
 // 引入圖片
 import Paw from "../img/paw.svg";
 import Ending from "../img/home_end.svg";
+import scheduleIcon2 from "../../Schedule/img/scheduleIcon2.svg";
+// 引入樣式
 import "./End.scss";
 
 function End() {
   return (
     <>
-    <div className="main-content text-center py-2">
+      <div className="home-start">
         {/* 小腳印*4 */}
         <div className="content-up">
-            <div className="paw1">
-                <img className="paw1 img-fluid" src={Paw} alt="paw" />
-            </div>
-            <div className="paw2">
-                <img className="img-fluid" src={Paw} alt="paw" />
-            </div>
-            <p>最暖心的毛孩網站<br/>
-            歡迎你的加入</p>
-            <div className="paw3">
-                <img className="img-fluid" src={Paw} alt="paw" />
-            </div>
-            <div className="paw4">
-                <img className="img-fluid" src={Paw} alt="paw" />
-            </div>
+          <div><img className="paw1" src={Paw} alt="paw1"/></div>
+          <div><img className="paw2" src={Paw} alt="paw2"/></div>
+          <div className="paw-txt1"><p>最暖心的毛孩網站<br/>歡迎你的加入</p></div>
+          <div><img className="paw3" src={Paw} alt="paw3"/></div>
+          <div><img className="paw4" src={Paw} alt="paw4"/></div>
         </div>
         {/* 結尾 */}
         <div className="content-down">
-            <div className="ending width=100px ">
-                <img className="img-fluid" src={Ending} alt="ending" />
-            </div>
-            <h4>開始書寫你和毛孩的故事</h4>
+          <div><img className="ending" src={Ending} alt="giftbox"/></div>
+          <div><p className="py-0">開始書寫你和毛孩的故事</p></div>
+          <div className="schedule-arr mx-auto">
+            <img className="arrow" src={scheduleIcon2} alt="arrow" />
+          </div>
         </div>
-        </div>
+      </div>
     </>
   )
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-// 引入個頁面 Intro
 import MainHome from "./Home/MainHome";
-// import Schedule from "./Schedule/Intro";
-// import Store from "./Store/Intro";
-// import Community from "./Community/Intro";
-// import Assistance from './Assistance/HelpIntro';
+// 引入各頁面 Intro
+import Schedule from "./Home/intro/HomeSchedule";
+import Store from "./Home/intro/HomeStore";
+import Community from "./Home/intro/HomeCommunity";
+import Assistance from "./Home/intro/HomeAssistance";
+// 引入頁尾登入註冊表單
 import SignUp from "./Home/SignUp";
 // 引入串場元件 
 import Start from "./Home/component/Start";
@@ -17,11 +18,13 @@ function Home(props) {
     <>
       <MainHome />
         <Start />
-      {/* <Schedule /> */}
+      <Schedule />
         <Footprint />
-      {/* <Store /> */}
-      {/* <Community /> */}
-      {/* <Assistance /> */}
+      <Store />
+        <Footprint />
+      <Community />
+        <Footprint />
+      <Assistance />
         <End />
       <SignUp />
     </>
