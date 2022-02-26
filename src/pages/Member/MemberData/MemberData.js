@@ -72,8 +72,9 @@ function MemberData(props) {
   return (
     <>
       { userInfo ? (        
-        <div className="row position-relative info-card">
+        <div className="info-card position-relative">
           {/* {loginModal} */}
+            <div className="row">
                 {/* 大頭照區域 */}
                 <div className="col-lg-5 w-100">
                   <div className="embed-responsive embed-responsive-1by1 avatar-info">
@@ -126,6 +127,7 @@ function MemberData(props) {
                       </tr>
                     </tbody>
                   </Table>
+                </div>
                 </div>
                 <NavLink as={NavLink} to="/member/data/edit">
                   <button className="edit-icon" title="編輯會員資料">

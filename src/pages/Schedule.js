@@ -1,12 +1,12 @@
 // 引入 React 功能
-import React from 'react';
-import {useState, useEffect} from "react";
-import axios from 'axios';
-import { useHistory, Link } from "react-router-dom";
+import React from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 
 // 引入 utils
-import {API_URL} from "../utils/config";
-import {Container} from 'react-bootstrap' 
+import { API_URL } from '../utils/config'
+import { Container } from 'react-bootstrap'
 // import 'bootstrap'
 import './schedule.scss'
 // import 'cors' React 說找不到所以先註解起來
@@ -20,18 +20,13 @@ import Intro from './Schedule/Intro.js'
 import Calendar from './Schedule/calendarE.js'
 import Notes from './Schedule/Notes.js'
 import Post from './Schedule/Post'
-import PetData from "./PetData/PetData"
-
-
-
-
+import PetData from './PetData/PetData'
 
 function Calandar() {
-
   // // const Schedule = () => {
   // //   const [error, setError] = useState(null);
   //   const [data, setData] = useState();
-  
+
   //     let getSchedule = async () => {
   //       // http://localhost:3002/api/schedule
   //       try {
@@ -39,57 +34,48 @@ function Calandar() {
   //         console.log(response.data);
   //         // setData(response.data);
 
-
   //       } catch(e) {
   //         console.error(e.response);
   //       }
   //     };
   //     getSchedule();
   // // }
-  const [NoteDate,setNoteDate]=useState(new Date())
+  const [NoteDate, setNoteDate] = useState(new Date())
 
   return (
     <>
-    <div>
-    {/* <nav className="nav"></nav> */}
+      <div>
+        {/* <nav className="nav"></nav> */}
 
-    <Container>
-      <div className="etext">
-        <img src={scheduleText2} alt="" className="img-fld" />
-      </div>
-      <div className="iconPost">
-        <Link to={`/Container`}>
-        <img src={scheduleIcon1} alt="" />
-        </Link>
-      </div>
-      
-      <div className="Introdiv">
-      <Intro/>
-      </div>
-      <div className="Calendardiv">
-      <Calendar setNoteDate={setNoteDate}/>
-      </div>
-      <div className="Notesdiv">
-      <Notes NoteDate={NoteDate}/>
-      </div>
-      <div className="scheduleCharts">
-      {/* <Charts/> */}
-      </div>
-        <div className="Postdiv bg-primary position-relative">
-          {/* <footer></footer> */}
-        </div>
-      {/* <PetData /> */}
-    </Container>
+        <Container>
+          <div className="etext">
+            <img src={scheduleText2} alt="" className="img-fld" />
+          </div>
+          <div className="iconPost">
+            <Link to={`/Container`}>
+              <img src={scheduleIcon1} alt="" />
+            </Link>
+          </div>
 
-    </div>
+          <div className="Introdiv">
+            <Intro />
+          </div>
+          <div className="Calendardiv">
+            <Calendar setNoteDate={setNoteDate} />
+          </div>
+          <div className="Notesdiv">
+            <Notes NoteDate={NoteDate} />
+          </div>
+          <div className="scheduleCharts">{/* <Charts/> */}</div>
+          <div className="Postdiv bg-primary position-relative">
+            {/* <footer></footer> */}
+          </div>
+          <PetData />
+        </Container>
+        <Post />
+      </div>
     </>
   )
-
 }
 
-
-
-
-
-
-export default Calandar;
+export default Calandar

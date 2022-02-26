@@ -17,6 +17,7 @@ import MemberEdit from "./Member/MemberData/MemberEdit"
 import PetList from "./Member/PetList/PetList";
 import PetInfo from "./Member/PetList/PetInfo";
 import AddPet from "./Member/PetList/AddPet";
+import AddPetData from './PetData/AddPetData';
 import OrderHistory from "./Member/OrderHistory/OrderHistory";
 import CommunityHistory from "./Member/CommunityHistory/CommunityHistory";
 import AssistanceHistory from "./Member/AssistanceHistory/AssistanceHistory";
@@ -107,27 +108,35 @@ function Member(props) {
           {/* 可切換資料卡 */}
           <div className="col-lg-10 member-info">
           <Switch>
+            {/* 會員個資相關 Route */}
             <Route path="/member/data/edit">
               <MemberEdit userInfo={userInfo} setUserInfo={setUserInfo} />
             </Route>
             <Route path="/member/data">
               <MemberData userInfo={userInfo} setUserInfo={setUserInfo} />
             </Route>
-            <Route path="/member/pet/add">
-              <AddPet />
+            {/* 會員毛孩相關 Route */}
+            <Route path="/member/pet/data/edit/:selectedPet">
+              <AddPetData />
             </Route>
-            <Route path="/member/pet/:petId">
+            <Route path="/member/pet/info/:petId">
               <PetInfo petList={petList} setPetList={setPetList} />
             </Route>
+            <Route path="/member/pet/add">
+              <AddPet />
+            </Route>            
             <Route path="/member/pet">
               <PetList petList={petList} setPetList={setPetList} />
             </Route>
+            {/* 會員歷史訂單 Route */}
             <Route path="/member/order">
               <OrderHistory />
             </Route>
+            {/* 會員歷史社群紀錄 Route */}
             <Route path="/member/community">
               <CommunityHistory />
             </Route>
+            {/* 會員歷史互助紀錄 Route */}
             <Route path="/member/assistance">
               <AssistanceHistory />
             </Route>

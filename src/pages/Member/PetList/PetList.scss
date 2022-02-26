@@ -1,15 +1,18 @@
 // 顏色變數
 $primary: #f6bc54;
 $secondary: #6a5f4b;
+
 //PetList 頁面
+.pet-list-card {
+    .pet-avatar {
+        margin: 1rem;
+        width: 130px;
+        border-radius: 50%;
+    }
+}
 .pet-list-card:hover {
     -webkit-animation: wobble-hor-bottom 0.8s both;
     animation: wobble-hor-bottom 0.8s both;
-}
-.pet-avatar {
-    margin: 1rem;
-    width: 130px;
-    border-radius: 50%;
 }
 .add-pet-btn {
     width: 100px;
@@ -111,6 +114,11 @@ $secondary: #6a5f4b;
         border: 1px solid red;
         border-radius: 3px;
         color: red;
+    }
+    .readOnly-checkbox {
+        label {
+            cursor: default;
+        }
     }
 }
 // AddPet 頁面

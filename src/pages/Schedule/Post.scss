@@ -73,8 +73,20 @@
 .schedulePostClass {
   // display: inline-block;
   width: 100px;
-  height: 200px;
-  margin-bottom: 10px;
+  // height: 100px;
+  // margin-bottom: 10px;
+  // position: relative;
+  // display: inline-block;
+  // margin-right: 12px;
+  text-align: center;
+}
+
+// input 隱藏格
+.schedulePostCircle {
+  z-index: 0.1;
+  height: 10px;
+  width: 10px;
+  display: none;
 }
 
 .schedulePostButton1 {
@@ -82,30 +94,43 @@
   color: white;
   border: 2px solid white;
   transition-duration: 0.4s;
-  height: 125px;
+  height: 130px;
   width: 60px;
   border: 2px white solid;
   border-radius: 20px 20px 0px 0px;
-  // border: 2px solid #f6bc54;
-  font-size: 20px;
+  z-index: 1;
   &:hover {
     background-color: white;
     color: #f6bc54;
   }
-  &:focus {
+  &:checked {
     background-color: white;
     color: #f6bc54;
   }
+}
+.schedulePostButtontext {
+  font-size: 20px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  margin-top: 37px;
+}
+
+.schedulePostButton02 {
+  // -webkit-appearance: none;
+  z-index: 0.1;
+  display: none;
 }
 .schedulePostButton2 {
   background-color: #f6bc54;
   color: white;
   border: 2px solid white;
   transition-duration: 0.4s;
-  height: 125px;
+  height: 130px;
   width: 60px;
   border-radius: 0px 0px 20px 20px;
-  font-size: 20px;
+  margin-top: -16px;
+
+  z-index: 1;
   &:hover {
     background-color: white;
     color: #f6bc54;
@@ -139,7 +164,7 @@
 
 .takeMaoOut {
   color: #f6bc54;
-  background-color: white;
+  // background-color: white;
   border: 2px solid #f6bc54;
   transition-duration: 0.4s;
   border-radius: 20px;
@@ -160,6 +185,7 @@
   margin: 3px auto;
   box-sizing: unset;
   border: none;
+  color: white;
   border-bottom: 2px solid white;
   background-color: #f6bc54;
   &:focus {
@@ -191,12 +217,18 @@
   border: 2px #97bbbd solid;
   color: white;
   opacity: 0.5;
+  z-index: 1;
   &:hover {
     background-color: #97bbbd;
     color: white;
     opacity: 1;
   }
   &:focus {
+    background-color: #97bbbd;
+    color: white;
+    opacity: 1;
+  }
+  &:checked {
     background-color: #97bbbd;
     color: white;
     opacity: 1;
@@ -253,6 +285,7 @@
   border: 2px #becdbe solid;
   color: white;
   opacity: 0.5;
+  z-index: 1;
   &:hover {
     background-color: #becdbe;
     color: white;
