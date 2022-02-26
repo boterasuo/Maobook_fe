@@ -119,3 +119,10 @@ $page-height: calc(100vh - $nav-height);
     box-shadow: 0 0 0 3px rgba(255, 209, 123, 0.678);
   }
  }
+
+ .focus-lemon{
+  &:focus{
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(185, 219, 112, 0.849);
+  }
+ }

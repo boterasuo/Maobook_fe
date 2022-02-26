@@ -63,11 +63,13 @@ $avatar-length: 4rem;
 .card-detail-modal {
   height: 80vh;
   .card-detail-slider {
+    padding: 0 0;
+    margin: 0 0;
   }
+  
   .card-detail-article {
   }
 }
-
 // 彈出視窗 \\
 .zoomOut-btn {
   height: 23px;

@@ -10,15 +10,15 @@ function DiscussBar(props) {
   return (
     <>
       <div className="bars">
-        <div className="headdate">
+        <div className="head-date">
           3/11
         </div>
         <div className="daily-avatar rounded-circle bg-secondary"></div>
-        <div className="datadisplay">
+        <div className="data-display bg-white">
           <div className="category">求助</div>
           <div className="tags">狗狗</div>
-          <div className="casetitle">我家狗在吐血怎麼辦！！</div>
-          <div className="casetitle text-truncate">
+          <div className="case-title">我家狗在吐血怎麼辦！！</div>
+          <div className="case-title text-truncate">
             我家狗狗12歲，貴賓犬，女生 最近他...！
           </div>
         <div className="arrowicon">

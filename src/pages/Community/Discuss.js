@@ -34,12 +34,14 @@ function Discuss(props) {
           </Button>
         </Col>
       </Row>
-      <div className="daily-post-area border border-primary mao-rounded mt-lg-2 mt-md-2">
+      <div className="discuss-post-area border border-primary mao-rounded mt-lg-2 mt-md-2">
+      <div className="dicuss-container">
         <div className="d-inline-block">
           <Bar/>
           <Bar/>
           <Bar/>
           <Bar/>
+          </div>
         </div>
       </div>
     </>

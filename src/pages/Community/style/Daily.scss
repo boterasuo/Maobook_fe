@@ -1,18 +1,17 @@
 @import '../../Community.scss';
 
 .Daily-Page {
-  .daily-container {
-    
     .daily-title {
-  
-     
+      width: 100%;
     }
     .daily-post-area {
-      // width: 100%;
+      width: 71.2vw;
       // height: 100%;
-      position: absolute;
-      top: 50px;
-      left: 40%;
+      .daily-container {
+        position: relative;
+        top: 5%;
+        left: 1.8%;
+        margin: 2rem 2rem 0.7rem 2rem ;
     }
   }
 }

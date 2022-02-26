@@ -1,38 +1,33 @@
-import React, { useState } from "react";
-import {
-  Button,
-  Container,
-  Row,
-  Col,
-  Modal,
-  Form,
-  ListGroup,
-} from "react-bootstrap";
-import "./style/DailyCard.scss";
-import Hashtag from "./HashTag";
-
-// 插圖
-import photo from "./images/card-photo.svg";
-import like from "./images/icon-like.svg";
-import comment from "./images/icon-comment.svg";
-import cardLeave from "./images/ZoomOut.svg";
-import pawpaw from "./images/icon-paw.svg";
+import React, { useState, useEffect } from 'react'
+import { Button, Container, Row, Col, Modal, Form } from 'react-bootstrap'
+import './style/DailyCard.scss'
+import Hashtag from './HashTag'
+import axios from 'axios'
+// 引入 context
+import { useAuth } from '../../../../context/auth'
 
 // 元件
-import DailyCardCarousel from "./DailyCardCarousel";
+import DailyCardCarousel from './DailyCardCarousel'
 // import DailyCardPost from './DailyCardPost'
+
+// 插圖
+import photo from './images/card-photo.svg'
+import like from './images/icon-like.svg'
+import comment from './images/icon-comment.svg'
+import cardLeave from './images/ZoomOut.svg'
+import pawpaw from './images/icon-paw.svg'
 
 //\\ [[[彈出視窗]]] //\\
 function CardModal(modalProps) {
   // 右側: 貼文區 \\
   // [[[留言列表 comment-list]]] \\
-  const commentArr = ["頭香~"];
+  const commentArr = ['頭香~']
 
-  const lists = [];
+  const lists = []
 
   //  編號for迴圈
   for (let i = 1; i <= commentArr.length; i++) {
-    lists.push(<div className="comment-no py-2 mt-2 mr-1">B{i}</div>);
+    lists.push(<div className="comment-no py-2 mt-2 mr-1">B{i}</div>)
   }
   const CommentList = () => {
     return (
@@ -41,7 +36,7 @@ function CardModal(modalProps) {
           {lists}
           {/* 頭貼 */}
           <div className="commenter-avatar mx-1 py-2 bd-highlight my-2">
-            <img/>
+            <img />
           </div>
           {commentArr.map((item) => (
             <div className="comment-border px-3 py-2 bd-highlight flex-fill ">
@@ -50,14 +45,17 @@ function CardModal(modalProps) {
           ))}
         </li>
       </>
-    );
-  };
+    )
+  }
   // [[[留言列表 end]]] \\
 
+  // \\ 貼文區 // \\
   function DailyCardPost(props) {
+    // 處理會員
+    const { user, setUser } = useAuth()
     return (
       <>
-        {" "}
+        {' '}
         {
           <>
             {/* 縮小圖 */}
@@ -112,7 +110,7 @@ function CardModal(modalProps) {
                   </Row>
                   <Row className="py-3">
                     <Col className="text-indent">
-                      {" "}
+                      {' '}
                       抱歉我話可能了什麼比較之前能。般後是一樣熊先生是
                       ，界的我要都可的文章。到他啊的夜晚村民打電聖誕節：啊
                       啊麼從來沒那時候⋯你自己交換以在想到，之後我占卜結⋯安
@@ -164,7 +162,7 @@ function CardModal(modalProps) {
           </>
         }
       </>
-    );
+    )
   }
   //\\ [[[彈出視窗end]]] //\\
 
@@ -178,7 +176,7 @@ function CardModal(modalProps) {
     >
       <Container>
         <Row className="card-detail-modal">
-          <Col xs={12} md={6} className="card-detail-slider bg-dark py-2">
+          <Col xs={12} md={6} className="card-detail-slider">
             <DailyCardCarousel />
           </Col>
           <Col xs={6} md={6} className=" w-100 h-100 px-5 overflow-y-scroll">
@@ -187,12 +185,12 @@ function CardModal(modalProps) {
         </Row>
       </Container>
     </Modal>
-  );
+  )
 }
 
 // 卡片 card
 function Card(props) {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = React.useState(false)
 
   return (
     <>
@@ -211,7 +209,7 @@ function Card(props) {
             <Col xs={1} sm={1} md={1} lg={1}></Col>
 
             <Col xs={6} sm={6} md={6} lg={6}>
-              <Hashtag style={{ width: "100%" }} className="hash-tag" />
+              <Hashtag style={{ width: '100%' }} className="hash-tag" />
             </Col>
             {/* <Col></Col> */}
           </Row>
@@ -237,7 +235,7 @@ function Card(props) {
       </div>
       <CardModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
-  );
+  )
 }
 
-export default Card;
+export default Card
