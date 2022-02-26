@@ -12,12 +12,16 @@ $secondary: #6a5f4b;
   }
   // 左側內容
   .content-left {
-    div,
-    h4,
-    p {
-      color: $primary;
+    div {
       padding: 1rem;
       margin: 0;
+    }
+    h3, p {
+      padding: 1rem;
+      margin: 0;
+      letter-spacing: .2rem;
+      line-height: 2;
+      color: $primary;
     }
     // 右側內容
     .content-right {
@@ -89,8 +93,7 @@ $secondary: #6a5f4b;
 @media only screen and (max-width: 768px) {
   .home1 {
     padding-top: 50px;
-    h4,
-    p {
+    h3, p {
       text-align: center;
     }
   }
@@ -98,14 +101,6 @@ $secondary: #6a5f4b;
   .bg-paw {
     display: none;
   }
-  // 左側內容
-  //TODO:img置中
-  // .content-left {
-  //     img.home-logo-word {
-  //         width: 300px;
-  //         height: auto;
-  //     }
-  // }
 
   // 登入註冊按鈕
   .login-signup-section {
@@ -118,8 +113,8 @@ $secondary: #6a5f4b;
   .content-right {
     img.home-logo {
       display: none;
-      // max-width: 200px;
-      // height: auto;
+      max-width: 200px;
+      height: auto;
     }
   }
 }

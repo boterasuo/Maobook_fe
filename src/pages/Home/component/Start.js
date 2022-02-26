@@ -2,42 +2,34 @@ import React from "react";
 // 引入圖片
 import Paw from "../img/paw.svg";
 import Gift from "../img/gift.svg";
+// 引入樣式
 import "./Start.scss";
+// 引入動畫套件
+import "animate.css";
 
 function Start() {
   return (
     <>
-    <div className="main-content text-center py-2">
+      <div className="home-start">
         {/* 小腳印*4 */}
         <div className="content-up">
-            <div className="paw1">
-                <img className="paw1 img-fluid" src={Paw} alt="paw" />
-            </div>
-            <div className="paw2">
-                <img className="img-fluid" src={Paw} alt="paw" />
-            </div>
-            <p>你也有一個<br/>
-            一直陪伴著你的毛孩嗎</p>
-            <div className="paw3">
-                <img className="img-fluid" src={Paw} alt="paw" />
-            </div>
-            <div className="paw4">
-                <img className="img-fluid" src={Paw} alt="paw" />
-            </div>
+          <div><img className="paw1" src={Paw} alt="paw1"/></div>
+          <div><img className="paw2" src={Paw} alt="paw2"/></div>
+          <div className="paw-txt1"><p>你也有一個<br/>一直陪伴著你的毛孩嗎</p></div>
+          <div><img className="paw3" src={Paw} alt="paw3"/></div>
+          <div><img className="paw4" src={Paw} alt="paw4"/></div>
         </div>
         {/* 禮物 */}
         <div className="content-down">
-            <p>每個毛小孩的到來<br/>
-            都是一份獨一無二的禮物</p>
-            <div className="giftbox">
-                <img className="img-fluid" src={Gift} alt="giftbox" />
-            </div>
-            <p>讓毛毛日記和你一起用心陪伴牠們的一生<br/>
-            MAO BOOK 您最貼心的寵物管家</p>
+          <div className="paw-txt1"><p>每個毛小孩的到來<br/>都是一份獨一無二的禮物</p></div>
+          <div><img className="giftbox" src={Gift} alt="giftbox"/></div>
+          <div><p>讓毛毛日記和你一起<br/>用心陪伴牠們的一生<br/>
+                MAO BOOK<br/>您最貼心的寵物管家</p>
+          </div>
         </div>
-        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Start
+export default Start;

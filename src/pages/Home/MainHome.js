@@ -20,7 +20,7 @@ function MainHome(props) {
             <div className="row justify-content-center">
               {/* 左側內容 */}
               <div className="content-left">
-                <h4>最貼心的寵物管家</h4>
+                <h3>最貼心的寵物管家</h3>
                 <div>
                   <img
                     className="home-logo-word"
