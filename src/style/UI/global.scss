@@ -15,7 +15,7 @@ $bs-secondary: #6c757d;
 $roboto: "Roboto", sans-serif;
 
 // navbar的高度
-$nav-height:80px;
+$nav-height: 80px;
 
 // border的弧度
 $mao-rounded: 33px;
@@ -42,18 +42,17 @@ body {
   }
 }
 
-
 // 導覽列
-.navbar{
+.navbar {
   background-color: white;
   box-shadow: 0 5px 5px #ccc;
   text-align: center;
   // 登入按鈕
-  .nav-login-btn{
+  .nav-login-btn {
     width: 200px;
   }
   // 會員頭像
-  .avatar{
+  .avatar {
     height: 40px;
     width: 40px;
     background: $primary;
@@ -61,6 +60,6 @@ body {
 }
 
 // 滑鼠樣式:手指
-.pointer{
+.pointer {
   cursor: pointer;
 }
