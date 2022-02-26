@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from "react";
 import {
     addMonths,
     subMonths,
@@ -12,7 +12,6 @@ import enentIcon1 from '../img/eventIcon1.svg'
 import enentIcon2 from '../img/eventIcon2.svg'
 import enentIcon3 from '../img/eventIcon3.svg'
 import enentIcon4 from '../img/eventIcon4.svg'
-
 
 export const MONTHS = [
     'JANuary',
@@ -31,7 +30,6 @@ export const MONTHS = [
 export const WEEKS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 const useCalendar = () => {
     const [today, setToday] = useState(new Date())
-    
 
     const setNextMonth = () => {
         setToday(addMonths(today, 1))
@@ -54,7 +52,6 @@ const useCalendar = () => {
         let preDate = endOfMonth(preMonth).getDate() - firstDay + 1
         let nextDate = 1
         let nextMonth = addMonths(today, 1)
-        let datasql=[{date:1,category:[1,2,3]},{date:5,category:[1,4]},{date:17,category:[2,3]},{date:20,category:[1,2,3,4]},{date:28,category:[2,3,4]}]
 
         for (let weekNum = 0; weekNum < weekNums; weekNum++) {
             let week = []
@@ -64,6 +61,7 @@ const useCalendar = () => {
                     date: null,
                     calenderImgIcon:[1, 2, 3, 4],
                 }
+                // 上個月空白日
                 if (weekNum === 0 && day < firstDay) {
                     week.push({
                         ...dateInfo,
@@ -73,6 +71,7 @@ const useCalendar = () => {
                     })
                     preDate++
                 } else if (currentDate > allDays) {
+                    //下個月的空白
                     week.push({
                         ...dateInfo,
                         date: setDate(nextMonth, nextDate),
@@ -82,13 +81,12 @@ const useCalendar = () => {
                     })
                     nextDate++
                 } else {
-                    let checkdate=datasql.find(a=>a.date==currentDate)
-                    let icondata=checkdate===undefined?[]:checkdate.category
+                    //這個月
                     week.push({
                         ...dateInfo,
                         date: setDate(today, currentDate),
                         otherMonth: false,
-                        calenderImgIcon:icondata,
+                        calenderImgIcon:[],
                     })
                     currentDate++
                 }
@@ -114,9 +112,9 @@ const useCalendar = () => {
     }
 }
 
-const eventSelect=(date)=>{
-
-    switch(date) {
+const eventSelect=(category)=>{
+    category = parseInt(category, 10);
+    switch(category) {
         case 1:
           return enentIcon1;
         case 2:
@@ -129,7 +127,5 @@ const eventSelect=(date)=>{
           return '';
       }
 }
-
-
 
     export {useCalendar, eventSelect}

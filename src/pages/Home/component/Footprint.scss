@@ -1,0 +1,23 @@
+.home-footprint {
+  width: auto;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .paw1 {
+    transform: translate(20px) rotate(25deg);
+    animation-delay: 1s;
+  }
+  .paw2 {
+    transform: translate(-20px) rotate(-25deg);
+    animation-delay: 1.5s;
+  }
+  .paw2 {
+    transform: translate(-20px) rotate(-25deg);
+    animation-delay: 1.5s;
+  }
+}

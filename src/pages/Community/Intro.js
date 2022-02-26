@@ -13,7 +13,6 @@ import Topkeywords from "./component/TopKeywords";
 import cover from "./images/intro-cover.svg";
 import office from "./images/picture-office.svg";
 import titleBold from "./images/text-title-bold.svg";
-import drownArrow from "./images/icon-down-arrow.svg";
 
 function Intro() {
   return (
@@ -70,15 +69,9 @@ function Intro() {
           </div>
           {/* sm版標題 */}
           <img src={titleBold} className="titleBold" />
+     
         </Col>
       </Row>
-      <div className="go-on">
-        一起來看看
-        <br />
-        大家最平凡的毛孩生活吧
-        <br />
-        <img src={drownArrow}/>
-      </div>
     </>
   );
 }

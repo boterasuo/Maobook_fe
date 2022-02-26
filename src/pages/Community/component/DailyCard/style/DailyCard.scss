@@ -1,0 +1,181 @@
+@import "../../../../../style/UI/global.scss";
+
+// border弧度
+$mao-border: 33px;
+
+// 固定頭貼比例 1:1
+$avatar-length: 4rem;
+// 最外層
+.daily-card {
+  cursor: pointer;
+  width: 230px;
+  min-height: 63vh;
+  max-height: 66vh;
+  // border: 1px solid #ccc;
+  display: flex;
+  margin: 0 0.1rem;
+  overflow: hidden;
+  // 發文者頭貼
+  .daily-avatar {
+    background: $secondary;
+    height: $avatar-length;
+    width: $avatar-length;
+  }
+
+  // card邊框以內 [#標籤, CARD, 讚數留言統計]
+  .card-body {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $primary;
+    padding: 0 0;
+    border-radius: $mao-border;
+    overflow: hidden;
+    // 預設圖片為PHOTO.svg
+    .card-img {
+      border-radius: 0;
+      width: 100%;
+    }
+    // 內文預覽
+    .card-content {
+      padding: 1.5rem 0;
+      margin: 0 1.5rem;
+    }
+  }
+  //按讚數、留言數
+  .card-counter {
+    a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: $secondary;
+    }
+  }
+}
+
+// RWD
+
+@media (max-width: 767px) {
+  .daily-card {
+    width: 260px;
+  }
+}
+
+// \\ [[[彈出視窗]]] // \\
+.card-detail-modal {
+  height: 80vh;
+  .card-detail-slider {
+    padding: 0 0;
+    margin: 0 0;
+  }
+  
+  .card-detail-article {
+  }
+}
+// 彈出視窗 \\
+.zoomOut-btn {
+  height: 23px;
+  // display: flex;
+  // flex-direction: row-reverse;
+  padding: 0 0;
+  margin: 1rem 0;
+  position: absolute;
+  left: 93%;
+  img {
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+.daily-post-body,
+.daily-post-comment {
+  border-top: 2px solid $primary;
+  margin: 2% 0;
+  padding: 1% 0;
+}
+
+.daily-post-body {
+  min-height: 40vh;
+}
+// 留言區
+.daily-post-comment {
+  .col {
+    // 留言欄位
+    .comment-bar {
+    }
+    // 留言列表
+    .comment-list {
+      list-style: none;
+      .comment-list-rows {
+        width: 100%;
+        display: inline-flex;
+        .comment-no{
+          
+        }
+        .commenter-avatar{
+          background: $primary;
+          width: 2.6rem;
+          height: 2.6rem;
+          border-radius: 50%;
+          overflow: hidden; 
+         
+        }
+        .comment-border{
+          min-height: 33px;
+          border: 1px solid $primary;
+          border-radius: 33px;
+          margin: 0.3rem;
+        }
+      }
+    }
+  }
+}
+// 頭像
+.daily-post-avatar {
+  background: $secondary;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+// 段落開頭空2格
+.text-indent {
+  text-indent: 2em;
+}
+
+
+// 貼文區 輪軸處理
+.scrolling-area {
+  overflow: hidden;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-y-scroll {
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+    &:hover {
+      background: #eee;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 33px;
+    &:hover {
+      background: gainsboro;
+    }
+    &:active {
+      background: rgb(194, 194, 194);
+    }
+  }
+}
+
+// 隱藏
+.invisibility{
+  visibility:hidden;
+}
+
+// 垂直
+.v-align-center{
+  vertical-align: middle;
+}

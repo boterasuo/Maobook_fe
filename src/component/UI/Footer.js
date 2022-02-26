@@ -21,7 +21,7 @@ function MyVerticallyCenteredModal(props) {
           <p>
             &emsp;&emsp;您好，本站(MaoBook - 爪爪日記) 為資展國際股份有限公司(原
             資策會就業養成教育部門)開設之
-            <a className="text-danger" href="https://www.iiiedu.org.tw/f2e/">
+            <a className="text-danger" href="https://www.iiiedu.org.tw/f2e/" target="_blank" rel="noreferrer">
               「前端工程師就業養成班」
             </a>
             ，班代號 <b>MFEE22</b> 課程專題展示成果。
@@ -34,16 +34,16 @@ function MyVerticallyCenteredModal(props) {
           <br />
           <div className="text-end text-decoration-none text-dark">
             學員聯絡信箱：
-            <a className="text-danger" href="mailto:st.mfee22@gmail.com">
+            <a className="text-danger" href="mailto:st.mfee22@gmail.com" target="_blank" rel="noreferrer">
               st.mfee22@gmail.com
             </a>
             <br />
             資展國際股份有限公司：
-            <a className="text-danger" href="tel:+0266316588">
+            <a className="text-danger" href="tel:+0266316588" target="_blank" rel="noreferrer">
               02-6631-6588
             </a>
             &ensp;
-            <a className="text-danger" href="mailto:iservice@ispan.com.tw">
+            <a className="text-danger" href="mailto:iservice@ispan.com.tw" target="_blank" rel="noreferrer">
               iservice@ispan.com.tw
             </a>
           </div>
@@ -53,7 +53,7 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>
-          了解
+          關閉
         </Button>
       </Modal.Footer>
     </Modal>
@@ -64,15 +64,16 @@ function Footer(props) {
   const [modalShow, setModalShow] = React.useState(false);
   return (
     <>
-      <footer className="bg-secondary mt-auto py-3 text-center">
+      <footer>
         <div className="container">
           <span className="text-white">
-            © 2022 Maobook{" "}
+   {/* 黃貓:🐈; 黑貓:🐈‍⬛／狗狗:🐕; 服務犬:🐕‍🦺; 導盲犬:🦮／paw:🐾 */}
+           ＠2022 Maobook 🐈🐕
             <a
               className="text-white pointer"
               onClick={() => setModalShow(true)}
             >
-              作業版權免責說明
+              專題版權免責聲明 
             </a>
           </span>
         </div>

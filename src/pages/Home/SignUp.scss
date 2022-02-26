@@ -40,7 +40,7 @@
   }
   .logo-noword {
     max-width: 180px;
-    top: -30%;
+    top: -22%;
     left: 50%;
     transform: translateX(-55%);
   }
@@ -86,24 +86,21 @@
 
 // 第三方登入
 .thirdParty-signup {
-  justify-content: end;
+  justify-content: center;
 }
 .thirdParty-icon {
   margin-left: 20px;
-  padding: 15px;
+  padding: 0.8rem 1.3rem;
   border: 1.5px solid white;
   border-radius: 1.2rem;
-}
-.thirdParty-icon:last-child {
-  margin-right: 150px;
+  font-size: 2.5rem;
 }
 
 // 註冊按鈕
 .signUp-btn {
-  bottom: 15%;
-  left: 195%;
-  width: 20rem;
-  z-index: 9999;
+  margin-top: 1rem;
+  padding-right: 150px;
+  text-align: right;
 }
 .signUp-btn button {
   background: white;
@@ -132,7 +129,7 @@
       font-size: 1.2rem;
     }
   }
-  .divider {
+  .login-divider {
     margin: 20px auto;
     height: 1px;
     width: 70vw;
@@ -141,7 +138,6 @@
   }
   .thirdParty-signup {
     justify-content: center;
-    padding-bottom: 20%;
   }
   .thirdParty-icon {
     margin: 20px;
@@ -150,9 +146,8 @@
     }
   }
   .signUp-btn {
-    left: 50%;
-    top: 140%;
-    transform: translateX(-50%);
+    margin-top: 0;
+    margin-bottom: 1rem;
     padding: 1rem;
     text-align: center;
   }
@@ -163,7 +158,7 @@
 // 註冊區塊的 RWD for mobile (768px)
 @media only screen and (max-width: 768px) {
   .signup-form {
-    padding: 40px 50px 0 50px;
+    padding: 40px 30px 0 30px;
   }
   .signup-form input {
     height: 2.5rem;

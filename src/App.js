@@ -6,22 +6,28 @@ import { AuthContext } from './context/auth';
 //錯誤頁面
 import NotFound404 from "./pages/Home/NotFound404";
 
-//主頁面
 // 引入 API 相關工具
 import { API_URL } from "./utils/config";
-import axios from 'axios';
+import axios from "axios";
 
-// 主頁面
-import Home from "./pages/Home.js";
+//主頁面
+// [[[ 首頁 Home       ]]] 
+import Home from "./pages/Home";
 import Login from "./pages/Home/Login";
-import Schedule from "./pages/Schedule.js"
-import Store from "./pages/Store.js";
+// [[[ 會員 Member     ]]] 
+import Member from "./pages/Member";
+import PetDataTest from "./pages/PetDataTest.js";
+// [[[ 行事曆 Schedule ]]] 
+import Schedule from "./pages/Schedule";
+// [[[ 電商 Store      ]]] 
+import Store from "./pages/Store";
 import CartDetail from "./pages/Store/CartDetail";
 import ProductDetails from "./pages/Store/ProductDetails";
 import OrderDetail from "./pages/Store/OrderDetail";
-import Community from "./pages/Community.js";
-import Assistance from "./pages/Assistance.js";
-import Member from "./pages/Member.js";
+// [[[ 社群 Community  ]]] 
+import Community from "./pages/Community";
+// [[[ 互助 Assistance ]]] 
+import Assistance from "./pages/Assistance";
 
 // 引入元件
 import MyNav from "./component/UI/MyNav";
@@ -33,38 +39,8 @@ import Footer from "./component/UI/Footer";
 
 function App() {
   const [user, setUser] = useState(null);
-  // 舊寫法 (auth 狀態改設在 login page)
-  // const [auth, setAuth] = useState(false);
-  // 舊寫法 (改為 useContext)
-  // const [user, setUser] = useState({
-  //   id:"",
-  //   name:"",
-  //   email:"",
-  //   image:"",
-  // });
-  // 檢查登入狀態函式 (舊寫法)
-  // let checkLogin = async () => {
-  //   try {
-  //     let response = await axios.get(`${API_URL}/member`, {
-  //       withCredentials: true,
-  //     });
-  //     console.log(response.data);
-  //     if(response.data.id > 0) {
-  //       setAuth(true);
-  // 舊寫法 (改為 useContext)
-  // setUser({...user, 
-  //   id:response.data.id,
-  //   name:response.data.name,
-  //   email:response.data.email,
-  //   image:response.data.image,
-  // });
-  //     };
-  //   } catch(e){
-  //     console.log(e.response.data);
-  //   }
-  // };
-  // 檢查登入狀態 (新寫法: context)
-  // 若有查到 session --> 重新設定 user 的內容
+  
+  // 避免重新整理時 user 狀態內的資料變回 null
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -88,6 +64,9 @@ function App() {
           <MyNav />
           <ScrollToTop>
             <Switch>
+              <Route path="/petdata">
+                <PetDataTest />
+              </Route>
               <Route path="/assistance">
                 <Assistance />
               </Route>
