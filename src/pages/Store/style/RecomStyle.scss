@@ -1,7 +1,7 @@
 // Recom start
 .recom-yourpets {
   // section1
-  width: 600px;
+  width: auto;
   border: 1px solid #f6bc54;
   border-radius: 25px;
   padding: 18px 54px 18px 54px;
@@ -46,6 +46,10 @@
 .recom-describe {
   position: relative;
   top: -5%;
+}
+.recom-describe span {
+  color: red;
+  font-weight: 700;
 }
 .cover-fit {
   padding: 10px 0 10px 0;
