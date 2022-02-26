@@ -19,7 +19,7 @@ import diccuss from "./images/text-diccuss.svg";
 // 圖片
 import rightArrow from "./images/icon-right-arrow.svg";
 
-function Daily(props) {
+function Discuss(props) {
   return (
     <>
       {/* <Container> */}
@@ -30,20 +30,22 @@ function Daily(props) {
         </Col>
         <Col lg={3}>
           <Button variant="outline-primary rounded-pill">
-            <HiPlus /> 發個文吧
+            <HiPlus /> <a>發個文吧</a>
           </Button>
         </Col>
       </Row>
-      <div className="daily-post-area border border-primary mao-rounded mt-lg-2 mt-md-2">
+      <div className="discuss-post-area border border-primary mao-rounded mt-lg-2 mt-md-2">
+      <div className="dicuss-container">
         <div className="d-inline-block">
           <Bar/>
           <Bar/>
           <Bar/>
           <Bar/>
+          </div>
         </div>
       </div>
     </>
   );
 }
 
-export default Daily;
+export default Discuss;
