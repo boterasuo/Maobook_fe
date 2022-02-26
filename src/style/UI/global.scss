@@ -49,20 +49,6 @@ body {
 
 // 導覽列
 .navbar {
-<<<<<<< HEAD
-  background-color: white;
-  box-shadow: 0 5px 5px #ccc;
-  text-align: center;
-  // 登入按鈕
-  .nav-login-btn {
-    width: 200px;
-  }
-  // 會員頭像
-  .avatar {
-    height: 40px;
-    width: 40px;
-    background: $primary;
-=======
   height: $nav-height;
   background-color: white;
   box-shadow: 0 5px 5px #ccc;
@@ -86,7 +72,6 @@ body {
       height: 40px;
       width: 40px;
     }
->>>>>>> 369d35faf44269abffc82148558dcb440d17e76f
   }
 }
 
@@ -94,8 +79,6 @@ body {
 .pointer {
   cursor: pointer;
 }
-<<<<<<< HEAD
-=======
 
 // 外框線按鈕
 .btn-outline-primary {
@@ -177,4 +160,3 @@ footer {
   background-color: $secondary;
   text-align: center;
 }
->>>>>>> 369d35faf44269abffc82148558dcb440d17e76f
