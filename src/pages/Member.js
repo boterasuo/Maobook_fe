@@ -16,6 +16,7 @@ import MemberData from './Member/MemberData/MemberData';
 import MemberEdit from "./Member/MemberData/MemberEdit"
 import PetList from "./Member/PetList/PetList";
 import PetInfo from "./Member/PetList/PetInfo";
+import EditPetInfo from "./Member/PetList/EditPetInfo";
 import AddPet from "./Member/PetList/AddPet";
 import AddPetData from './PetData/AddPetData';
 import OrderHistory from "./Member/OrderHistory/OrderHistory";
@@ -29,8 +30,24 @@ function Member(props) {
   console.log(user);
   // 取得會員詳細資料
   const [userInfo, setUserInfo] = useState();
-  // 取得毛孩詳細資料
+  // 取得毛孩列表
   const [petList, setPetList] = useState([]);
+  // 取得毛孩詳細資料
+  const [pet, setPet] = useState({
+    id:"",
+    user_id:"",
+    name:"",
+    image:"",
+    arrDay:"",
+    birthday:"",
+    ageCate:"",
+    gender:"",
+    cate:"",
+    height:0,
+    weight:0,
+    vaccine:[],
+    health:[],
+});
   // 導頁用
   const history = useHistory();
   // Modal 切換顯示狀態用
@@ -119,8 +136,11 @@ function Member(props) {
             <Route path="/member/pet/data/edit/:selectedPet">
               <AddPetData />
             </Route>
+            <Route path="/member/pet/info/edit/:petId">
+              <EditPetInfo pet={pet} setPet={setPet} />
+            </Route>
             <Route path="/member/pet/info/:petId">
-              <PetInfo petList={petList} setPetList={setPetList} />
+              <PetInfo petList={petList} setPetList={setPetList} pet={pet} setPet={setPet} />
             </Route>
             <Route path="/member/pet/add">
               <AddPet />
@@ -161,6 +181,7 @@ function Member(props) {
       } catch(e) {
         console.error(e.response.data);
         if (e.response.data) {
+          // TODO: 要檢查錯誤碼
           setShowModal(true);
         }        
       }

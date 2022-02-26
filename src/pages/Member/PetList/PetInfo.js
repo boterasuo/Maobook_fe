@@ -14,19 +14,21 @@ import defaultPet from "../../../img/avatar_pet.png";
 
 
 function PetInfo(props) {
-  const {petList, setPetList} = props;
-  const [pet, setPet] = useState({
-      id:"",
-      user_id:"",
-      name:"",
-      image:"",
-      arrDay:"",
-      birthday:"",
-      gender:"",
-      cate:"",
-      height:0,
-      weight:0
-  });
+  const {pet, setPet, petList, setPetList} = props;
+  // const [pet, setPet] = useState({
+  //     id:"",
+  //     user_id:"",
+  //     name:"",
+  //     image:"",
+  //     arrDay:"",
+  //     birthday:"",
+  //     gender:"",
+  //     cate:"",
+  //     height:0,
+  //     weight:0,
+  //     vaccine:[],
+  //     health:[],
+  // });
 
   // 取得當前 pet id (來自 match params)
   const petId = parseInt(props.match.params.petId, 10);
@@ -40,13 +42,11 @@ function PetInfo(props) {
   // 疫苗 checkbox
   const vaccineValues = ["1", "2", "3"];
   const vaccineOptions = ["三合一", "五合一", "狂犬病"];
-  const [vaccineList, setVaccineList] = useState([]);
   // 健康狀態 checkbox
   const healthValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const healthOptions = ["慢性腎衰竭", "糖尿病", "下泌尿道症候群", "體重過重", "關節炎", "腸胃敏感", "皮膚敏感", "心臟疾病", "心血管疾病"];
-  // TODO: 有時間的話改將 vaccine 和 health 統一存入 pet 狀態中
+  // 有時間的話改將 vaccine 和 health 統一存入 pet 狀態中 --> done
   // 這樣就只要改變一次狀態就好
-  const [healthList, setHealthList] = useState([]);
 
   // 處理歲數 TODO: 應可將歲數處理改寫成 function ?
   let ageY, ageM;
@@ -71,25 +71,26 @@ function PetInfo(props) {
 
   useEffect(() => {
     if (foundPet) {
-        console.log(foundPet);
+        console.log("foundPet", foundPet);
         const getMoreInfo = async () => {
             let result = await axios.get(`${API_URL}/pet/info/${petId}`, 
             {withCredentials: true});
             console.log(result.data);
-            setPet({...foundPet,
+            setPet({
                 id:foundPet.id,
                 user_id:foundPet.user_id,
                 name:foundPet.name,
                 image:foundPet.image,
                 arrDay:foundPet.adoptime,
                 birthday:foundPet.birthday,
+                ageCate: foundPet.age_category,
                 gender:foundPet.gender,
                 cate:foundPet.category,
                 height:result.data.height,
-                weight:result.data.weight
+                weight:result.data.weight,
+                vaccine: [...result.data.vaccine],
+                health: [...result.data.health],
             });
-            setVaccineList(result.data.vaccine);
-            setHealthList(result.data.health);
         };
         getMoreInfo();
     } else console.log("no data!");
@@ -130,12 +131,12 @@ function PetInfo(props) {
                 </tr>
                 <tr>
                 <td>種類</td>
-                <td>{pet.category ? category[pet.category] : "尚未提供"}</td>
+                <td>{pet.cate ? category[pet.cate] : "尚未提供"}</td>
                 </tr>
                 <tr>
                 <td>年齡</td>
                 <td>
-                    {pet.age_category ? `${ageCate[pet.age_category]} (${ageY}歲${ageM}個月)` : 
+                    {pet.ageCate ? `${ageCate[pet.ageCate]} (${ageY}歲${ageM}個月)` : 
                     "尚未提供"}
                 </td>
                 </tr>
@@ -166,12 +167,12 @@ function PetInfo(props) {
                                 name="vaccine"
                                 id={`vaccine${v}`}
                                 value={v}
-                                defaultChecked={vaccineList.includes(v)}
+                                defaultChecked={pet.vaccine.includes(v)}
                             />
                             <label
                                 htmlFor={`vaccine${v}`}
                                 className={
-                                vaccineList.includes(v) ? "active-label my-1" : "my-1"
+                                  pet.vaccine.includes(v) ? "active-label my-1" : "my-1"
                                 }
                             >
                                 {vaccineOptions[i]}
@@ -193,12 +194,12 @@ function PetInfo(props) {
                         name="health"
                         id={`health${v}`}
                         value={v}
-                        defaultChecked={healthList.includes(v)}
+                        defaultChecked={pet.health.includes(v)}
                       />
                       <label
                         htmlFor={`health${v}`}
                         className={
-                          healthList.includes(v) ? "active-label" : ""
+                          pet.health.includes(v) ? "active-label" : ""
                         }
                       >
                         {healthOptions[i]}
@@ -212,7 +213,7 @@ function PetInfo(props) {
             </tbody>
             </Table>
         </div>
-        <NavLink as={NavLink} to="/member/data/edit">
+        <NavLink as={NavLink} to={`/member/pet/info/edit/${petId}`}>
             <button className="edit-icon" title="編輯毛孩資料">
             <BsPencilSquare color="white" fontSize="1.3rem" />
             </button>

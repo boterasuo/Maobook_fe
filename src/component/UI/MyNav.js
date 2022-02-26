@@ -117,10 +117,14 @@ function MyNav(props) {
               <div className="d-inline-block"></div>
               {/* 會員頭像: 暫時修改 by 歐 for 測試 Navbar */}
               <Nav.Link as={NavLink} to="/member/data">
-                <div className="nav-avatar rounded-circle overflow-hidden">
+                <div 
+                  className="rounded-circle embed-responsive embed-responsive-1by1"
+                  style={{width:"40px", height:"40px"}}
+                >
                   <img
                     alt=""
-                    className="img-fluid h-100"
+                    className="w-100 h-100 embed-responsive-item"
+                    style={{objectFit: "cover"}}
                     src={
                       user.image !== null
                         ? `${IMG_URL}${user.image}`
