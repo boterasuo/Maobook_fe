@@ -33,7 +33,6 @@ function Card(props) {
     tittle: '',
     content: '',
     created_at: '',
-    tags: [],
   })
 
   // API
@@ -67,9 +66,9 @@ function Card(props) {
                   <Col xs={1} sm={1} md={1} lg={1}></Col>
 
                   <Col xs={6} sm={6} md={6} lg={6}>
-                    {item.tags.map((tag, i) => {
+                    {/* {item.tags.map((tag, i) => {
                       return <div>#{tag}</div>
-                    })}
+                    })} */}
                     {/* <Hashtag style={{ width: '100%' }} className="hash-tag" /> */}
                   </Col>
                   {/* <Col></Col> */}
