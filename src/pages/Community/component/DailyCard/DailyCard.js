@@ -5,7 +5,8 @@ import Hashtag from './HashTag'
 import axios from 'axios'
 // 引入 context
 import { useAuth } from '../../../../context/auth'
-
+// 引入 utils
+import { API_URL, IMG_URL } from '../../../../utils/config'
 // 元件
 import DailyCardCarousel from './DailyCardCarousel'
 // import DailyCardPost from './DailyCardPost'
@@ -25,7 +26,7 @@ function CardModal(modalProps) {
 
   const lists = []
 
-  //  編號for迴圈
+  //  編號 for迴圈
   for (let i = 1; i <= commentArr.length; i++) {
     lists.push(<div className="comment-no py-2 mt-2 mr-1">B{i}</div>)
   }
@@ -51,8 +52,32 @@ function CardModal(modalProps) {
 
   // \\ 貼文區 // \\
   function DailyCardPost(props) {
-    // 處理會員
+    const { dairyInfo, setDiaryInfo } = props
     const { user, setUser } = useAuth()
+    //卡片大頭貼
+    const [avatar, setAvatar] = useState('')
+    // Hashtag
+    const [hashtags, setHashTag] = useState('')
+
+    // 處理會員
+    // const { user, setUser } = useAuth()
+
+    // 取得使用者詳細資料
+    useEffect(() => {
+      let getDiaryInfo = async () => {
+        try {
+          let result = await axios.get(`${API_URL}/social-diary`, {
+            withCredentials: true,
+          })
+          console.log(result.data.data)
+          setDiaryInfo(result.data.data)
+        } catch (e) {
+          console.error('card info 錯誤', e.response.data)
+        }
+      }
+      getDiaryInfo()
+    }, [])
+
     return (
       <>
         {' '}
