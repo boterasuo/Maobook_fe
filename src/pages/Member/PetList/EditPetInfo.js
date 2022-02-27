@@ -1,34 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Table, Modal, Button } from "react-bootstrap";
+import { NavLink, withRouter } from "react-router-dom";
 import axios from "axios";
-// 引入 context
-import { useAuth } from "../../../context/auth";
 // 引入 utils
 import { API_URL, IMG_URL } from "../../../utils/config";
-// 引入圖片 icon scss
+// 引入 圖片 icon css
+import { BsReply, BsPencilSquare } from "react-icons/bs";
 import defaultPet from "../../../img/avatar_pet.png";
-import "./PetList.scss";
-import { BsPencilSquare, BsPlusLg } from "react-icons/bs";
 
-
-function AddPet(props) {
-  const {user, setUser} = useAuth();
+function EditPetInfo(props) {
+  const {pet, setPet} = props;
+  console.log("pet state: ", pet);
   const [preview, setPreview] = useState("");
-  const [addPet, setAddPet] = useState({
-    name:"",
-    arrDay:"",
-    birthday:"",
-    gender:"",
-    cate:"",
-    height:"",
-    weight:""
-  });
-  const [editErr, setEditErr] = useState({
-    name:"",
-    arrDay: "",
-    birthday: "",
-  });
   // 性別 radio
   const genderValues = ["1", "2", "3"];
   const genderOptions = ["男孩", "女孩", "不確定"];
@@ -38,18 +22,13 @@ function AddPet(props) {
   // 疫苗 checkbox
   const vaccineValues = ["1", "2", "3"];
   const vaccineOptions = ["三合一", "五合一", "狂犬病"];
-  const [vaccineList, setVaccineList] = useState([]);
   // 健康狀態 checkbox
   const healthValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const healthOptions = ["慢性腎衰竭", "糖尿病", "下泌尿道症候群", "體重過重", "關節炎", "腸胃敏感", "皮膚敏感", "心臟疾病", "心血管疾病"];
-  const [healthList, setHealthList] = useState([]);
-  // Modal 切換顯示狀態用
-  const [showModal, setShowModal] = useState(false);
-  const history = useHistory();
-  
+
   function handleChange(e) {
-    setAddPet({ ...addPet, [e.target.name]: e.target.value });
-    setEditErr({ ...editErr, [e.target.name]: "" });
+    setPet({ ...pet, [e.target.name]: e.target.value });
+    // setEditErr({ ...editErr, [e.target.name]: "" });
   }
 
   // 圖片預覽函式
@@ -69,97 +48,49 @@ function AddPet(props) {
     }
   };
   function handleImage(e) {
-    setAddPet({ ...addPet, image: e.target.files[0] });
-  };
-
-  // 表單有不合法的檢查出現時
-  // name 欄位前端檢查
-  const handleNameInvalid = (e) => {
-    e.preventDefault();
-    if (!e.target.value) {
-      setEditErr({ ...editErr, [e.target.name]: "此欄位不可為空" });
-    }
-  };
-  // Arrival Day 欄位前端檢查
-  const handleArrDayInvalid = (e) => {
-    e.preventDefault();
-    const today = Date.parse(new Date().toDateString());
-    const inputDate = Date.parse(e.target.value);
-    console.log(today, inputDate);
-    if (e.target.value && inputDate > today) {
-      setEditErr({ ...editErr, [e.target.name]: "請選擇早於今天的日期" });
-    }
-  };
-  // birthday 欄位前端檢查
-  const handleBirthInvalid = (e) => {
-    e.preventDefault();
-    const arrDate = Date.parse(addPet.arrDay);
-    const inputDate = Date.parse(e.target.value);
-    if (inputDate > arrDate) {
-      setEditErr({ ...editErr, [e.target.name]: "毛孩生日不可晚於到家日" });
-    }
+    setPet({ ...pet, image: e.target.files[0] });
   };
 
   // 上傳圖片用 formData
   async function handleSubmit(e) {
     e.preventDefault();
-    if (editErr.name || editErr.arrDay || editErr.birthday) {
-      return;
-    } else {
+    // if (editErr.name || editErr.arrDay || editErr.birthday) {
+    //   return;
+    // } else {
       try {
         let formData = new FormData();
-        formData.append("id", user.id);
-        formData.append("image", addPet.image);
-        formData.append("name", addPet.name);
-        formData.append("arrDay", addPet.arrDay);
-        formData.append("birthday", addPet.birthday);
-        formData.append("gender", addPet.gender);
-        formData.append("cate", addPet.cate);
-        formData.append("height", addPet.height);
-        formData.append("weight", addPet.weight);
-        formData.append("vaccine", vaccineList);
-        formData.append("health", healthList);
+        formData.append("id", pet.id);
+        formData.append("image", pet.image);
+        formData.append("name", pet.name);
+        formData.append("arrDay", pet.arrDay);
+        formData.append("birthday", pet.birthday);
+        formData.append("gender", pet.gender);
+        formData.append("cate", pet.cate);
+        formData.append("vaccine", pet.vaccine);
+        formData.append("health", pet.health);
 
-        let response = await axios.post(`${API_URL}/pet/add`, formData, {
+        let response = await axios.post(`${API_URL}/pet/editInfo`, formData, {
           withCredentials: true,
         });
         console.log(response.data);
-        if (response.data.message === "ok") {
-          setShowModal(true);
-        }
+        // if (response.data.message === "ok") {
+        //   setShowModal(true);
+        // }
       } catch (e) {
         console.error("新增毛孩失敗: ", e.response.data);
-        setEditErr({...editErr,
-          name: e.response.data.name,
-          arrDay: e.response.data.arrDay,
-          birthday: e.response.data.birthday,
-          cate: e.response.data.cate
-        });
+        // setEditErr({...editErr,
+        //   name: e.response.data.name,
+        //   arrDay: e.response.data.arrDay,
+        //   birthday: e.response.data.birthday,
+        //   cate: e.response.data.cate
+        // });
       }
-    }
+    // }
   }
-  // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false);
-    history.push("/member/pet");
-  };
-  // 新增成功 Modal html
-  const addPetModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>新增成功！</Modal.Title>
-      </Modal.Header>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
 
   return (
     <form className="position-relative info-card">
-      {addPetModal}
+      {/* {addPetModal} */}
       <div className="row">
       {/* 大頭照區域 */}
       <div className="col-lg-5 w-100">
@@ -167,7 +98,7 @@ function AddPet(props) {
           <img
             alt=""
             className="avatar-cover-fit embed-responsive-item"
-            src={defaultPet}
+            src={pet.image.length ? `${IMG_URL}${pet.image}` : defaultPet}
           />
           <img
             alt=""
@@ -194,15 +125,15 @@ function AddPet(props) {
             className="form-control text-center w-50 m-auto"
             name="name"
             placeholder="毛孩姓名"
-            value={addPet.name}
+            value={pet.name}
             onChange={(e) => {
               handleChange(e);
-              handleNameInvalid(e);
+            //   handleNameInvalid(e);
             }}
           />
-          <div className="errMsg">{editErr.name ? editErr.name : ""}</div>
+          {/* <div className="errMsg">{editErr.name ? editErr.name : ""}</div> */}
         </div>
-        <input type="hidden" name="id" value={user.id}/>
+        <input type="hidden" name="id" value={pet.id}/>
       </div>
       {/* 個人資料表格 */}
       <div className="col-lg-7 text-nowrap info-table">
@@ -215,15 +146,15 @@ function AddPet(props) {
                   type="date"
                   className="form-control"
                   name="arrDay"
-                  value={addPet.arrDay}
+                  value={pet.arrDay && pet.arrDay}
                   onChange={(e) => {
                     handleChange(e);
-                    handleArrDayInvalid(e);
+                //     handleArrDayInvalid(e);
                   }}
                 />
-                <div className="errMsg">
+                {/* <div className="errMsg">
                   {editErr.arrDay ? editErr.arrDay : ""}
-                </div>
+                </div> */}
               </td>
             </tr>
             <tr>
@@ -233,15 +164,15 @@ function AddPet(props) {
                   type="date"
                   className="form-control"
                   name="birthday"
-                  value={addPet.birthday}
+                  value={pet.birthday && pet.birthday}
                   onChange={(e) => {
                     handleChange(e);
-                    handleBirthInvalid(e);
+                //     handleBirthInvalid(e);
                   }}
                 />
-                <div className="errMsg">
+                {/* <div className="errMsg">
                   {editErr.birthday ? editErr.birthday : ""}
-                </div>
+                </div> */}
               </td>
             </tr>
             <tr>
@@ -258,14 +189,14 @@ function AddPet(props) {
                         type="radio"
                         id={`gender${v}`}
                         value={v}
-                        checked={v === `${addPet.gender}`}
+                        checked={v === `${pet.gender}`}
                         onChange={handleChange}
                         name="gender"
                       />
                       <label
                         htmlFor={`gender${v}`}
                         className={
-                          v === `${addPet.gender}` ? "active-label" : ""
+                          v === `${pet.gender}` ? "active-label" : ""
                         }
                       >
                         {genderOptions[i]}
@@ -285,14 +216,14 @@ function AddPet(props) {
                         type="radio"
                         id={`cate${v}`}
                         value={v}
-                        checked={v === `${addPet.cate}`}
+                        checked={v === `${pet.cate}`}
                         onChange={handleChange}
                         name="cate"
                       />
                       <label
                         htmlFor={`cate${v}`}
                         className={
-                          v === `${addPet.cate}` ? "active-label" : ""
+                          v === `${pet.cate}` ? "active-label" : ""
                         }
                       >
                         {cateOptions[i]}
@@ -300,36 +231,15 @@ function AddPet(props) {
                     </div>
                   );
                 })}
-                <div className=" form-check-inline errMsg">{editErr.cate ? editErr.cate : ""}</div>
+                {/* <div className=" form-check-inline errMsg">{editErr.cate ? editErr.cate : ""}</div> */}
               </td>
             </tr>
             <tr>
               <td>體態</td>
               <td>
-                <div className="d-flex pet-body-data">
-                  <input 
-                    type="number"
-                    min="1.0" max="999.9" step="0.1"
-                    placeholder="身高 (cm)"
-                    className="form-control text-center w-50 mx-1"
-                    name="height"
-                    value={addPet.height}
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                  />
-                  <input 
-                    type="number"
-                    min="1.0" max="99.9" step="0.1"
-                    placeholder="體重 (kg)"
-                    className="form-control text-center w-50 mx-1"
-                    name="weight"
-                    value={addPet.weight}
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                  />
-                </div>
+                <NavLink to={`/member/pet/data/edit/${pet.id}`}>
+                    <button className="btn btn-secondary">編輯身長體重資料</button>
+                </NavLink>
               </td>
             </tr>
             <tr>
@@ -342,24 +252,24 @@ function AddPet(props) {
                         type="checkbox"
                         name="vaccine"
                         id={`vaccine${v}`}
-                        value={v}
-                        checked={vaccineList.includes(v)}
+                        defaultValue={v}
+                        checked={pet.vaccine.includes(v)}
                         onChange={(e) => {
-                          if(vaccineList.includes(e.target.value)){
-                            const newVaccineList = vaccineList.filter(
+                          if(pet.vaccine.includes(e.target.value)){
+                            const newVaccineList = pet.vaccine.filter(
                               (v, i) => v !== e.target.value
                             );
-                            setVaccineList(newVaccineList);
+                            setPet({...pet, vaccine: newVaccineList});
                           }else {
-                            const newVaccineList = [...vaccineList, e.target.value]
-                            setVaccineList(newVaccineList);
+                            const newVaccineList = [...pet.vaccine, e.target.value]
+                            setPet({...pet, vaccine: newVaccineList});
                           }
                         }}
                       />
                       <label
                         htmlFor={`vaccine${v}`}
                         className={
-                          vaccineList.includes(v) ? "active-label" : ""
+                            pet.vaccine.includes(v) ? "active-label" : ""
                         }
                       >
                         {vaccineOptions[i]}
@@ -380,24 +290,24 @@ function AddPet(props) {
                         type="checkbox"
                         name="health"
                         id={`health${v}`}
-                        value={v}
-                        checked={healthList.includes(v)}
+                        defaultValue={v}
+                        checked={pet.health.includes(v)}
                         onChange={(e) => {
-                          if(healthList.includes(e.target.value)){
-                            const newHealthList = healthList.filter(
+                          if(pet.health.includes(e.target.value)){
+                            const newHealthList = pet.health.filter(
                               (v, i) => v !== e.target.value
                             );
-                            setHealthList(newHealthList);
+                            setPet({...pet, health: newHealthList});
                           }else {
-                            const newHealthList = [...healthList, e.target.value]
-                            setHealthList(newHealthList);
+                            const newHealthList = [...pet.health, e.target.value]
+                            setPet({...pet, health: newHealthList});
                           }
                         }}
                       />
                       <label
                         htmlFor={`health${v}`}
                         className={
-                          healthList.includes(v) ? "active-label" : ""
+                            pet.health.includes(v) ? "active-label" : ""
                         }
                       >
                         {healthOptions[i]}
@@ -412,12 +322,12 @@ function AddPet(props) {
         </Table>
       </div>
       </div>
-      <button className="edit-icon" title="新增毛孩資料" onClick={handleSubmit}>
-        <BsPlusLg color="white" fontSize="1.6rem" />
+      <button className="edit-icon" title="儲存毛孩資料">
+        <BsReply color="white" fontSize="1.6rem" onClick={handleSubmit}/>
       </button>
     </form>
-  );
-
+  )
 }
 
-export default AddPet;
+
+export default withRouter(EditPetInfo)

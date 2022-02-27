@@ -9,6 +9,7 @@ import Counter from "./components/Counter"
 import Hill from "./productsImages/Hill’s id=2-1.png";
 function ProductDetails(props) {
 
+    const { name, price, des, stock } = props;
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex, e) => {
@@ -63,14 +64,11 @@ function ProductDetails(props) {
                         </Col>
                         <Col xs={6} md={5} className='d-flex align-items-center' >
                             <section >
-                                <h1>美味無添加
-                                    香草貓貓化毛膏</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore</p>
-                                <p>庫存:5</p>
+                                <h1>{name}</h1>
+                                <p>{des}</p>
+                                <p>庫存:{stock}</p>
                                 <div className='d-flex justify-content-between align-items-center mr-5'>
-                                    <h3>＄399</h3>
+                                    <h3>${price}</h3>
                                     <div className='mr-5 '>
                                     <Counter num={num} setNum={setNum} />  {/*將值傳入屬性*/}
                                     </div>

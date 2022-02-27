@@ -33,7 +33,7 @@
 .datadisplay {
   display: flex;
   border: 1px #f6bc54 solid;
-  width: 68%;
+  width: 80%;
   border-radius: 30px;
   padding-left: 15px;
   padding-right: 15px;
@@ -46,7 +46,7 @@
   border: 1px solid #f6bc54;
   background-color: #f6bc54;
   color: white;
-  max-width: 10%;
+  max-width: 15%;
   margin: 12px 2px;
   padding: 3px;
 }
@@ -70,7 +70,10 @@
 }
 
 .casetitle {
-  max-width: 40%;
+  width: 50%;
+  text-overflow : ellipsis;
+  overflow : hidden;
+  white-space: nowrap;
   margin: 12px 20px;
   padding: 5px 3px 3px 3px;
 }

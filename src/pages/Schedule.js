@@ -10,6 +10,7 @@ import { Container } from 'react-bootstrap'
 // import 'bootstrap'
 import './schedule.scss'
 // import 'cors' React 說找不到所以先註解起來
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 // 引入圖片們
 import scheduleText2 from './Schedule/img/scheduleText2.svg'
@@ -52,9 +53,9 @@ function Calandar() {
             <img src={scheduleText2} alt="" className="img-fld" />
           </div>
           <div className="iconPost">
-            <Link to={`/Container`}>
+            <AnchorLink href="#post">
               <img src={scheduleIcon1} alt="" />
-            </Link>
+            </AnchorLink>
           </div>
 
           <div className="Introdiv">
@@ -72,7 +73,9 @@ function Calandar() {
           </div>
           <PetData />
         </Container>
-        <Post />
+        <div id="post">
+          <Post />
+        </div>
       </div>
     </>
   )
