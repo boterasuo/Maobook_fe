@@ -28,7 +28,16 @@ function Member(props) {
   const { user, setUser } = useAuth()
   console.log(user)
   // 取得會員詳細資料
-  const [userInfo, setUserInfo] = useState()
+  const [userInfo, setUserInfo] = useState({
+    id: '',
+    image: '',
+    name: '',
+    email: '',
+    gender: '',
+    mobile: '',
+    birthday: '',
+    address: '',
+  })
   // 取得毛孩列表
   const [petList, setPetList] = useState([])
   // 取得毛孩詳細資料
@@ -51,26 +60,6 @@ function Member(props) {
   const history = useHistory()
   // Modal 切換顯示狀態用
   const [showModal, setShowModal] = useState(false)
-
-  // 取得使用者詳細資料 (這邊不用取 --> 在 MemberData 那邊取就好)
-  // useEffect(() => {
-  //   let getUserInfo = async () => {
-  //     try {
-  //       let result = await axios.get(`${API_URL}/member/info`, {withCredentials: true,});
-  //       // console.log(result.data.data);
-  //       setUserInfo(result.data.data);
-  //     } catch(e) {
-  //       console.error("user info 錯誤", e.response.data);
-  //     }
-  //   };
-  //   getUserInfo();
-
-  // }, []);
-
-  // useEffect(() => {
-  //   setUser({...user, image:userInfo.image});
-  // }, [userInfo]);
-
   // 會員後台頁面
   const memberPage = (
     <div className="member-content">
@@ -154,13 +143,13 @@ function Member(props) {
                 <MemberData userInfo={userInfo} setUserInfo={setUserInfo} />
               </Route>
               {/* 會員毛孩相關 Route */}
-              <Route path="/member/pet/data/edit/:selectedPet">
+              <Route path="/member/pet/data/edit">
                 <AddPetData />
               </Route>
-              <Route path="/member/pet/info/edit/:petId">
+              <Route path="/member/pet/info/edit">
                 <EditPetInfo pet={pet} setPet={setPet} />
               </Route>
-              <Route path="/member/pet/info/:petId">
+              <Route path="/member/pet/info">
                 <PetInfo
                   petList={petList}
                   setPetList={setPetList}
@@ -187,7 +176,6 @@ function Member(props) {
                 <AssistanceHistory />
               </Route>
             </Switch>
-            {/* { user ? (switchPage(selectedPage)) : loadingPaw } */}
           </div>
         </div>
       </div>
@@ -204,14 +192,16 @@ function Member(props) {
         console.log('member try catch:', result)
       } catch (e) {
         console.error(e.response.data)
-        if (e.response.data) {
-          // TODO: 要檢查錯誤碼
+        if (e.response.data.code === '9999') {
+          // 檢查錯誤碼
           setShowModal(true)
         }
       }
     }
-    getUser()
-  }, [])
+    if (!user) {
+      getUser()
+    }
+  }, [user])
 
   // 更改 Modal 顯示狀態函式
   const handleCloseModal = () => {

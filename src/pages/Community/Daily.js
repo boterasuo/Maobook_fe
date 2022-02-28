@@ -34,9 +34,6 @@ function Daily(props) {
         <div className="daily-">
           <div className="d-inline-block">
             <DailyCard />
-            <DailyCard />
-            <DailyCard />
-            <DailyCard />
           </div>
         </div>
       </div>
