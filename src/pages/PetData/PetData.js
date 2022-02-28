@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import './PetData.scss'
-import { NavLink, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import differenceInMonths from 'date-fns/differenceInMonths'
 import differenceInDays from 'date-fns/differenceInDays'
@@ -323,11 +323,16 @@ function PetData(props) {
               </div>
             </div>
           </div>
-          <NavLink as={NavLink} to={`/member/pet/data/edit/${selectedPet}`}>
+          <Link
+            to={{
+              pathname: '/member/pet/data/edit',
+              state: { selectedPet: petInfo.id },
+            }}
+          >
             <button className="edit-icon" title="新增/編輯毛孩數值">
               <BsPencilSquare color="white" fontSize="1.3rem" />
             </button>
-          </NavLink>
+          </Link>
         </div>
       </div>
     </div>

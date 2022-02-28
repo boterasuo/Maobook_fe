@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Table, Modal, Button } from 'react-bootstrap'
-import { NavLink, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../utils/config'
@@ -139,10 +139,11 @@ function EditPetInfo(props) {
             </div>
           </div>
           {/* 毛孩姓名 */}
-          <div className="text-center pt-3 h4 text-secondary font-weight-bold">
+          <div className="pt-3 d-flex justify-content-center">
+            <span className="required-icon">*</span>
             <input
               type="text"
-              className="form-control text-center w-50 m-auto"
+              className="form-control text-center w-50"
               name="name"
               placeholder="毛孩姓名"
               value={pet.name}
@@ -200,7 +201,7 @@ function EditPetInfo(props) {
                 <td></td>
               </tr>
               <tr>
-                <td>性別</td>
+                <td className="require-td">性別</td>
                 <td className="edit-gender">
                   {genderValues.map((v, i) => {
                     return (
@@ -227,7 +228,7 @@ function EditPetInfo(props) {
                 </td>
               </tr>
               <tr>
-                <td>種類</td>
+                <td className="require-td">種類</td>
                 <td className="edit-gender">
                   {cateValues.map((v, i) => {
                     return (
@@ -255,11 +256,16 @@ function EditPetInfo(props) {
               <tr>
                 <td>體態</td>
                 <td>
-                  <NavLink to={`/member/pet/data/edit/${pet.id}`}>
+                  <Link
+                    to={{
+                      pathname: '/member/pet/data/edit',
+                      state: { selectedPet: pet.id },
+                    }}
+                  >
                     <button className="btn btn-secondary">
                       編輯身長體重資料
                     </button>
-                  </NavLink>
+                  </Link>
                 </td>
               </tr>
               <tr>

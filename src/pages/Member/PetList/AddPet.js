@@ -294,12 +294,10 @@ function AddPet(props) {
                   })}
                 </td>
               </tr>
-              {editErr.gender && (
-                <tr>
-                  <td></td>
-                  <td className="errMsg">{editErr.gender}</td>
-                </tr>
-              )}
+              <tr className={editErr.gender ? '' : 'd-none'}>
+                <td></td>
+                <td className="errMsg">{editErr.gender}</td>
+              </tr>
               <tr>
                 <td className="require-td">種類</td>
                 <td className="edit-gender">
@@ -327,12 +325,10 @@ function AddPet(props) {
                   })}
                 </td>
               </tr>
-              {editErr.cate && (
-                <tr>
-                  <td></td>
-                  <td className="errMsg">{editErr.cate}</td>
-                </tr>
-              )}
+              <tr className={editErr.cate ? '' : 'd-none'}>
+                <td></td>
+                <td className="errMsg">{editErr.cate}</td>
+              </tr>
               <tr>
                 <td>體態</td>
                 <td>

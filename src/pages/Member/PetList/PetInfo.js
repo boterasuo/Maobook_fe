@@ -12,22 +12,8 @@ import { BsPencilSquare } from 'react-icons/bs'
 import defaultPet from '../../../img/avatar_pet.png'
 
 function PetInfo(props) {
-  const { pet, setPet, petList, setPetList } = props
+  const { pet, setPet } = props
   console.log('props', props)
-  // const [pet, setPet] = useState({
-  //     id:"",
-  //     user_id:"",
-  //     name:"",
-  //     image:"",
-  //     arrDay:"",
-  //     birthday:"",
-  //     gender:"",
-  //     cate:"",
-  //     height:0,
-  //     weight:0,
-  //     vaccine:[],
-  //     health:[],
-  // });
 
   // 取得當前 pet id (來自 match params)
   const petId = parseInt(props.location.state.selectedPet, 10)
@@ -169,7 +155,7 @@ function PetInfo(props) {
             </tr>
             <tr>
               <td>體態</td>
-              <td>
+              <td className="petData-edit">
                 <div className="d-flex justify-content-center align-items-center">
                   {pet.height || pet.weight ? (
                     <div className="mx-1 newest-data">最新</div>
@@ -191,6 +177,14 @@ function PetInfo(props) {
                   ) : (
                     ''
                   )}
+                  <Link
+                    to={{
+                      pathname: '/member/pet/data/edit',
+                      state: { selectedPet: pet.id },
+                    }}
+                  >
+                    <button className="btn btn-secondary">新增資料</button>
+                  </Link>
                 </div>
               </td>
             </tr>
@@ -251,11 +245,11 @@ function PetInfo(props) {
           </tbody>
         </Table>
       </div>
-      <NavLink as={NavLink} to={`/member/pet/info/edit`}>
+      <Link to={`/member/pet/info/edit`}>
         <button className="edit-icon" title="編輯毛孩資料">
           <BsPencilSquare color="white" fontSize="1.3rem" />
         </button>
-      </NavLink>
+      </Link>
     </div>
   )
 }

@@ -106,14 +106,19 @@ $secondary: #6a5f4b;
 
 // PetInfo 頁面
 .petList-table {
-  .newest-data {
-    // align-self: center;
-    padding: 2px 2px 0px 2px;
-    font-size: 0.8rem;
-    font-weight: 400;
-    border: 1px solid red;
-    border-radius: 3px;
-    color: red;
+  .petData-edit {
+    .newest-data {
+      // align-self: center;
+      padding: 2px 2px 0px 2px;
+      font-size: 0.8rem;
+      font-weight: 400;
+      border: 1px solid red;
+      border-radius: 3px;
+      color: red;
+    }
+    .btn {
+      padding: 2px 8px;
+    }
   }
   .readOnly-checkbox {
     label {

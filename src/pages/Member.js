@@ -163,7 +163,7 @@ function Member(props) {
                 <MemberData userInfo={userInfo} setUserInfo={setUserInfo} />
               </Route>
               {/* 會員毛孩相關 Route */}
-              <Route path="/member/pet/data/edit/:selectedPet">
+              <Route path="/member/pet/data/edit">
                 <AddPetData />
               </Route>
               <Route path="/member/pet/info/edit">
