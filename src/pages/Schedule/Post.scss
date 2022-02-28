@@ -15,7 +15,7 @@
 .schedulePostH1 {
   color: #f6bc54;
   font-size: 3.5rem;
-  margin-top: -20px;
+  margin-top: 100px;
   text-align: center;
 }
 
@@ -89,6 +89,14 @@
   display: none;
 }
 
+.schedulePostButton3 {
+  height: 130px;
+  width: 60px;
+  z-index: 1;
+  border: 2px white solid;
+  border-radius: 20px 20px 0px 0px;
+}
+
 .schedulePostButton1 {
   background-color: #f6bc54;
   color: white;
@@ -103,7 +111,7 @@
     background-color: white;
     color: #f6bc54;
   }
-  &:checked {
+  &:focus {
     background-color: white;
     color: #f6bc54;
   }
@@ -135,10 +143,11 @@
     background-color: white;
     color: #f6bc54;
   }
-  &:focus {
-    background-color: white;
-    color: #f6bc54;
-  }
+}
+
+.schedulePostButton2 label:focus {
+  background-color: white;
+  color: #f6bc54;
 }
 
 // 標籤
