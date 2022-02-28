@@ -5,6 +5,7 @@ import axios from 'axios'
 import { API_URL } from '../../utils/config'
 // 引入 component
 import SwitchBTN from './SwitchBTN'
+import ModalComponent from './ModalComponent'
 // 引入樣式 icon
 import './PetData.scss'
 import { BsFunnel } from 'react-icons/bs'
@@ -18,8 +19,6 @@ function AddPetData(props) {
   const [selectedPet, setSelectedPet] = useState(selectedPetId)
   // 按鈕狀態 (true 體重 / false 身長)
   const [switchBTN, setSwitchBTN] = useState(false)
-  // 身高體重 (height / weight)
-  // const [hwSwitch, setHwSwitch] = useState("height");
   // 毛孩列表
   const [petList, setPetList] = useState([])
   // 存取身長/體重資料狀態
@@ -34,39 +33,15 @@ function AddPetData(props) {
     value: '',
     time: '',
   })
+  // Modal 顯示狀態 & 顯示內容
+  const [showModal, setShowModal] = useState(false)
+  const [modalContent, setModalContent] = useState({})
+  const [deleteId, setDeleteId] = useState({ btnId: 0 })
 
   // 切換按鈕狀態函式
   const toggleSwitchBTN = () => {
     setSwitchBTN(!switchBTN)
   }
-
-  // 取得毛孩 id & name
-  useEffect(() => {
-    let getPetInfo = async () => {
-      try {
-        // 先取得已登入使用者所有毛孩列表
-        let listResult = await axios.get(`${API_URL}/pet`, {
-          withCredentials: true,
-        })
-        console.log(listResult.data.data)
-        let newPetList = [...petList]
-        newPetList = listResult.data.data.map((v, i) => [v.id, v.name])
-        // console.log(newPetList);
-        // 將所有毛孩 id 依序存入陣列
-        setPetList(newPetList)
-        // 第一次渲染先取得初始毛孩的原始資料 (好像不用這段?)
-        // let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`,
-        //     {withCredentials: true,});
-        // petHeightRef.current = heightResult.data.data;
-        // let weightResult = await axios.get(`${API_URL}/pet/weight/${selectedPet}`,
-        //     {withCredentials: true});
-        // petWeightRef.current = weightResult.data.data;
-      } catch (e) {
-        console.error('pet data 錯誤', e.response.data)
-      }
-    }
-    getPetInfo()
-  }, [])
 
   // 抓身高函式
   let getHeight = async () => {
@@ -99,14 +74,41 @@ function AddPetData(props) {
     }
   }
 
+  // 取得毛孩 id & name
+  useEffect(() => {
+    let getPetInfo = async () => {
+      try {
+        // 先取得已登入使用者所有毛孩列表
+        let listResult = await axios.get(`${API_URL}/pet`, {
+          withCredentials: true,
+        })
+        console.log(listResult.data.data)
+        let newPetList = [...petList]
+        newPetList = listResult.data.data.map((v, i) => [v.id, v.name])
+        // console.log(newPetList);
+        // 將所有毛孩 id 依序存入陣列
+        setPetList(newPetList)
+        // 第一次渲染先取得初始毛孩的原始資料
+        getHeight()
+        // let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`,
+        //     {withCredentials: true,});
+        // petHeightRef.current = heightResult.data.data;
+        // let weightResult = await axios.get(`${API_URL}/pet/weight/${selectedPet}`,
+        //     {withCredentials: true});
+        // petWeightRef.current = weightResult.data.data;
+      } catch (e) {
+        console.error('pet data 錯誤', e.response.data)
+      }
+    }
+    getPetInfo()
+  }, [])
+
   // 選取毛孩狀態改變時 => 取得被選取毛孩身長 or 體重資料
   useEffect(() => {
-    if (selectedPet) {
-      if (switchBTN === false) {
-        getHeight()
-      } else if (switchBTN === true) {
-        getWeight()
-      }
+    if (switchBTN === false) {
+      getHeight()
+    } else if (switchBTN === true) {
+      getWeight()
     }
   }, [selectedPet, switchBTN])
 
@@ -165,6 +167,7 @@ function AddPetData(props) {
     // 不然 input 的值無法跟著輸入值改變
     setPetHWInfo([...temPetHWInfo])
     setEditErr({ ...editErr, [e.target.name]: '' })
+    // TODO: 有時間的話改為複製初始資料到 editData 狀態內再改動 (原petHWInfo不動)
   }
 
   // 確認修改函式
@@ -234,12 +237,17 @@ function AddPetData(props) {
       return
     } else {
       try {
-        let editResult = await axios.post(`${API_URL}/pet/addData`, editData, {
+        let addResult = await axios.post(`${API_URL}/pet/addData`, editData, {
           withCredentials: true,
         })
-        console.log(editResult.data)
-        if (editResult.data.message === 'ok') {
-          alert('新增成功!')
+        console.log(addResult.data)
+        if (addResult.data.message === 'ok') {
+          setShowModal(true)
+          setModalContent({
+            ...modalContent,
+            title: '新增成功！',
+            cate: 'added',
+          })
           setEdit()
           setEditData({ value: '', time: '' })
           if (switchBTN === false) {
@@ -255,6 +263,50 @@ function AddPetData(props) {
           value: e.response.data.value,
           time: e.response.data.time,
         })
+      }
+    }
+  }
+
+  // 刪除前跳出確認視窗 Modal
+
+  const handleDeleteConfirm = (e) => {
+    setDeleteId({ ...deleteId, btnId: e.target.name })
+    setModalContent({
+      ...modalContent,
+      title: '確認刪除該筆資料？',
+      cate: 'delete',
+    })
+    setShowModal(true)
+  }
+  // 關閉/取消 btn for Modal
+  const handleClose = () => {
+    setDeleteId({ ...deleteId, btnId: 0 })
+    setModalContent({})
+    setShowModal(false)
+  }
+  // 刪除資料函式
+  async function handleDelete() {
+    const btnId = { ...deleteId }
+    console.log(btnId)
+    let type = 'height'
+    if (!switchBTN === false) {
+      type = 'weight'
+    }
+    let deleteResult = await axios.post(
+      `${API_URL}/pet/deleteData/${type}`,
+      btnId,
+      {
+        withCredentials: true,
+      }
+    )
+    if (deleteResult.data.message === 'ok') {
+      setDeleteId({ ...deleteId, btnId: 0 })
+      setShowModal(false)
+      setModalContent({})
+      if (switchBTN === false) {
+        getHeight()
+      } else {
+        getWeight()
       }
     }
   }
@@ -284,6 +336,15 @@ function AddPetData(props) {
 
   return (
     <div className="info-card pet-data-edit">
+      <ModalComponent
+        showModal={showModal}
+        backdrop={modalContent.cate === 'delete' ? 'static' : true}
+        keyboard={modalContent.cate === 'delete' ? false : true}
+        showFooter={modalContent.cate === 'delete' ? '' : 'd-none'}
+        handleClose={handleClose}
+        modalContent={modalContent}
+        handleConfirm={handleDelete}
+      />
       <div className="row">
         <div className="col-lg-7">
           <div className="d-flex justify-content-start pet-data-select">
@@ -439,7 +500,12 @@ function AddPetData(props) {
                               >
                                 修改
                               </button>
-                              <button type="button" className="btn">
+                              <button
+                                name={data.id}
+                                type="button"
+                                className="btn"
+                                onClick={handleDeleteConfirm}
+                              >
                                 刪除
                               </button>
                             </>
