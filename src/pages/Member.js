@@ -61,25 +61,6 @@ function Member(props) {
   // Modal 切換顯示狀態用
   const [showModal, setShowModal] = useState(false)
 
-  // 取得使用者詳細資料 (這邊不用取 --> 在 MemberData 那邊取就好)
-  // useEffect(() => {
-  //   let getUserInfo = async () => {
-  //     try {
-  //       let result = await axios.get(`${API_URL}/member/info`, {withCredentials: true,});
-  //       // console.log(result.data.data);
-  //       setUserInfo(result.data.data);
-  //     } catch(e) {
-  //       console.error("user info 錯誤", e.response.data);
-  //     }
-  //   };
-  //   getUserInfo();
-
-  // }, []);
-
-  // useEffect(() => {
-  //   setUser({...user, image:userInfo.image});
-  // }, [userInfo]);
-
   // 會員後台頁面
   const memberPage = (
     <div className="member-content">
