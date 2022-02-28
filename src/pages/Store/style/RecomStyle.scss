@@ -37,11 +37,7 @@
   flex-direction: column;
   justify-content: center;
 }
-.weRecom {
-  position: relative;
-  left: 40%;
-  top: -80px;
-}
+
 .recom-petname,
 .recom-describe {
   position: relative;
@@ -57,47 +53,12 @@
   height: 100%;
   object-fit: contain;
 }
+.weRecom {
+  position: relative;
+  left: 40%;
+  top: -80px;
+}
 .recomPro {
   position: relative;
-  top: -20%;
-  left: 15%;
-}
-
-//產品card
-.product {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  width: 10em;
-}
-.product::before {
-  content: "";
-  border: 1px solid#fcb736;
-  border-radius: 30px;
-  width: 130px;
-  height: 220px;
-  position: absolute;
-  top: 18%;
-}
-.productImg {
-  width: 110%;
-  position: relative;
-  left: -14%;
-}
-.productCartIcon {
-  position: absolute;
-  top: 95%;
-  left: 65%;
-}
-.s-title {
-  padding: 0 15px 0 10px;
-  font-size: 0.8rem;
-  margin: 0;
-}
-.s-price {
-  padding: 0 10px 0 10px;
+  top: -22%;
 }
