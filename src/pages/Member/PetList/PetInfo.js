@@ -172,7 +172,7 @@ function PetInfo(props) {
               <td>
                 <div className="d-flex justify-content-center align-items-center">
                   {pet.height || pet.weight ? (
-                    <div className="mx-1 newest-data">最新資料</div>
+                    <div className="mx-1 newest-data">最新</div>
                   ) : (
                     ''
                   )}

@@ -87,7 +87,10 @@ function EditPetInfo(props) {
       console.log(response.data)
       if (response.data.message === 'ok') {
         // alert('修改成功')
-        history.push(`/member/pet/info/${pet.id}`)
+        history.push({
+          pathname: '/member/pet/info',
+          state: { selectedPet: pet.id },
+        })
         // setShowModal(true);
       }
     } catch (e) {
