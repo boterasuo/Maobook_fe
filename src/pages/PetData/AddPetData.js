@@ -182,7 +182,12 @@ function AddPetData(props) {
         })
         console.log(editResult.data)
         if (editResult.data.message === 'ok') {
-          alert('修改成功!')
+          setShowModal(true)
+          setModalContent({
+            ...modalContent,
+            title: '修改成功！',
+            cate: 'added',
+          })
           setEdit()
           setEditData({ value: '', time: '' })
         } else if (editResult.data.message === 'no data input') {

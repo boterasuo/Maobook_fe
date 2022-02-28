@@ -9,6 +9,7 @@ function ModalComponent(props) {
         onHide={props.handleClose}
         backdrop={props.backdrop}
         keyboard={props.keyboard}
+        animation={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>{props.modalContent.title}</Modal.Title>
