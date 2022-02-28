@@ -14,6 +14,11 @@ function EditPetInfo(props) {
   const { pet, setPet } = props
   console.log('pet state: ', pet)
   const [preview, setPreview] = useState('')
+  const [editErr, setEditErr] = useState({
+    name: '',
+    arrDay: '',
+    birthday: '',
+  })
   // 性別 radio
   const genderValues = ['1', '2', '3']
   const genderOptions = ['男孩', '女孩', '不確定']
@@ -36,10 +41,41 @@ function EditPetInfo(props) {
     '心臟疾病',
     '心血管疾病',
   ]
+  // Modal 切換顯示狀態用
+  const [showModal, setShowModal] = useState(false)
 
   function handleChange(e) {
     setPet({ ...pet, [e.target.name]: e.target.value })
-    // setEditErr({ ...editErr, [e.target.name]: "" });
+    setEditErr({ ...editErr, [e.target.name]: '' })
+  }
+
+  // 表單有不合法的檢查出現時
+  // name 欄位前端檢查
+  const handleNameInvalid = (e) => {
+    e.preventDefault()
+    if (!e.target.value) {
+      setEditErr({ ...editErr, [e.target.name]: '此欄位不可為空' })
+    }
+  }
+  // Arrival Day 欄位前端檢查
+  const handleArrDayInvalid = (e) => {
+    e.preventDefault()
+    const today = Date.parse(new Date().toDateString())
+    const inputDate = Date.parse(e.target.value)
+    if (e.target.value && inputDate > today) {
+      setEditErr({ ...editErr, [e.target.name]: '請選擇早於今天的日期' })
+    }
+  }
+  // birthday 欄位前端檢查
+  const handleBirthInvalid = (e) => {
+    e.preventDefault()
+    if (pet.arrDay) {
+      const arrDate = Date.parse(pet.arrDay)
+      const inputDate = Date.parse(e.target.value)
+      if (inputDate > arrDate) {
+        setEditErr({ ...editErr, [e.target.name]: '毛孩生日不可晚於到家日' })
+      }
+    }
   }
 
   // 圖片預覽函式
@@ -65,49 +101,65 @@ function EditPetInfo(props) {
   // 上傳圖片用 formData
   async function handleSubmit(e) {
     e.preventDefault()
-    // if (editErr.name || editErr.arrDay || editErr.birthday) {
-    //   return;
-    // } else {
-    try {
-      let formData = new FormData()
-      formData.append('id', pet.id)
-      formData.append('image', pet.image)
-      formData.append('name', pet.name)
-      formData.append('arrDay', pet.arrDay)
-      formData.append('birthday', pet.birthday)
-      formData.append('ageCate', pet.ageCate)
-      formData.append('gender', pet.gender)
-      formData.append('cate', pet.cate)
-      formData.append('vaccine', pet.vaccine)
-      formData.append('health', pet.health)
+    if (editErr.name || editErr.arrDay || editErr.birthday) {
+      return
+    } else {
+      try {
+        let formData = new FormData()
+        formData.append('id', pet.id)
+        formData.append('image', pet.image)
+        formData.append('name', pet.name)
+        formData.append('arrDay', pet.arrDay)
+        formData.append('birthday', pet.birthday)
+        formData.append('ageCate', pet.ageCate)
+        formData.append('gender', pet.gender)
+        formData.append('cate', pet.cate)
+        formData.append('vaccine', pet.vaccine)
+        formData.append('health', pet.health)
 
-      let response = await axios.post(`${API_URL}/pet/editInfo`, formData, {
-        withCredentials: true,
-      })
-      console.log(response.data)
-      if (response.data.message === 'ok') {
-        // alert('修改成功')
-        history.push({
-          pathname: '/member/pet/info',
-          state: { selectedPet: pet.id },
+        let response = await axios.post(`${API_URL}/pet/editInfo`, formData, {
+          withCredentials: true,
         })
-        // setShowModal(true);
+        console.log(response.data)
+        if (response.data.message === 'ok') {
+          setShowModal(true)
+        }
+      } catch (e) {
+        console.error('編輯毛孩失敗: ', e.response.data)
+        setEditErr({
+          ...editErr,
+          name: e.response.data.name,
+          arrDay: e.response.data.arrDay,
+          birthday: e.response.data.birthday,
+        })
       }
-    } catch (e) {
-      console.error('新增毛孩失敗: ', e.response.data)
-      // setEditErr({...editErr,
-      //   name: e.response.data.name,
-      //   arrDay: e.response.data.arrDay,
-      //   birthday: e.response.data.birthday,
-      //   cate: e.response.data.cate
-      // });
     }
-    // }
   }
+  // 更改 Modal 顯示狀態函式
+  const handleCloseModal = () => {
+    setShowModal(false)
+    history.push({
+      pathname: '/member/pet/info',
+      state: { selectedPet: pet.id },
+    })
+  }
+  // 編輯成功 Modal html
+  const editPetModal = (
+    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>修改成功！</Modal.Title>
+      </Modal.Header>
+      <Modal.Footer>
+        <Button variant="primary" onClick={handleCloseModal}>
+          確認
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  )
 
   return (
     <form className="position-relative info-card">
-      {/* {addPetModal} */}
+      {editPetModal}
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">
@@ -149,10 +201,12 @@ function EditPetInfo(props) {
               value={pet.name}
               onChange={(e) => {
                 handleChange(e)
-                //   handleNameInvalid(e);
+                handleNameInvalid(e)
               }}
             />
-            {/* <div className="errMsg">{editErr.name ? editErr.name : ""}</div> */}
+          </div>
+          <div className="text-center py-1 errMsg">
+            {editErr.name ? editErr.name : ''}
           </div>
           <input type="hidden" name="id" value={pet.id} />
         </div>
@@ -170,12 +224,12 @@ function EditPetInfo(props) {
                     value={pet.arrDay && pet.arrDay}
                     onChange={(e) => {
                       handleChange(e)
-                      //     handleArrDayInvalid(e);
+                      handleArrDayInvalid(e)
                     }}
                   />
-                  {/* <div className="errMsg">
-                  {editErr.arrDay ? editErr.arrDay : ""}
-                </div> */}
+                  <div className="errMsg">
+                    {editErr.arrDay ? editErr.arrDay : ''}
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -188,12 +242,12 @@ function EditPetInfo(props) {
                     value={pet.birthday && pet.birthday}
                     onChange={(e) => {
                       handleChange(e)
-                      //     handleBirthInvalid(e);
+                      handleBirthInvalid(e)
                     }}
                   />
-                  {/* <div className="errMsg">
-                  {editErr.birthday ? editErr.birthday : ""}
-                </div> */}
+                  <div className="errMsg">
+                    {editErr.birthday ? editErr.birthday : ''}
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -250,7 +304,6 @@ function EditPetInfo(props) {
                       </div>
                     )
                   })}
-                  {/* <div className=" form-check-inline errMsg">{editErr.cate ? editErr.cate : ""}</div> */}
                 </td>
               </tr>
               <tr>
@@ -262,9 +315,7 @@ function EditPetInfo(props) {
                       state: { selectedPet: pet.id },
                     }}
                   >
-                    <button className="btn btn-secondary">
-                      編輯身長體重資料
-                    </button>
+                    <button className="btn btn-secondary">編輯體態資料</button>
                   </Link>
                 </td>
               </tr>
