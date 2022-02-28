@@ -7,7 +7,7 @@ import axios from 'axios'
 import { API_URL, IMG_URL } from '../../../utils/config'
 
 // 引入 圖片 icon css
-import { BsReply, BsPencilSquare } from 'react-icons/bs'
+import { BsReply, BsPencilSquare, BsTrash } from 'react-icons/bs'
 import defaultAvatar from '../../../img/avatar_user.png'
 import './MemberEdit.scss'
 
@@ -35,6 +35,8 @@ function MemberEdit(props) {
   // 圖片預覽函式
   function handlePreview(e) {
     const file = e.target.files[0]
+    e.target.value = null
+
     const reader = new FileReader()
     reader.addEventListener(
       'load',
@@ -51,6 +53,10 @@ function MemberEdit(props) {
 
   function handleImage(e) {
     setUserInfo({ ...userInfo, image: e.target.files[0] })
+  }
+  function handleImageDelete() {
+    setUserInfo({ ...userInfo, image: '' })
+    setPreview('')
   }
 
   // 表單有不合法的檢查出現時
@@ -155,19 +161,28 @@ function MemberEdit(props) {
               src={preview}
             />
             <div className="edit-avatar position-absolute">
-              <label htmlFor="edit-avatar" className="position-absolute">
-                <BsPencilSquare color="white" />
-                <input
-                  type="file"
-                  name="image"
-                  onChange={(e) => {
-                    handleImage(e)
-                    handlePreview(e)
-                  }}
-                  id="edit-avatar"
-                  className="d-none"
-                />
-              </label>
+              <div className="position-absolute edit-avatar-icons">
+                <label htmlFor="edit-avatar">
+                  <BsPencilSquare color="white" />
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={(e) => {
+                      handleImage(e)
+                      handlePreview(e)
+                    }}
+                    id="edit-avatar"
+                    className="d-none"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="mx-2"
+                  onClick={handleImageDelete}
+                >
+                  <BsTrash color="white" />
+                </button>
+              </div>
             </div>
           </div>
           {/* 使用者姓名變數 */}

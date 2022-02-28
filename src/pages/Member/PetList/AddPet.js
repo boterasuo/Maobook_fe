@@ -9,7 +9,7 @@ import { API_URL, IMG_URL } from '../../../utils/config'
 // 引入圖片 icon scss
 import defaultPet from '../../../img/avatar_pet.png'
 import './PetList.scss'
-import { BsPencilSquare, BsPlusLg } from 'react-icons/bs'
+import { BsPencilSquare, BsPlusLg, BsTrash } from 'react-icons/bs'
 
 function AddPet(props) {
   const { user, setUser } = useAuth()
@@ -66,6 +66,8 @@ function AddPet(props) {
   // 圖片預覽函式
   function handlePreview(e) {
     const file = e.target.files[0]
+    e.target.value = null
+
     const reader = new FileReader()
     reader.addEventListener(
       'load',
@@ -74,13 +76,16 @@ function AddPet(props) {
       },
       false
     )
-
     if (file) {
       reader.readAsDataURL(file)
     }
   }
   function handleImage(e) {
     setAddPet({ ...addPet, image: e.target.files[0] })
+  }
+  function handleImageDelete() {
+    setAddPet({ ...addPet, image: '' })
+    setPreview('')
   }
 
   // 表單有不合法的檢查出現時
@@ -190,19 +195,28 @@ function AddPet(props) {
               src={preview}
             />
             <div className="edit-avatar position-absolute">
-              <label htmlFor="edit-avatar" className="position-absolute">
-                <BsPencilSquare color="white" />
-                <input
-                  type="file"
-                  name="image"
-                  onChange={(e) => {
-                    handleImage(e)
-                    handlePreview(e)
-                  }}
-                  id="edit-avatar"
-                  className="d-none"
-                />
-              </label>
+              <div className="position-absolute edit-avatar-icons">
+                <label htmlFor="edit-avatar">
+                  <BsPencilSquare color="white" />
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={(e) => {
+                      handleImage(e)
+                      handlePreview(e)
+                    }}
+                    id="edit-avatar"
+                    className="d-none"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="mx-2"
+                  onClick={handleImageDelete}
+                >
+                  <BsTrash color="white" />
+                </button>
+              </div>
             </div>
           </div>
           {/* 毛孩姓名 */}
