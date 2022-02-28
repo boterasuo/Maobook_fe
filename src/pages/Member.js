@@ -177,7 +177,6 @@ function Member(props) {
                 <AssistanceHistory />
               </Route>
             </Switch>
-            {/* { user ? (switchPage(selectedPage)) : loadingPaw } */}
           </div>
         </div>
       </div>
