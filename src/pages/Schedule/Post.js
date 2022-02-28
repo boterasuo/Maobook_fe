@@ -121,26 +121,26 @@ function Post(props) {
             {/* 重要與普通radio */}
             <div className="schedulePostClass">
               <fieldset id="important">
-                <label for="0" className="schedulePostButton1 lg">
-                  <input
-                    type="radio"
-                    id="0"
-                    name="important"
-                    value={0}
-                    check={'0' === important}
-                    onChange={handleChange}
-                    className="schedulePostCircle"
-                  />
-                  <span className="schedulePostButtontext">重 要</span>
-                </label>
-
-                <label for="1" className="schedulePostButton2 lg">
+                <label for="1" className="schedulePostButton1 lg">
                   <input
                     type="radio"
                     id="1"
                     name="important"
                     value={1}
                     check={'1' === important}
+                    onChange={handleChange}
+                    className="schedulePostCircle"
+                  />
+                  <span className="schedulePostButtontext">重 要</span>
+                </label>
+
+                <label for="0" className="schedulePostButton2 lg">
+                  <input
+                    type="radio"
+                    id="0"
+                    name="important"
+                    value={0}
+                    check={'0' === important}
                     onChange={handleChange}
                     className="schedulePostCircle"
                   />
@@ -296,10 +296,14 @@ function Post(props) {
                 </div>
               </div>
               {/* <div className="buttonDiv"> */}
+              {/* <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    hello world!
+              <a href="#" class="alert-link">嗨嗨</a> */}
               <button
                 className="scheduleSummitButton"
                 type="submit"
                 onClick={handleSubmit}
+                data-dismiss="alert"
               >
                 送 出
               </button>
