@@ -1,33 +1,28 @@
-import React from "react";
-import {
-  Navbar,
-  Nav,
-  Form,
-  NavDropdown,
-  Container,
-} from "react-bootstrap";
-import axios from "axios";
+import React from 'react'
+import { Navbar, Nav, Form, NavDropdown, Container } from 'react-bootstrap'
+import axios from 'axios'
 // 引入 context
-import { useAuth } from "../../context/auth";
+import { useAuth } from '../../context/auth'
 // 引入 utils
-import { API_URL, IMG_URL } from "../../utils/config";
-import Logo from "../../img/Logo_nav.svg";
+import { API_URL, IMG_URL } from '../../utils/config'
+import Logo from '../../img/Logo_nav.svg'
 // 引入圖片
-import defaultAvatar from "../../img/avatar_user.png";
+import defaultAvatar from '../../img/avatar_user.png'
+import cartIcon from '../../img/cartIcon.svg' //購物車ICON
 // 引入 global.scss
-import "../../style/UI/global.scss";
+import '../../style/UI/global.scss'
 
 // 要使用能有active css效果的NavLink元件
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom'
 
 function MyNav(props) {
   // 來自 context 的 user 狀態
-  const { user, setUser } = useAuth();
+  const { user, setUser } = useAuth()
   // 登出功能
   const handleLogout = async () => {
-    await axios.get(`${API_URL}/auth/logout`, { withCredentials: true });
-    setUser(null);
-  };
+    await axios.get(`${API_URL}/auth/logout`, { withCredentials: true })
+    setUser(null)
+  }
 
   return (
     <>
@@ -46,7 +41,7 @@ function MyNav(props) {
             alt="Logo"
           />
         </Navbar.Brand>
-      {/* Nav中間 連結各平台頁面 */}
+        {/* Nav中間 連結各平台頁面 */}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Container>
@@ -76,13 +71,19 @@ function MyNav(props) {
             <Nav className="nav-login">
               <Nav.Link as={NavLink} to="/login">
                 <div className="nav-login-btn btn btn-outline-primary">
-                SIGN IN
+                  SIGN IN
                 </div>
               </Nav.Link>
             </Nav>
           )}
 
           {/* 登入後 */}
+          {/* 購物車連結鈕 */}
+          <Nav>
+            <Nav.Link as={NavLink} to="/Store/CartDetail">
+              <img className="cartIcon" src={cartIcon} alt="cartIcon" />
+            </Nav.Link>
+          </Nav>
           {/* 會員專區 下拉式選單 */}
           {user && (
             <Form className="member d-flex">
@@ -117,14 +118,14 @@ function MyNav(props) {
               <div className="d-inline-block"></div>
               {/* 會員頭像: 暫時修改 by 歐 for 測試 Navbar */}
               <Nav.Link as={NavLink} to="/member/data">
-                <div 
+                <div
                   className="rounded-circle embed-responsive embed-responsive-1by1"
-                  style={{width:"40px", height:"40px"}}
+                  style={{ width: '40px', height: '40px' }}
                 >
                   <img
                     alt=""
                     className="w-100 h-100 embed-responsive-item"
-                    style={{objectFit: "cover"}}
+                    style={{ objectFit: 'cover' }}
                     src={
                       user.image !== null
                         ? `${IMG_URL}${user.image}`
@@ -142,7 +143,7 @@ function MyNav(props) {
         </Navbar.Collapse>
       </Navbar>
     </>
-  );
+  )
 }
 
-export default MyNav;
+export default MyNav
