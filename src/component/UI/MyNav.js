@@ -78,15 +78,14 @@ function MyNav(props) {
           )}
 
           {/* 登入後 */}
-          {/* 購物車連結鈕 */}
-          <Nav>
-            <Nav.Link as={NavLink} to="/Store/CartDetail">
-              <img className="cartIcon" src={cartIcon} alt="cartIcon" />
-            </Nav.Link>
-          </Nav>
+
           {/* 會員專區 下拉式選單 */}
           {user && (
             <Form className="member d-flex">
+              {/* 購物車連結鈕 */}
+              <Nav.Link as={NavLink} to="/Store/CartDetail">
+                <img className="cartIcon" src={cartIcon} alt="cartIcon" />
+              </Nav.Link>
               <NavDropdown title="會員專區" id="collasible-nav-dropdown">
                 <NavDropdown.Item>
                   <p>
