@@ -60,7 +60,6 @@ function Member(props) {
   const history = useHistory()
   // Modal 切換顯示狀態用
   const [showModal, setShowModal] = useState(false)
-
   // 會員後台頁面
   const memberPage = (
     <div className="member-content">

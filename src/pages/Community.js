@@ -31,7 +31,7 @@ function Community() {
 
       <div className="container">
         <div className="Intro-Page scroll-page">
-          <AnchorLink className="go-on d-block" href="#Daily-Page">
+          <AnchorLink className="go-on d-block" to="#Daily-Page">
             一起來看看
             <br />
             大家最平凡的毛孩生活吧

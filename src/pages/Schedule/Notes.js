@@ -13,8 +13,14 @@ import { format } from 'date-fns'
 // 引入圖片
 import star from './img/scheduleIcon5.svg'
 // import event1 from './img/event1.svg';
+// 線段圖片
 import event9 from './img/event9.svg'
+import event10 from './img/event10.svg'
+import event11 from './img/event11.svg'
+import event12 from './img/event12.svg'
 import event0 from './img/event0.svg'
+import event00 from './img/event00.svg'
+
 // import event5 from './img/event5.svg';
 
 function Notes({ NoteDate }) {
@@ -39,6 +45,62 @@ function Notes({ NoteDate }) {
     return a.DATE == NoteDate.getDate()
   })
 
+  // 判斷事件顏色直線
+  function eventColor(i) {
+    switch (i) {
+      case 1:
+        return event9
+      case 2:
+        return event10
+      case 3:
+        return event11
+      case 4:
+        return event12
+      default:
+        return ''
+    }
+  }
+
+  // 判斷事件TAG背景顏色
+  function eventbackground(i) {
+    switch (i) {
+      case 1:
+        return 'scheduleEvents9tagsText'
+      case 2:
+        return 'scheduleEvents10tagsText'
+      case 3:
+        return 'scheduleEvents11tagsText'
+      case 4:
+        return 'scheduleEvents12tagsText'
+      default:
+        return ''
+    }
+  }
+
+  // 判斷是否為當月重要事件
+  function MonthStar(i) {
+    switch (i) {
+      case 1:
+        return event0
+      case 0:
+        return event00
+      default:
+        return ''
+    }
+  }
+
+  // 判斷有沒有重要事件的星星
+  function showStar(i) {
+    switch (i) {
+      case 1:
+        return event0
+      case 0:
+        return event00
+      default:
+        return ''
+    }
+  }
+
   return (
     <>
       <div className="scheduleNotes">
@@ -59,35 +121,47 @@ function Notes({ NoteDate }) {
                 data.map((item, i) => {
                   return (
                     <>
-                      <div className="asd">
-                        <div className="scheduleEvents1">
-                          <p className="scheduleEventDay">{item.DATE}</p>
-                          {/* <img src={event1} className="events1Img" /> */}
-                        </div>
-                        <div className="scheduleEvents2">
-                          <img src={event9} className="scheduleEvents2Img" />
-                        </div>
-                        <div className="scheduleEvents3">
-                          <img src={event0} />
-                          {item.importer}
-                        </div>
-                        {item.tags.map((tag, i) => {
-                          return (
-                            <div className="scheduleEvents4 d-flex">
-                              <div className="bbb">
-                                <div className="scheduleEvents4tagsText">
-                                  {tag}
+                      {!item.importance == 0 && (
+                        <div className="asd">
+                          <div className="scheduleEvents1">
+                            <p className="scheduleEventDay">{item.DATE}</p>
+                            {/* <img src={event1} className="events1Img" /> */}
+                          </div>
+                          <div className="scheduleEvents2">
+                            <img
+                              src={eventColor(item.category_id)}
+                              className="scheduleEvents2Img"
+                            />
+                          </div>
+                          {/* 處理要不要印星星  0不印 1要印 */}
+                          <div className="scheduleEvents3">
+                            <img src={event0} />
+                            {item.importer}
+                          </div>
+                          {item.tags.map((tag, i) => {
+                            return (
+                              <div className="scheduleEvents4 d-flex">
+                                <div className="bbb">
+                                  <div
+                                    className={eventbackground(
+                                      item.category_id
+                                    )}
+                                  >
+                                    {tag}
+                                  </div>
+                                  {/* <img src={event5} className="scheduleEvents4tags"/> */}
                                 </div>
-                                {/* <img src={event5} className="scheduleEvents4tags"/> */}
                               </div>
-                            </div>
-                          )
-                        })}
-                        <div className="aaaaaa"></div>
-                        <div className="scheduleEvents5">{item.title}</div>
-
-                        <br />
-                      </div>
+                            )
+                          })}
+                          <div className="aaaaaa"></div>
+                          <div className="scheduleEvents5">
+                            {item.name}
+                            {item.title}
+                          </div>
+                          <br />
+                        </div>
+                      )}
                     </>
                   )
                 })
@@ -119,20 +193,28 @@ function Notes({ NoteDate }) {
                           {/* <img src={event1} className="events1Img" /> */}
                         </div>
                         <div className="scheduleEvents2">
-                          <img src={event9} className="scheduleEvents2Img" />
+                          <img
+                            src={eventColor(Dateitem.category_id)}
+                            className="scheduleEvents2Img"
+                          />
                         </div>
                         <div className="scheduleEvents3">
-                          <img src={event0} />
-                          {Dateitem.importance}
+                          <img src={showStar(Dateitem.importance)} />
                         </div>
                         <div className="scheduleEvents4">
                           {Dateitem.tags.map((Datetag, i) => {
                             return (
                               <>
-                                <div className="bbb">
-                                  {/* <img src={event5} className="scheduleEvents4tags"/> */}
-                                  <div className="scheduleEvents4tagsText">
-                                    {Datetag}
+                                <div className="scheduleEvents4 d-flex">
+                                  <div className="bbb">
+                                    {/* <img src={event5} className="scheduleEvents4tags"/> */}
+                                    <div
+                                      className={eventbackground(
+                                        Dateitem.category_id
+                                      )}
+                                    >
+                                      {Datetag}
+                                    </div>
                                   </div>
                                 </div>
                               </>
