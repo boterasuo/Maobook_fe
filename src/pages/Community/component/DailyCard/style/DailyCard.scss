@@ -1,4 +1,4 @@
-@import "../../../../../style/UI/global.scss";
+@import '../../../../../style/UI/global.scss';
 
 // border弧度
 $mao-border: 33px;
@@ -9,8 +9,8 @@ $avatar-length: 4rem;
 .daily-card {
   cursor: pointer;
   width: 230px;
-  min-height: 63vh;
-  max-height: 66vh;
+  min-height: 63%;
+  max-height: 66%;
   // border: 1px solid #ccc;
   display: flex;
   margin: 0 0.1rem;
@@ -30,15 +30,20 @@ $avatar-length: 4rem;
     padding: 0 0;
     border-radius: $mao-border;
     overflow: hidden;
-    // 預設圖片為PHOTO.svg
+    // 卡片圖片 預設圖片為PHOTO.svg
     .card-img {
-      border-radius: 0;
-      width: 100%;
+      border-radius: 33px 33px 0 0;
+      height: 20% ;
     }
     // 內文預覽
     .card-content {
-      padding: 1.5rem 0;
-      margin: 0 1.5rem;
+      height: 30%;
+      margin: 1.3rem 1.2rem ;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
     }
   }
   //按讚數、留言數
@@ -66,7 +71,7 @@ $avatar-length: 4rem;
     padding: 0 0;
     margin: 0 0;
   }
-  
+
   .card-detail-article {
   }
 }
@@ -107,18 +112,16 @@ $avatar-length: 4rem;
       .comment-list-rows {
         width: 100%;
         display: inline-flex;
-        .comment-no{
-          
+        .comment-no {
         }
-        .commenter-avatar{
+        .commenter-avatar {
           background: $primary;
           width: 2.6rem;
           height: 2.6rem;
           border-radius: 50%;
-          overflow: hidden; 
-         
+          overflow: hidden;
         }
-        .comment-border{
+        .comment-border {
           min-height: 33px;
           border: 1px solid $primary;
           border-radius: 33px;
@@ -140,7 +143,6 @@ $avatar-length: 4rem;
 .text-indent {
   text-indent: 2em;
 }
-
 
 // 貼文區 輪軸處理
 .scrolling-area {
@@ -171,11 +173,11 @@ $avatar-length: 4rem;
 }
 
 // 隱藏
-.invisibility{
-  visibility:hidden;
+.invisibility {
+  visibility: hidden;
 }
 
 // 垂直
-.v-align-center{
+.v-align-center {
   vertical-align: middle;
 }

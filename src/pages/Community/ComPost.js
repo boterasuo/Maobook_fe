@@ -1,108 +1,60 @@
-import { ButtonGroup, Button, Form, Row, Col } from "react-bootstrap";
-import "./style/ComPost.scss";
+import {
+  ButtonGroup,
+  Button,
+  Form,
+  Row,
+  Col,
+  Card,
+  CardColumns,
+} from 'react-bootstrap'
+import './style/ComPost.scss'
+import axios from 'axios'
 
 // 引入圖片
-import photoUpload from "./images/icon-camera.svg";
-import React from "react";
-import { useHistory } from "react-router-dom";
-import ReactDOM from "react-dom";
+import photoUpload from './images/icon-camera.svg'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import ReactDOM from 'react-dom'
 import 'react-icons'
-import { GrPowerReset } from "react-icons/gr";
+import { GrPowerReset } from 'react-icons/gr'
+// 引入 context
+import { useAuth } from '../../../../context/auth'
+// 引入 utils
+import { API_URL, IMG_URL } from '../../../../utils/config'
 
 // 引入元件
 // import second from '..'
 
-function Post() {
-//   // 相片上傳
-//   class Uploader extends React.Component {
-//     render() {
-//       return (
-//         <form className="uploader" encType="multipart/form-data">
-//           <input type="file" id="file" multiple />
-//         </form>
-//       );
-//     }
-//   } //相片上傳end
+function ComPost() {
+  const [cards, setCards] = useState([])
 
-  // 拖曳圖片
-  const dropbox = document.getElementById("upload_zone");
-  const preview = document.getElementById("preview");
+  // 討論標籤
+  const discussOptions = [
+    '貓貓',
+    '狗狗',
+    '問卦',
+    '求助',
+    '閒聊',
+    '轉發',
+    '推薦',
+    '黑特',
+  ]
 
-  function handleFileSelect(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    const fileUploader = document.getElementById("fileUploader");
-    fileUploader.click();
-  }
+  // Card-List API
+  useEffect(() => {
+    let getCardList = async () => {
+      try {
+        let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
+        // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
+        setCards(cardModalInfo.data)
 
-  const click = (e) => handleFileSelect(e);
-
-  // prevent the default method working
-  function dragenter(e) {
-    // add the styling to div
-    dropbox.classList.add("upload_zone_enter");
-    e.stopPropagation();
-    e.preventDefault();
-  }
-
-  const dragleave = () => dropbox.classList.remove("upload_zone_enter");
-
-  // prevent the default method working
-  function dragover(e) {
-    e.stopPropagation();
-    e.dragover().stopPropagation();
-    e.preventDefault();
-  }
-
-  function handleFiles(files) {
-    for (var i = 0; i < files.length; i++) {
-      const file = files[i];
-      const imageType = /image.*/;
-
-      if (!file.type.match(imageType)) {
-        continue;
+        console.log('CadListResponse.data:  ', cardModalInfo.data)
+      } catch (e) {
+        console.error('Get card-list Error', e.cardModalInfo.data)
       }
-
-      const img = document.createElement("img");
-      img.classList.add("obj");
-      img.file = file;
-      preview.appendChild(img);
-
-      const reader = new FileReader();
-      reader.onload = (e) => (img.src = e.target.result);
-      reader.readAsDataURL(file);
-
     }
-  }
-
-  function drop(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const dt = e.dataTransfer;
-    const files = dt.files;
-
-    handleFiles(files);
-    dropbox.classList.remove("upload_zone_enter");
-  }
-  // function preventer(e) {
-  //   e.preventDefault();
-    // dropbox.addEventListener("click", click, false);
-    // dropbox.addEventListener("dragenter", dragenter, false);
-    // dropbox.addEventListener("dragleave", dragleave, false);
-    // dropbox.addEventListener("dragover", dragover, false);
-    // dropbox.addEventListener("drop", drop, false);
-  // }
-  function dragenter(e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
-  
-  function dragover(e) {
-    e.dragover.stopPropagation();
-    e.preventDefault();
-  }
-  // 拖曳圖片 end //
+    getCardList()
+  }, [])
 
   return (
     <div id="Post-Page">
@@ -115,35 +67,36 @@ function Post() {
           <div className="post-controll mt-md-50 d-sm-inline-block d-md-inline-flex">
             <div className="postinput">
               {/* 相片上傳 */}
-              <form className="img-uploader"  action="/action.php" encType="multipart/form-data">
-                  <input
+              <form
+                className="img-uploader"
+                action="/action.php"
+                encType="multipart/form-data"
+              >
+                <input
                   type="file"
                   id="fileUploader"
                   className=" d-none"
-                  onchange={handleFiles}
+                  // onChange={}
                   multiple
                 />
                 {/* [[[DropBox]]] */}
-                <div
-                id="upload_zone" 
-                className=" upload_zone"
-                >
+                <div id="upload_zone" className=" upload_zone">
                   {/* 請將要上傳的圖片拖曳至此 */}
                 </div>
                 <div id="preview"></div>
               </form>
               {/* 發文模式切換 */}
               <div className="postClass ">
-                <buttongroup vertical>
-                  <button className="button1 l-01"> 日常 </button>
-                  <button className="button2 l-01 "> 普通 </button>
-                </buttongroup>
+                <ButtonGroup vertical="true">
+                  <button className="button1 l-01"> 日常分享 </button>
+                  <button className="button2 l-01"> 社群八卦 </button>
+                </ButtonGroup>
               </div>
               {/* 兩個標籤區 */}
               <div className="postTag">
                 <div className="postTag1">
                   <form action="/action.php">
-                    <label for="fname" className="postLabel">
+                    <label htmlFor="fname" className="postLabel">
                       ＃
                     </label>
                     <input
@@ -153,7 +106,7 @@ function Post() {
                       name="fname"
                     />
                     <br />
-                    <label for="lname" className="postLabel">
+                    <label htmlFor="lname" className="postLabel">
                       ＃
                     </label>
                     <input
@@ -165,27 +118,36 @@ function Post() {
                   </form>
                 </div>
                 {/* 討論文：固定標籤 */}
-                <div className="postTag2">
-                  <label id="post-tag-1" className="btnIcon1">
-                    <input type="checkbox" />
-                    <a for="post-tag-1">問卦</a>
+                {cards.discussOptions.map((choice) => {
+                  return (
+                    <>
+                      <div className="postTag2">
+                        <label
+                          htmlFor="post-tag-1"
+                          className="btnIcon1"
+                          key={choice}
+                        >
+                          <input id="post-tag-1" type="checkbox" />
+                          <a>{discussOptions[choice]}</a>
+                        </label>
+                        {/* <label htmlFor="post-tag-2" className="btnIcon2">
+                    <input id="post-tag-2" type="checkbox" />
+                    <a>求助</a>
                   </label>
 
-                  <label id="post-tag-2" className="btnIcon2">
-                    <input type="checkbox" />
-                    <a for="post-tag-2">求助</a>
-                  </label>
-
-                  <label className="btnIcon3">
+                  <label htmlFor="post-tag-3" className="btnIcon3">
                     <input id="post-tag-3" type="checkbox" />
-                    <a for="post-tag-3">求助</a>
+                    <a>求助</a>
                   </label>
 
-                  <label className="btnIcon4">
+                  <label htmlFor="post-tag-4" className="btnIcon4">
                     <input id="post-tag-4" type="checkbox" />
-                    <a for="post-tag-4">黑特</a>
-                  </label>
-                </div>
+                    <a>黑特</a>
+                  </label> */}
+                      </div>
+                    </>
+                  )
+                })}
               </div>
             </div>
             {/* 撰寫貼文區域 */}
@@ -193,9 +155,10 @@ function Post() {
               <div className="post-content-container">
                 <div className="post-content-textarea">
                   <Form>
-                    <textarea className="community-textarea filled-md-100">
-                      寫一些記錄吧！
-                    </textarea>
+                    <textarea
+                      className="community-textarea filled-md-100"
+                      defaultValue={'寫一些記錄吧！'}
+                    ></textarea>
                   </Form>
                 </div>
                 <button className="community-submit">送 出</button>
@@ -206,9 +169,9 @@ function Post() {
       </div>
       {/*postinput*/}
     </div> //Post-page
-  );
+  )
 }
 
 // Member.propTypes = {}
 
-export default Post;
+export default ComPost
