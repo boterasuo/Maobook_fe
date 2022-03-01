@@ -36,12 +36,12 @@ function Assistance() {
             <HelpList />
           </div>
           <br />
-          <div className="helppost">
-            <HelpPost />
-          </div>
-          <br />
           <div className="helpdetail">
             <HelpDetail />
+          </div>
+          <br />
+          <div className="helppost">
+            <HelpPost />
           </div>
         </div>
       </div>
