@@ -1,37 +1,37 @@
-.leftbackground {
+.maoassistance {
   position: fixed;
-  width: 32.73 px;
-  height: 32.73 px;
+  width: 100 px;
+  height: 100 px;
   top: 99.11px;
   left: 10%;
   z-index: 1;
 }
 
-.posticon {
+.helpposticon {
   position: fixed;
-  width: 40 px;
-  height: 40 px;
+  width: 40px;
+  height: 40px;
   top: 99.11px;
   left: 85%;
   z-index: 1;
 }
 
+.middle{
+  top:0%;
+}
+
 .dayhelps {
-  margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 }
 
 .helplist {
   position: relative;
-  left: 5%;
-  max-width: 90%;
   margin-bottom: 150px;
+  margin-top: 50px;
 }
 
 .helpdetail {
   margin-top: 50px;
   margin-bottom: 50px;
   position: relative;
-  left: 5%;
-  width: 90%;
 }
