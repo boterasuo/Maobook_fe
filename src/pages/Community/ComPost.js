@@ -18,9 +18,9 @@ import ReactDOM from 'react-dom'
 import 'react-icons'
 import { GrPowerReset } from 'react-icons/gr'
 // 引入 context
-import { useAuth } from '../../../../context/auth'
+import { useAuth } from '../../context/auth'
 // 引入 utils
-import { API_URL, IMG_URL } from '../../../../utils/config'
+import { API_URL, IMG_URL } from '../../utils/config'
 
 // 引入元件
 // import second from '..'
