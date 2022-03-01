@@ -1,34 +1,35 @@
-import React from 'react';
-import './Checkbox.scss';
+/* eslint-disable prettier/prettier */
+import React from 'react'
+import  { useState } from 'react'
+
+import './Checkbox.scss'
 
 function Checkbox(props) {
+  const { filterName, checkeds, setCheckeds } = (props)
+  console.log("88",checkeds);
+
+  // checkedProduct.includes(1);
   return (
     <>
-      <div className="checkbox d-flex">
-        <label>
-          <input
-            type="checkbox"
-          />{' '}
-          <span>幼犬</span>
-        </label>
+      {filterName.map((d) => {
+        return (
+          <div className="checkbox d-flex">
+            <label>
+              <input type="checkbox" value={d.id}
+                onChange={(e) => {
+                    const newcheckedProduct = [...checkeds, e.target.value]
+                    setCheckeds(newcheckedProduct)
+                  }
+                }
 
-        <label>
-          <input
-            type="checkbox"
-          />{' '}
-          <span>成犬</span>
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-          />{' '}
-          <span>全齡犬</span>
-        </label>
-
-      </div>
+              />
+              <span>{d.name}</span>
+            </label>
+          </div>
+        )
+      })}
     </>
   )
 }
 
-export default Checkbox;
+export default Checkbox

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import './PetData.scss'
-import { NavLink, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import differenceInMonths from 'date-fns/differenceInMonths'
 import differenceInDays from 'date-fns/differenceInDays'
@@ -173,8 +173,8 @@ function PetData(props) {
       },
       y: {
         display: false,
-        min: Math.min(...petInfo.heightData) * 0.95,
-        max: Math.max(...petInfo.heightData) * 1.05,
+        min: Math.floor(Math.min(...petInfo.heightData) * 0.95),
+        max: Math.ceil(Math.max(...petInfo.heightData) * 1.05),
         // grid: {
         //     display: false,
         // }
@@ -193,8 +193,8 @@ function PetData(props) {
       },
       y: {
         display: false,
-        min: Math.min(...petInfo.weightData) * 0.95,
-        max: Math.max(...petInfo.weightData) * 1.05,
+        min: Math.floor(Math.min(...petInfo.weightData) * 0.95),
+        max: Math.ceil(Math.max(...petInfo.weightData) * 1.05),
         // grid: {
         //     display: false,
         // }
@@ -241,7 +241,7 @@ function PetData(props) {
       <div className="pet-data-card">
         <div className="row text-center">
           {/* 左欄: 毛孩資料 */}
-          <div className="col-lg-6">
+          <div className="col-lg-6 align-self-center">
             {/* 大頭照 */}
             <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
               <img
@@ -323,11 +323,16 @@ function PetData(props) {
               </div>
             </div>
           </div>
-          <NavLink as={NavLink} to={`/member/pet/data/edit/${selectedPet}`}>
+          <Link
+            to={{
+              pathname: '/member/pet/data/edit',
+              state: { selectedPet: petInfo.id },
+            }}
+          >
             <button className="edit-icon" title="新增/編輯毛孩數值">
               <BsPencilSquare color="white" fontSize="1.3rem" />
             </button>
-          </NavLink>
+          </Link>
         </div>
       </div>
     </div>
