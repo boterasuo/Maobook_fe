@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { NavLink, withRouter, Link } from 'react-router-dom'
+import { NavLink, withRouter, Link, useHistory } from 'react-router-dom'
 // 引入 context
 import { useAuth } from '../../../context/auth'
 // 引入 utils
@@ -13,6 +13,9 @@ import './PetList.scss'
 
 function PetList(props) {
   const { petList, setPetList } = props
+  const [page, setPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
+  const history = useHistory()
   const loadingPaw = (
     <div className="text-center">
       <div className="spinner-grow text-primary" role="status">
@@ -26,17 +29,36 @@ function PetList(props) {
   useEffect(() => {
     let getPetList = async () => {
       try {
-        let result = await axios.get(`${API_URL}/pet`, {
+        let result = await axios.get(`${API_URL}/pet/?page=${page}`, {
           withCredentials: true,
         })
-        console.log('getPetList', result.data.data)
+        console.log('getPetList', result.data)
         setPetList(result.data.data)
+        setLastPage(result.data.pagination.lastPage)
       } catch (e) {
         console.error('pet list 錯誤', e.response.data)
       }
     }
     getPetList()
-  }, [])
+  }, [page])
+
+  const getPages = () => {
+    let pages = []
+    for (let i = 1; i <= lastPage; i++) {
+      pages.push(
+        <li
+          className={page === i ? 'active' : ''}
+          key={i}
+          onClick={(e) => {
+            setPage(i)
+          }}
+        >
+          {i}
+        </li>
+      )
+    }
+    return pages
+  }
 
   return (
     <div className="info-card text-secondary">
@@ -70,6 +92,9 @@ function PetList(props) {
             <BsPlusLg className="plus-icon" />
           </div>
         </NavLink>
+      </div>
+      <div className="text-center petList-pages">
+        <ul className="m-auto">{getPages()}</ul>
       </div>
     </div>
   )

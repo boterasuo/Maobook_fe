@@ -9,7 +9,7 @@ import { useAuth } from '../context/auth'
 
 // 引入樣式和圖片
 import './Member.scss'
-import loading from '../img/loading_paw.svg'
+// import loading from '../img/loading_paw.svg'
 
 // 引入元件
 import MemberData from './Member/MemberData/MemberData'
@@ -22,6 +22,7 @@ import AddPetData from './PetData/AddPetData'
 import OrderHistory from './Member/OrderHistory/OrderHistory'
 import CommunityHistory from './Member/CommunityHistory/CommunityHistory'
 import AssistanceHistory from './Member/AssistanceHistory/AssistanceHistory'
+import NoLoginModal from './NoLoginModal'
 
 function Member(props) {
   // 來自 context 的 user 狀態
@@ -201,7 +202,7 @@ function Member(props) {
     if (!user) {
       getUser()
     }
-  }, [user])
+  }, [])
 
   // 更改 Modal 顯示狀態函式
   const handleCloseModal = () => {
@@ -209,32 +210,44 @@ function Member(props) {
     history.push('/login')
   }
   // 註冊成功 Modal html
-  const notLoginModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>尚未登入</Modal.Title>
-      </Modal.Header>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
+
+  // const notLoginModal = (
+  //   <Modal show={showModal} onHide={handleCloseModal} animation={false}>
+  //     <Modal.Header closeButton>
+  //       <Modal.Title>尚未登入</Modal.Title>
+  //     </Modal.Header>
+  //     <Modal.Footer>
+  //       <Button variant="primary" onClick={handleCloseModal}>
+  //         確認
+  //       </Button>
+  //     </Modal.Footer>
+  //   </Modal>
+  // )
 
   // loading 動圖
-  const loadingPaw = (
-    <div className="member-content position-relative">
-      {notLoginModal}
-      <div className="text-center position-absolute loading-paw">
-        <div className="spinner-grow text-primary" role="status">
-          <img alt="" className="sr-only" src={loading} />
-        </div>
-      </div>
-    </div>
-  )
+  // const loadingPaw = (
+  //   <div className="member-content position-relative">
+  //     {notLoginModal}
+  //     <div className="text-center position-absolute loading-paw">
+  //       <div className="spinner-grow text-primary" role="status">
+  //         <img alt="" className="sr-only" src={loading} />
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
 
-  return <>{user ? memberPage : loadingPaw}</>
+  return (
+    <>
+      {user ? (
+        memberPage
+      ) : (
+        <NoLoginModal
+          showModal={showModal}
+          handleCloseModal={handleCloseModal}
+        />
+      )}
+    </>
+  )
 }
 
 export default Member

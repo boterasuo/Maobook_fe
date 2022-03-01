@@ -11,6 +11,27 @@ $secondary: #6a5f4b;
   position: relative;
 }
 
+// 動態特效圖層設定
+// #containerIntro {
+//   position: relative;
+//   align-items: center;
+//   .home-intro-page {
+//     position: absolute;
+//     .home-info-txt {
+//       z-index: 10;
+//     }
+//     .home-dialog {
+//       z-index: 20;
+//     }
+//     .home-main-pic {
+//       z-index: 30;
+//     }
+//     .home-intro-title {
+//       z-index: 30;
+//     }
+//   }
+// }
+
 // 1. 簡介文字
 .home-info-txt {
   position: absolute;

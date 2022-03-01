@@ -11,4 +11,4 @@ npm i yarn<br>
 yarn add date-fns (npm i date-fns)<br>
 yarn add react-anchor-link-smooth-scroll // 錨點滑動效果<br>
 yarn add animate.css<br>
-
+yarn add gsap<br>

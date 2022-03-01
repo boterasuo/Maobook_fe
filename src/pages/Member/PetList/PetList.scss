@@ -3,6 +3,26 @@ $primary: #f6bc54;
 $secondary: #6a5f4b;
 
 //PetList 頁面
+.petList-pages {
+  margin-top: 2rem;
+  li {
+    display: inline-block;
+    margin: 0.3rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    border: 1px solid $primary;
+    border-radius: 50%;
+    text-align: center;
+    color: $primary;
+    cursor: pointer;
+  }
+  li:hover,
+  .active {
+    background: $primary;
+    color: white;
+  }
+}
 .pet-list-card {
   .pet-avatar {
     margin: 1rem;

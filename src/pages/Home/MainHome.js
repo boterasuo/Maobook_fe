@@ -1,16 +1,18 @@
-import React from "react";
-import Logo from "../../img/Logo.svg";
-import LogoWord from "../../img/LOGO_word.svg";
-import BgPaw from "../../img/MainHome/bg_paw.svg";
-import Button from "react-bootstrap/Button";
+import React from 'react'
+import Logo from '../../img/Logo.svg'
+import LogoWord from '../../img/LOGO_word.svg'
+import BgPaw from './img/bg_paw.svg'
+import Button from 'react-bootstrap/Button'
 
 // 引入SCSS樣式
-import "./MainHome.scss";
+import './MainHome.scss'
+// 引入動畫套件
+import 'animate.css'
 
 function MainHome(props) {
   return (
     <>
-      <div className="main-content">
+      <div className="main-content animate__animated animate__fadeIn">
         {/* 背景灰色大腳印 */}
         <div className="bg-paw">
           <img src={BgPaw} alt="bg-paw" />
@@ -43,14 +45,14 @@ function MainHome(props) {
               <div className="col-lg-auto">{/* SPACE */}</div>
               {/* 右側內容 大Logo */}
               <div className="content-right col-lg-3">
-                <img className="home-logo " src={Logo} alt="Logo" />
+                <img className="home-logo" src={Logo} alt="Logo" />
               </div>
             </div>
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default MainHome;
+export default MainHome
