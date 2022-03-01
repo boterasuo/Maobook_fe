@@ -43,7 +43,7 @@ function HelpList(props) {
               <button
                 class="dropdown-toggle takemaoout"
                 type="button"
-                id="dropdownMenu2"
+                id="listdropdown"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
