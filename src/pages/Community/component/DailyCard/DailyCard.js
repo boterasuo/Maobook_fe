@@ -12,7 +12,7 @@ import './style/DailyCard.scss'
 import Hashtag from './HashTag'
 import axios from 'axios'
 // 引入 context
-import { useAuth } from '../../../../context/auth'
+// import { useAuth } from '../../../../context/auth'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../../utils/config'
 // 元件
@@ -30,40 +30,69 @@ import pawpaw from './images/icon-paw.svg'
 function CardModal(modalProps) {
   // 卡片內容
   const [cards, setCards] = useState([])
+  //  留言
+  const [comments, setComments] = useState([])
+  // 處理錯誤
+  const [ErrComment, setErrComment] = useState({ msg: '' })
+  const { cardID } = modalProps
 
-  const CarouselItems = () => {
-    return (
-      <>
-        {cards.map((CarouselItems) => (
-          <Carousel.Item>
-            <img
-              style={{ width: '100%' }}
-              className="d-block w-50"
-              src={`${CarouselItems}`}
-              // src={`${IMG_URL}${CarouselItem}`}
-              alt="First slide"
-            />
-          </Carousel.Item>
-        ))}
-      </>
-    )
-  }
+  // 送出表單 (onSubmit)
+  const [comment, setComment] = useState({
+    comment: '',
+  })
+  // function handleChange(e) {
+  //   setComments({ ...comment, [e.target.name]: e.target.value })
+  // }
+
+  // 留言處理
+  // async function handleSubmit(e) {
+  //   Swal.fire('已成功留言', '請重新整理', 'success')
+  //   e.preventDefault() //關掉預設行為
+  //   try {
+  //     let commentRes = await axios.post(
+  //       'http://localhost:3002/api/daily/AddComment',
+  //       comment,
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     )
+  //   } catch (e) {
+  //     console.error('留言失敗', e.commentRes.data)
+  //     setErrComment({ ...errMsg, msg: e.commentRes.data.msg })
+  //   }
 
   // Card-List API
   useEffect(() => {
     let getCardList = async () => {
-      try {
-        let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
-        // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
-        setCards(cardModalInfo.data)
-
-        console.log('CadListResponse.data:  ', cardModalInfo.data)
-      } catch (e) {
-        console.error('Get card-list Error', e.cardModalInfo.data)
-      }
+      let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
+      // console.log(cardModalInfo.data)
+      // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
+      let cardIDContent = cardModalInfo.data.filter((v) => {
+        return v.id === cardID
+      })
+      // console.log('XXX', cardIDContent)
+      setCards(cardIDContent)
+      // console.log('cardIDContent', cardIDContent)
+      // console.log('CadListResponse.data:  ', cardModalInfo.data)
     }
     getCardList()
-  }, [])
+  }, [cardID])
+
+  // 抓留言列表API
+  useEffect(() => {
+    let getCommentList = async () => {
+      let commentArr = await axios.get(
+        `${API_URL}` + '/daily' + '/comment-list'
+      )
+      let commentList = commentArr.data.filter((v) => {
+        return v.id === cardID
+      })
+      setComments(commentList)
+      console.log('留言列表', commentArr)
+      // console.log('CadListResponse.data:  ', cardModalInfo.data)
+    }
+    getCommentList()
+  }, [cardID])
 
   // 跳出來的視窗內容
   return (
@@ -75,27 +104,22 @@ function CardModal(modalProps) {
       z-index="999"
     >
       <Container>
-        <Row className="card-detail-modal">
-          <Col xs={12} md={6} className="card-detail-slider">
-            <Carousel fade width="60%">
-              <Carousel.Item>
-                <div className="carousel-hashtag pl-3 pt-2">
-                  <Hashtag />
-                </div>
-                <img
-                  className="d-block w-100"
-                  src="https://shoplineimg.com/58a81a0d72fdc0ec2700333f/60a33d32974d6000140df206/800x.webp?source_format=jpg"
-                  alt="First slide"
-                />
-                <Carousel.Caption></Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
-          </Col>
-          <Col xs={6} md={6} className=" w-100 h-100 px-5 overflow-y-scroll">
-            {cards.map((card) => {
-              return (
-                <>
-                  {/* 縮小圖 */}
+        {cards.map((card) => {
+          return (
+            <>
+              {/* 彈出式視窗: 左側 */}
+
+              <Row className="card-detail-modal" key={card.id}>
+                <Col xs={12} md={6} className="card-detail-slider bg-black">
+                  <div className="carousel-hashtag">{/* <Hashtag /> */}</div>
+                  <img
+                    className="carousel-img"
+                    src={`${IMG_URL}${card.image}`}
+                    alt="First slide"
+                  />
+                </Col>
+                <Col xs={6} md={6} className="px-5 overflow-y-scroll">
+                  {/* 關閉 */}
                   <div className="zoomOut-btn" tittle="關閉視窗">
                     <img
                       src={cardLeave}
@@ -103,16 +127,16 @@ function CardModal(modalProps) {
                       tittle="關閉視窗"
                     />
                   </div>
-
+                  {/* 彈出式視窗: 右側 */}
                   <Container fluid className="scrolling-area">
                     {/* 發文者抬頭 */}
-                    <Row className="mt-4" key={card.id}>
+                    <Row className="mt-4">
                       <Col className="">
                         <Row>
                           <Col sm={2} md={2}>
                             {/* 大頭貼 */}
-                            <div className="daily-post-avatar ">
-                              <img src={card.avatar} />
+                            <div className="daily-post-avatar">
+                              <img src={`${IMG_URL}${card.avatar}`} />
                             </div>
                           </Col>
                           <Col sm={3} md={3}>
@@ -126,10 +150,7 @@ function CardModal(modalProps) {
                     </Row>
                     {/* 發文者抬頭 end */}
                     {/* 內文 */}
-                    <Row
-                      className="daily-post-body border-top-primary"
-                      key={card.id}
-                    >
+                    <Row className="daily-post-body border-top-primary">
                       <Col>
                         {/* 內文標題 */}
                         <Row className="pt-2">
@@ -146,7 +167,7 @@ function CardModal(modalProps) {
                             收藏
                           </Col>
                         </Row>
-                        <Row className="py-3" key={card.id}>
+                        <Row className="py-3">
                           <Col className="text-indent">{card.content}</Col>
                         </Row>
                       </Col>
@@ -157,50 +178,71 @@ function CardModal(modalProps) {
                       <Col>
                         <div className="comment-bar"></div>
                         <ul className="comment-list">
-                          {/* 留言輸入欄位 */}
-                          <Form className="comment-list-rows ">
-                            <div className="comment-no py-2 invisibility  mr-1 ">
-                              B0
-                            </div>
-                            <img
-                              className="commenter-avatar mx-1 my-2 bd-highlight"
-                              src="https://p2.bahamut.com.tw/HOME/creationCover/39/0002366739_B.JPG"
-                            />
-                            <input
-                              type="text"
-                              className="comment-border p-2 bd-highlight flex-fill text-wrap"
-                            />
-                            <button
-                              type="submit"
-                              className="btn btn-outline-primary rounded-pill py-1 my-1 "
-                            >
-                              送出
-                            </button>
-                          </Form>
-                          {/* 留言輸入欄位end */}
-                          {/* 留言列表 */}
-                          <li className="comment-list-rows">
-                            {/* {lists} */}
-                            <div className="commenter-avatar mx-1 py-2 bd-highlight my-2">
-                              {/* 留言者頭貼 */}
-                              <img />
-                            </div>
-                            <div className="comment-border px-3 py-2 bd-highlight flex-fill ">
-                              {/* 留言內容 */}
-                              {/* {card.} */}
-                            </div>
-                          </li>
+                          {/* 發文者 */}
+                          {comments.map((commentItem) => {
+                            return (
+                              <>
+                                <Form
+                                  className="comment-list-rows"
+                                  key={commentItem.diaryID}
+                                >
+                                  <div className="comment-no py-2 invisibility  mr-1 ">
+                                    B0
+                                  </div>
+                                  <img
+                                    className="commenter-avatar bd-highlight"
+                                    src={`${IMG_URL}${card.avatar}`}
+                                  />
+                                  {/* 發文者留言欄位 */}
+                                  <input
+                                    type="text"
+                                    className="comment-border p-2 bd-highlight flex-fill text-wrap"
+                                    // value={}
+                                    // onChange={handleChange}
+                                    placeholder="請留言..."
+                                    id="tagOne"
+                                    name="tagOne"
+                                  />
+                                  <button
+                                    type="submit"
+                                    className="btn btn-outline-primary rounded-pill py-1 my-1 "
+                                    // onClick={handleSubmit}
+                                    data-dismiss="alert"
+                                  >
+                                    送出
+                                  </button>
+                                </Form>
+                                {/* 留言列表 */}
+                                <li className="comment-list-rows">
+                                  {/* TODO 文字垂直置中 */}
+                                  <span className="align-text-bottom">
+                                    {commentItem.name}
+                                  </span>
+                                  <div className="commenter-avatar bd-highlight">
+                                    {/* 留言者頭貼 */}
+                                    <img
+                                      src={`${IMG_URL}${commentItem.commenter}`}
+                                    />
+                                  </div>
+                                  <div className="comment-border px-3 py-2 bd-highlight flex-fill ">
+                                    {/* 留言內容 */}
+                                    {commentItem.comment}
+                                  </div>
+                                </li>
+                              </>
+                            )
+                          })}
                           {/* 留言列表end */}
                         </ul>
                       </Col>
                     </Row>
                     {/* 留言 end */}
                   </Container>
-                </>
-              )
-            })}
-          </Col>
-        </Row>
+                </Col>
+              </Row>
+            </>
+          )
+        })}
       </Container>
     </Modal>
   )
@@ -209,12 +251,16 @@ function CardModal(modalProps) {
 //\\ [[[彈出視窗end]]] //\\
 
 // 卡片 card
-
 function DailyCard(props) {
   // 彈跳視窗
   const [modalShow, setModalShow] = React.useState(false)
   //卡片內容
   const [cards, setCards] = useState([])
+  const [cardID, setCardID] = useState('')
+  // 在打開卡片的Detail
+  const openCardDetail = (findCardId) => {
+    setCardID(findCardId)
+  }
 
   // Card-List API
   useEffect(() => {
@@ -222,21 +268,23 @@ function DailyCard(props) {
       try {
         let CadListResponse = await axios.get(`${API_URL}` + '/daily/card-list')
         // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
-        setCards(CadListResponse.data)
-        let tag = CadListResponse.data.data.tags.split(',')
+        // 只顯示四個卡片
+        let cardShow4 = CadListResponse.data.slice(0, 4)
+        setCards([...cardShow4])
+        // setCards(CadListResponse.data)
+        console.log('四張卡片', cardShow4)
         // console.log(tag)
-        console.log('CadListResponse.data:  ', CadListResponse.data)
+        // console.log('所有資料.data:  ', CadListResponse.data)
       } catch (e) {
         // console.error('Get card-list Error', e.CadListResponse.data)
       }
     }
     getCardList()
-  }, [])
+  }, [cardID])
 
   return (
     <>
       {cards.map((card) => {
-        let hashtag = card.tags.split(',')
         {
           /* console.log('標籤', [...hashtag]) */
         }
@@ -244,8 +292,13 @@ function DailyCard(props) {
           <>
             <div
               key={card.id}
+              id={card.id}
               className="daily-card d-inline-block"
-              onClick={() => setModalShow(true)}
+              // 跳出視窗的點擊事件
+              onClick={() => {
+                setModalShow(true)
+                openCardDetail(card.id)
+              }}
             >
               {/* [[[頭像、標籤Tag]]] */}
               <Container className="px-2">
@@ -254,11 +307,7 @@ function DailyCard(props) {
                   <Col xs={4} sm={4} md={4} lg={4}>
                     <img
                       className="daily-avatar rounded-circle bg-secondary"
-                      src={
-                        `${card.image}` == null
-                          ? photo
-                          : `${IMG_URL}${card.avatar}`
-                      }
+                      src={`${IMG_URL}${card.avatar}`}
                     />
                   </Col>
                   {/* <Col xs={1} sm={1} md={1} lg={1}></Col> */}
@@ -267,7 +316,6 @@ function DailyCard(props) {
                       return <div>#{tag}</div>
                     })}
                   </Col>
-                  {/* <Col></Col> */}
                 </Row>
               </Container>
               {/* [[[卡片主體]]] */}
@@ -300,7 +348,11 @@ function DailyCard(props) {
           </>
         )
       })}
-      <CardModal show={modalShow} onHide={() => setModalShow(false)} />
+      <CardModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        cardID={cardID}
+      />
     </>
   )
 }
