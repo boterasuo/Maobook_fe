@@ -111,7 +111,7 @@
     background-color: white;
     color: #f6bc54;
   }
-  &:focus {
+  &.active {
     background-color: white;
     color: #f6bc54;
   }
@@ -140,6 +140,10 @@
 
   z-index: 1;
   &:hover {
+    background-color: white;
+    color: #f6bc54;
+  }
+  &.active {
     background-color: white;
     color: #f6bc54;
   }
@@ -236,7 +240,7 @@
     color: white;
     opacity: 1;
   }
-  &:checked {
+  &.active {
     background-color: #97bbbd;
     color: white;
     opacity: 1;
@@ -262,6 +266,11 @@
     color: white;
     opacity: 1;
   }
+  &.active {
+    background-color: #b29096;
+    color: white;
+    opacity: 1;
+  }
 }
 .scheduleButIcon3 {
   margin: 3px 3px 1px 1px;
@@ -278,6 +287,11 @@
     opacity: 1;
   }
   &:focus {
+    background-color: #6a5f4b;
+    color: white;
+    opacity: 1;
+  }
+  &.active {
     background-color: #6a5f4b;
     color: white;
     opacity: 1;
@@ -300,6 +314,11 @@
     opacity: 1;
   }
   &:focus {
+    background-color: #becdbe;
+    color: white;
+    opacity: 1;
+  }
+  &.active {
     background-color: #becdbe;
     color: white;
     opacity: 1;
