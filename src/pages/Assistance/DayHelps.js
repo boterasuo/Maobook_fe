@@ -13,7 +13,7 @@ function DayHelps(props) {
       let response = await axios.get(
         // `http://localhost:3002/api/help/dayhelps?year=${year}&month=${month}&day=${day}`
         // `http://localhost:3002/api/help/dayhelps/${year}/${month}/${day}`
-        `http://localhost:3002/api/help/dayhelps/2022/03/05`
+        `http://localhost:3002/api/help/dayhelps/2022/03/12`
       )
       setData(response.data)
     }
@@ -22,8 +22,8 @@ function DayHelps(props) {
 
   return (
     <>
-      <div className="container">
-        <div className="maintitle">2022/03/05的所有案件</div>
+      <div className="dayhelps">
+        <div className="maintitle">2022/03/12的所有案件</div>
         <div className="mainframe">
           {data.map((data) => {
             return (
@@ -37,7 +37,10 @@ function DayHelps(props) {
                     <div className="region">{data.region}</div>
                     <div className="category">{data.category}</div>
                     <div className="tags">{data.tag_name}</div>
-                    <div className="price">NT ${data.price}</div>
+                    <div className="price">
+                      <div className="pricetitle">NT$ </div>
+                      <div className="priceamount">{data.price}</div>
+                    </div>
                     <div className="casetitle">{data.title}</div>
                     <div className="arrowicon">
                       <img src={arrowright} alt="" />
@@ -46,7 +49,11 @@ function DayHelps(props) {
 
                   <div className="pawbox">
                     <img className="pawicon" src={pawicon} alt="" />
-                    <div className="icontext">已有{data.taker_count}人應徵</div>
+                    <div className="icontext">
+                      已有{' '}
+                      <span className="takercount">{data.taker_count} </span>
+                      人應徵
+                    </div>
                   </div>
                 </div>
               </>

@@ -33,12 +33,16 @@ $avatar-length: 4rem;
     // 卡片圖片 預設圖片為PHOTO.svg
     .card-img {
       border-radius: 33px 33px 0 0;
-      height: 20% ;
+      height: 247px;
+      width: 100%;
+      // position: relative;
+      object-fit: cover;
+      object-position: 50% 50%;
     }
     // 內文預覽
     .card-content {
       height: 30%;
-      margin: 1.3rem 1.2rem ;
+      margin: 1.3rem 1.2rem;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -67,9 +71,30 @@ $avatar-length: 4rem;
 // \\ [[[彈出視窗]]] // \\
 .card-detail-modal {
   height: 80vh;
+
   .card-detail-slider {
-    padding: 0 0;
+    background: #000;
+    height: 100%;
+    overflow: hidden;
     margin: 0 0;
+    padding: 0 0;
+    .carousel-hashtag {
+      display: none;
+      position: absolute;
+      height: 200.075px;
+      width: 100%;
+      margin: 0 0;
+      padding: 0 0;
+    }
+    // 貼文圖片
+    .carousel-img {
+      height: inherit;
+      width: inherit;
+      margin: 0 0;
+      padding: 0 0;
+      object-fit: contain;
+      object-position: 50% 50%;
+    }
   }
 
   .card-detail-article {
@@ -115,11 +140,20 @@ $avatar-length: 4rem;
         .comment-no {
         }
         .commenter-avatar {
-          background: $primary;
+          // background: $primary;
           width: 2.6rem;
           height: 2.6rem;
           border-radius: 50%;
           overflow: hidden;
+          img{
+            height:max-content;
+            width: max-content;
+            margin: 0 0;
+            padding: 0 0;
+            object-fit:cover;
+            // object-position: 50% 50%;
+          }
+         
         }
         .comment-border {
           min-height: 33px;
@@ -138,6 +172,12 @@ $avatar-length: 4rem;
   width: 3rem;
   border-radius: 50%;
   overflow: hidden;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
 }
 // 段落開頭空2格
 .text-indent {
@@ -180,4 +220,17 @@ $avatar-length: 4rem;
 // 垂直
 .v-align-center {
   vertical-align: middle;
+}
+
+.bg-black {
+  background: #000;
+}
+
+.img-contain-center {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+.img-cover-center {
+  object-fit: cover;
+  object-position: 50% 50%;
 }

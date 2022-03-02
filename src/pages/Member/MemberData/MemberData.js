@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Modal, Button } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import axios from 'axios'
+// 引入函式庫
+import { getUser } from '../../../service/UserData'
 // 引入 context
 import { useAuth } from '../../../context/auth'
 // 引入 utils
@@ -11,15 +13,23 @@ import { BsPencilSquare } from 'react-icons/bs'
 // 引入圖片
 import defaultAvatar from '../../../img/avatar_user.png'
 import loading from '../../../img/loading_paw.svg'
+// 引入未登入Modal元件
+import NoLoginModal from '../../NoLoginModal'
 
 function MemberData(props) {
+  const history = useHistory()
   const { userInfo, setUserInfo } = props
   const { user, setUser } = useAuth()
   // Modal 切換顯示狀態用
-  // const [showModal, setShowModal] = useState(true);
-
+  const [showModal, setShowModal] = useState(false)
   // 性別顯示用陣列
   const gender = ['尚未提供', '生理男', '生理女', '不透漏']
+
+  // 更改 Modal 顯示狀態函式
+  const handleCloseModal = () => {
+    setShowModal(false)
+    history.push('/login')
+  }
 
   // 取得使用者詳細資料
   useEffect(() => {
@@ -45,12 +55,18 @@ function MemberData(props) {
         console.error('user info 錯誤', e.response.data)
       }
     }
-    getUserInfo()
+    // 確認 session 有無過期
+    getUser().then((res) => {
+      if (res === '未登入') {
+        setShowModal(true)
+      } else {
+        getUserInfo()
+      }
+    })
   }, [])
 
   useEffect(() => {
     if (userInfo !== undefined) {
-      console.log('not undefined!')
       setUser({ ...user, name: userInfo.name, image: userInfo.image })
     }
   }, [userInfo])
@@ -63,21 +79,6 @@ function MemberData(props) {
       </div>
     </div>
   )
-
-  // 更改 Modal 顯示狀態函式
-  // const handleCloseModal = () => {
-  //   setShowModal(false);
-  // };
-  // // 註冊成功 Modal html
-  // const loginModal = (
-  //     <Modal show={showModal} onHide={handleCloseModal} style={{borderBottom:"none"}} animation={false}>
-  //     <Modal.Header closeButton>
-  //       <Modal.Title>歡迎！{user && user.name}</Modal.Title>
-  //     </Modal.Header>
-  //     <Modal.Body>開始書寫您與毛孩的日記吧</Modal.Body>
-  //   </Modal>
-  // );
-  // TODO: 如何判斷是剛登入才跳出 "歡迎" 的 Modal?
 
   return (
     <>
@@ -155,8 +156,13 @@ function MemberData(props) {
             </button>
           </NavLink>
         </div>
-      ) : (
+      ) : user ? (
         loadingPaw
+      ) : (
+        <NoLoginModal
+          showModal={showModal}
+          handleCloseModal={handleCloseModal}
+        />
       )}
     </>
   )

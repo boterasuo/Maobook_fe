@@ -11,14 +11,15 @@ import example from '../img/example.svg'
 function HelpCard(props) {
   const [data, setData] = useState([])
 
-  // useEffect(() => {
-  //   let getHelpList = async () => {
-  //       let response = await axios.get("http://localhost:3000/api/helplist/");
-  //     //("${API_URL}/helpdetails/");
-  //     setData(response.data);
-  //   };
-  //   getHelpList();
-  // },[]);
+  useEffect(() => {
+    let cardData = async () => {
+      let response = await axios.get(
+        'http://localhost:3002/api/help/helpcard/台北市'
+      )
+      setData(response.data)
+    }
+    cardData()
+  }, [])
 
   return (
     <div className="helpcard d-inline-block">
@@ -26,13 +27,20 @@ function HelpCard(props) {
       <Container className="px-2">
         <Row>
           <Col xs={4} sm={4} md={4} lg={4}>
-            <div className="helpavatar rounded-circle bg-secondary"></div>
+            {/* <div className="helpavatar rounded-circle bg-secondary"></div> */}
+            <div className="helpavatar rounded-circle bg-secondary">
+              {data.user_image}
+            </div>
           </Col>
 
           <Col xs={1} sm={1} md={1} lg={1}></Col>
 
           <Col xs={6} sm={6} md={6} lg={6}>
             <Hashtag style={{ width: '100%' }} className="hash-tag" />
+            <div>
+              {data.category}
+              {data.tag_name}
+            </div>
           </Col>
         </Row>
       </Container>
@@ -42,15 +50,17 @@ function HelpCard(props) {
         {/* 圖片 */}
         <div className="imgandregion">
           <img className="card-img" src={example} alt="" />
-          <div className="cardregion">台北市</div>
+          {/* <img className="card-img" src={data.image} alt="" /> */}
+          <div className="cardregion">{data.region}</div>
+          <div className="cardregion">{data.date}</div>
         </div>
         {/* 內文 */}
-        <div className="card-content pt-3 px-3">我是標題標題標題......</div>
+        <div className="card-content pt-3 px-3">{data.title}</div>
       </div>
 
       {/* [[[價格]]] */}
       <div className="card-footer d-line-block text-center my-3">
-        <div className="cardprice">$ 1000</div>
+        <div className="cardprice">$ {data.price}</div>
       </div>
     </div>
   )

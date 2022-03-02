@@ -43,15 +43,11 @@ function ComPost() {
   // Card-List API
   useEffect(() => {
     let getCardList = async () => {
-      try {
-        let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
-        // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
-        setCards(cardModalInfo.data)
+      let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
+      // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
+      setCards(cardModalInfo.data)
 
-        console.log('CadListResponse.data:  ', cardModalInfo.data)
-      } catch (e) {
-        console.error('Get card-list Error', e.cardModalInfo.data)
-      }
+      // console.log('CadListResponse.data:  ', cardModalInfo.data)
     }
     getCardList()
   }, [])
@@ -118,7 +114,7 @@ function ComPost() {
                   </form>
                 </div>
                 {/* 討論文：固定標籤 */}
-                {cards.discussOptions.map((choice) => {
+                {/* {cards.discussOptions.map((choice) => {
                   return (
                     <>
                       <div className="postTag2">
@@ -129,8 +125,8 @@ function ComPost() {
                         >
                           <input id="post-tag-1" type="checkbox" />
                           <a>{discussOptions[choice]}</a>
-                        </label>
-                        {/* <label htmlFor="post-tag-2" className="btnIcon2">
+                        </label> */}
+                {/* <label htmlFor="post-tag-2" className="btnIcon2">
                     <input id="post-tag-2" type="checkbox" />
                     <a>求助</a>
                   </label>
@@ -144,10 +140,10 @@ function ComPost() {
                     <input id="post-tag-4" type="checkbox" />
                     <a>黑特</a>
                   </label> */}
-                      </div>
+                {/* </div>
                     </>
                   )
-                })}
+                })} */}
               </div>
             </div>
             {/* 撰寫貼文區域 */}
