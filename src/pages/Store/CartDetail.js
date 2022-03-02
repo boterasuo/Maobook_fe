@@ -1,8 +1,10 @@
 import './style/CartDetailStyle.scss'
 import React, { useState, useEffect } from 'react'
 
-import { Col, Row, Button, Container } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom'
+import { Col, Row, Button, Container, Modal } from 'react-bootstrap'
+
+import { Router, Route, hashHistory, useHistory } from 'react-router-dom'
+import OrderDetail from './OrderDetail'
 //元件
 import CartProductItem from './components/CartProductItem'
 
@@ -12,10 +14,15 @@ import cartListBG from './storePic/cartListBG.svg'
 import arrow from './storePic/arrow.svg'
 
 function CartDetail() {
-  const history1 = useHistory() //連到下一步
+  const cartHistory = useHistory() //連到下一步
 
+  //購物車用
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
+  //select用
+  const [selectedValue, setSelectedValue] = useState('60')
+  //確認購物車是否有商品提視窗用
+  const [show, setShow] = useState(false)
 
   //先判斷購物車內是否有商品
   useEffect(() => {
@@ -47,11 +54,11 @@ function CartDetail() {
         newMycartDisplay = [...newMycartDisplay, newItem]
       }
     }
-
-    console.log(newMycartDisplay)
+    console.log('newMycartDisplay', newMycartDisplay)
     setMycartDisplay(newMycartDisplay)
   }, [mycart])
 
+  //購物車加減數量更新
   const updateCartToLocalStorage = (item, isAdded = true) => {
     console.log(item, isAdded)
     const currentCart = JSON.parse(localStorage.getItem('cart')) || []
@@ -70,7 +77,7 @@ function CartDetail() {
     setMycart(currentCart)
   }
 
-  //刪除特定商品
+  //購物車刪除特定商品
   const deletItem = (item, isDelete = false) => {
     const currentCart = JSON.parse(localStorage.getItem('cart')) || []
 
@@ -97,8 +104,48 @@ function CartDetail() {
     return total
   }
 
+  //確認購物車是否有商品提視窗
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  const messageModal = (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header>
+        <Modal.Title>購物車內沒有商品</Modal.Title>
+      </Modal.Header>
+      <Modal.Footer>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            handleClose()
+            cartHistory.push('/store/productList')
+          }}
+        >
+          回商店選購
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            handleClose()
+          }}
+        >
+          確定
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  )
+
+  let path = {
+    pathname: '/store/cartdetail/orderDetail',
+    state: mycartDisplay,
+    state1: sum(mycartDisplay),
+  }
+
   return (
     <>
+      {messageModal} {/*確認購物車是否有商品提視窗*/}
       <Container>
         {/* 上區背景圖 */}
         <Row className="cartbg">
@@ -143,23 +190,32 @@ function CartDetail() {
 
           <Row className="mt-5 mb-2 delivery-area">
             <Col className="delivery pl-5">
-              <div>共 3 件商品，請選擇運送方式</div>
-              <select className="mt-2 deliveryWay">
-                <option value="超商取貨">超商取貨 NT$60</option>
-                <option value="郵寄">郵寄 NT$80</option>
-                <option selected value="宅配">
+              <div>共 {mycartDisplay.length} 件商品，請選擇運送方式</div>
+              <select
+                className="mt-2 deliveryWay"
+                value={selectedValue}
+                onChange={(e) => {
+                  setSelectedValue(e.target.value)
+                }}
+              >
+                <option value="60">超商取貨 NT$60</option>
+                <option value="80">郵寄 NT$80</option>
+                <option selected value="200">
                   宅配 NT$200
                 </option>
               </select>
             </Col>
             <Col>
-              <div>商品總計 NT$30000</div>
-              <div className="mt-2">運費總計 NT$60</div>
+              <div>商品總計 NT${sum(mycartDisplay)}</div>
+              <div className="mt-2">運費總計$NT{selectedValue}</div>
             </Col>
           </Row>
           <Row className="mt-4">
             <Col className="text-center ">
-              <div className="fintotal">結帳總金額 NT${sum(mycartDisplay)}</div>
+              <div className="fintotal">
+                結帳總金額 NT$
+                {sum(mycartDisplay) + parseInt(selectedValue)}
+              </div>
             </Col>
           </Row>
         </section>
@@ -169,8 +225,12 @@ function CartDetail() {
         </div>
         <div className="d-flex justify-content-center mt-2 mb-5">
           <Button
-            onClick={() => {
-              history1.push('/Store/CartDetail/OrderDetail')
+            onClick={(value) => {
+              if (mycartDisplay.length === 0) {
+                handleShow()
+              } else {
+                cartHistory.push('/store/cartdetail/orderDetail')
+              }
             }}
             className="gobuyBtn"
             variant="primary"
