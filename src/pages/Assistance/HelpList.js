@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from "../../utils/config"
 
 import PropTypes from 'prop-types'
 import { Form, FormControl, Button, Row, Col, Container } from 'react-bootstrap'
@@ -24,7 +25,7 @@ function HelpList(props) {
   useEffect(() => {
     let cardData = async () => {
       let response = await axios.get(
-        'http://localhost:3002/api/help/helpcard/台北市'
+        `${API_URL}/help/helpcard/台北市`
       )
       setData(response.data)
     }
@@ -68,12 +69,6 @@ function HelpList(props) {
                 </button>
               </div>
             </div>
-          </div>
-          <div className="listpost">
-            <Button variant="outline-primary rounded-pill text-end">
-              <HiPlus /> 發個文吧
-            </Button>
-            <img className="penimg" src={pen} alt="" />
           </div>
         </div>
 
@@ -121,10 +116,11 @@ function HelpList(props) {
                 </div>
               )
             })}
+        <div className="listmorebutton">查看更多</div>
           </div>
+          
         </div>
 
-        <div className="listmorebutton">查看更多</div>
       </div>
     </>
   )
