@@ -8,16 +8,19 @@
   align-items: center;
   text-align: center;
 
+  div {
+    padding: 1rem;
+    margin: auto;
+    overflow: hidden;
+  }
+
   .paw1 {
     transform: translate(20px) rotate(25deg);
-    animation-delay: 1s;
   }
   .paw2 {
     transform: translate(-20px) rotate(-25deg);
-    animation-delay: 1.5s;
   }
   .paw2 {
     transform: translate(-20px) rotate(-25deg);
-    animation-delay: 1.5s;
   }
 }

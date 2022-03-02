@@ -3,6 +3,8 @@ import { Container } from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import 'animate.css'
+import axios from 'axios'
+import { API_URL } from '../utils/config'
 
 // 樣式
 import '../style/UI/global.scss'
@@ -28,9 +30,9 @@ function Community() {
     <>
       <Tools />
       <img src={coummunity} className="text-community " alt="coummunity" />
-
+      {/* .scroll-page */}
       <div className="container">
-        <div className="Intro-Page scroll-page">
+        <div className="Intro-Page ">
           <AnchorLink className="go-on d-block" href="#Daily-Page">
             一起來看看
             <br />
@@ -40,18 +42,14 @@ function Community() {
           </AnchorLink>
           <Intro />
         </div>
-        <div
-          id="Daily-Page"
-          className="Daily-Page scroll-page"
-          name="Daily-Page"
-        >
+        <div id="Daily-Page" className="Daily-Page" name="Daily-Page">
           <Daily />
         </div>
-        <div className="Discuss-Page scroll-page">
+        <div className="Discuss-Page">
           <Discuss />
         </div>
       </div>
-      <div className="Post-Page scroll-page">
+      <div className="Post-Page">
         <Post />
       </div>
     </>

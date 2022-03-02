@@ -1,4 +1,4 @@
-@import "../../../../../style/UI/global.scss";
+@import '../../../../../style/UI/global.scss';
 
 // border弧度
 $mao-border: 33px;
@@ -9,8 +9,8 @@ $avatar-length: 4rem;
 .daily-card {
   cursor: pointer;
   width: 230px;
-  min-height: 63vh;
-  max-height: 66vh;
+  min-height: 63%;
+  max-height: 66%;
   // border: 1px solid #ccc;
   display: flex;
   margin: 0 0.1rem;
@@ -30,15 +30,24 @@ $avatar-length: 4rem;
     padding: 0 0;
     border-radius: $mao-border;
     overflow: hidden;
-    // 預設圖片為PHOTO.svg
+    // 卡片圖片 預設圖片為PHOTO.svg
     .card-img {
-      border-radius: 0;
+      border-radius: 33px 33px 0 0;
+      height: 247px;
       width: 100%;
+      // position: relative;
+      object-fit: cover;
+      object-position: 50% 50%;
     }
     // 內文預覽
     .card-content {
-      padding: 1.5rem 0;
-      margin: 0 1.5rem;
+      height: 30%;
+      margin: 1.3rem 1.2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
     }
   }
   //按讚數、留言數
@@ -62,11 +71,32 @@ $avatar-length: 4rem;
 // \\ [[[彈出視窗]]] // \\
 .card-detail-modal {
   height: 80vh;
+
   .card-detail-slider {
-    padding: 0 0;
+    background: #000;
+    height: 100%;
+    overflow: hidden;
     margin: 0 0;
+    padding: 0 0;
+    .carousel-hashtag {
+      display: none;
+      position: absolute;
+      height: 200.075px;
+      width: 100%;
+      margin: 0 0;
+      padding: 0 0;
+    }
+    // 貼文圖片
+    .carousel-img {
+      height: inherit;
+      width: inherit;
+      margin: 0 0;
+      padding: 0 0;
+      object-fit: contain;
+      object-position: 50% 50%;
+    }
   }
-  
+
   .card-detail-article {
   }
 }
@@ -107,18 +137,25 @@ $avatar-length: 4rem;
       .comment-list-rows {
         width: 100%;
         display: inline-flex;
-        .comment-no{
-          
+        .comment-no {
         }
-        .commenter-avatar{
-          background: $primary;
+        .commenter-avatar {
+          // background: $primary;
           width: 2.6rem;
           height: 2.6rem;
           border-radius: 50%;
-          overflow: hidden; 
+          overflow: hidden;
+          img{
+            height:max-content;
+            width: max-content;
+            margin: 0 0;
+            padding: 0 0;
+            object-fit:cover;
+            // object-position: 50% 50%;
+          }
          
         }
-        .comment-border{
+        .comment-border {
           min-height: 33px;
           border: 1px solid $primary;
           border-radius: 33px;
@@ -135,12 +172,17 @@ $avatar-length: 4rem;
   width: 3rem;
   border-radius: 50%;
   overflow: hidden;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
 }
 // 段落開頭空2格
 .text-indent {
   text-indent: 2em;
 }
-
 
 // 貼文區 輪軸處理
 .scrolling-area {
@@ -171,11 +213,24 @@ $avatar-length: 4rem;
 }
 
 // 隱藏
-.invisibility{
-  visibility:hidden;
+.invisibility {
+  visibility: hidden;
 }
 
 // 垂直
-.v-align-center{
+.v-align-center {
   vertical-align: middle;
+}
+
+.bg-black {
+  background: #000;
+}
+
+.img-contain-center {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+.img-cover-center {
+  object-fit: cover;
+  object-position: 50% 50%;
 }
