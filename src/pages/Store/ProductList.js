@@ -288,7 +288,7 @@ function ProductList(props) {
                                         </Card>
                                         <Card className='categoryCard'>
                                             <Accordion.Toggle className='categoryHeader' as={Card.Header} eventKey="1">
-                                                品牌
+                                                類別
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="1">
                                                 <Card.Body className='categoryBody'>
@@ -298,7 +298,7 @@ function ProductList(props) {
                                         </Card>
                                         <Card className='categoryCard'>
                                             <Accordion.Toggle className='categoryHeader' as={Card.Header} eventKey="2">
-                                                別類
+                                                品牌
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="2">
                                                 <Card.Body className='categoryBody'>
