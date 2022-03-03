@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Col, Row, Accordion, Card, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import { API_URL } from "./../../utils/config";
+import { API_URL } from "../../utils/config";
 // import { Link } from 'react-router-dom';
 
 //元件
@@ -253,7 +253,7 @@ function ProductList(props) {
             <div>
                 <section className='wrap1'>
                     <div className='btnarea mb-5 d-flex justify-content-between'>
-                        <div className='protext1 bg-white'>毛孩選物指南</div>
+                        <div id={'a'} className='protext1 bg-white'>毛孩選物指南</div>
                         <button className='select-btn' onClick={SearchAll} >全部產品</button>
                         <button className='select-btn' onClick={SearchFood} >吃飯飯</button>
                         <button className='select-btn' onClick={SearchSnack} >吃點心</button>

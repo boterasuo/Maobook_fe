@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 import { Col, Row, Button, Container, Modal } from 'react-bootstrap'
 
-import { Router, Route, hashHistory, useHistory } from 'react-router-dom'
+import { useHistory, withRouter, Link } from 'react-router-dom'
 import OrderDetail from './OrderDetail'
 //元件
 import CartProductItem from './components/CartProductItem'
@@ -20,7 +20,7 @@ function CartDetail() {
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
   //select用
-  const [selectedValue, setSelectedValue] = useState('60')
+  const [selectedValue, setSelectedValue] = useState('80')
   //確認購物車是否有商品提視窗用
   const [show, setShow] = useState(false)
 
@@ -104,6 +104,9 @@ function CartDetail() {
     return total
   }
 
+  const total = sum(mycartDisplay)
+  const checkout = sum(mycartDisplay) + parseInt(selectedValue)
+
   //確認購物車是否有商品提視窗
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -137,12 +140,6 @@ function CartDetail() {
     </Modal>
   )
 
-  let path = {
-    pathname: '/store/cartdetail/orderDetail',
-    state: mycartDisplay,
-    state1: sum(mycartDisplay),
-  }
-
   return (
     <>
       {messageModal} {/*確認購物車是否有商品提視窗*/}
@@ -170,7 +167,7 @@ function CartDetail() {
           <Row className=" pt-3 m-auto justify-content-center " xs={2} md={4}>
             {mycartDisplay.map((item, index) => {
               return (
-                <Col className="p-0">
+                <Col className="p-0" key={item.id}>
                   <CartProductItem
                     item={item}
                     name={item.name}
@@ -198,7 +195,6 @@ function CartDetail() {
                   setSelectedValue(e.target.value)
                 }}
               >
-                <option value="60">超商取貨 NT$60</option>
                 <option value="80">郵寄 NT$80</option>
                 <option selected value="200">
                   宅配 NT$200
@@ -206,7 +202,7 @@ function CartDetail() {
               </select>
             </Col>
             <Col>
-              <div>商品總計 NT${sum(mycartDisplay)}</div>
+              <div>商品總計 NT${total}</div>
               <div className="mt-2">運費總計$NT{selectedValue}</div>
             </Col>
           </Row>
@@ -214,7 +210,7 @@ function CartDetail() {
             <Col className="text-center ">
               <div className="fintotal">
                 結帳總金額 NT$
-                {sum(mycartDisplay) + parseInt(selectedValue)}
+                {checkout}
               </div>
             </Col>
           </Row>
@@ -229,7 +225,15 @@ function CartDetail() {
               if (mycartDisplay.length === 0) {
                 handleShow()
               } else {
-                cartHistory.push('/store/cartdetail/orderDetail')
+                cartHistory.push({
+                  pathname: '/store/cartdetail/orderDetail',
+                  state: {
+                    cart: mycartDisplay,
+                    sum: total,
+                    checkout: checkout,
+                    fee: selectedValue,
+                  },
+                })
               }
             }}
             className="gobuyBtn"
