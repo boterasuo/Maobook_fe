@@ -274,7 +274,6 @@ function AddPet(props) {
                       handleBirthInvalid(e)
                     }}
                   />
-                  <input type="date" />
                   <div className="errMsg">
                     {editErr.birthday ? editErr.birthday : ''}
                   </div>
