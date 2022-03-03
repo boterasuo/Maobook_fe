@@ -21,7 +21,7 @@ function AssistanceHistory(props) {
           <div className="container">
             <div className="row">
               {/* side nav */}
-              <div className="col-lg-2 member-sidenav">
+              <div className="col-sm member-sidenav ">
                 <nav className="d-flex flex-row flex-lg-column justify-content-center text-right">
                   <NavLink
                     activeClassName="active"

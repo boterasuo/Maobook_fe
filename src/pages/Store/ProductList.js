@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import '../Store/style/ProductListStyle.scss';
 import { useState, useEffect } from 'react';
-import { Col, Row, Accordion, Card ,Modal, Button } from 'react-bootstrap';
+import { Col, Row, Accordion, Card, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import { API_URL } from "./../../utils/config";
@@ -32,26 +32,25 @@ function ProductList(props) {
     const [filterProduct, setFilterProduct] = useState([]);
     const [filterBrand, setFilterBrand] = useState([]);
     //紀錄checkbox選取項目
+    const [checkState, setcheckState] = useState("");
     const [checkedPet, setCheckedPet] = useState([]);
     const [checkedProduct, setCheckedProduct] = useState([]);
     const [checkedBrand, setCheckedBrand] = useState([]);
 
     //加入購物車
     const [mycart, setMycart] = useState([])
+    const [productName, setProductName] = useState("")
+
+    //加入購物車訊息窗用
     const [show, setShow] = useState(false)
-    const [productName, setProductName] = useState('')
 
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
-
-
-//購物車判斷
+    //購物車判斷
     const ADDToLocalStorage = (item) => {
         const currentCart = JSON.parse(localStorage.getItem('cart')) || []
-      
+
         // find if the product in the localstorage with its id
         const index = currentCart.findIndex((v) => v.id === item.id)
-        console.log("index",index)
+        console.log("index", index)
         // found: index! == -1
         if (index > -1) {
             //currentCart[index].amount++
@@ -66,36 +65,36 @@ function ProductList(props) {
 
         // 設定資料
         setMycart(currentCart)
-        setProductName('產品：' + item.name + '已成功加入購物車')
+        setProductName( item.name +'\n已成功加入購物車' )
         handleShow()
     }
 
 
-  //商品細節 加商品用
-  // const detailAddProduct = () => {
-  //   const currentCart = JSON.parse(localStorage.getItem('cart')) || []
+    //商品細節 加商品用
+    // const detailAddProduct = () => {
+    //   const currentCart = JSON.parse(localStorage.getItem('cart')) || []
 
-  //   // find if the product in the localstorage with its id
-  //   const index = currentCart.findIndex((v) => v.id === item.id)
+    //   // find if the product in the localstorage with its id
+    //   const index = currentCart.findIndex((v) => v.id === item.id)
 
-  //   if (index !== -1) {
-  //     //每次只有加1個數量
-  //     //newMycartDisplay[index].amount++
-  //     //假設是加數量的
-  //     newMycartDisplay[index].amount += mycart[i].amount
-  //   } else {
-  //     //沒有的話就把項目加入，數量為1
-  //     const newItem = { ...mycart[i] }
-  //     newMycartDisplay = [...newMycartDisplay, newItem]
-  //   }
+    //   if (index !== -1) {
+    //     //每次只有加1個數量
+    //     //newMycartDisplay[index].amount++
+    //     //假設是加數量的
+    //     newMycartDisplay[index].amount += mycart[i].amount
+    //   } else {
+    //     //沒有的話就把項目加入，數量為1
+    //     const newItem = { ...mycart[i] }
+    //     newMycartDisplay = [...newMycartDisplay, newItem]
+    //   }
 
-  // }
-
-
+    // }
 
 
 
-//篩選
+
+
+    //篩選
     useEffect(() => { //全部產品跟分頁
         const Search = async () => {
             let url = `${API_URL}/store/productlist`;
@@ -103,9 +102,29 @@ function ProductList(props) {
                 url = url + "/" + category;
             };
 
+            const where = []
+
+            if (checkedPet) {
+                where.push(`pet_category_id IN (${checkedPet})`)
+            }
+            if (checkedProduct) {
+                where.push(`product_category_id IN (${checkedProduct})`)
+            }
+            if (checkedBrand) {
+                where.push(`brand_category_id IN (${checkedBrand})`)
+            }
+            
+           let SQLL=""
+            SQLL += where.length > 0 ? 'WHERE ' + where.join(' AND ') : ''
+            // SQLimage = SQLimage + ' ' + group
+            console.log(SQLL)
+            setcheckState(SQLL)
+
+
+
             //${API_URL}/store/productlist?page=${page}&search=${value1}&animal=${filter}&checkedPet=${checkedPet}&checkedProduct=${checkedProduct}&checkedBrand=${checkedBrand}
             //全部產品+searchbar+ filter分類名稱
-            let response = await axios.get(`${url}?page=${page}&search=${value1}&animal=${filter}&checkedPet=${checkedPet}&checkedProduct=${checkedProduct}&checkedBrand=${checkedBrand}`, { withCredentials: true });
+            let response = await axios.get(`${url}?page=${page}&search=${value1}&animal=${filter}&  checkState=${checkState}`, { withCredentials: true });
             setData(response.data.data);
             setLastPage(response.data.pagination.lastPage);
             setFilterPet(response.data.filterPet);
@@ -113,7 +132,7 @@ function ProductList(props) {
             setFilterBrand(response.data.filterBrand);
         };
         Search();
-    }, [page, category, value1, filter, checkedPet, checkedProduct, checkedBrand]);
+    }, [page, category, value1, filter, checkedPet, checkedProduct, checkedBrand,checkState]);
 
     //四個按鈕分類
     const SearchFood = async () => {
@@ -144,17 +163,17 @@ function ProductList(props) {
     const handleInputChange = (e) => {
         setValue(e.target.value); // 拿到 input 的 value
     }
-    const SearchAll = async () => {
+    const SearchAll = () => {
         setPage(1);
-        setCategory('all');
-        setValue1("");
+        setCategory('all')
+        setValue1("")
         setCheckedPet("")
         setCheckedProduct("")
         setCheckedBrand("")
     };
-    const SearchBar = async () => {
+    const SearchBar = () => {
         setPage(1);
-        setCategory('all');
+        setCategory('all')
         setValue1(value);
         setCheckedPet("")
         setCheckedProduct("")
@@ -164,15 +183,16 @@ function ProductList(props) {
 
 
     //篩選bar
-    const filterDog = async () => {
-        setFilter('犬');
+    const filterDog = () => {
+        setFilter('犬')
         setCheckedPet("")
         setCheckedProduct("")
         setCheckedBrand("")
     };
     //{filter? filterDog()'}
-    const filterCat = async () => {
+    const filterCat = () => {
         setFilter('貓');
+
         setCheckedPet("")
         setCheckedProduct("")
         setCheckedBrand("")
@@ -198,27 +218,30 @@ function ProductList(props) {
     );
 
     //購物車加入視窗
-    const messageModal = (
+   const handleClose = () => setShow(false)
+   const handleShow = () => setShow(true)
+   
+   const messageModal = (
         <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>加入購物車訊息</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{productName} </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              繼續購物
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                props.history.push('/Store/CartDetail')
-              }}
-            >
-              前往購物車結帳
-            </Button>
-          </Modal.Footer>
+            <Modal.Header closeButton>
+                <Modal.Title>{productName}</Modal.Title>
+            </Modal.Header>
+            <Modal.Footer>
+                <Button variant="secondary" size="sm" onClick={handleClose}>
+                    繼續購物
+                </Button>
+                <Button
+                    variant="primary"
+                    size="sm" 
+                    onClick={() => {
+                        props.history.push('/Store/CartDetail')
+                    }}
+                >
+                    前往購物車結帳
+                </Button>
+            </Modal.Footer>
         </Modal>
-      )
+    )
 
 
 
@@ -226,7 +249,7 @@ function ProductList(props) {
 
     return (
         <>
-         {messageModal}
+            {messageModal}
             <div>
                 <section className='wrap1'>
                     <div className='btnarea mb-5 d-flex justify-content-between'>
@@ -235,8 +258,10 @@ function ProductList(props) {
                         <button className='select-btn' onClick={SearchFood} >吃飯飯</button>
                         <button className='select-btn' onClick={SearchSnack} >吃點心</button>
                         <button className='select-btn' onClick={SearchToy}>玩玩具</button>
-                        <input className='search' type="text" name="search" value={value} onChange={handleInputChange} placeholder="找什麼呢" />
-                        <button onClick={SearchBar}><img className="searchIcon" src={searchIcon} alt="searchIcon" /></button>
+                        <div>
+                            <input className='search' type="text" name="search" value={value} onChange={handleInputChange} placeholder="找什麼呢" />
+                            <button onClick={SearchBar}><img className="searchIcon" src={searchIcon} alt="searchIcon" /></button>
+                        </div>
                     </div>
                 </section>
 
@@ -245,7 +270,7 @@ function ProductList(props) {
                         <Col xs={6} md={3}>
                             <Row xs={1} md={1} className='d-flex mt-5'>
                                 <Col className='d-flex justify-content-center' >  {/* 狗貓Btn*/}
-                                    <button className="mr-4" onClick={filterDog}><img className="dogIcon" src={dogIcon} alt="dogIcon" /></button>
+                                    <button className="mr-4" onClick={filterDog} ><img className="dogIcon" src={dogIcon} alt="dogIcon" /></button>
                                     <button onClick={filterCat} ><img className="catIcon" src={catIcon} alt="catIcon" /></button>
                                 </Col>
                                 <Col className=' d-flex mt-3 justify-content-center' > {/* 分類區*/}
@@ -263,7 +288,7 @@ function ProductList(props) {
                                         </Card>
                                         <Card className='categoryCard'>
                                             <Accordion.Toggle className='categoryHeader' as={Card.Header} eventKey="1">
-                                                品牌
+                                                類別
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="1">
                                                 <Card.Body className='categoryBody'>
@@ -273,7 +298,7 @@ function ProductList(props) {
                                         </Card>
                                         <Card className='categoryCard'>
                                             <Accordion.Toggle className='categoryHeader' as={Card.Header} eventKey="2">
-                                                別類
+                                                品牌
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="2">
                                                 <Card.Body className='categoryBody'>
@@ -302,4 +327,4 @@ function ProductList(props) {
     )
 }
 
-export default  withRouter(ProductList); 
+export default withRouter(ProductList); 
