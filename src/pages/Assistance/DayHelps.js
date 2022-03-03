@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from "../../utils/config"
 
 import './components/DayHelps.scss'
 import pawicon from './img/paw.svg'
@@ -13,7 +14,7 @@ function DayHelps(props) {
       let response = await axios.get(
         // `http://localhost:3002/api/help/dayhelps?year=${year}&month=${month}&day=${day}`
         // `http://localhost:3002/api/help/dayhelps/${year}/${month}/${day}`
-        `http://localhost:3002/api/help/dayhelps/2022/03/12`
+        `${API_URL}/help/dayhelps/2022/03/12`
       )
       setData(response.data)
     }

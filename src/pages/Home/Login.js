@@ -18,7 +18,7 @@ import './Login.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
 
 function Login(props) {
-  const [auth, setAuth] = useState(false)
+  // const [auth, setAuth] = useState(false)
   // 來自 App 的登入狀態 (舊寫法)
   // const {auth, setAuth} = props;
 
@@ -49,7 +49,7 @@ function Login(props) {
       // 登入成功 --> 將 user 資料存入 context 中
       setUser(response.data.data)
       // 登入成功 --> auth 狀態改為 true
-      setAuth(true)
+      // setAuth(true)
       // 登入成功 --> user 狀態存入對應資料
       // TODO: 為什麼這樣寫 user 內容存不起來?
       // setUser({...user,
@@ -65,7 +65,7 @@ function Login(props) {
     }
   }
 
-  if (auth) {
+  if (user) {
     // 登入成功 --> 自動導向會員頁面
     return <Redirect to="/member/data" />
   }
