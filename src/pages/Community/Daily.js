@@ -15,10 +15,10 @@ import search from './images/icon-search.svg'
 function Daily(props) {
   return (
     <>
-      {/* <Container> */}
-      <div className="mt-5 w-50 w-sm-75 container">
-        {/* 搜尋功能 */}
-        {/* <div className=" daily-search input-group justify-content-center pt-3 pb-2">
+      <Container className="px-5">
+        <div className="mt-5 w-50 w-sm-75 ">
+          {/* 搜尋功能 */}
+          {/* <div className=" daily-search input-group justify-content-center pt-3 pb-2">
           <input
             type="search"
             className="border border-primary rounded-pill mx-2 pl-4 vw-md-50 focus-primary"
@@ -28,26 +28,24 @@ function Daily(props) {
             <img src={search} className="btn" />
           </Button>
         </div> */}
-      </div>
-      <Row className="daily-title">
-        <Col md={4} className="">
-          <img src={daily} />
-        </Col>
-        <Col></Col>
-        <Col md={3}>
-          <Button variant="outline-primary rounded-pill text-end">
-            <HiPlus /> <a>發個文吧</a>
-          </Button>
-        </Col>
-      </Row>
-      <div className="daily-post-area border border-primary mao-rounded mt-lg-2 mt-md-2 container">
-        <div className="daily-">
-          <div className="d-inline-block">
+        </div>
+        <Row className="daily-title">
+          <Col md={4} className="">
+            <img src={daily} />
+          </Col>
+          {/* <Col></Col> */}
+          {/* <Col md={3}>
+            <Button variant="outline-primary rounded-pill text-end">
+              <HiPlus /> <a>發個文吧</a>
+            </Button>
+          </Col> */}
+        </Row>
+        <div className="daily-post-area  mao-rounded mt-lg-2 mt-md-2 container">
+          <div className="daily-container d-inline-block">
             <DailyCard />
           </div>
         </div>
-      </div>
-      {/* </Container> */}
+      </Container>
     </>
   )
 }
