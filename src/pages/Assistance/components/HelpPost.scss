@@ -74,29 +74,29 @@
   margin-bottom: 10px;
 }
 
-.helpdropdown{
+.helpdropdown {
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;
 }
 
-#dropdownMenu2{
+#dropdownMenu2 {
   color: white;
 }
 
-::-webkit-datetime-edit { 
-  color: white;
-  background-color: #f6bc54;
-}
+// ::-webkit-datetime-edit {
+//   color: white;
+//   background-color: #f6bc54;
+// }
 
-::-webkit-calendar-picker-indicator,
-::-webkit-datetime-edit-fields-wrapper,
-::-webkit-inner-spin-button {
-  color: white;
-  background-color: #f6bc54;
-}
+// ::-webkit-calendar-picker-indicator,
+// ::-webkit-datetime-edit-fields-wrapper,
+// ::-webkit-inner-spin-button {
+//   color: white;
+//   background-color: #f6bc54;
+// }
 
-.helpchoosedate{
+.helpchoosedate {
   color: white;
   background-color: #f6bc54;
   width: 160px;
@@ -105,7 +105,6 @@
   border: 1px white solid;
   border-radius: 10px;
 }
-
 
 // 重要按鈕
 .postClass {
@@ -260,7 +259,7 @@
   font-size: 16px;
   color: white;
   justify-content: flex-end;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .helptextarea {

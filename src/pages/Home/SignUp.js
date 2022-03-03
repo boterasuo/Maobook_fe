@@ -4,11 +4,11 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { Modal, Button } from 'react-bootstrap'
-
+// 引入 context
+import { useAuth } from '../../context/auth'
 // 引入 utils
 import { API_URL } from '../../utils/config'
 import FacebookLogin from '@greatsumini/react-facebook-login'
-
 // 引入圖片們
 import Logo from '../../img/SignUp/LOGO_no_word.svg'
 import SignupWord from '../../img/SignUp/signupWord.svg'
@@ -20,7 +20,6 @@ import './SignUp.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
 
 function SignUp(props) {
-  console.log(process.env.REACT_APP_FACEBOOK_CLIENT_ID)
   // 註冊 input 輸入值
   const [member, setMember] = useState({
     name: '',
@@ -39,6 +38,8 @@ function SignUp(props) {
   const history = useHistory()
   // Modal 切換顯示狀態用
   const [showModal, setShowModal] = useState(false)
+  // 來自 context 的 user 狀態
+  const { user, setUser } = useAuth()
 
   // 偵測表單內容變化 (onChange)
   function handleChange(e) {
@@ -129,12 +130,20 @@ function SignUp(props) {
   )
 
   // FB 登入
-  const handleFBLogin = async () => {
+  const handleFBLogin = async (response) => {
+    console.log('response', response)
     try {
-      let response = await axios.get(`http://localhost:3002/auth/facebook`, {
-        withCredentials: true,
-      })
-      console.log(response.data)
+      let result = await axios.get(
+        `${API_URL}/users/auth/facebook?access_token=${response.accessToken}`
+        // {
+        //   withCredentials: true,
+        //   headers: {
+        //     'Access-Control-Allow-Origin': '*',
+        //   },
+        // }
+      )
+      console.log(result.data)
+      // 把 return 回來的資料 set 到 user 狀態中
     } catch (e) {
       console.error(e.response.data)
     }
@@ -254,7 +263,12 @@ function SignUp(props) {
                 > */}
                 <FacebookLogin
                   appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
+                  fields="name,email,picture"
+                  scope="public_profile,email"
                   onSuccess={handleFBLogin}
+                  // onSuccess={(response) => {
+                  //   console.log('success!', response)
+                  // }}
                   className="thirdParty-icon"
                 >
                   <BsFacebook color="white" fontSize="2.5rem" />
