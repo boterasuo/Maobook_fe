@@ -17,7 +17,7 @@ const HelpCalendar = (props) => {
   useEffect(() => {
     let getCaseNum = async () => {
       let response = await axios.get(
-        'http://localhost:3002/api/help/helpcalendar/' +
+        `${API_URL}/help/helpcalendar/` +
           // '${API_URL}/help/helcalendar'
           calendar.today.getFullYear() +
           '/' +

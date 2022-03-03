@@ -6,6 +6,8 @@ import { API_URL } from '../utils/config'
 
 // 引入 user context
 import { useAuth } from '../context/auth'
+// 引入函式庫
+import { getUser } from '../service/UserData'
 
 // 引入樣式和圖片
 import './Member.scss'
@@ -185,23 +187,13 @@ function Member(props) {
 
   // 未登入者導頁
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        let result = await axios.get(`${API_URL}/member`, {
-          withCredentials: true,
-        })
-        console.log('member try catch:', result)
-      } catch (e) {
-        console.error(e.response.data)
-        if (e.response.data.code === '9999') {
-          // 檢查錯誤碼
-          setShowModal(true)
-        }
+    // if (!user) {
+    getUser().then((res) => {
+      if (res === '未登入') {
+        setShowModal(true)
       }
-    }
-    if (!user) {
-      getUser()
-    }
+    })
+    // }
   }, [])
 
   // 更改 Modal 顯示狀態函式
@@ -209,32 +201,6 @@ function Member(props) {
     setShowModal(false)
     history.push('/login')
   }
-  // 註冊成功 Modal html
-
-  // const notLoginModal = (
-  //   <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-  //     <Modal.Header closeButton>
-  //       <Modal.Title>尚未登入</Modal.Title>
-  //     </Modal.Header>
-  //     <Modal.Footer>
-  //       <Button variant="primary" onClick={handleCloseModal}>
-  //         確認
-  //       </Button>
-  //     </Modal.Footer>
-  //   </Modal>
-  // )
-
-  // loading 動圖
-  // const loadingPaw = (
-  //   <div className="member-content position-relative">
-  //     {notLoginModal}
-  //     <div className="text-center position-absolute loading-paw">
-  //       <div className="spinner-grow text-primary" role="status">
-  //         <img alt="" className="sr-only" src={loading} />
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
 
   return (
     <>

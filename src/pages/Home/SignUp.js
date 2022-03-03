@@ -7,6 +7,7 @@ import { Modal, Button } from 'react-bootstrap'
 
 // 引入 utils
 import { API_URL } from '../../utils/config'
+import FacebookLogin from '@greatsumini/react-facebook-login'
 
 // 引入圖片們
 import Logo from '../../img/SignUp/LOGO_no_word.svg'
@@ -19,6 +20,7 @@ import './SignUp.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
 
 function SignUp(props) {
+  console.log(process.env.REACT_APP_FACEBOOK_CLIENT_ID)
   // 註冊 input 輸入值
   const [member, setMember] = useState({
     name: '',
@@ -45,20 +47,6 @@ function SignUp(props) {
   }
 
   // 表單有不合法的檢查出現時 (onChange 即時檢查 TODO: 改成 Debounce 寫法)
-  // Debounce
-  // const testDB = () => console.log("小明");
-  const debounce = (func, delay = 3000) => {
-    let timer = null
-    return () => {
-      let context = this
-      let args = arguments
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        func.apply(context, args)
-      }, delay)
-    }
-  }
-
   // name 欄位前端檢查
   const handleNameInvalid = (e) => {
     e.preventDefault()
@@ -140,6 +128,18 @@ function SignUp(props) {
     </Modal>
   )
 
+  // FB 登入
+  const handleFBLogin = async () => {
+    try {
+      let response = await axios.get(`http://localhost:3002/auth/facebook`, {
+        withCredentials: true,
+      })
+      console.log(response.data)
+    } catch (e) {
+      console.error(e.response.data)
+    }
+  }
+
   return (
     <div id="sign-up">
       {/* 排版用空白區塊 */}
@@ -210,7 +210,7 @@ function SignUp(props) {
                     value={member.password}
                     onChange={(e) => {
                       handleChange(e)
-                      debounce(handlePswInvalid(e))
+                      handlePswInvalid(e)
                     }}
                   />
                   {/* password 欄位錯誤訊息 */}
@@ -235,16 +235,6 @@ function SignUp(props) {
                     {signUpErr.confirmPassword ? signUpErr.confirmPassword : ''}
                   </div>
                 </div>
-                {/* 註冊按鈕 */}
-                {/* <div className="signUp-btn position-absolute">
-                            <img alt="" className="img-fluid d-lg-none left-paw" src={PawsLeft}/>
-                            <button 
-                                className="btn px-4 py-1 text-primary"
-                                type="submit">
-                                立即註冊
-                            </button>
-                            <img alt="" className="img-fluid d-lg-none right-paw" src={PawsRight}/>
-                        </div> */}
               </div>
             </div>
             {/* 右方第三方註冊區塊 */}
@@ -254,12 +244,22 @@ function SignUp(props) {
               </h2>
               <hr className="d-lg-none login-divider" />
               <div className="d-flex thirdParty-signup">
-                <div className="thirdParty-icon">
+                <button type="button" className="thirdParty-icon">
                   <BsGoogle color="white" fontSize="2.5rem" />
-                </div>
-                <div className="thirdParty-icon">
+                </button>
+                {/* <button
+                  type="button"
+                  className="thirdParty-icon"
+                  onClick={handleFBLogin}
+                > */}
+                <FacebookLogin
+                  appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
+                  onSuccess={handleFBLogin}
+                  className="thirdParty-icon"
+                >
                   <BsFacebook color="white" fontSize="2.5rem" />
-                </div>
+                </FacebookLogin>
+                {/* </button> */}
               </div>
               <div className="d-none d-lg-block img-paws">
                 <img alt="" className="img-fluid" src={Paws} />

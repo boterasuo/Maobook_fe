@@ -2,6 +2,7 @@ import { Modal, Button, Row, Col, Carousel } from 'react-bootstrap'
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from "../../utils/config"
 
 import './components/HelpDetail.scss'
 
@@ -17,7 +18,7 @@ function HelpDetail(props) {
   useEffect(() => {
     let getHelpDetail = async () => {
       let response = await axios.get(
-        'http://localhost:3002/api/help/helpdetails/1'
+        `${API_URL}/help/helpdetails/1`
       )
       setData(response.data)
     }

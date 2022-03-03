@@ -1,12 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import './Done.scss'
 
 function Done(props) {
-  return (
-    <div className="info-card">已完成訂單</div>
-  )
+  return <></>
 }
-
-Done.propTypes = {}
 
 export default Done
