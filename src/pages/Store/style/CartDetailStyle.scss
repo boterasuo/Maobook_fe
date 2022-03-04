@@ -11,6 +11,7 @@
   position: relative;
   left: 10%;
   top: 5%;
+  z-index: -1;
 }
 
 //清單框
@@ -19,8 +20,16 @@
   width: 705px;
   border: 1px solid#fcb736;
   border-radius: 10px;
+  .clearCartbtn {
+    margin: 10px;
+    font-weight: 600;
+    border-radius: 30px;
+    color: #ffff;
+    z-index: 10;
+  }
 }
-
+.forbtn {
+}
 //結帳區
 .delivery-area {
   color: #6a5f4b;
@@ -29,10 +38,8 @@
 .delivery {
   margin-left: 50px;
 }
-.deliveryWay {
-  width: 230px;
-  color: #6a5f4b;
-  border: 2px solid #fcb736;
+.custom-select {
+  width: 230px !important;
 }
 .fintotal {
   margin: 20px 0 20px 0;
@@ -69,4 +76,8 @@
   font-size: 1.5rem;
   border-radius: 30px;
   // color: #ffff;
+}
+.payerrmsg {
+  color: red;
+  font-size: 1rem;
 }

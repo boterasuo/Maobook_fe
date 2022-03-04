@@ -11,6 +11,7 @@ import deletIcon from '../storePic/deletIcon.svg'
 
 function CartProductItem(props) {
   const {
+    setMycart, //計數器變動連動用
     item,
     name,
     price,
@@ -43,6 +44,7 @@ function CartProductItem(props) {
             <img className="Hill cover-fit" src={Hill} alt="Hill" />
           </button>
           <ProductDetails
+            setMycart={setMycart}
             show={show}
             setShow={setShow}
             id={id}

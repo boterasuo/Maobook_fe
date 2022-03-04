@@ -1,5 +1,5 @@
 import './style/OrderDetailStyle.scss'
-import { Container, Button, Modal } from 'react-bootstrap'
+import { Container, Button, Modal, Row, Col } from 'react-bootstrap'
 import OrderDetailTable from './components/OrderDetailTable'
 import React, { useState, useEffect } from 'react'
 import { withRouter, Link, useHistory } from 'react-router-dom'
@@ -11,6 +11,7 @@ import MaoStore from './storePic/MaoStore.png'
 import prolistBG from './storePic/prolistBG.svg'
 import arrow from './storePic/arrow.svg'
 import money from './storePic/money.svg'
+import { set } from 'date-fns'
 
 function OrderDetail(props) {
   const { user, setUser } = useAuth() //會員資料
@@ -18,11 +19,23 @@ function OrderDetail(props) {
   let sum = props.location.state.sum
   let checkout = props.location.state.checkout
   let fee = props.location.state.fee
+
+  //運費轉換方便存資料庫
+  let deliveryWay = ''
+  if (fee === '80') {
+    deliveryWay = '郵寄'
+  }
+  if (fee === '200') {
+    deliveryWay = '宅配'
+  }
+
   // console.log('props:', props)
   // console.log('cart:', cart, 'sum:', sum, 'checkout', checkout, 'fee', fee)
   console.log('會員編號', user.id)
   // 轉頁用
   const history = useHistory()
+  //接支付方式用
+  const [Pay, setPay] = useState([])
   //送出成功提視窗用
   const [show, setShow] = useState(false)
   // input 輸入值
@@ -32,57 +45,52 @@ function OrderDetail(props) {
     address: '',
     email: '',
     user_id: user.id,
-    payment_category_id: '',
+    payment: '',
+    delivery: deliveryWay,
+    delivery_fee: fee,
     cart,
   })
 
   console.log('Order', Order)
+
   // 錯誤訊息
-  // const [OrderErr, setOrderErr] = useState({
-  //   address: '',
-  //   payment: '',
-  //   name: '',
-  //   mobile: '',
-  //   email: '',
-  // })
+  const [OrderErr, setOrderErr] = useState({
+    address: '',
+    payment: '',
+    name: '',
+    mobile: '',
+    email: '',
+  })
 
   // 偵測表單內容變化 (onChange)
   function handleChange(e) {
     setOrder({ ...Order, [e.target.name]: e.target.value })
-    // setOrderErr({ ...OrderErr, [e.target.name]: '' })
+    // setOrderErr)
   }
-
-  // 送出表單 (onSubmit)
   async function handleSubmit(e) {
     e.preventDefault()
-    localStorage.removeItem('cart')
+
     try {
       let response = await axios.post(`${API_URL}/order`, Order)
       console.log(response.data.message)
       if (response.data.message === 'ok') {
         // 客製化 Modal
         setShow(true)
+        localStorage.removeItem('cart')
       }
     } catch (e) {
+      setShow(false)
       console.error('error', e.response.data)
       // 後端驗證
-      // setOrderErr({
-      //   ...OrderErr,
-      //   address: e.response.data.address,
-      //   payment: e.response.data.payment,
-      //   name: e.response.data.name,
-      //   mobile: e.response.data.mobile,
-      //   email: e.response.data.email,
-      // })
+      setOrderErr({
+        ...OrderErr,
+        address: e.response.data.address,
+        payment: e.response.data.payment,
+        name: e.response.data.name,
+        mobile: e.response.data.mobile,
+        email: e.response.data.email,
+      })
     }
-  }
-
-  let deliveryWay = ''
-  if (fee === '80') {
-    deliveryWay = '郵寄'
-  }
-  if (fee === '200') {
-    deliveryWay = '宅配'
   }
 
   const handleCloseModal = () => {
@@ -122,10 +130,13 @@ function OrderDetail(props) {
 
         <form className="maildetail d-flex  flex-column">
           請正確填寫以下配送資訊：
-          <label className="maillabel">
-            配送地址
+          <div className="d-flex line2">
+            <label className="maillabel" for="address">
+              <p> 配送地址 </p>
+            </label>
             <input
-              className="mailinput"
+              id="address"
+              className=" form-control"
               type="text"
               name="address"
               value={Order.address}
@@ -134,23 +145,50 @@ function OrderDetail(props) {
                 handleChange(e)
               }}
             />
-          </label>
-          <label className="maillabel">
-            支付方式
-            <input
-              className="mailinput"
-              type="text"
-              name="payment_category_id"
-              value={Order.payment_category_id}
+          </div>
+          <div className="errMsg">
+            {OrderErr.address ? OrderErr.address : ''}
+          </div>
+          <div className="d-flex line2">
+            <label className="maillabel" for="payment">
+              <p>支付方式</p>
+            </label>
+            <select
+              name="payment"
+              value={Order.payment}
+              class="form-control"
+              id="payment"
               onChange={(e) => {
                 handleChange(e)
               }}
-            />
-          </label>
-          <label className="maillabel">
-            聯絡姓名
+            >
+              <option selected value="">
+                請選擇一個
+              </option>
+              <option value="信用卡">信用卡</option>
+              <option value="ATM轉帳">ATM轉帳</option>
+            </select>
+            {/* <input
+              id="payment"
+              className=" form-control"
+              type="text"
+              name="payment"
+              value={Order.payment}
+              onChange={(e) => {
+                handleChange(e)
+              }}
+            /> */}
+          </div>
+          <div className="errMsg">
+            {OrderErr.payment ? OrderErr.payment : ''}
+          </div>
+          <div className="d-flex line2 ">
+            <label className="maillabel" for="name">
+              <p>聯絡姓名</p>
+            </label>
             <input
-              className="mailinput"
+              id="name"
+              className=" form-control "
               type="text"
               placeholder="毛小孩"
               name="name"
@@ -159,11 +197,15 @@ function OrderDetail(props) {
                 handleChange(e)
               }}
             />
-          </label>
-          <label className="maillabel">
-            聯絡電話
+          </div>
+          <div className="errMsg">{OrderErr.name ? OrderErr.name : ''}</div>
+          <div className="d-flex line2">
+            <label className="maillabel" for="mobile">
+              <p>聯絡電話</p>
+            </label>
             <input
-              className="mailinput"
+              id="mobile"
+              className=" form-control"
               type="tel"
               placeholder="0912345678"
               name="mobile"
@@ -172,11 +214,15 @@ function OrderDetail(props) {
                 handleChange(e)
               }}
             />
-          </label>
-          <label className="maillabel">
-            E-mail
+          </div>
+          <div className="errMsg">{OrderErr.mobile ? OrderErr.mobile : ''}</div>
+          <div className="d-flex line2">
+            <label className="maillabel" for="email">
+              <p>E-mail</p>{' '}
+            </label>
             <input
-              className="mailinput"
+              id="email"
+              className=" form-control"
               type="email"
               placeholder="test@test.com"
               name="email"
@@ -185,14 +231,24 @@ function OrderDetail(props) {
                 handleChange(e)
               }}
             />
-          </label>
+          </div>
+          <div className="errMsg">{OrderErr.email ? OrderErr.email : ''}</div>
         </form>
       </section>
 
       <div>
         <img className="order-arrow" src={arrow} alt="arrow" />
       </div>
-      <div className="d-flex justify-content-center mt-2 mb-5">
+      <div className="bbtn d-flex justify-content-center mt-2 mb-5">
+        <Button
+          className="goBackBtn mr-5 "
+          variant="secondary"
+          onClick={() => {
+            props.history.goBack()
+          }}
+        >
+          上一步
+        </Button>
         <Button
           className="checkoutBtn"
           variant="primary"
