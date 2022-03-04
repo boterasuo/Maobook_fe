@@ -33,7 +33,7 @@ function Checkbox(props) {
                     // setCheckeds(newcheckedProduct)
 
               />
-              <span>{d.name}</span>
+              <span id={'i'}>{d.name}</span>
             </label>
           </div>
         )

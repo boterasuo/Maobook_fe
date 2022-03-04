@@ -50,8 +50,10 @@ function App() {
         console.error(e.response.data)
       }
     }
-    getUser()
-  }, [])
+    if (!user) {
+      getUser()
+    }
+  }, [user])
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

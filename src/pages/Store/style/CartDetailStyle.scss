@@ -41,7 +41,7 @@
   position: relative;
 }
 .fintotal::before {
-  content: "";
+  content: '';
   width: 600px;
   height: 2px;
   background: #fcb736;
@@ -61,4 +61,12 @@
   font-size: 1.5rem !important;
   border-radius: 30px !important;
   color: #ffff !important;
+}
+.gobuyBtn1 {
+  background-color: #6a5f4b;
+  width: 150px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  border-radius: 30px;
+  // color: #ffff;
 }

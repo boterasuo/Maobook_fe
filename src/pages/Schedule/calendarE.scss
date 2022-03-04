@@ -36,6 +36,11 @@
 .trSizeE {
   width: 25px;
   height: 40px;
+
+  &:hover {
+    animation: headShake;
+    animation-duration: 1s;
+  }
 }
 
 .calendarE {

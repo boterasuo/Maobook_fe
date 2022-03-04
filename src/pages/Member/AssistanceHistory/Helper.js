@@ -130,6 +130,4 @@ function Helper(props) {
   )
 }
 
-// Member.propTypes = {}
-
 export default Helper

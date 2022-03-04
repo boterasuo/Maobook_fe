@@ -42,6 +42,7 @@ function ProductItem(props) {
           ADDToLocalStorage({
             id: id,
             name: name,
+            des: des,
             amount: 1,
             price: price,
           })

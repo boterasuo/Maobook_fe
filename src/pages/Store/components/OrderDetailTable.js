@@ -1,7 +1,8 @@
 import { Table } from 'react-bootstrap'
 import './OrderDetailTableStyle.scss'
 
-function OrderDetailTable() {
+function OrderDetailTable(props) {
+  const { cart } = props
   return (
     <>
       <Table className="OrderDetailTable" hover size="sm">
@@ -15,34 +16,17 @@ function OrderDetailTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>美味無添加香草貓貓化毛膏</td>
-            <td>2000</td>
-            <td>3</td>
-            <td>6000</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>美味無添加香草貓貓化毛膏</td>
-            <td>2000</td>
-            <td>3</td>
-            <td>6000</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>美味無添加香草貓貓化毛膏</td>
-            <td>2000</td>
-            <td>3</td>
-            <td>6000</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>美味無添加香草貓貓化毛膏</td>
-            <td>2000</td>
-            <td>3</td>
-            <td>6000</td>
-          </tr>
+          {cart.map((cart, index) => {
+            return (
+              <tr>
+                <td>{index}</td>
+                <td>{cart.name}</td>
+                <td>{cart.price}</td>
+                <td>{cart.amount}</td>
+                <td>{cart.price * cart.amount}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     </>
