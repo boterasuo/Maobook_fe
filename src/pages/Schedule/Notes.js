@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 // 引入 utils
-// import {API_URL} from "../../utils/config";
+import { API_URL } from '../../utils/config'
 import 'react-bootstrap'
 import 'bootstrap'
 import './Notes.scss'
@@ -31,7 +31,7 @@ function Notes({ NoteDate }) {
   // API
   const queryEvent = async () => {
     let response = await axios.get(
-      'http://localhost:3002/api/calenderNote/' +
+      `${API_URL}/calenderNote/` +
         NoteDate.getFullYear() +
         '/' +
         (NoteDate.getMonth() + 1)

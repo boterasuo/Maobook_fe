@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 import { format, getDate } from 'date-fns'
 import { useCalendar, eventSelect, WEEKS } from './component/useCalendarE'
@@ -17,7 +18,7 @@ const Calendar = (props) => {
 
   const queryEvent = async () => {
     let response = await axios.get(
-      'http://localhost:3002/api/calendarE/' +
+      `${API_URL}/calendarE/` +
         calendar.today.getFullYear() +
         '/' +
         (calendar.today.getMonth() + 1)
