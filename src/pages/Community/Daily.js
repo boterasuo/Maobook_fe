@@ -41,7 +41,7 @@ function Daily(props) {
           </Col> */}
         </Row>
         <div className="daily-post-area  mao-rounded mt-lg-2 mt-md-2 container">
-          <div className="daily-container d-inline-block">
+          <div className="daily-container text-center">
             <DailyCard />
           </div>
         </div>

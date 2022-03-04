@@ -12,7 +12,7 @@ $avatar-length: 3.5rem;
   height: 58%;
   // border: 1px solid #ccc;
   display: flex;
-  margin: 0 0.5rem;
+  margin: 0.5rem 0.5rem;
   // overflow: hidden;
   &:hover .card-body{
     border-radius: 33px;
@@ -65,8 +65,9 @@ $avatar-length: 3.5rem;
   }
   //按讚數、留言數
   .card-counter {
+    margin: 0.4rem 0;
     a {
-      margin: 0 1rem;
+      margin: 0.8rem 1rem;
       text-decoration: none;
       color: $secondary;
     }
@@ -84,11 +85,33 @@ $avatar-length: 3.5rem;
 // \\ [[[彈出視窗]]] // \\
 .card-detail-modal {
   height: 80vh;
-
+  overflow-y: scroll;
+  // 彈跳視窗文章輪軸
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+    &:hover {
+      background: #eee;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 33px;
+    &:hover {
+      background: gainsboro;
+    }
+    &:active {
+      background: rgb(194, 194, 194);
+    }
+  }
   .card-detail-slider {
     background: #000;
     height: 100%;
     overflow:hidden;
+    position: sticky;
+    top: 0;
+    left: 0;
+    
     margin: 0 0;
     padding: 0 0;
     .carousel-hashtag {
@@ -199,30 +222,16 @@ $avatar-length: 3.5rem;
 
 // 貼文區 輪軸處理
 .scrolling-area {
-  // overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 .overflow-hidden {
   overflow:hidden;
 }
+
+
 .overflow-y-scroll {
-  overflow-y: hidden;
-  &::-webkit-scrollbar {
-    background: transparent;
-    width: 10px;
-    &:hover {
-      background: #eee;
-    }
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 33px;
-    &:hover {
-      background: gainsboro;
-    }
-    &:active {
-      background: rgb(194, 194, 194);
-    }
-  }
+  
 }
 
 // 隱藏
@@ -257,3 +266,5 @@ $avatar-length: 3.5rem;
   display: block;
   margin: 1.5rem auto;
 }
+
+
