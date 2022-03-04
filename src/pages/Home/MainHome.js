@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button'
 import './MainHome.scss'
 // 引入動畫套件
 import 'animate.css'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 function MainHome(props) {
   return (
@@ -36,9 +37,9 @@ function MainHome(props) {
                   <Button className="home-login-btn" href="/login">
                     立即登入
                   </Button>
-                  <Button className="home-signup-btn" href="#sign-up">
-                    立即註冊
-                  </Button>
+                  <AnchorLink href="#sign-up">
+                    <Button className="home-signup-btn">立即註冊</Button>
+                  </AnchorLink>
                 </div>
                 <p>LOOK AHEAD</p>
               </div>

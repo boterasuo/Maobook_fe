@@ -152,12 +152,38 @@
 }
 
 // 右邊留言
+
+.helpTextDiv {
+  display: flex;
+  flex-direction: column;
+}
+
 .helpText {
   width: 140px;
-  height: 230px;
-  margin: 20px 30px 20px 30px;
+  height: 185px;
+  margin: 20px 30px 0px 30px;
   padding: 20px 20px 20px 20px;
   border: 2px #f6bc54 solid;
-  border-radius: 20px;
+  border-radius: 20px 20px 0px 0px;
   background-color: white;
+  color: #6a5f4b;
+  font-size: 18px;
+}
+
+.HelperSummitButton {
+  width: 140px;
+  height: 45px;
+  margin: -5px 30px 20px 30px;
+  // padding: 20px 20px 20px 20px;
+  border-radius: 0px 0px 20px 20px;
+  background-color: white;
+  color: #f6bc54;
+  border: 2px solid #f6bc54;
+  transition-duration: 0.4s;
+  font-size: 18px;
+  justify-content: flex-end;
+  &:hover {
+    background-color: #f6bc54;
+    color: white;
+  }
 }

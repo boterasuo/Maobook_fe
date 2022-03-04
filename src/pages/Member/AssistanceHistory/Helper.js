@@ -1,15 +1,34 @@
 // 引入 React 功能
 import React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // 引入 utils
-// import {API_URL} from "../../utils/config";
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { API_URL } from '../../../utils/config'
+import { useAuth } from '../../../context/auth'
 import 'react-bootstrap'
 import './Helper.scss'
 
-// 引入圖片
-
 function Helper(props) {
+  // 處理錯誤
+  const [errMsg, setErrMsg] = useState({ msg: '' })
+  // 處理會員
+  const { user, setUser } = useAuth()
+  // console.log('會員編號', user.id)
+
+  // TODO 處理登入後資料更新
+
+  // const petSelect = async () => {
+  //   let response = await axios.get(`${API_URL}/calenderPost/` + user.id)
+  //   console.log(response.data)
+  //   setData(response.data)
+  // }
+  // const [data, setData] = useState([])
+  // useEffect(() => {
+  //   petSelect()
+  // }, [])
+
   // 四格radio
   const [eventTag, setEventTag] = useState('1')
   const [schedule, setSchedule] = useState({
@@ -18,6 +37,40 @@ function Helper(props) {
 
   function handleChange(e) {
     setSchedule({ ...schedule, [e.target.name]: e.target.value })
+  }
+
+  // 讀取案件資料API
+  // const [data, setData] = useState([])
+
+  // useEffect(() => {
+  //   let getDayHelps = async () => {
+  //     let response = await axios.get(
+  //       // `http://localhost:3002/api/help/dayhelps?year=${year}&month=${month}&day=${day}`
+  //       // `http://localhost:3002/api/help/dayhelps/${year}/${month}/${day}`
+  //       `http://localhost:3002/api/help/dayhelps/2022/03/12`
+  //     )
+  //     setData(response.data)
+  //   }
+  //   getDayHelps()
+  // }, [])
+
+  // 修改案件狀態API
+  async function handleSubmit(e) {
+    Swal.fire('確定回覆', '已寄信通知對方您的選擇', 'success')
+    e.preventDefault() //關掉預設行為
+
+    try {
+      let response = await axios.post(
+        // `${API_URL}/calenderForm/register`,
+        schedule,
+        {
+          withCredentials: true,
+        }
+      )
+    } catch (e) {
+      console.error('寫入資料庫失敗', e.response.data)
+      setErrMsg({ ...errMsg, msg: e.response.data.msg })
+    }
   }
 
   return (
@@ -122,8 +175,20 @@ function Helper(props) {
 
         <hr className="helperBr" />
 
-        <div className="helpText">
-          <p>安安您好</p>
+        <div className="helpTextDiv">
+          <div>
+            <p className="helpText">安安您好</p>
+          </div>
+          <div>
+            <button
+              className="HelperSummitButton"
+              type="submit"
+              onClick={handleSubmit}
+              data-dismiss="alert"
+            >
+              確定回覆
+            </button>
+          </div>
         </div>
       </div>
     </>
