@@ -131,14 +131,16 @@ function Notes({ NoteDate }) {
                             <img
                               src={eventColor(item.category_id)}
                               className="scheduleEvents2Img"
+                              alt="pet event category"
                             />
                           </div>
                           {/* 處理要不要印星星  0不印 1要印 */}
                           <div className="scheduleEvents3">
-                            <img src={event0} />
+                            <img src={event0} alt="pet event category" />
                             {item.importer}
                           </div>
                           {item.tags.map((tag, i) => {
+                            console.log('item', item)
                             return (
                               <div className="scheduleEvents4 d-flex">
                                 <div className="bbb">
@@ -156,7 +158,7 @@ function Notes({ NoteDate }) {
                           })}
                           <div className="aaaaaa"></div>
                           <div className="scheduleEvents5">
-                            {item.name}
+                            {/* {item.name} */}
                             {item.title}
                           </div>
                           <br />
@@ -196,10 +198,14 @@ function Notes({ NoteDate }) {
                           <img
                             src={eventColor(Dateitem.category_id)}
                             className="scheduleEvents2Img"
+                            alt="pet event"
                           />
                         </div>
                         <div className="scheduleEvents3">
-                          <img src={showStar(Dateitem.importance)} />
+                          <img
+                            src={showStar(Dateitem.importance)}
+                            alt="pet important event"
+                          />
                         </div>
                         <div className="scheduleEvents4">
                           {Dateitem.tags.map((Datetag, i) => {

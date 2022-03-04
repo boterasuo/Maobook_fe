@@ -1,58 +1,52 @@
-import React, { useState, useEffect } from 'react'
-import { NavDropdown, Table, Modal, Button } from 'react-bootstrap'
-import { NavLink, Route, Switch, useHistory } from 'react-router-dom'
-import axios from 'axios'
-// import { API_URL } from '../utils/config'
+import React from 'react'
+import { Table } from 'react-bootstrap'
 
-// 引入 user context
-import { useAuth } from '../../../context/auth'
-
-// 引入元件
-import Cancel from '../../Member/OrderHistory/Cancel'
-import Done from '../../Member/OrderHistory/Done'
-
-function OrderHistory(props) {
+function Cancel(props) {
   return (
-    <div className="info-card">
-      <div className="member-content ">
-        <div className="container">
-          <div className="row">
-            {/* side nav */}
-            <div className="col-lg-2 member-sidenav">
-              <nav className="d-flex flex-row flex-lg-column justify-content-center text-right">
-                <NavLink
-                  activeClassName="active"
-                  className="nav-link d-md-block d-none"
-                  to="/member/order/Cancel"
-                >
-                  已完成訂單
-                </NavLink>
-                <NavLink
-                  activeClassName="active"
-                  className="nav-link d-md-block d-none"
-                  to="/member/order/Done"
-                >
-                  已取消訂單
-                </NavLink>
-              </nav>
-            </div>
-            {/* 可切換資料卡 */}
-            <div className="col-lg-10 member-info">
-              <Switch>
-                {/* 日常 Route */}
-                <Route path="/member/order/Cancel">
-                  <Cancel />
-                </Route>
-                <Route path="/member/order/Done">
-                  <Done />
-                </Route>
-              </Switch>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <Table className="OrderDetailTable" hover size="sm">
+        <thead>
+          <tr>
+            <th>序號</th>
+            <th>品項</th>
+            <th>單價</th>
+            <th>數量</th>
+            <th>總價</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>美味無添加香草貓貓化毛膏</td>
+            <td>2000</td>
+            <td>3</td>
+            <td>6000</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>美味無添加香草貓貓化毛膏</td>
+            <td>2000</td>
+            <td>3</td>
+            <td>6000</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>美味無添加香草貓貓化毛膏</td>
+            <td>2000</td>
+            <td>3</td>
+            <td>6000</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>美味無添加香草貓貓化毛膏</td>
+            <td>2000</td>
+            <td>3</td>
+            <td>6000</td>
+          </tr>
+        </tbody>
+      </Table>
+    </>
   )
 }
 
-export default OrderHistory
+export default Cancel
