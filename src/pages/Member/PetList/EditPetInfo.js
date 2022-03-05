@@ -74,11 +74,16 @@ function EditPetInfo(props) {
   // birthday 欄位前端檢查
   const handleBirthInvalid = (e) => {
     e.preventDefault()
+    const inputDate = Date.parse(e.target.value)
     if (pet.arrDay) {
       const arrDate = Date.parse(pet.arrDay)
-      const inputDate = Date.parse(e.target.value)
       if (inputDate > arrDate) {
         setEditErr({ ...editErr, [e.target.name]: '毛孩生日不可晚於到家日' })
+      }
+    } else if (inputDate) {
+      const today = Date.parse(new Date().toDateString())
+      if (inputDate > today) {
+        setEditErr({ ...editErr, [e.target.name]: '請選擇早於今天的日期' })
       }
     }
   }
