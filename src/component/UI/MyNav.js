@@ -127,7 +127,9 @@ function MyNav(props) {
                     style={{ objectFit: 'cover' }}
                     src={
                       user.image !== null
-                        ? `${IMG_URL}${user.image}`
+                        ? user.google
+                          ? user.image
+                          : `${IMG_URL}${user.image}`
                         : defaultAvatar
                     }
                   />

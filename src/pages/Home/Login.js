@@ -2,13 +2,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 // 引入 user context
 import { useAuth } from '../../context/auth'
-
 // 引入 utils
 import { API_URL } from '../../utils/config'
-
 // 引入圖片們
 import Logo from '../../img/LOGO_no_word.svg'
 import LogoWord from '../../img/LOGO_word.svg'
@@ -16,12 +14,12 @@ import LoginWord from '../../img/Login/login_word.svg'
 import { ReactComponent as PawBtn } from '../../img/Login/paw_btn.svg'
 import './Login.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function Login(props) {
-  // const [auth, setAuth] = useState(false)
-  // 來自 App 的登入狀態 (舊寫法)
-  // const {auth, setAuth} = props;
-
+  const history = useHistory()
   // 來自 context 的 user 狀態
   const { user, setUser } = useAuth()
   // 登入 inpuut 輸入
@@ -31,6 +29,8 @@ function Login(props) {
   })
   // 登入驗證錯誤訊息
   const [errMsg, setErrMsg] = useState({ msg: '' })
+  // sweetalert
+  const MySwal = withReactContent(Swal)
 
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value })
@@ -55,10 +55,24 @@ function Login(props) {
     }
   }
 
-  if (user) {
-    // 登入成功 --> 自動導向會員頁面
-    return <Redirect to="/member/data" />
-  }
+  useEffect(() => {
+    if (user) {
+      // 登入成功 --> 自動導向會員頁面
+      MySwal.fire({
+        title: `歡迎！${user.name}`,
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          history.push('/member/data')
+        }
+      })
+      // return <Redirect to="/member/data" />
+    }
+  }, [user])
 
   return (
     <div>

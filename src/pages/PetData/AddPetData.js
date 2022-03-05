@@ -11,6 +11,9 @@ import './PetData.scss'
 import { BsFunnel } from 'react-icons/bs'
 // 引入圖表元件
 import DetailChart from './DetailChart'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function AddPetData(props) {
   // 取得當前 selected pet id (來自 match params)
@@ -37,6 +40,8 @@ function AddPetData(props) {
   const [showModal, setShowModal] = useState(false)
   const [modalContent, setModalContent] = useState({})
   const [deleteId, setDeleteId] = useState({ btnId: 0 })
+  // sweetalert
+  const MySwal = withReactContent(Swal)
 
   // 切換按鈕狀態函式
   const toggleSwitchBTN = () => {
@@ -89,7 +94,7 @@ function AddPetData(props) {
         // 將所有毛孩 id 依序存入陣列
         setPetList(newPetList)
         // 第一次渲染先取得初始毛孩的原始資料
-        getHeight()
+        // getHeight()
         // let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`,
         //     {withCredentials: true,});
         // petHeightRef.current = heightResult.data.data;
@@ -182,11 +187,11 @@ function AddPetData(props) {
         })
         console.log(editResult.data)
         if (editResult.data.message === 'ok') {
-          setShowModal(true)
-          setModalContent({
-            ...modalContent,
+          MySwal.fire({
             title: '修改成功！',
-            cate: 'added',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
           })
           setEdit()
           setEditData({ value: '', time: '' })
@@ -247,11 +252,11 @@ function AddPetData(props) {
         })
         console.log(addResult.data)
         if (addResult.data.message === 'ok') {
-          setShowModal(true)
-          setModalContent({
-            ...modalContent,
+          MySwal.fire({
             title: '新增成功！',
-            cate: 'added',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
           })
           setEdit()
           setEditData({ value: '', time: '' })
@@ -272,31 +277,15 @@ function AddPetData(props) {
     }
   }
 
-  // 刪除前跳出確認視窗 Modal
-
-  const handleDeleteConfirm = (e) => {
-    setDeleteId({ ...deleteId, btnId: e.target.name })
-    setModalContent({
-      ...modalContent,
-      title: '確認刪除該筆資料？',
-      cate: 'delete',
-    })
-    setShowModal(true)
-  }
-  // 關閉/取消 btn for Modal
-  const handleClose = () => {
-    setDeleteId({ ...deleteId, btnId: 0 })
-    setModalContent({})
-    setShowModal(false)
-  }
   // 刪除資料函式
-  async function handleDelete() {
-    const btnId = { ...deleteId }
+  async function handleDelete(btnId) {
+    // const btnId = { ...deleteId }
     console.log(btnId)
     let type = 'height'
     if (!switchBTN === false) {
       type = 'weight'
     }
+    console.log('type', type)
     let deleteResult = await axios.post(
       `${API_URL}/pet/deleteData/${type}`,
       btnId,
@@ -304,10 +293,11 @@ function AddPetData(props) {
         withCredentials: true,
       }
     )
+    console.log(deleteResult.data)
     if (deleteResult.data.message === 'ok') {
-      setDeleteId({ ...deleteId, btnId: 0 })
-      setShowModal(false)
-      setModalContent({})
+      // setDeleteId({ ...deleteId, btnId: 0 })
+      // setShowModal(false)
+      // setModalContent({})
       if (switchBTN === false) {
         getHeight()
       } else {
@@ -315,6 +305,42 @@ function AddPetData(props) {
       }
     }
   }
+
+  const handleDeleteConfirm = (e) => {
+    setDeleteId({ ...deleteId, btnId: e.target.name })
+    const btnId = { btnId: e.target.name }
+    // setModalContent({
+    //   ...modalContent,
+    //   title: '確認刪除該筆資料？',
+    //   cate: 'delete',
+    // })
+    // setShowModal(true)
+    // sweetalert 第三方
+    MySwal.fire({
+      title: '確定刪除該筆資料？',
+      text: '刪除後資料無法復原',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '確認刪除',
+      cancelButtonColor: '#6a5f4b',
+      cancelButtonText: '取消',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await handleDelete(btnId)
+      } else if (result.isDismissed) {
+        console.log('btnId deleted!')
+        setDeleteId({ ...deleteId, btnId: 0 })
+      }
+    })
+  }
+  // 關閉/取消 btn for Modal
+  // const handleClose = () => {
+  //   setDeleteId({ ...deleteId, btnId: 0 })
+  //   setModalContent({})
+  //   setShowModal(false)
+  // }
 
   // 欄位前端檢查函式
   const handleValueInvalid = (e) => {
@@ -333,7 +359,7 @@ function AddPetData(props) {
     e.preventDefault()
     const today = Date.parse(new Date())
     const inputDate = Date.parse(e.target.value)
-    console.log(today, inputDate)
+    // console.log(today, inputDate)
     if (e.target.value && inputDate > today) {
       setEditErr({ ...editErr, [e.target.name]: '請選擇早於今天的日期' })
     }
@@ -341,7 +367,7 @@ function AddPetData(props) {
 
   return (
     <div className="info-card pet-data-edit">
-      <ModalComponent
+      {/* <ModalComponent
         showModal={showModal}
         backdrop={modalContent.cate === 'delete' ? 'static' : true}
         keyboard={modalContent.cate === 'delete' ? false : true}
@@ -349,7 +375,7 @@ function AddPetData(props) {
         handleClose={handleClose}
         modalContent={modalContent}
         handleConfirm={handleDelete}
-      />
+      /> */}
       <div className="row">
         <div className="col-lg-7">
           <div className="d-flex justify-content-start pet-data-select">

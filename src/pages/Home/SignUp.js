@@ -1,14 +1,14 @@
 // 引入 React 功能
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { Modal, Button } from 'react-bootstrap'
 // 引入 context
 import { useAuth } from '../../context/auth'
 // 引入 utils
 import { API_URL } from '../../utils/config'
 import FacebookLogin from '@greatsumini/react-facebook-login'
+import GoogleLogin from 'react-google-login'
 // 引入圖片們
 import Logo from '../../img/SignUp/LOGO_no_word.svg'
 import SignupWord from '../../img/SignUp/signupWord.svg'
@@ -18,8 +18,11 @@ import PawsLeft from '../../img/SignUp/small_paws_left.svg'
 import PawsRight from '../../img/SignUp/small_paws_right.svg'
 import './SignUp.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
-// 引入元件
-import SignUpModal from './component/SignUpModal'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+// 引入函式
+import { fbLogin, googleLogin } from '../../service/UserData'
 
 function SignUp(props) {
   // 註冊 input 輸入值
@@ -43,6 +46,8 @@ function SignUp(props) {
   const [modalContent, setModalContent] = useState({ title: '', type: '' })
   // 來自 context 的 user 狀態
   const { user, setUser } = useAuth()
+  // sweetalert
+  const MySwal = withReactContent(Swal)
 
   // 偵測表單內容變化 (onChange)
   function handleChange(e) {
@@ -96,9 +101,20 @@ function SignUp(props) {
       let response = await axios.post(`${API_URL}/auth/register`, member)
       console.log(response.data.message)
       if (response.data.message === 'ok') {
-        // 客製化 Modal
-        setModalContent({ ...modalContent, title: '註冊成功', type: 'normal' })
-        setShowModal(true)
+        // sweetalert 一般註冊
+        MySwal.fire({
+          title: '註冊成功！',
+          text: '請登入並設定個人資料',
+          icon: 'success',
+          confirmButtonColor: '#f6bc54',
+          confirmButtonText: '確認',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push('/login')
+          }
+        })
       }
     } catch (e) {
       console.error('error', e.response.data)
@@ -113,53 +129,47 @@ function SignUp(props) {
     }
   }
 
-  // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false)
-    history.push('/login')
-  }
-
   // FB 登入
   const handleFBLogin = async (response) => {
-    console.log('response', response)
-    try {
-      let result = await axios.get(
-        `${API_URL}/users/auth/facebook?access_token=${response.accessToken}`
-        // {
-        //   withCredentials: true,
-        //   headers: {
-        //     'Access-Control-Allow-Origin': '*',
-        //   },
-        // }
-      )
-      const userId = { userId: result.data.id }
-      console.log('userId', userId)
-      let getUser = await axios.post(
-        `${API_URL}/users/facebook/login`,
-        userId,
-        { withCredentials: true }
-      )
-      console.log(getUser.data.data)
-      setUser(getUser.data.data)
-      setModalContent({
-        ...modalContent,
-        title: '第三方登入成功',
-        type: 'TPlogin',
+    // console.log('response', response)
+    let result = await fbLogin(response)
+    if (result.id > 0) {
+      setUser(result)
+      // sweetalert 第三方
+      MySwal.fire({
+        title: '第三方登入成功！',
+        text: '請前往會員頁面設定個人資料',
+        icon: 'success',
+        confirmButtonText: '確認',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push('/member/data')
+        }
       })
-      setShowModal(true)
-      // 把 return 回來的資料 set 到 user 狀態中
-    } catch (e) {
-      console.error(e.response.data)
     }
   }
-  // 更改第三方登入 Modal 顯示狀態函式
-  const handleTPCloseModal = () => {
-    setShowModal(false)
-    setModalContent({
-      title: '',
-      type: '',
-    })
-    history.push('/member/data')
+  // Google 登入
+  const responseGoogle = async (response) => {
+    console.log(response)
+    let result = await googleLogin(response)
+    if (result.id > 0) {
+      setUser(result)
+      // sweetalert 第三方
+      MySwal.fire({
+        title: '第三方登入成功！',
+        text: '請前往會員頁面設定個人資料',
+        icon: 'success',
+        confirmButtonText: '確認',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push('/member/data')
+        }
+      })
+    }
   }
 
   return (
@@ -167,12 +177,6 @@ function SignUp(props) {
       {/* 排版用空白區塊 */}
       <div className="container">
         {/* maobook 字 logo */}
-        <SignUpModal
-          showModal={showModal}
-          handleCloseModal={user ? handleTPCloseModal : handleCloseModal}
-          modalContent={modalContent}
-          showBody={modalContent.type === 'normal' ? '' : 'd-none'}
-        />
         <div className="logo-word">
           <img alt="" className="img-fluid" src={LogoWord} />
         </div>
@@ -271,14 +275,22 @@ function SignUp(props) {
               </h2>
               <hr className="d-lg-none login-divider" />
               <div className="d-flex thirdParty-signup">
-                <button type="button" className="thirdParty-icon">
-                  <BsGoogle color="white" fontSize="2.5rem" />
-                </button>
-                {/* <button
-                  type="button"
+                <GoogleLogin
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                  render={(renderProps) => (
+                    <button
+                      className="thirdParty-icon"
+                      onClick={renderProps.onClick}
+                    >
+                      <BsGoogle color="white" fontSize="2.5rem" />
+                    </button>
+                  )}
+                  buttonText="Login"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
                   className="thirdParty-icon"
-                  onClick={handleFBLogin}
-                > */}
+                />
                 <FacebookLogin
                   appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
                   fields="name,email,picture"

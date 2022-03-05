@@ -3,16 +3,13 @@ import { NavDropdown, Table, Modal, Button } from 'react-bootstrap'
 import { NavLink, Route, Switch, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../utils/config'
-
 // 引入 user context
 import { useAuth } from '../context/auth'
 // 引入函式庫
 import { getUser } from '../service/UserData'
-
 // 引入樣式和圖片
 import './Member.scss'
-// import loading from '../img/loading_paw.svg'
-
+import loading from '../img/loading_paw.svg'
 // 引入元件
 import MemberData from './Member/MemberData/MemberData'
 import MemberEdit from './Member/MemberData/MemberEdit'
@@ -25,8 +22,13 @@ import OrderHistory from './Member/OrderHistory/OrderHistory'
 import CommunityHistory from './Member/CommunityHistory/CommunityHistory'
 import AssistanceHistory from './Member/AssistanceHistory/AssistanceHistory'
 import NoLoginModal from './NoLoginModal'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function Member(props) {
+  // sweetalert
+  const MySwal = withReactContent(Swal)
   // 來自 context 的 user 狀態
   const { user, setUser } = useAuth()
   console.log(user)
@@ -190,30 +192,35 @@ function Member(props) {
     // if (!user) {
     getUser().then((res) => {
       if (res === '未登入') {
-        setShowModal(true)
+        MySwal.fire({
+          title: '尚未登入！',
+          text: '請先註冊或登入',
+          icon: 'warning',
+          confirmButtonText: '確認',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push('/login')
+          }
+        })
       }
     })
     // }
   }, [])
 
-  // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false)
-    history.push('/login')
-  }
-
-  return (
-    <>
-      {user ? (
-        memberPage
-      ) : (
-        <NoLoginModal
-          showModal={showModal}
-          handleCloseModal={handleCloseModal}
-        />
-      )}
-    </>
+  // Loading Paw
+  const loadingPaw = (
+    <div className="member-content">
+      <div className="position-absolute loading-paw">
+        <div className="spinner-grow text-primary" role="status">
+          <img alt="" className="sr-only" src={loading} />
+        </div>
+      </div>
+    </div>
   )
+
+  return <>{user ? memberPage : loadingPaw}</>
 }
 
 export default Member

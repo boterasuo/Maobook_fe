@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import HelpIntro from './Assistance/HelpIntro'
 import HelpCalendar from './Assistance/HelpCalendar'
 import DayHelps from './Assistance/DayHelps'
@@ -12,6 +13,7 @@ import posticon from './Assistance/img/posticon.svg'
 import maoassistance from './Assistance/img/maoassistance.svg'
 
 function Assistance() {
+  const [HelpDate, setHelpDate] = useState(new Date())
   return (
     <>
       <div className="assistance">
@@ -26,18 +28,14 @@ function Assistance() {
           </div>
           <br />
           <div className="helpcalendar">
-            <HelpCalendar />
+            <HelpCalendar setHelpDate={setHelpDate}/>
           </div>
           <div className="dayhelps">
-            <DayHelps />
+            <DayHelps HelpDate={HelpDate}/>
           </div>
           <br />
           <div className="helplist">
             <HelpList />
-          </div>
-          <br />
-          <div className="helpdetail">
-            <HelpDetail />
           </div>
           <br />
           <div className="helppost">

@@ -13,32 +13,37 @@ import fullpaw from './img/paw.svg'
 import userimage from './img/helpuserimage.svg'
 
 function HelpDetail(props) {
+  const { detailid } = props
   const [data, setData] = useState([])
 
   useEffect(() => {
     let getHelpDetail = async () => {
       let response = await axios.get(
-        `${API_URL}/help/helpdetails/1`
+        `${API_URL}/help/helpdetails/${detailid}`
       )
       setData(response.data)
     }
     getHelpDetail()
-  }, [])
+  }, [detailid])
 
   return (
-    <>
+    <Modal
+    {...props}
+      size="xl"
+      centered
+      dialogClassName="modal-90w d-flex position-absulote"
+      z-index="999"
+      >
       {data.map((data) => {
         return (
           <div className="helpdetails">
             <div className="lefeside">
-              <img src={example} className="helpdetailimg" alt="" />
-              {/* <img src={data.image} className="helpdetailimg" alt=""/> */}
+              <img src={require('./img/' + [data.image])} className="helpdetailimg" alt="" />
             </div>
 
             <div className="rightside">
               <div className="righthead">
                 <div className="helpdetailuser">
-                  {/* {data.user_image} */}
                   <img src={userimage} className="helpdetailuserimage" alt="" />
                 </div>
                 <div className="helpdetailusername">
@@ -104,7 +109,7 @@ function HelpDetail(props) {
           </div>
         )
       })}
-    </>
+    </Modal>
   )
 }
 

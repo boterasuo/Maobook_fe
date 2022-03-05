@@ -8,6 +8,9 @@ import { API_URL, IMG_URL } from '../../../utils/config'
 // 引入 圖片 icon css
 import { BsReply, BsPencilSquare, BsTrash } from 'react-icons/bs'
 import defaultPet from '../../../img/avatar_pet.png'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function EditPetInfo(props) {
   const history = useHistory()
@@ -42,7 +45,9 @@ function EditPetInfo(props) {
     '心血管疾病',
   ]
   // Modal 切換顯示狀態用
-  const [showModal, setShowModal] = useState(false)
+  // const [showModal, setShowModal] = useState(false)
+  // sweetalert
+  const MySwal = withReactContent(Swal)
 
   function handleChange(e) {
     setPet({ ...pet, [e.target.name]: e.target.value })
@@ -69,11 +74,16 @@ function EditPetInfo(props) {
   // birthday 欄位前端檢查
   const handleBirthInvalid = (e) => {
     e.preventDefault()
+    const inputDate = Date.parse(e.target.value)
     if (pet.arrDay) {
       const arrDate = Date.parse(pet.arrDay)
-      const inputDate = Date.parse(e.target.value)
       if (inputDate > arrDate) {
         setEditErr({ ...editErr, [e.target.name]: '毛孩生日不可晚於到家日' })
+      }
+    } else if (inputDate) {
+      const today = Date.parse(new Date().toDateString())
+      if (inputDate > today) {
+        setEditErr({ ...editErr, [e.target.name]: '請選擇早於今天的日期' })
       }
     }
   }
@@ -127,7 +137,22 @@ function EditPetInfo(props) {
         })
         console.log(response.data)
         if (response.data.message === 'ok') {
-          setShowModal(true)
+          // setShowModal(true)
+          MySwal.fire({
+            title: '修改成功！',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              history.push({
+                pathname: '/member/pet/info',
+                state: { selectedPet: pet.id },
+              })
+            }
+          })
         }
       } catch (e) {
         console.error('編輯毛孩失敗: ', e.response.data)
@@ -141,30 +166,17 @@ function EditPetInfo(props) {
     }
   }
   // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false)
-    history.push({
-      pathname: '/member/pet/info',
-      state: { selectedPet: pet.id },
-    })
-  }
-  // 編輯成功 Modal html
-  const editPetModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>修改成功！</Modal.Title>
-      </Modal.Header>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
+  // const handleCloseModal = () => {
+  //   setShowModal(false)
+  //   history.push({
+  //     pathname: '/member/pet/info',
+  //     state: { selectedPet: pet.id },
+  //   })
+  // }
 
   return (
     <form className="position-relative info-card">
-      {editPetModal}
+      {/* {editPetModal} */}
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">

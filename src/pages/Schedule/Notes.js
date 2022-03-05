@@ -6,7 +6,7 @@ import axios from 'axios'
 // 引入 utils
 import { API_URL } from '../../utils/config'
 import 'react-bootstrap'
-import 'bootstrap'
+// import 'bootstrap' react 說找不到所以先註解起來
 import './Notes.scss'
 import { format } from 'date-fns'
 
