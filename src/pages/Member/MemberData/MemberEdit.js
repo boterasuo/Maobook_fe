@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Table, Modal, Button } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import axios from 'axios'
 // 引入 context
 import { useAuth } from '../../../context/auth'
-
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../utils/config'
-
 // 引入 圖片 icon css
 import { BsReply, BsPencilSquare, BsTrash } from 'react-icons/bs'
 import defaultAvatar from '../../../img/avatar_user.png'
 import './MemberEdit.scss'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function MemberEdit(props) {
   const history = useHistory()
+  // user 詳細資料
   const { userInfo, setUserInfo } = props
   console.log(userInfo)
+  // 大頭照預覽
   const [preview, setPreview] = useState('')
+  // 前端驗證錯誤訊息
   const [editErr, setEditErr] = useState({
     mobile: '',
     birthday: '',
   })
-  // Modal 切換顯示狀態用
-  const [showModal, setShowModal] = useState(false)
-
   // 性別 radio
   const genderValues = ['1', '2', '3']
   const genderOptions = ['生理男', '生理女', '不透漏']
+  // sweetalert
+  const MySwal = withReactContent(Swal)
 
   function handleChange(e) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
@@ -110,7 +113,18 @@ function MemberEdit(props) {
         })
         console.log(response.data)
         if (response.data.message === 'ok') {
-          setShowModal(true)
+          MySwal.fire({
+            title: '修改成功！',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              history.push('/member/data')
+            }
+          })
         }
       } catch (e) {
         console.error('更新失敗: ', e.response.data)
@@ -124,28 +138,8 @@ function MemberEdit(props) {
     }
   }
 
-  // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false)
-    history.push('/member/data')
-  }
-  // 註冊成功 Modal html
-  const editModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>修改成功！</Modal.Title>
-      </Modal.Header>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
-
   return (
     <form className="position-relative info-card">
-      {editModal}
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">
@@ -248,13 +242,6 @@ function MemberEdit(props) {
                       </div>
                     )
                   })}
-                  {/* <input 
-                                type="text"
-                                className="form-control"
-                                name="gender"
-                                value={editInfo.gender ? editInfo.gender : ""}
-                                onChange={handleChange}
-                            /> */}
                 </td>
               </tr>
               <tr>

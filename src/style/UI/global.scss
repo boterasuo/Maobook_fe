@@ -159,3 +159,10 @@ footer {
   background-color: #f6bc54;
   border: #f6bc54;
 }
+
+.swal2-styled.swal2-default-outline:focus {
+  box-shadow: none;
+}
+.swal2-styled.swal2-confirm:focus {
+  box-shadow: none;
+}
