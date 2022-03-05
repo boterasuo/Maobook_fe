@@ -141,7 +141,7 @@ function CartDetail() {
     </Modal>
   )
 
-  const errmsg = <p className="payerrmsg">請選擇一個支付方式!</p>
+  const errmsg = <p className="payerrmsg">請選擇一個運送方式!</p>
 
   return (
     <>

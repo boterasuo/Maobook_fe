@@ -99,10 +99,10 @@ function ProductList(props) {
             setcheckState(SQLL)
 
 
-
+            // &checkState=${checkState}
             //${API_URL}/store/productlist?page=${page}&search=${value1}&animal=${filter}&checkedPet=${checkedPet}&checkedProduct=${checkedProduct}&checkedBrand=${checkedBrand}
             //全部產品+searchbar+ filter分類名稱
-            let response = await axios.get(`${url}?page=${page}&search=${value1}&animal=${filter}&  checkState=${checkState}`, { withCredentials: true });
+            let response = await axios.get(`${url}?page=${page}&search=${value1}&animal=${filter}&checkedPet=${checkedPet}&checkedProduct=${checkedProduct}&checkedBrand=${checkedBrand}`, { withCredentials: true });
             setData(response.data.data);
             setLastPage(response.data.pagination.lastPage);
             setFilterPet(response.data.filterPet);
@@ -163,6 +163,7 @@ function ProductList(props) {
     //篩選bar
     const filterDog = () => {
         setFilter('犬')
+        setCategory('all');
         setCheckedPet("")
         setCheckedProduct("")
         setCheckedBrand("")
@@ -170,7 +171,7 @@ function ProductList(props) {
     //{filter? filterDog()'}
     const filterCat = () => {
         setFilter('貓');
-
+        setCategory('all');
         setCheckedPet("")
         setCheckedProduct("")
         setCheckedBrand("")
@@ -252,7 +253,6 @@ function ProductList(props) {
                                     <button onClick={filterCat} ><img className="catIcon" src={catIcon} alt="catIcon" /></button>
                                 </Col>
                                 <Col className=' d-flex mt-3 justify-content-center' > {/* 分類區*/}
-
                                     <Accordion className='categoryArea pt-3' defaultActiveKey="0">
                                         <Card className='categoryCard'>
                                             <Accordion.Toggle className='categoryHeader' as={Card.Header} eventKey="0">
