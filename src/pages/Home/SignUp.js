@@ -8,6 +8,7 @@ import { useAuth } from '../../context/auth'
 // 引入 utils
 import { API_URL } from '../../utils/config'
 import FacebookLogin from '@greatsumini/react-facebook-login'
+import GoogleLogin from 'react-google-login'
 // 引入圖片們
 import Logo from '../../img/SignUp/LOGO_no_word.svg'
 import SignupWord from '../../img/SignUp/signupWord.svg'
@@ -21,7 +22,7 @@ import { BsGoogle, BsFacebook } from 'react-icons/bs'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 // 引入函式
-import { fbLogin } from '../../service/UserData'
+import { fbLogin, googleLogin } from '../../service/UserData'
 
 function SignUp(props) {
   // 註冊 input 輸入值
@@ -149,6 +150,27 @@ function SignUp(props) {
       })
     }
   }
+  // Google 登入
+  const responseGoogle = async (response) => {
+    console.log(response)
+    let result = await googleLogin(response)
+    if (result.id > 0) {
+      setUser(result)
+      // sweetalert 第三方
+      MySwal.fire({
+        title: '第三方登入成功！',
+        text: '請前往會員頁面設定個人資料',
+        icon: 'success',
+        confirmButtonText: '確認',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push('/member/data')
+        }
+      })
+    }
+  }
 
   return (
     <div id="sign-up">
@@ -253,14 +275,22 @@ function SignUp(props) {
               </h2>
               <hr className="d-lg-none login-divider" />
               <div className="d-flex thirdParty-signup">
-                <button type="button" className="thirdParty-icon">
-                  <BsGoogle color="white" fontSize="2.5rem" />
-                </button>
-                {/* <button
-                  type="button"
+                <GoogleLogin
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                  render={(renderProps) => (
+                    <button
+                      className="thirdParty-icon"
+                      onClick={renderProps.onClick}
+                    >
+                      <BsGoogle color="white" fontSize="2.5rem" />
+                    </button>
+                  )}
+                  buttonText="Login"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
                   className="thirdParty-icon"
-                  onClick={handleFBLogin}
-                > */}
+                />
                 <FacebookLogin
                   appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
                   fields="name,email,picture"
