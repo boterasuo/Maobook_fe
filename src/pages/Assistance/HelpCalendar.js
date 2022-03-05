@@ -36,6 +36,7 @@ const HelpCalendar = (props) => {
       console.log('mapmap', map)
       setData(map)
     }
+    props.setHelpDate(calendar.today)
     getCaseNum()
   }, [calendar.today])
 
@@ -110,8 +111,13 @@ const HelpCalendar = (props) => {
                             key={i}
                             // className={className}
                             className="today"
-                            onClick={selectedToday}
+                            // onClick={selectedToday}
                           >
+                              <button
+                              onClick={() => {
+                                props.setHelpDate(date.date)
+                              }}
+                            >
                             <tr>
                               <td>{!otherMonth && getDate(date.date)}</td>
                             </tr>
@@ -140,6 +146,7 @@ const HelpCalendar = (props) => {
                                 )}
                               </td>
                             </tr>
+                            </button>
                           </td>
                         </>
                       )

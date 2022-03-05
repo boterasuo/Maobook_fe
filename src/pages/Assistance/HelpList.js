@@ -6,6 +6,9 @@ import PropTypes from 'prop-types'
 import { Form, FormControl, Button, Row, Col, Container } from 'react-bootstrap'
 import { HiPlus } from 'react-icons/hi'
 
+import HelpDetail from './HelpDetail'
+
+
 // 樣式
 import './components/HelpList.scss'
 
@@ -22,24 +25,36 @@ import example from './img/helpexample.jpeg'
 function HelpList(props) {
   const [data, setData] = useState([])
 
+  const [region, setRegion] = useState(['台北市'])
+
   useEffect(() => {
     let cardData = async () => {
       let response = await axios.get(
-        `${API_URL}/help/helpcard/台北市`
+        `${API_URL}/help/helpcard/${region}`
       )
       setData(response.data)
     }
     cardData()
-  }, [])
+  }, [region])
+
+  const Taipei = async () => {setRegion('台北市')}
+  const Taoyuan = async () => {setRegion('桃園市')}
+  const Taichung = async () => {setRegion('台中市')}
+  const Tainan = async () => {setRegion('台南市')}
+  const Kaohsiung = async () => {setRegion('高雄市')}
+
+  const [showdetail, setShowdetail] = React.useState(false)
+  const [detailid, setDetailid] = useState()
+  const OpenHelpdetail = (detailid) => {
+    setDetailid(detailid)
+  }
 
   return (
     <>
       <div className="helplist">
         <div className="helplisttopbar">
           <img className="listtitle" src={listtitle} alt="" />
-
           <div className="listfilter">
-            {/* 依地區 <img src={downpointer} alt="" /> */}
             <div class="dropdown">
               <button
                 class="dropdown-toggle takemaoout"
@@ -52,19 +67,19 @@ function HelpList(props) {
                 選擇地區
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">
+                <button class="dropdown-item" type="button" onClick={Taipei}>
                   台北市
                 </button>
-                <button class="dropdown-item" type="button">
+                <button class="dropdown-item" type="button" onClick={Taoyuan}>
                   桃園市
                 </button>
-                <button class="dropdown-item" type="button">
+                <button class="dropdown-item" type="button" onClick={Taichung}>
                   台中市
                 </button>
-                <button class="dropdown-item" type="button">
+                <button class="dropdown-item" type="button" onClick={Tainan}>
                   台南市
                 </button>
-                <button class="dropdown-item" type="button">
+                <button class="dropdown-item" type="button" onClick={Kaohsiung}>
                   高雄市
                 </button>
               </div>
@@ -76,7 +91,14 @@ function HelpList(props) {
           <div className="helpcards">
             {data.map((data) => {
               return (
-                <div className="helpsinglecard">
+                <div className="helpsinglecard"       
+                key={data.id}
+                id={data.id}
+                onClick={() => {
+                  setShowdetail(true)
+                  OpenHelpdetail(data.id)
+                  setDetailid(data.id)
+                }}>
                   <div className="helpcardtop">
                     <div className="carduserimage">
                       {/* {data.user_image} */}
@@ -116,6 +138,11 @@ function HelpList(props) {
                 </div>
               )
             })}
+            <HelpDetail
+        show={showdetail}
+        onHide={() => setShowdetail(false)}
+        detailid={detailid}
+      />
         <div className="listmorebutton">查看更多</div>
           </div>
           
