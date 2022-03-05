@@ -57,16 +57,18 @@ function DiscussBar(props) {
                 {bar.month}/{bar.date}
               </div>
               <img
-                className="daily-avatar rounded-circle bg-secondary"
+                className="discuss-avatar rounded-circle bg-secondary"
                 src={`${IMG_URL}${bar.avatar}`}
               />
-              <div className="data-display bg-white">
-                {/* <div className="category">{bar.category}</div> */}
-                <div className="tags">{bar.category}</div>
-                <div className="bar-title text-truncate">{bar.tittle}</div>
-                <div className="bar-title text-truncate">{bar.content}</div>
-                <div className="arrowicon">
-                  <img src={rightArrow} alt="" />
+              <div className="bar-container">
+                <div className="bar-border">
+                  {/* <div className="category">{bar.category}</div> */}
+                  <div className="tags">{bar.category}</div>
+                  <div className="bar-title">{bar.tittle}</div>
+                  <div className="bar-title">{bar.content}</div>
+                  <div className="arrowicon">
+                    <img src={rightArrow} alt="" />
+                  </div>
                 </div>
               </div>
             </div>

@@ -9,19 +9,19 @@ import {
   Carousel,
 } from 'react-bootstrap'
 import './style/DailyCard.scss'
-import Hashtag from './HashTag'
 import axios from 'axios'
 import 'sweetalert2'
 import { getDate } from 'date-fns'
 import { id } from 'date-fns/locale'
 // 引入 context
-// import { useAuth } from '../../../../context/auth'
+import { useAuth } from '../../../../context/auth'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../../utils/config'
 // 元件
 import CardModal from './DailyCardModal'
 
 // 插圖
+import Hashtag from './HashTag'
 import photo from './images/card-photo.svg'
 import like from './images/icon-like.svg'
 import comment from './images/icon-comment.svg'
@@ -33,7 +33,7 @@ function DailyCard(modalProps) {
   //卡片內容
   const [cards, setCards] = useState([])
   const [cardID, setCardID] = useState()
-  console.log('cardIDFU', cardID)
+  console.log('cardID父元件', cardID)
   //卡片數量
   const [cardNum, setCardNum] = useState('')
   // 在打開卡片的Detail
