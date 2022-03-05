@@ -50,6 +50,7 @@ function MemberData(props) {
           mobile: infoResult.mobile,
           birthday: infoResult.birthday,
           address: infoResult.address,
+          google: infoResult.google,
         })
         setUser({
           ...user,
@@ -57,6 +58,7 @@ function MemberData(props) {
           image: infoResult.image,
           name: infoResult.name,
           email: infoResult.email,
+          google: infoResult.google,
         })
       } catch (e) {
         console.error('user info 錯誤', e.response.data)
@@ -101,7 +103,9 @@ function MemberData(props) {
                   className="avatar-cover-fit embed-responsive-item"
                   src={
                     userInfo.image
-                      ? `${IMG_URL}${userInfo.image}`
+                      ? userInfo.google
+                        ? userInfo.image
+                        : `${IMG_URL}${userInfo.image}`
                       : defaultAvatar
                   }
                 />
