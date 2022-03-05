@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Table, Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
+// 引入 context
+import { useAuth } from '../../../context/auth'
 
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../utils/config'

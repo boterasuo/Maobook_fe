@@ -51,6 +51,13 @@ function MemberData(props) {
           birthday: infoResult.birthday,
           address: infoResult.address,
         })
+        setUser({
+          ...user,
+          id: infoResult.id,
+          image: infoResult.image,
+          name: infoResult.name,
+          email: infoResult.email,
+        })
       } catch (e) {
         console.error('user info 錯誤', e.response.data)
       }
@@ -65,11 +72,11 @@ function MemberData(props) {
     })
   }, [])
 
-  useEffect(() => {
-    if (userInfo !== undefined) {
-      setUser({ ...user, name: userInfo.name, image: userInfo.image })
-    }
-  }, [userInfo])
+  // useEffect(() => {
+  //   if (userInfo !== undefined) {
+  //     setUser({ ...user, name: userInfo.name, image: userInfo.image })
+  //   }
+  // }, [userInfo])
 
   // loading 腳掌動圖
   const loadingPaw = (
