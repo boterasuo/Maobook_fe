@@ -168,16 +168,6 @@ function OrderDetail(props) {
               <option value="信用卡">信用卡</option>
               <option value="ATM轉帳">ATM轉帳</option>
             </select>
-            {/* <input
-              id="payment"
-              className=" form-control"
-              type="text"
-              name="payment"
-              value={Order.payment}
-              onChange={(e) => {
-                handleChange(e)
-              }}
-            /> */}
           </div>
           <div className="errMsg">
             {OrderErr.payment ? OrderErr.payment : ''}
