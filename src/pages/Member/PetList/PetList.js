@@ -93,9 +93,13 @@ function PetList(props) {
           </div>
         </NavLink>
       </div>
-      <div className="text-center petList-pages">
-        <ul className="m-auto">{getPages()}</ul>
-      </div>
+      {petList.length ? (
+        <div className="text-center petList-pages">
+          <ul className="m-auto">{getPages()}</ul>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }

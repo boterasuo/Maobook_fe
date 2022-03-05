@@ -18,6 +18,8 @@ import PawsLeft from '../../img/SignUp/small_paws_left.svg'
 import PawsRight from '../../img/SignUp/small_paws_right.svg'
 import './SignUp.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
+// 引入元件
+import SignUpModal from './component/SignUpModal'
 
 function SignUp(props) {
   // 註冊 input 輸入值
@@ -36,8 +38,9 @@ function SignUp(props) {
   })
   // 轉頁用
   const history = useHistory()
-  // Modal 切換顯示狀態用
+  // Modal 相關狀態
   const [showModal, setShowModal] = useState(false)
+  const [modalContent, setModalContent] = useState({ title: '', type: '' })
   // 來自 context 的 user 狀態
   const { user, setUser } = useAuth()
 
@@ -94,6 +97,7 @@ function SignUp(props) {
       console.log(response.data.message)
       if (response.data.message === 'ok') {
         // 客製化 Modal
+        setModalContent({ ...modalContent, title: '註冊成功', type: 'normal' })
         setShowModal(true)
       }
     } catch (e) {
@@ -114,20 +118,6 @@ function SignUp(props) {
     setShowModal(false)
     history.push('/login')
   }
-  // 註冊成功 Modal html
-  const signUpModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>註冊成功！</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>請登入並設定個人資料</Modal.Body>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
 
   // FB 登入
   const handleFBLogin = async (response) => {
@@ -142,11 +132,34 @@ function SignUp(props) {
         //   },
         // }
       )
-      console.log(result.data)
+      const userId = { userId: result.data.id }
+      console.log('userId', userId)
+      let getUser = await axios.post(
+        `${API_URL}/users/facebook/login`,
+        userId,
+        { withCredentials: true }
+      )
+      console.log(getUser.data.data)
+      setUser(getUser.data.data)
+      setModalContent({
+        ...modalContent,
+        title: '第三方登入成功',
+        type: 'TPlogin',
+      })
+      setShowModal(true)
       // 把 return 回來的資料 set 到 user 狀態中
     } catch (e) {
       console.error(e.response.data)
     }
+  }
+  // 更改第三方登入 Modal 顯示狀態函式
+  const handleTPCloseModal = () => {
+    setShowModal(false)
+    setModalContent({
+      title: '',
+      type: '',
+    })
+    history.push('/member/data')
   }
 
   return (
@@ -154,7 +167,12 @@ function SignUp(props) {
       {/* 排版用空白區塊 */}
       <div className="container">
         {/* maobook 字 logo */}
-        {signUpModal}
+        <SignUpModal
+          showModal={showModal}
+          handleCloseModal={user ? handleTPCloseModal : handleCloseModal}
+          modalContent={modalContent}
+          showBody={modalContent.type === 'normal' ? '' : 'd-none'}
+        />
         <div className="logo-word">
           <img alt="" className="img-fluid" src={LogoWord} />
         </div>

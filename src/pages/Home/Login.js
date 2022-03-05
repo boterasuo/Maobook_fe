@@ -48,16 +48,6 @@ function Login(props) {
       console.log(response.data)
       // 登入成功 --> 將 user 資料存入 context 中
       setUser(response.data.data)
-      // 登入成功 --> auth 狀態改為 true
-      // setAuth(true)
-      // 登入成功 --> user 狀態存入對應資料
-      // TODO: 為什麼這樣寫 user 內容存不起來?
-      // setUser({...user,
-      //   id:response.data.id,
-      //   name:response.data.name,
-      //   email:response.data.email,
-      //   image:response.data.image,
-      // });
     } catch (e) {
       console.error('login error', e.response.data)
       // 登入失敗錯誤訊息
