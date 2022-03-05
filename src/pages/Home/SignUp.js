@@ -1,9 +1,8 @@
 // 引入 React 功能
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { Modal, Button } from 'react-bootstrap'
 // 引入 context
 import { useAuth } from '../../context/auth'
 // 引入 utils
@@ -18,6 +17,11 @@ import PawsLeft from '../../img/SignUp/small_paws_left.svg'
 import PawsRight from '../../img/SignUp/small_paws_right.svg'
 import './SignUp.scss'
 import { BsGoogle, BsFacebook } from 'react-icons/bs'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+// 引入函式
+import { fbLogin } from '../../service/UserData'
 
 function SignUp(props) {
   // 註冊 input 輸入值
@@ -36,10 +40,13 @@ function SignUp(props) {
   })
   // 轉頁用
   const history = useHistory()
-  // Modal 切換顯示狀態用
+  // Modal 相關狀態
   const [showModal, setShowModal] = useState(false)
+  const [modalContent, setModalContent] = useState({ title: '', type: '' })
   // 來自 context 的 user 狀態
   const { user, setUser } = useAuth()
+  // sweetalert
+  const MySwal = withReactContent(Swal)
 
   // 偵測表單內容變化 (onChange)
   function handleChange(e) {
@@ -93,8 +100,20 @@ function SignUp(props) {
       let response = await axios.post(`${API_URL}/auth/register`, member)
       console.log(response.data.message)
       if (response.data.message === 'ok') {
-        // 客製化 Modal
-        setShowModal(true)
+        // sweetalert 一般註冊
+        MySwal.fire({
+          title: '註冊成功！',
+          text: '請登入並設定個人資料',
+          icon: 'success',
+          confirmButtonColor: '#f6bc54',
+          confirmButtonText: '確認',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push('/login')
+          }
+        })
       }
     } catch (e) {
       console.error('error', e.response.data)
@@ -109,43 +128,25 @@ function SignUp(props) {
     }
   }
 
-  // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false)
-    history.push('/login')
-  }
-  // 註冊成功 Modal html
-  const signUpModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>註冊成功！</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>請登入並設定個人資料</Modal.Body>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
-
   // FB 登入
   const handleFBLogin = async (response) => {
-    console.log('response', response)
-    try {
-      let result = await axios.get(
-        `${API_URL}/users/auth/facebook?access_token=${response.accessToken}`
-        // {
-        //   withCredentials: true,
-        //   headers: {
-        //     'Access-Control-Allow-Origin': '*',
-        //   },
-        // }
-      )
-      console.log(result.data)
-      // 把 return 回來的資料 set 到 user 狀態中
-    } catch (e) {
-      console.error(e.response.data)
+    // console.log('response', response)
+    let result = await fbLogin(response)
+    if (result.id > 0) {
+      setUser(result)
+      // sweetalert 第三方
+      MySwal.fire({
+        title: '第三方登入成功！',
+        text: '請前往會員頁面設定個人資料',
+        icon: 'success',
+        confirmButtonText: '確認',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push('/member/data')
+        }
+      })
     }
   }
 
@@ -154,7 +155,6 @@ function SignUp(props) {
       {/* 排版用空白區塊 */}
       <div className="container">
         {/* maobook 字 logo */}
-        {signUpModal}
         <div className="logo-word">
           <img alt="" className="img-fluid" src={LogoWord} />
         </div>

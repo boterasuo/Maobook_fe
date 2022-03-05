@@ -30,7 +30,7 @@ function Intro() {
 
   return (
     <>
-      <div className="introdiv" id="animation">
+      <div className="introdiv" id="cheduleanimation">
         <div className="homePage"></div>
 
         <div className="scheduleIntro">

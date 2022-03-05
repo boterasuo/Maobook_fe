@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useEffect } from 'react'
 // 引入圖片
 import Paw from '../img/paw.svg'
 import GiftBox from '../img/giftbox.svg'
@@ -10,42 +10,36 @@ import 'animate.css'
 // 引入動畫套件
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import Swal from 'sweetalert2'
 
 function Start() {
   // 動畫ㄧ 腳印fade in
-  // 1. 簡易版
   gsap.registerPlugin(ScrollTrigger)
-
-  const el = useRef();
-  // const q = gsap.utils.selector(el);
-
   useEffect(() => {
     gsap.from('.starting', {
       scrollTrigger: '.paw3',
-      duration: 1,
+      duration: 0.5,
       opacity: 0,
-      // delay: 1,
       stagger: 0.5,
     })
   })
 
-  // 2. 進階版
-  // const paws = gsap.utils.toArray('.starting')
-
-  // paws.forEach((starting, i) => {
-  //   const anim = gsap.fromTo(
-  //     starting,
-  //     { autoAlpha: 0, y: 50 },
-  //     { duration: 2, delay: 0.5, stagger: 0.2, autoAlpha: 1, y: 0 }
-  //   )
-  //   // 下滑觸發事件
-  //   ScrollTrigger.create({
-  //     trigger: '.starting',
-  //     animation: anim,
-  //     toggleActions: 'play none none none',
-  //     once: true,
-  //   })
-  // })
+  //動畫二 點擊禮物
+  function clickGiftBox() {
+    Swal.fire({
+      title: '立即註冊 領取新會員專屬小禮物',
+      width: 600,
+      padding: '3em',
+      color: '#6a5f4b',
+      background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+      backdrop: `
+        rgba(0,0,10,0.5)
+        url("https://sweetalert2.github.io/images/nyan-cat.gif")
+        left top
+        no-repeat
+      `,
+    })
+  }
 
   return (
     <>
@@ -82,7 +76,12 @@ function Start() {
             </p>
           </div>
           <div className="gift">
-            <img className="giftbox" src={GiftBox} alt="giftbox" />
+            <img
+              className="giftbox"
+              src={GiftBox}
+              alt="giftbox"
+              onClick={clickGiftBox}
+            />
             <img className="giftback" src={GiftBack} alt="giftback" />
           </div>
           <div>

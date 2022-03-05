@@ -6,30 +6,47 @@ import './components/DayHelps.scss'
 import pawicon from './img/paw.svg'
 import arrowright from './img/arrowright.svg'
 
-function DayHelps(props) {
+import HelpDetail from './HelpDetail'
+
+function DayHelps({ HelpDate }) {
   const [data, setData] = useState([])
+
+  const [showdetail, setShowdetail] = React.useState(false)
+  const [detailid, setDetailid] = useState()
+  const OpenHelpdetail = (detailid) => {
+    setDetailid(detailid)
+  }
 
   useEffect(() => {
     let getDayHelps = async () => {
       let response = await axios.get(
-        // `http://localhost:3002/api/help/dayhelps?year=${year}&month=${month}&day=${day}`
-        // `http://localhost:3002/api/help/dayhelps/${year}/${month}/${day}`
-        `${API_URL}/help/dayhelps/2022/03/12`
-      )
+        `${API_URL}/help/dayhelps/`+        
+        HelpDate.getFullYear() +
+        '/' +
+        (HelpDate.getMonth() + 1) +
+        '/' +
+        HelpDate.getDate())
       setData(response.data)
     }
     getDayHelps()
-  }, [])
+  }, [HelpDate])
 
   return (
     <>
       <div className="dayhelps">
-        <div className="maintitle">2022/03/12的所有案件</div>
+        <div className="maintitle">該日的所有案件</div>
         <div className="mainframe">
           {data.map((data) => {
             return (
               <>
-                <div className="bars">
+                <div className="bars"
+                              key={data.id}
+                              id={data.id}
+                              onClick={() => {
+                                setShowdetail(true)
+                                OpenHelpdetail(data.id)
+                                setDetailid(data.id)
+                              }}>
                   <div className="headdate">
                     {data.date.substring(5, 7)}/{data.date.substring(8, 10)}
                   </div>
@@ -60,7 +77,11 @@ function DayHelps(props) {
               </>
             )
           })}
-          <br />
+          <HelpDetail
+        show={showdetail}
+        onHide={() => setShowdetail(false)}
+        detailid={detailid}
+      />
         </div>
       </div>
     </>

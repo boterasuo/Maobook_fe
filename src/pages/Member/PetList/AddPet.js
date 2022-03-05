@@ -10,6 +10,9 @@ import { API_URL, IMG_URL } from '../../../utils/config'
 import defaultPet from '../../../img/avatar_pet.png'
 import './PetList.scss'
 import { BsPencilSquare, BsPlusLg, BsTrash } from 'react-icons/bs'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function AddPet(props) {
   const { user, setUser } = useAuth()
@@ -54,8 +57,8 @@ function AddPet(props) {
     '心血管疾病',
   ]
   const [healthList, setHealthList] = useState([])
-  // Modal 切換顯示狀態用
-  const [showModal, setShowModal] = useState(false)
+  // sweetalert
+  const MySwal = withReactContent(Swal)
   const history = useHistory()
 
   function handleChange(e) {
@@ -143,7 +146,29 @@ function AddPet(props) {
         })
         console.log(response.data)
         if (response.data.message === 'ok') {
-          setShowModal(true)
+          // setShowModal(true)
+          MySwal.fire({
+            title: `新增成功！`,
+            html: (
+              <p>
+                歡迎 {addPet.name} 加入{' '}
+                {addPet.cate === '1' ? (
+                  <span>&#128054;</span>
+                ) : (
+                  <span>&#128049;</span>
+                )}
+              </p>
+            ),
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              history.push('/member/pet')
+            }
+          })
         }
       } catch (e) {
         console.error('新增毛孩失敗: ', e.response.data)
@@ -158,28 +183,9 @@ function AddPet(props) {
       }
     }
   }
-  // 更改 Modal 顯示狀態函式
-  const handleCloseModal = () => {
-    setShowModal(false)
-    history.push('/member/pet')
-  }
-  // 新增成功 Modal html
-  const addPetModal = (
-    <Modal show={showModal} onHide={handleCloseModal} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>新增成功！</Modal.Title>
-      </Modal.Header>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCloseModal}>
-          確認
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
 
   return (
     <form className="position-relative info-card">
-      {addPetModal}
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">

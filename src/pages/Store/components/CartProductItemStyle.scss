@@ -62,19 +62,17 @@
 //   width: 23px;
 //   height: 23px;
 // }
-// .num {
-//   font-size: 0.8rem;
-//   width: 23px;
-//   height: 24px;
-//   border-radius: 50%;
-//   border: 1px solid #fcb736;
-//   background: white;
-//   text-align: center;
-//   display: inline-block;
-//   position: relative;
-//   line-height: 22px;
-//   top: 4px;
-// }
+.num {
+  margin: 0 5px 0 5px;
+  font-size: 0.8rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #fcb736;
+  background: white;
+  text-align: center;
+  line-height: 21px;
+}
 
 // .counter {
 //   position: absolute;

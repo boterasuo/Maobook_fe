@@ -40,30 +40,52 @@
   top: 50%;
   left: 49.5%;
 }
-.checkoutBtn {
-  padding: 5px 30px !important;
-  height: auto !important;
-  font-weight: 700 !important;
-  font-size: 1.6rem !important;
-  border-radius: 30px !important;
-  color: #ffff !important;
+
+.bbtn {
+  .goBackBtn {
+    padding: 5px 30px;
+    height: auto;
+    font-weight: 700;
+    font-size: 1.6rem;
+    border-radius: 30px;
+    color: #ffff;
+  }
+  .checkoutBtn {
+    padding: 5px 30px;
+    height: auto;
+    font-weight: 700;
+    font-size: 1.6rem;
+    border-radius: 30px;
+    color: #ffff;
+  }
 }
+
 .maildetail {
   color: #6a5f4b;
   font-size: 1.2rem;
   width: 90%;
   margin: 30px auto 0 30px;
+  .errMsg {
+    font-size: 12px;
+    color: red;
+    display: flex;
+    justify-content: end;
+  }
+  
 }
 .maillabel {
+  width: 150px;
   margin: 0;
-  padding: 10px 0 10px 10px;
-  width: 100%;
-  border-top: 1px solid #fcb736;
+  display: flex;
+  align-items: center;
+  p {
+    margin: 0;
+  }
 }
-.mailinput {
-  padding-left: 10px;
-  width: 80%;
-  margin-left: 20px;
-  // border: 1px solid #6a5f4b;
-  // border-radius: 30px;
+.line2 {
+  border-top: 1px solid #fcb736;
+  padding: 10px 0 10px 0;
+  .form-control {
+    border-radius: 3rem;
+  }
 }
