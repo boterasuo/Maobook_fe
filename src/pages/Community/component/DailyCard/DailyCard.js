@@ -102,13 +102,17 @@ function DailyCard(modalProps) {
                   </Col>
                   {/* <Col xs={1} sm={1} md={1} lg={1}></Col> */}
                   <Col sm={8} md={8} className="hash-tags">
-                    {card.tags.split(',').map((tag, i) => {
-                      return (
-                        <div className="hash-tag" key={card.id}>
-                          #{tag}
-                        </div>
-                      )
-                    })}
+                    {card.tags ? (
+                      card.tags.split(',').map((tag, i) => {
+                        return (
+                          <div className="hash-tag " key={card.id}>
+                            #{tag}
+                          </div>
+                        )
+                      })
+                    ) : (
+                      <div className="hash-tag">尚未有標籤</div>
+                    )}
                   </Col>
                 </Row>
               </Container>

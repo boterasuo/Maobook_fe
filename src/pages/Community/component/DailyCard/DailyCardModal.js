@@ -251,7 +251,7 @@ function DailyCardModal(modalProps) {
                               className="w-100 text-center btn btn-outline-primary text-decoration-none my-2 h-25"
                               to="/login"
                             >
-                              留言後即可登入
+                              登入後即可留言
                             </Link>
                           )}
                           {comments.map((comment) => {

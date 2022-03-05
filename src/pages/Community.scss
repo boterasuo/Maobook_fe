@@ -11,9 +11,31 @@ $page-height: calc(100vh - $nav-height);
   .Daily-Page, 
   .Discuss-Page{
   min-height: $page-height;
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $primary;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: $primary;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #ffc9658e;
+  }
+  
 }
   .Post-Page{
   min-height: calc($page-height * 0.45);
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+    
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(185, 219, 112, 0.849);
+  }
   }
 
   // lg
