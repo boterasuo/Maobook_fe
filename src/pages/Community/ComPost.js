@@ -116,17 +116,13 @@ function ComPost() {
                 {/* 討論文：固定標籤 */}
                 {/* {cards.discussOptions.map((choice) => {
                   return (
-                    <>
-                      <div className="postTag2">
-                        <label
-                          htmlFor="post-tag-1"
-                          className="btnIcon1"
-                          key={choice}
-                        >
-                          <input id="post-tag-1" type="checkbox" />
-                          <a>{discussOptions[choice]}</a>
-                        </label> */}
-                {/* <label htmlFor="post-tag-2" className="btnIcon2">
+                    <> */}
+                <div className="postTag2">
+                  <label htmlFor="post-tag-1" className="btnIcon1">
+                    <input id="post-tag-1" type="checkbox" />
+                    <a>問卦</a>
+                  </label>
+                  <label htmlFor="post-tag-2" className="btnIcon2">
                     <input id="post-tag-2" type="checkbox" />
                     <a>求助</a>
                   </label>
@@ -139,9 +135,9 @@ function ComPost() {
                   <label htmlFor="post-tag-4" className="btnIcon4">
                     <input id="post-tag-4" type="checkbox" />
                     <a>黑特</a>
-                  </label> */}
-                {/* </div>
-                    </>
+                  </label>
+                </div>
+                {/* </>
                   )
                 })} */}
               </div>
@@ -152,8 +148,12 @@ function ComPost() {
                 <div className="post-content-textarea">
                   <Form>
                     <textarea
+                      className="community-tittle"
+                      placeholder={'請填寫標題'}
+                    ></textarea>
+                    <textarea
                       className="community-textarea filled-md-100"
-                      defaultValue={'寫一些記錄吧！'}
+                      placeholder={'寫一些內容吧!'}
                     ></textarea>
                   </Form>
                 </div>

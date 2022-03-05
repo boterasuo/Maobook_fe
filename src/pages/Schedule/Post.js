@@ -38,9 +38,7 @@ function Post(props) {
 
   // 處理比對會員寵物
   const petSelect = async () => {
-    let response = await axios.get(
-      'http://localhost:3002/api/calenderPost/' + user.id
-    )
+    let response = await axios.get(`${API_URL}/calenderPost/` + user.id)
     console.log(response.data)
     setData(response.data)
   }
@@ -70,7 +68,7 @@ function Post(props) {
 
     try {
       let response = await axios.post(
-        'http://localhost:3002/api/calenderForm/register',
+        `${API_URL}/calenderForm/register`,
         schedule,
         {
           withCredentials: true,

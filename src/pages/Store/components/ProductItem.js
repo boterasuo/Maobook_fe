@@ -9,7 +9,7 @@ import Hill from '../productsImages/Hill’s-001-1.png'
 import productCartIcon from '../storePic/productCartIcon.svg'
 
 function ProductItem(props) {
-  const { name, price, des, stock, id, image, ADDToLocalStorage } = props
+  const { name, price, des, stock, id, image, item, ADDToLocalStorage } = props
   const [show, setShow] = useState(false) //Modal
   return (
     <>
@@ -27,7 +27,6 @@ function ProductItem(props) {
             price={price}
             des={des}
             stock={stock}
-            ADDToLocalStorage={ADDToLocalStorage}
           />
         </div>
         <div>
@@ -42,6 +41,7 @@ function ProductItem(props) {
           ADDToLocalStorage({
             id: id,
             name: name,
+            des: des,
             amount: 1,
             price: price,
           })

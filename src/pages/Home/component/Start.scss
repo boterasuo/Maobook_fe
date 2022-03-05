@@ -52,11 +52,14 @@
     height: auto;
   }
   img.giftbox {
-    // height: 200px;
+    height: 200px;
+    margin-left: 90px;
+    margin-top: 100px;
     position: absolute;
     z-index: 10;
+    cursor: pointer;
   }
-  .giftbox:hover, .giftbox:focus {
+  .giftbox:hover {
     animation: headShake;
     animation-duration: 1s;
   }

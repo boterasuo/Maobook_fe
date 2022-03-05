@@ -109,10 +109,15 @@
 // 下方文字
 
 .aaaaa {
+  text-align: center;
+  width: 100px;
+  height: 10px;
+  // background-color: blue;
 }
 .arrowtextP1 {
   position: absolute;
   transform: translateX(-50%);
+  // background-color: blue;
 
   top: 105%;
   margin-top: 30px;
@@ -124,10 +129,55 @@
   transform: translateX(-50%);
   top: 105%;
   color: #6a5f4b;
+  text-align: center;
 }
 
 .arrowtextImg {
   position: absolute;
   transform: translateX(-50%);
-  top: 115%;
+  margin-left: -12px;
+  // background-color: khaki;
+  top: 117%;
+}
+
+// animation: fadeIn;
+// animation-duration: 1.5s;
+// animation-delay: 1s;
+
+#cheduleanimation .ani {
+  opacity: 0;
+  animation: fadeIn 1s ease-in both;
+}
+
+#cheduleanimation .ani:nth-child(2) {
+  animation-delay: 1s;
+}
+#cheduleanimation .ani:nth-child(3) {
+  animation-delay: 2s;
+}
+#cheduleanimation .ani:nth-child(4) {
+  animation-delay: 3s;
+}
+#cheduleanimation .ani:nth-child(5) {
+  animation-delay: 4s;
+}
+#cheduleanimation .ani:nth-child(6) {
+  animation-delay: 5s;
+}
+#cheduleanimation .ani:nth-child(7) {
+  animation-delay: 6s;
+}
+#cheduleanimation .ani:nth-child(8) {
+  animation-delay: 7s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }

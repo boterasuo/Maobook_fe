@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Col, Row, Accordion, Card, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import { API_URL } from "./../../utils/config";
+import { API_URL } from "../../utils/config";
 // import { Link } from 'react-router-dom';
 
 //元件
@@ -39,11 +39,12 @@ function ProductList(props) {
 
     //加入購物車
     const [mycart, setMycart] = useState([])
-    const [productName, setProductName] = useState("")
 
     //加入購物車訊息窗用
     const [show, setShow] = useState(false)
+    const [productName, setProductName] = useState("")
 
+    
     //購物車判斷
     const ADDToLocalStorage = (item) => {
         const currentCart = JSON.parse(localStorage.getItem('cart')) || []
@@ -68,29 +69,6 @@ function ProductList(props) {
         setProductName( item.name +'\n已成功加入購物車' )
         handleShow()
     }
-
-
-    //商品細節 加商品用
-    // const detailAddProduct = () => {
-    //   const currentCart = JSON.parse(localStorage.getItem('cart')) || []
-
-    //   // find if the product in the localstorage with its id
-    //   const index = currentCart.findIndex((v) => v.id === item.id)
-
-    //   if (index !== -1) {
-    //     //每次只有加1個數量
-    //     //newMycartDisplay[index].amount++
-    //     //假設是加數量的
-    //     newMycartDisplay[index].amount += mycart[i].amount
-    //   } else {
-    //     //沒有的話就把項目加入，數量為1
-    //     const newItem = { ...mycart[i] }
-    //     newMycartDisplay = [...newMycartDisplay, newItem]
-    //   }
-
-    // }
-
-
 
 
 
@@ -205,7 +183,7 @@ function ProductList(props) {
             {data.map((product) => {
                 return (
                     <Col className="mb-3" >
-                        <ProductItem name={product.name} price={product.price} des={product.description} stock={product.stock_num} image={product.image} id={product.id} ADDToLocalStorage={ADDToLocalStorage} />
+                        <ProductItem  name={product.name} price={product.price} des={product.description} stock={product.stock_num} image={product.image} id={product.id} ADDToLocalStorage={ADDToLocalStorage} />
                     </Col>
                 )
             })}
@@ -253,7 +231,7 @@ function ProductList(props) {
             <div>
                 <section className='wrap1'>
                     <div className='btnarea mb-5 d-flex justify-content-between'>
-                        <div className='protext1 bg-white'>毛孩選物指南</div>
+                        <div id={'a'} className='protext1 bg-white'>毛孩選物指南</div>
                         <button className='select-btn' onClick={SearchAll} >全部產品</button>
                         <button className='select-btn' onClick={SearchFood} >吃飯飯</button>
                         <button className='select-btn' onClick={SearchSnack} >吃點心</button>

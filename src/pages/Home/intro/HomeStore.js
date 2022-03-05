@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // 引入圖片
 import Shop from '../img/shop.svg'
 import BgPaw from '../img/bg_paw.svg'
 // 引用共同Intro樣式
 import '../intro/HomeIntro.scss'
+// 引入動態特效文件
+import './IntroAnimation'
 
 function HomeStore() {
   return (

@@ -4,22 +4,34 @@
 $mao-border: 33px;
 
 // 固定頭貼比例 1:1
-$avatar-length: 4rem;
+$avatar-length: 3.5rem;
 // 最外層
 .daily-card {
   cursor: pointer;
-  width: 230px;
-  min-height: 63%;
-  max-height: 66%;
+  width: 200px;
+  height: 58%;
   // border: 1px solid #ccc;
   display: flex;
-  margin: 0 0.1rem;
-  overflow: hidden;
+  margin: 0.5rem 0.5rem;
+  // overflow: hidden;
+  &:hover .card-body{
+    border-radius: 33px;
+    // outline: 4px solid rgba(255, 207, 50, 0.788);
+    box-shadow: 0 0 0 3.8px rgba(255, 226, 132, 0.788) ;
+  }
   // 發文者頭貼
   .daily-avatar {
     background: $secondary;
     height: $avatar-length;
     width: $avatar-length;
+  }
+
+  .card-tittle{
+    height: 65px;
+    margin: auto 0;
+    .hash-tag{
+      font-size: small;
+    }
   }
 
   // card邊框以內 [#標籤, CARD, 讚數留言統計]
@@ -31,9 +43,10 @@ $avatar-length: 4rem;
     border-radius: $mao-border;
     overflow: hidden;
     // 卡片圖片 預設圖片為PHOTO.svg
+    
     .card-img {
       border-radius: 33px 33px 0 0;
-      height: 247px;
+      height: 207px;
       width: 100%;
       // position: relative;
       object-fit: cover;
@@ -52,8 +65,9 @@ $avatar-length: 4rem;
   }
   //按讚數、留言數
   .card-counter {
+    margin: 0.4rem 0;
     a {
-      margin: 0 1rem;
+      margin: 0.8rem 1rem;
       text-decoration: none;
       color: $secondary;
     }
@@ -71,11 +85,33 @@ $avatar-length: 4rem;
 // \\ [[[彈出視窗]]] // \\
 .card-detail-modal {
   height: 80vh;
-
+  overflow-y: scroll;
+  // 彈跳視窗文章輪軸
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+    &:hover {
+      background: #eee;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 33px;
+    &:hover {
+      background: gainsboro;
+    }
+    &:active {
+      background: rgb(194, 194, 194);
+    }
+  }
   .card-detail-slider {
     background: #000;
     height: 100%;
-    overflow: hidden;
+    overflow:hidden;
+    position: sticky;
+    top: 0;
+    left: 0;
+    
     margin: 0 0;
     padding: 0 0;
     .carousel-hashtag {
@@ -146,8 +182,8 @@ $avatar-length: 4rem;
           border-radius: 50%;
           overflow: hidden;
           img{
-            height:max-content;
-            width: max-content;
+            height:100%;
+            width: 100%;
             margin: 0 0;
             padding: 0 0;
             object-fit:cover;
@@ -186,30 +222,16 @@ $avatar-length: 4rem;
 
 // 貼文區 輪軸處理
 .scrolling-area {
+  height: 100%;
   overflow: hidden;
 }
 .overflow-hidden {
-  overflow: hidden;
+  overflow:hidden;
 }
+
+
 .overflow-y-scroll {
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    background: transparent;
-    width: 10px;
-    &:hover {
-      background: #eee;
-    }
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 33px;
-    &:hover {
-      background: gainsboro;
-    }
-    &:active {
-      background: rgb(194, 194, 194);
-    }
-  }
+  
 }
 
 // 隱藏
@@ -234,3 +256,15 @@ $avatar-length: 4rem;
   object-fit: cover;
   object-position: 50% 50%;
 }
+
+.Add-btn{
+  background: $primary;
+  border-radius: 11px;
+  height: 33px;
+  width: 150px;
+  color: white;
+  display: block;
+  margin: 1.5rem auto;
+}
+
+

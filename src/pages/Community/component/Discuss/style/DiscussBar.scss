@@ -1,4 +1,4 @@
-@import "../../../Community.scss";
+@import "../../../../Community.scss";
 
 
 .container {
@@ -62,10 +62,10 @@ $avatar-length: 4rem;
 
    
 
-    .case-title {
-      max-width: 40%;
-      margin: 12px 20px;
-      padding: 5px 2px 3px 2px;
+    .bar-title {
+      width: 30%;
+      margin: 12px 40px 12px 20px;
+      padding: 5px 5px 3px 2px;
     }
 
     .arrowicon {
@@ -88,4 +88,13 @@ $avatar-length: 4rem;
     }
 
   }
+}
+
+
+
+.scrolling-bar-area {
+  height: 100%;
+  width: 95%;
+  overflow: hidden;
+  margin: 0 auto;
 }

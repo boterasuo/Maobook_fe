@@ -244,19 +244,34 @@
     color: white;
     opacity: 1;
 }
-
-.community-textarea {
+.community-tittle {
     width: 350px;
-    height: 200px;
-    resize: none;
+    height: 60px;
     padding: 18px 20px;
     box-sizing: border-box;
     border: 2px white solid;
     border-radius: 20px;
-    background: transparent;
-    font-size: 18px;
+    background-color: transparent;
+    font-size: 16px;
     color: white;
     justify-content: flex-end;
+    overflow:hidden;
+    resize: none;
+  }
+.community-textarea {
+  width: 350px;
+  min-height: 130px;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  border: 2px white solid;
+  border-radius: 20px;
+  background-color: transparent;
+  font-size: 16px;
+  color: white;
+  justify-content: flex-end;
+  resize:none;
+
+  
 }
 
 .buttonDiv {

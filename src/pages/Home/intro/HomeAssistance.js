@@ -4,6 +4,8 @@ import PlayingFetch from '../img/playing_fetch.svg'
 import BgPaw from '../img/bg_paw.svg'
 // 引用共同Intro樣式
 import '../intro/HomeIntro.scss'
+// 引入動態特效文件
+import './IntroAnimation'
 
 function HomeAssistance() {
   return (

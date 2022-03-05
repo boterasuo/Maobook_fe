@@ -1,28 +1,79 @@
 import '../Store/style/ProductDetailsStyle.scss'
 import { Modal, Button, Row, Col, Carousel } from 'react-bootstrap'
 import { useState } from 'react'
-
-//元件
-import Counter from './components/Counter'
-
+import { withRouter } from 'react-router-dom'
 //圖片
 import Hill from './productsImages/Hill’s-001-1.png'
-function ProductDetails(props) {
-  const { name, price, des, stock, item, amount, ADDToLocalStorage, id } = props
-  const [index, setIndex] = useState(0)
+import minusIcon from './storePic/minusIcon.svg'
+import plusIcon from './storePic/plusIcon.svg'
 
+function ProductDetails(props) {
+  //Modal用
+  const [index, setIndex] = useState(0)
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex)
   }
-  const { show, setShow } = props //商品細節頁接收傳入值
-  // const [show, setShow] = useState(false); //Modal
+  ////商品細節頁接收傳入值
+  const { name, price, des, stock, setMycart, id } = props
+  const { show, setShow } = props
+  //計數器用
+  const [total, setTotal] = useState(0)
+
+  //加入購物車訊息窗用
+  const [show1, setShow1] = useState(false)
+  const [productName, setProductName] = useState('')
+
+  //商品細節 加商品用
+  const updateCartToLocalStorage = (item) => {
+    const currentCart = JSON.parse(localStorage.getItem('cart')) || [] //判斷localStorage購物車是否存在
+    const index = currentCart.findIndex((v) => v.id === item.id) //比對ID
+    console.log('index', index)
+    if (index > -1) {
+      //如果index!=0，代表陣列裡有這個產品
+      currentCart[index].amount += total //直接加上計數器數量
+      setProductName(
+        item.name + '數量更新，目前數量：' + currentCart[index].amount
+      )
+      handleShow()
+    } else {
+      currentCart.push(item) //若找不到直接加入購物車
+      setProductName(item.name + '\n已成功加入購物車')
+      handleShow()
+    }
+    localStorage.setItem('cart', JSON.stringify(currentCart)) //設定回去localStorage
+    setMycart(currentCart)
+  }
+
+  //購物車加入視窗
+  const handleClose = () => setShow1(false)
+  const handleShow = () => setShow1(true)
+
+  const messageModal = (
+    <Modal show={show1} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>{productName}</Modal.Title>
+      </Modal.Header>
+      <Modal.Footer>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => {
+            handleClose()
+            props.history.push('/Store/CartDetail')
+          }}
+        >
+          確定
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  )
 
   return (
     <>
       {/* <Button variant="primary" onClick={() => setShow(true)}>
                 Custom Width Modal
             </Button> */}
-
+      {messageModal}
       <Modal
         centered
         show={show}
@@ -69,8 +120,25 @@ function ProductDetails(props) {
                 <p>庫存:{stock}</p>
                 <div className="d-flex justify-content-between align-items-center mr-5">
                   <h3>${price}</h3>
+                  {/*加數器*/}
                   <div className="mr-5 ">
-                    <Counter /> {/*將值傳入屬性*/}
+                    <button
+                      className="minusIcon"
+                      onClick={() => {
+                        if (total > 0) setTotal(total - 1)
+                      }}
+                    >
+                      <img src={minusIcon} alt="minusIcon" />
+                    </button>
+                    <span className="num">{total}</span>
+                    <button
+                      className="plusIcon"
+                      onClick={() => {
+                        setTotal(total + 1)
+                      }}
+                    >
+                      <img src={plusIcon} alt="plusIcon" />
+                    </button>
                   </div>
                 </div>
                 <Row className="mt-3 pt-3 d-flex align-items-center share">
@@ -82,10 +150,11 @@ function ProductDetails(props) {
                       className="btn btn-primary"
                       type="button"
                       onClick={() => {
-                        ADDToLocalStorage({
+                        updateCartToLocalStorage({
                           id: id,
                           name: name,
-                          amount: 1,
+                          des: des,
+                          amount: total,
                           price: price,
                         })
                       }}

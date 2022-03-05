@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 import { Col, Row, Button, Container, Modal } from 'react-bootstrap'
 
-import { Router, Route, hashHistory, useHistory } from 'react-router-dom'
+import { useHistory, withRouter, Link, Redirect } from 'react-router-dom'
 import OrderDetail from './OrderDetail'
 //元件
 import CartProductItem from './components/CartProductItem'
@@ -20,7 +20,8 @@ function CartDetail() {
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
   //select用
-  const [selectedValue, setSelectedValue] = useState('60')
+  const [selectedValue, setSelectedValue] = useState('')
+  const [errMsg, seterrMsg] = useState(false)
   //確認購物車是否有商品提視窗用
   const [show, setShow] = useState(false)
 
@@ -104,6 +105,9 @@ function CartDetail() {
     return total
   }
 
+  const total = sum(mycartDisplay)
+  const checkout = sum(mycartDisplay) + parseInt(selectedValue)
+
   //確認購物車是否有商品提視窗
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -125,7 +129,7 @@ function CartDetail() {
           回商店選購
         </Button>
         <Button
-          variant="secondary"
+          variant="primary"
           size="sm"
           onClick={() => {
             handleClose()
@@ -137,11 +141,7 @@ function CartDetail() {
     </Modal>
   )
 
-  let path = {
-    pathname: '/store/cartdetail/orderDetail',
-    state: mycartDisplay,
-    state1: sum(mycartDisplay),
-  }
+  const errmsg = <p className="payerrmsg">請選擇一個支付方式!</p>
 
   return (
     <>
@@ -156,21 +156,25 @@ function CartDetail() {
               alt="MaoStore"
             />
           </Col>
-          <Col md={10}>
-            <img
-              className="cartListBG img-fluid"
-              src={cartListBG}
-              alt="cartListBG"
-            />
+          <Col md={10} className="cartListBG">
+            <img className=" img-fluid" src={cartListBG} alt="cartListBG" />
           </Col>
         </Row>
 
         <section className="cart-list mt-5 ">
+          <Button
+            className="clearCartbtn"
+            variant="primary"
+            size="sm"
+            onClick={() => setMycart([])(localStorage.removeItem('cart'))}
+          >
+            清空購物車
+          </Button>
           {/* 購物車商品區*/}
-          <Row className=" pt-3 m-auto justify-content-center " xs={2} md={4}>
+          <Row className="pt-3 m-auto justify-content-center " xs={2} md={4}>
             {mycartDisplay.map((item, index) => {
               return (
-                <Col className="p-0">
+                <Col className="p-0" key={item.id}>
                   <CartProductItem
                     item={item}
                     name={item.name}
@@ -181,40 +185,44 @@ function CartDetail() {
                     amount={item.amount}
                     updateCartToLocalStorage={updateCartToLocalStorage}
                     deletItem={deletItem}
+                    setMycart={setMycart}
                   />
                   {/*購物車商品元件*/}
                 </Col>
               )
             })}
           </Row>
-
           <Row className="mt-5 mb-2 delivery-area">
             <Col className="delivery pl-5">
               <div>共 {mycartDisplay.length} 件商品，請選擇運送方式</div>
               <select
-                className="mt-2 deliveryWay"
+                className="mt-2 custom-select custom-select-sm"
                 value={selectedValue}
                 onChange={(e) => {
                   setSelectedValue(e.target.value)
                 }}
               >
-                <option value="60">超商取貨 NT$60</option>
-                <option value="80">郵寄 NT$80</option>
-                <option selected value="200">
-                  宅配 NT$200
+                <option selected value="">
+                  請選擇
                 </option>
+                <option value="80">郵寄 NT$80</option>
+                <option value="200">宅配 NT$200</option>
               </select>
+              {errMsg ? errmsg : ''}
+              {console.log('selectedValue', selectedValue)}
             </Col>
             <Col>
-              <div>商品總計 NT${sum(mycartDisplay)}</div>
-              <div className="mt-2">運費總計$NT{selectedValue}</div>
+              <div>商品總計 NT${total}</div>
+              <div className="mt-2">
+                運費總計 NT${selectedValue ? selectedValue : '0'}
+              </div>
             </Col>
           </Row>
           <Row className="mt-4">
             <Col className="text-center ">
               <div className="fintotal">
                 結帳總金額 NT$
-                {sum(mycartDisplay) + parseInt(selectedValue)}
+                {checkout ? checkout : '0'}
               </div>
             </Col>
           </Row>
@@ -228,8 +236,18 @@ function CartDetail() {
             onClick={(value) => {
               if (mycartDisplay.length === 0) {
                 handleShow()
+              } else if (selectedValue === '') {
+                seterrMsg(true)
               } else {
-                cartHistory.push('/store/cartdetail/orderDetail')
+                cartHistory.push({
+                  pathname: '/store/cartdetail/orderDetail',
+                  state: {
+                    cart: mycartDisplay,
+                    sum: total,
+                    checkout: checkout,
+                    fee: selectedValue,
+                  },
+                })
               }
             }}
             className="gobuyBtn"
