@@ -17,6 +17,10 @@ import { BsGoogle, BsFacebook } from 'react-icons/bs'
 // SweetAlert
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+// 引入第三方登入
+import { fbLogin, googleLogin } from '../../service/UserData'
+import FacebookLogin from '@greatsumini/react-facebook-login'
+import GoogleLogin from 'react-google-login'
 
 function Login(props) {
   const history = useHistory()
@@ -73,6 +77,53 @@ function Login(props) {
       // return <Redirect to="/member/data" />
     }
   }, [user])
+
+  // Google 登入
+  const responseGoogle = async (response) => {
+    console.log(response)
+    let result = await googleLogin(response)
+    if (result.id > 0) {
+      setUser(result)
+      if (user) {
+        // sweetalert 第三方
+        MySwal.fire({
+          title: `歡迎！${user.name}`,
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            history.push('/member/data')
+          }
+        })
+      }
+    }
+  }
+  // FB 登入
+  const handleFBLogin = async (response) => {
+    // console.log('response', response)
+    let result = await fbLogin(response)
+    if (result.id > 0) {
+      setUser(result)
+      if (user) {
+        // sweetalert 第三方
+        MySwal.fire({
+          title: `歡迎！${user.name}`,
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            history.push('/member/data')
+          }
+        })
+      }
+    }
+  }
 
   return (
     <div>
@@ -139,12 +190,34 @@ function Login(props) {
             {/* 右方第三方登入區塊 */}
             <div className="col-lg-4">
               <div className="d-flex w-100 thirdParty-login">
-                <div className="thirdParty-icon-login">
-                  <BsGoogle color="white" fontSize="2.5rem" />
-                </div>
-                <div className="thirdParty-icon-login">
+                <GoogleLogin
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                  render={(renderProps) => (
+                    <button
+                      className="thirdParty-icon-login"
+                      onClick={renderProps.onClick}
+                    >
+                      <BsGoogle color="white" fontSize="2.5rem" />
+                    </button>
+                  )}
+                  buttonText="Login"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                  className="thirdParty-icon"
+                />
+                <FacebookLogin
+                  appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
+                  fields="name,email,picture"
+                  scope="public_profile,email"
+                  onSuccess={handleFBLogin}
+                  // onSuccess={(response) => {
+                  //   console.log('success!', response)
+                  // }}
+                  className="thirdParty-icon-login"
+                >
                   <BsFacebook color="white" fontSize="2.5rem" />
-                </div>
+                </FacebookLogin>
               </div>
             </div>
             <div className="col-lg-2"></div>
