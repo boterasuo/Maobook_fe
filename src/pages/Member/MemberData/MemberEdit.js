@@ -146,13 +146,10 @@ function MemberEdit(props) {
   const handlePwBtn = () => {
     setShowModal(true)
   }
-  const handleCloseModal = () => {
-    setShowModal(false)
-  }
 
   return (
     <form className="position-relative info-card">
-      <ChangePwModal showModal={showModal} handleClose={handleCloseModal} />
+      <ChangePwModal showModal={showModal} setShowModal={setShowModal} />
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">
