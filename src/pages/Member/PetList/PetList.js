@@ -25,7 +25,6 @@ function PetList(props) {
   )
 
   // 取得毛孩列表
-  // TODO: 加分頁
   useEffect(() => {
     let getPetList = async () => {
       try {
@@ -41,7 +40,7 @@ function PetList(props) {
     }
     getPetList()
   }, [page])
-
+  // 分頁
   const getPages = () => {
     let pages = []
     for (let i = 1; i <= lastPage; i++) {

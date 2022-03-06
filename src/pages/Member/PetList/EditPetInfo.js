@@ -44,8 +44,15 @@ function EditPetInfo(props) {
     '心臟疾病',
     '心血管疾病',
   ]
-  // Modal 切換顯示狀態用
-  // const [showModal, setShowModal] = useState(false)
+  // 毛孩現況
+  const petStatusValue = ['1', '2', '3', '4', '9']
+  const petStatusOptions = [
+    '活耀中(預設)',
+    '已送養',
+    '失蹤中',
+    '在天堂',
+    '刪除所有資料',
+  ]
   // sweetalert
   const MySwal = withReactContent(Swal)
 
@@ -113,6 +120,20 @@ function EditPetInfo(props) {
     setPreview('')
   }
 
+  // 刪除所有資料 alert
+  useEffect(() => {
+    if (pet.valid === '9') {
+      MySwal.fire({
+        title: '注意！刪除動作無法復原',
+        text: '毛孩列表將不再顯示該位毛孩',
+        icon: 'warning',
+        confirmButtonText: '確認',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      })
+    }
+  }, [pet])
+
   // 上傳圖片用 formData
   async function handleSubmit(e) {
     e.preventDefault()
@@ -129,6 +150,7 @@ function EditPetInfo(props) {
         formData.append('ageCate', pet.ageCate)
         formData.append('gender', pet.gender)
         formData.append('cate', pet.cate)
+        formData.append('valid', pet.valid)
         formData.append('vaccine', pet.vaccine)
         formData.append('health', pet.health)
 
@@ -137,7 +159,6 @@ function EditPetInfo(props) {
         })
         console.log(response.data)
         if (response.data.message === 'ok') {
-          // setShowModal(true)
           MySwal.fire({
             title: '修改成功！',
             icon: 'success',
@@ -147,10 +168,14 @@ function EditPetInfo(props) {
             allowEscapeKey: false,
           }).then((result) => {
             if (result.dismiss === Swal.DismissReason.timer) {
-              history.push({
-                pathname: '/member/pet/info',
-                state: { selectedPet: pet.id },
-              })
+              if (pet.valid === '9') {
+                history.push('/member/pet')
+              } else {
+                history.push({
+                  pathname: '/member/pet/info',
+                  state: { selectedPet: pet.id },
+                })
+              }
             }
           })
         }
@@ -165,18 +190,9 @@ function EditPetInfo(props) {
       }
     }
   }
-  // 更改 Modal 顯示狀態函式
-  // const handleCloseModal = () => {
-  //   setShowModal(false)
-  //   history.push({
-  //     pathname: '/member/pet/info',
-  //     state: { selectedPet: pet.id },
-  //   })
-  // }
 
   return (
     <form className="position-relative info-card">
-      {/* {editPetModal} */}
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">
@@ -217,19 +233,35 @@ function EditPetInfo(props) {
             </div>
           </div>
           {/* 毛孩姓名 */}
-          <div className="pt-3 d-flex justify-content-center">
-            <span className="required-icon">*</span>
-            <input
-              type="text"
-              className="form-control text-center w-50"
-              name="name"
-              placeholder="毛孩姓名"
-              value={pet.name}
-              onChange={(e) => {
-                handleChange(e)
-                handleNameInvalid(e)
-              }}
-            />
+          <div className="pt-3 px-5">
+            <div className="d-flex justify-content-center mb-2">
+              <span className="required-icon">*</span>
+              <input
+                type="text"
+                className="form-control text-center w-50"
+                name="name"
+                placeholder="毛孩姓名"
+                value={pet.name}
+                onChange={(e) => {
+                  handleChange(e)
+                  handleNameInvalid(e)
+                }}
+              />
+            </div>
+            <select
+              name="valid"
+              value={pet.valid}
+              onChange={(e) => handleChange(e)}
+              className="form-control"
+            >
+              {petStatusValue.map((v, i) => {
+                return (
+                  <option key={v} value={v}>
+                    {petStatusOptions[i]}
+                  </option>
+                )
+              })}
+            </select>
           </div>
           <div className="text-center py-1 errMsg">
             {editErr.name ? editErr.name : ''}

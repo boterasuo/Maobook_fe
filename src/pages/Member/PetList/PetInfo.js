@@ -94,6 +94,7 @@ function PetInfo(props) {
         ageCate: petInfo.age_category,
         gender: petInfo.gender,
         cate: petInfo.category,
+        valid: petInfo.valid,
         height: result.data.height,
         weight: result.data.weight,
         vaccine: [...result.data.vaccine],
