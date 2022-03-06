@@ -26,12 +26,6 @@ function HelpIntro(props) {
         <div>
           <img className="title" src={maintitle} alt="" />
         </div>
-
-        <div className="leadingdown">
-          <div className="arrowtext1">找一位朋友</div>
-          <div className="arrowtext2">一起來幫你吧</div>
-          <img className="downarrow" src={downarrow} alt="" />
-        </div>
       </div>
     </>
   )

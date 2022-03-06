@@ -12,7 +12,20 @@
 .listfilter {
   position: absolute;
   bottom: 10%;
+  left: 57%;
+}
+
+.listcurrentregion{
+  position: absolute;
+  bottom: 10%;
   left: 35%;
+  color: #f6bc54;
+  font-size: 22px;
+}
+
+.listregion{
+  color: #6a5f4b;
+  font-weight: bold;
 }
 
 #listdropdown{
@@ -44,7 +57,7 @@
   display: inline-block;
   margin-left: 25px;
   margin-right: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 }
 
 .helpcardtop{
@@ -164,4 +177,10 @@
   position: absolute;
   left: 40%;
   margin-top: 20px;
+}
+
+.helplistpage{
+  position: absolute;
+  bottom: 0%;
+  left: 48%;
 }
