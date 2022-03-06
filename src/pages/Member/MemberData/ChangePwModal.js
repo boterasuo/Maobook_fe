@@ -2,8 +2,12 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { API_URL } from '../../../utils/config'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function ChangePwModal(props) {
+  const { setShowModal } = props
   const [changePw, setChangePw] = useState({
     oldPassword: '',
     newPassword: '',
@@ -14,6 +18,22 @@ function ChangePwModal(props) {
     newPassword: '',
     confirmNewPassword: '',
   })
+  // sweetalert
+  const MySwal = withReactContent(Swal)
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setChangePw({
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    })
+    setEditErr({
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    })
+  }
   // input onChange
   const handleChange = (e) => {
     setChangePw({ ...changePw, [e.target.name]: e.target.value })
@@ -26,16 +46,66 @@ function ChangePwModal(props) {
       let result = await axios.post(`${API_URL}/member/changePw`, changePw, {
         withCredentials: true,
       })
-      console.log(result.data.data)
+      console.log(result.data)
+      if (result.data.message === 'ok') {
+        setShowModal(false)
+        setChangePw({
+          oldPassword: '',
+          newPassword: '',
+          confirmNewPassword: '',
+        })
+        MySwal.fire({
+          title: '密碼修改成功！',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        })
+      }
     } catch (e) {
       console.error('error', e.response.data)
+      setEditErr({
+        ...editErr,
+        oldPassword: e.response.data.oldPassword,
+        newPassword: e.response.data.newPassword,
+        confirmNewPassword: e.response.data.confirmNewPassword,
+      })
+    }
+  }
+  // 表單有不合法的檢查出現時
+  // 原密碼欄位前端檢查
+  const handleOldInvalid = (e) => {
+    e.preventDefault()
+    if (!e.target.value) {
+      setEditErr({ ...editErr, [e.target.name]: '此欄位不可為空' })
+    }
+  }
+  // 新密碼欄位前端檢查
+  const handleNewInvalid = (e) => {
+    e.preventDefault()
+    if (!e.target.value) {
+      setEditErr({ ...editErr, [e.target.name]: '此欄位不可為空' })
+    } else if (e.target.value === changePw.oldPassword) {
+      setEditErr({ ...editErr, [e.target.name]: '新密碼不可與舊密碼相同' })
+    } else if (e.target.value.length < 8) {
+      setEditErr({ ...editErr, [e.target.name]: '密碼長度至少為 8 碼唷' })
+    }
+  }
+  // 確認密碼欄位前端檢查
+  const handleConfirmInvalid = (e) => {
+    e.preventDefault()
+    if (!e.target.value) {
+      setEditErr({ ...editErr, [e.target.name]: '此欄位不可為空' })
+    } else if (e.target.value !== changePw.newPassword) {
+      setEditErr({ ...editErr, [e.target.name]: '密碼驗證不一致' })
     }
   }
   return (
     <>
       <Modal
         show={props.showModal}
-        onHide={props.handleClose}
+        onHide={handleCloseModal}
         backdrop="static"
         keyboard={false}
         animation={false}
@@ -53,14 +123,22 @@ function ChangePwModal(props) {
               >
                 原密碼
               </label>
-              <input
-                type="password"
-                className="form-control col-6"
-                id="oldPassword"
-                name="oldPassword"
-                value={changePw.oldPassword}
-                onChange={handleChange}
-              />
+              <div className="col-6">
+                <input
+                  type="password"
+                  className="form-control "
+                  id="oldPassword"
+                  name="oldPassword"
+                  value={changePw.oldPassword}
+                  onChange={(e) => {
+                    handleChange(e)
+                    handleOldInvalid(e)
+                  }}
+                />
+                <div className="errMsg">
+                  {editErr.oldPassword ? editErr.oldPassword : ''}
+                </div>
+              </div>
             </div>
             <div className="form-group row">
               <label
@@ -69,14 +147,22 @@ function ChangePwModal(props) {
               >
                 新密碼
               </label>
-              <input
-                type="password"
-                className="form-control col-6"
-                id="newPassword"
-                name="newPassword"
-                value={changePw.newPassword}
-                onChange={handleChange}
-              />
+              <div className="col-6">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="newPassword"
+                  name="newPassword"
+                  value={changePw.newPassword}
+                  onChange={(e) => {
+                    handleChange(e)
+                    handleNewInvalid(e)
+                  }}
+                />
+                <div className="errMsg">
+                  {editErr.newPassword ? editErr.newPassword : ''}
+                </div>
+              </div>
             </div>
             <div className="form-group row">
               <label
@@ -85,20 +171,28 @@ function ChangePwModal(props) {
               >
                 確認新密碼
               </label>
-              <input
-                type="password"
-                className="form-control col-6"
-                id="confirmNewPassword"
-                name="confirmNewPassword"
-                value={changePw.confirmNewPassword}
-                onChange={handleChange}
-              />
+              <div className="col-6">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="confirmNewPassword"
+                  name="confirmNewPassword"
+                  value={changePw.confirmNewPassword}
+                  onChange={(e) => {
+                    handleChange(e)
+                    handleConfirmInvalid(e)
+                  }}
+                />
+                <div className="errMsg">
+                  {editErr.confirmNewPassword ? editErr.confirmNewPassword : ''}
+                </div>
+              </div>
             </div>
             <div className="text-center my-3">
               <button
                 type="button"
                 className="btn btn-secondary mx-1"
-                onClick={props.handleClose}
+                onClick={handleCloseModal}
               >
                 取消
               </button>
@@ -112,14 +206,6 @@ function ChangePwModal(props) {
             </div>
           </form>
         </Modal.Body>
-        {/* <Modal.Footer className={props.showFooter}>
-          <Button variant="secondary" onClick={props.handleClose}>
-            取消
-          </Button>
-          <Button variant="primary" onClick={props.handleConfirm}>
-            確認
-          </Button>
-        </Modal.Footer> */}
       </Modal>
     </>
   )
