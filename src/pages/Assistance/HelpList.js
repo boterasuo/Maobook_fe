@@ -7,7 +7,7 @@ import { Form, FormControl, Button, Row, Col, Container } from 'react-bootstrap'
 import { HiPlus } from 'react-icons/hi'
 
 import HelpDetail from './HelpDetail'
-
+import Pagination from '../Store/components/Pagination';
 
 // 樣式
 import './components/HelpList.scss'
@@ -26,16 +26,20 @@ function HelpList(props) {
   const [data, setData] = useState([])
 
   const [region, setRegion] = useState(['台北市'])
+  
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   useEffect(() => {
     let cardData = async () => {
       let response = await axios.get(
-        `${API_URL}/help/helpcard/${region}`
+        `${API_URL}/help/helpcard/${region}?page=${page}`
       )
-      setData(response.data)
+      setData(response.data.data);
+      setLastPage(response.data.pagination.lastPage);
     }
     cardData()
-  }, [region])
+  }, [region, page])
 
   const Taipei = async () => {setRegion('台北市')}
   const Taoyuan = async () => {setRegion('桃園市')}
@@ -54,17 +58,19 @@ function HelpList(props) {
       <div className="helplist">
         <div className="helplisttopbar">
           <img className="listtitle" src={listtitle} alt="" />
+          <div className='listcurrentregion'>
+            <span className='listregion'>{region}</span>的所有案件</div>
           <div className="listfilter">
-            <div class="dropdown">
+            <div className="dropdown">
               <button
-                class="dropdown-toggle takemaoout"
+                className="dropdown-toggle takemaoout"
                 type="button"
                 id="listdropdown"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                選擇地區
+                改變地區
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <button class="dropdown-item" type="button" onClick={Taipei}>
@@ -143,8 +149,8 @@ function HelpList(props) {
         onHide={() => setShowdetail(false)}
         detailid={detailid}
       />
-        <div className="listmorebutton">查看更多</div>
           </div>
+        <div className='helplistpage'><Pagination page={page} lastPage={lastPage} setPage={setPage} /></div>
           
         </div>
 

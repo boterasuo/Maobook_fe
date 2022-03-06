@@ -29,13 +29,14 @@ function HelpDetail(props) {
   return (
     <Modal
     {...props}
-      size="xl"
+      // size="lg"
       centered
-      dialogClassName="modal-90w d-flex position-absulote"
+      dialogClassName="modal-100w d-flex"
       z-index="999"
       >
       {data.map((data) => {
         return (
+          <div className='helpdetailmodal'>
           <div className="helpdetails">
             <div className="lefeside">
               <img src={require('./img/' + [data.image])} className="helpdetailimg" alt="" />
@@ -106,6 +107,7 @@ function HelpDetail(props) {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         )
       })}
