@@ -91,13 +91,7 @@ function AddPetData(props) {
         // 將所有毛孩 id 依序存入陣列
         setPetList(newPetList)
         // 第一次渲染先取得初始毛孩的原始資料
-        // getHeight()
-        // let heightResult = await axios.get(`${API_URL}/pet/height/${selectedPet}`,
-        //     {withCredentials: true,});
-        // petHeightRef.current = heightResult.data.data;
-        // let weightResult = await axios.get(`${API_URL}/pet/weight/${selectedPet}`,
-        //     {withCredentials: true});
-        // petWeightRef.current = weightResult.data.data;
+        getHeight()
       } catch (e) {
         console.error('pet data 錯誤', e.response.data)
       }

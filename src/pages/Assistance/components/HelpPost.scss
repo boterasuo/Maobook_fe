@@ -41,6 +41,28 @@
   border-radius: 20px;
   margin-bottom: 10px;
   display: flex;
+  .img-uploader {
+    background: url("../img/camera.svg") center center no-repeat;
+    // background-size: contain;
+    display: flex;
+    width: 175px;
+    height: 250px;
+    border: 2px white solid;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+   ::-webkit-scrollbar{
+       overflow: hidden;
+   }
+   .previewer{
+    height: 100%;
+    width: 100%;
+    // position: absolute;
+    left: 0;
+    top: 0;
+    object-fit:cover;
+}
+}
 }
 
 .helpdropdownregion {
@@ -73,49 +95,120 @@
   border-radius: 10px;
 }
 
+.postchooseregion{
+  color: white;
+  background-color: #f6bc54;
+  border: 2px solid white;
+  transition-duration: 0.4s;
+  border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .helppostcategory {
   width: 100px;
   height: 200px;
   margin-bottom: 10px;
 }
 
-.buttondog {
+.categoryPostButton1{
   background-color: #f6bc54;
   color: white;
   border: 2px solid white;
   transition-duration: 0.4s;
-  height: 125px;
+  height: 130px;
   width: 60px;
   border: 2px white solid;
   border-radius: 20px 20px 0px 0px;
+  z-index: 1;
+  &:hover {
+    background-color: white;
+    color: #f6bc54;
+  }
+  &:focus {
+    background-color: white;
+    color: #f6bc54;
+  }
+  &.active {
+    background-color: white;
+    color: #f6bc54;
+  }
+}
+
+.helpPostCircle{
+  z-index: 0.1;
+  height: 10px;
+  width: 10px;
+  display: none;
+}
+
+.helpPostButtontext{
   font-size: 20px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  margin-top: 37px;
 }
-.buttondog:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.buttondog:focus {
-  background-color: white;
-  color: #f6bc54;
-}
-.buttoncat {
+
+.categoryPostButton2{
   background-color: #f6bc54;
   color: white;
   border: 2px solid white;
   transition-duration: 0.4s;
-  height: 125px;
+  height: 130px;
   width: 60px;
   border-radius: 0px 0px 20px 20px;
-  font-size: 20px;
+  margin-top: -16px;
+
+  z-index: 1;
+  &:hover {
+    background-color: white;
+    color: #f6bc54;
+  }
+  &.active {
+    background-color: white;
+    color: #f6bc54;
+  }
 }
-.buttoncat:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.buttoncat:focus {
-  background-color: white;
-  color: #f6bc54;
-}
+
+// .buttondog {
+//   background-color: #f6bc54;
+//   color: white;
+//   border: 2px solid white;
+//   transition-duration: 0.4s;
+//   height: 125px;
+//   width: 60px;
+//   border: 2px white solid;
+//   border-radius: 20px 20px 0px 0px;
+//   font-size: 20px;
+// }
+// .buttondog:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .buttondog:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .buttoncat {
+//   background-color: #f6bc54;
+//   color: white;
+//   border: 2px solid white;
+//   transition-duration: 0.4s;
+//   height: 125px;
+//   width: 60px;
+//   border-radius: 0px 0px 20px 20px;
+//   font-size: 20px;
+// }
+// .buttoncat:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .buttoncat:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
 
 .helppostinfo {
   width: 175px;
@@ -171,56 +264,75 @@
   border: 2px white solid;
   color: white;
   transition-duration: 0.4s;
+  &:hover {
+    background-color: white;
+    color: #f6bc54;
+    opacity: 1;
+    animation: headShake;
+    animation-duration: 1s;
+  }
+  &:focus {
+    background-color: white;
+    color: #f6bc54;
+    opacity: 1;
+  }
+  &.active {
+    background-color: white;
+    color: #f6bc54;
+    opacity: 1;
+  }
 }
 
-.helptag1:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag2:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag3:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag4:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag5:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag6:hover {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag1:focus {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag2:focus {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag3:focus {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag4:focus {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag5:focus {
-  background-color: white;
-  color: #f6bc54;
-}
-.helptag6:focus {
-  background-color: white;
-  color: #f6bc54;
-}
+
+
+// .helptag1:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag2:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag3:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag4:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag5:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag6:hover {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag1:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag2:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag3:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag4:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag5:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
+// .helptag6:focus {
+//   background-color: white;
+//   color: #f6bc54;
+// }
 
 .helpposttext {
   width: 350px;
@@ -279,4 +391,9 @@
   background-color: #f6bc54;
   color: white;
   border: 2px solid white;
+}
+
+.helppostunlogin{
+  height: 250px;
+  margin-top: 50px;
 }

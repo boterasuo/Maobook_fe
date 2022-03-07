@@ -1,4 +1,5 @@
 import { Modal, Button, Row, Col, Carousel } from 'react-bootstrap'
+import { Form, FormControl, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -92,9 +93,24 @@ function HelpDetail(props) {
 
                   <div className="takerpost">
                     <div className="contactchoice">
-                      <div className="choosetitle">聯絡方式</div>
+                    <div class="dropdown">
+                  <select
+                      name="contact"
+                      title='聯絡方式'
+                      className="helpchoosecontact"
+                      type="select"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                  >
+                    <option className="dropdown-item" value="phone">提供手機</option>
+                    <option className="dropdown-item" value="email">提供信箱</option>
+                   </select>
+                  </div>
+
+                      {/* <div className="choosetitle">聯絡方式</div>
                       <div className="choosephone">提供手機</div>
-                      <div className="chooseemail">提供信箱</div>
+                      <div className="chooseemail">提供信箱</div> */}
                     </div>
 
                     <div className="textpost">
