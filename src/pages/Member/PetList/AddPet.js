@@ -104,7 +104,7 @@ function AddPet(props) {
     e.preventDefault()
     const today = Date.parse(new Date().toDateString())
     const inputDate = Date.parse(e.target.value)
-    console.log(today, inputDate)
+    // console.log(today, inputDate)
     if (e.target.value && inputDate > today) {
       setEditErr({ ...editErr, [e.target.name]: '請選擇早於今天的日期' })
     }

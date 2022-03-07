@@ -3,31 +3,38 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import 'animate.css'
 import './HelpedTask.scss'
+import { API_URL } from '../../../utils/config'
+import { useAuth } from '../../../context/auth'
 
 // 引入圖片
 import HelpedTask1 from './img/HelpedTask1.svg'
 import HelpedTask2 from './img/HelpedTask2.svg'
 
 function HelpedTask(props) {
+  const { noteDate, setNoteDate } = props
   const [data, setData] = useState([])
+
+  // 處理會員
+  const { user, setUser } = useAuth()
+  // console.log('會員編號', user.id)
 
   useEffect(() => {
     let getDayHelps = async () => {
       let response = await axios.get(
-        // `http://localhost:3002/api/help/dayhelps?year=${year}&month=${month}&day=${day}`
-        // `http://localhost:3002/api/help/dayhelps/${year}/${month}/${day}`
-        `http://localhost:3002/api/help/dayhelps/2022/03/12`
+        `${API_URL}/help/memberGiveHistory/` + user.id
       )
       setData(response.data)
     }
     getDayHelps()
   }, [])
 
+  console.log('response', data)
+
   return (
     <>
       <div className="helpedTask0">
         <div className="helpedTask">
-          {data.map((data) => {
+          {data.map((data, i) => {
             return (
               <>
                 <div className="helpEvent">
@@ -36,13 +43,12 @@ function HelpedTask(props) {
                     <br />
                     {data.date.substring(8, 10)}
                   </h3>
-
                   <div className="helpEventDiv">
                     <div className="helpEventRegion">{data.region}</div>
                     <div className="helpEventCategory">{data.category}</div>
                     <div className="helpEventTags">{data.tag_name}</div>
                     <div className="helpEventprice">
-                      <div className="helpEventTitle">NT$</div>
+                      <div className="helpEventTitle">NT$ </div>
                       <div className="helpEventPriceamount">{data.price}</div>
                     </div>
                     <div className="helpEventCasetitle">{data.title}</div>
@@ -50,9 +56,12 @@ function HelpedTask(props) {
                       <img src={HelpedTask1} alt="" />
                     </div>
                   </div>
-
-                  <div className="HelpedTaskPawbox" onClick="">
-                    <button>
+                  <div className="HelpedTaskPawbox">
+                    <button
+                      onClick={() => {
+                        setNoteDate(data.id)
+                      }}
+                    >
                       <div className="icontext ">
                         <img
                           className="HelpedTaskPawicon "

@@ -3,11 +3,11 @@ import axios from 'axios'
 import { API_URL } from "../../utils/config"
 
 import PropTypes from 'prop-types'
-import { Form, FormControl, Button, Row, Col, Container } from 'react-bootstrap'
+import { Form, FormControl, Button, Row, Col, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 import { HiPlus } from 'react-icons/hi'
 
 import HelpDetail from './HelpDetail'
-
+import Pagination from '../Store/components/Pagination';
 
 // 樣式
 import './components/HelpList.scss'
@@ -21,21 +21,26 @@ import userimage from './img/helpuserimage.svg'
 
 // 插圖
 import example from './img/helpexample.jpeg'
+import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 
 function HelpList(props) {
   const [data, setData] = useState([])
 
   const [region, setRegion] = useState(['台北市'])
+  
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   useEffect(() => {
     let cardData = async () => {
       let response = await axios.get(
-        `${API_URL}/help/helpcard/${region}`
+        `${API_URL}/help/helpcard/${region}?page=${page}`
       )
-      setData(response.data)
+      setData(response.data.data);
+      setLastPage(response.data.pagination.lastPage);
     }
     cardData()
-  }, [region])
+  }, [region, page])
 
   const Taipei = async () => {setRegion('台北市')}
   const Taoyuan = async () => {setRegion('桃園市')}
@@ -54,8 +59,17 @@ function HelpList(props) {
       <div className="helplist">
         <div className="helplisttopbar">
           <img className="listtitle" src={listtitle} alt="" />
+          <div className='listcurrentregion'>
+            <span className='listregion'>{region}</span>的所有案件</div>
           <div className="listfilter">
-            <div class="dropdown">
+            <DropdownButton className="listdropdown" title="改變地區">
+              <Dropdown.Item as="button" onClick={Taipei}>台北市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Taoyuan}>桃園市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Taichung}>台中市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Tainan}>台南市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Kaohsiung}>高雄市</Dropdown.Item>
+            </DropdownButton>
+            {/* <div class="dropdown">
               <button
                 class="dropdown-toggle takemaoout"
                 type="button"
@@ -64,9 +78,9 @@ function HelpList(props) {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                選擇地區
+                改變地區
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu" aria-labelledby="listdropdown">
                 <button class="dropdown-item" type="button" onClick={Taipei}>
                   台北市
                 </button>
@@ -83,7 +97,7 @@ function HelpList(props) {
                   高雄市
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -143,8 +157,8 @@ function HelpList(props) {
         onHide={() => setShowdetail(false)}
         detailid={detailid}
       />
-        <div className="listmorebutton">查看更多</div>
           </div>
+        <div className='helplistpage'><Pagination page={page} lastPage={lastPage} setPage={setPage} /></div>
           
         </div>
 

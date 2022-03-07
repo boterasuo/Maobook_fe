@@ -17,7 +17,11 @@ function ProductItem(props) {
       <div className="setbg">
         <div className="product mt-4">
           <button onClick={() => setShow(true)}>
-            <img className="Hill s-image cover-fit" src={Hill} alt="Hill" />
+            <img
+              className="Hill s-image cover-fit mb-4"
+              src={Hill}
+              alt="Hill"
+            />
           </button>
           <ProductDetails
             show={show}

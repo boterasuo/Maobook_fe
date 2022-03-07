@@ -95,7 +95,7 @@ function OrderDetail(props) {
 
   const handleCloseModal = () => {
     setShow(false)
-    history.push('/store')
+    history.push('/member/order')
   }
 
   const successModal = (

@@ -13,6 +13,8 @@ import './MemberEdit.scss'
 // SweetAlert
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+// 引入元件
+import ChangePwModal from './ChangePwModal'
 
 function MemberEdit(props) {
   const history = useHistory()
@@ -31,6 +33,8 @@ function MemberEdit(props) {
   const genderOptions = ['生理男', '生理女', '不透漏']
   // sweetalert
   const MySwal = withReactContent(Swal)
+  // Modal 顯示狀態 & 顯示內容
+  const [showModal, setShowModal] = useState(false)
 
   function handleChange(e) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
@@ -138,8 +142,14 @@ function MemberEdit(props) {
     }
   }
 
+  // 修改密碼
+  const handlePwBtn = () => {
+    setShowModal(true)
+  }
+
   return (
     <form className="position-relative info-card">
+      <ChangePwModal showModal={showModal} setShowModal={setShowModal} />
       <div className="row">
         {/* 大頭照區域 */}
         <div className="col-lg-5 w-100">
@@ -208,7 +218,12 @@ function MemberEdit(props) {
               <tr>
                 <td>密碼</td>
                 <td>
-                  <button className="btn btn-secondary" title="修改密碼">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    title="修改密碼"
+                    onClick={handlePwBtn}
+                  >
                     修改密碼
                   </button>
                 </td>

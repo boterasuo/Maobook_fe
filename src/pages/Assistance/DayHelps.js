@@ -7,6 +7,8 @@ import pawicon from './img/paw.svg'
 import arrowright from './img/arrowright.svg'
 
 import HelpDetail from './HelpDetail'
+import Pagination from '../Store/components/Pagination';
+
 
 function DayHelps({ HelpDate }) {
   const [data, setData] = useState([])
@@ -14,8 +16,10 @@ function DayHelps({ HelpDate }) {
   const [showdetail, setShowdetail] = React.useState(false)
   const [detailid, setDetailid] = useState()
   const OpenHelpdetail = (detailid) => {
-    setDetailid(detailid)
-  }
+    setDetailid(detailid)}
+
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   useEffect(() => {
     let getDayHelps = async () => {
@@ -25,11 +29,13 @@ function DayHelps({ HelpDate }) {
         '/' +
         (HelpDate.getMonth() + 1) +
         '/' +
-        HelpDate.getDate())
-      setData(response.data)
+        HelpDate.getDate() +
+        `?page=${page}`)
+      setData(response.data.data);
+      setLastPage(response.data.pagination.lastPage);
     }
     getDayHelps()
-  }, [HelpDate])
+  }, [HelpDate, page])
 
   return (
     <>
@@ -82,6 +88,7 @@ function DayHelps({ HelpDate }) {
         onHide={() => setShowdetail(false)}
         detailid={detailid}
       />
+      <div className='dayhelppage'><Pagination page={page} lastPage={lastPage} setPage={setPage} /></div>
         </div>
       </div>
     </>

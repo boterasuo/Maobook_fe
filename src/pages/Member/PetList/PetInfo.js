@@ -42,8 +42,9 @@ function PetInfo(props) {
     '心臟疾病',
     '心血管疾病',
   ]
-  // 有時間的話改將 vaccine 和 health 統一存入 pet 狀態中 --> done
-  // 這樣就只要改變一次狀態就好
+  // 毛孩現況
+  const petStatusOptions = ['', '活躍中', '已送養', '失蹤中', '在天堂']
+  const petStatusEmoji = ['', '0x1F609', '0x1F609', '0x1F609', '0x1F609']
 
   // 處理歲數 TODO: 應可將歲數處理改寫成 function ?
   let ageY, ageM
@@ -94,6 +95,7 @@ function PetInfo(props) {
         ageCate: petInfo.age_category,
         gender: petInfo.gender,
         cate: petInfo.category,
+        valid: petInfo.valid,
         height: result.data.height,
         weight: result.data.weight,
         vaccine: [...result.data.vaccine],
@@ -106,7 +108,6 @@ function PetInfo(props) {
 
   return (
     <div className="row position-relative info-card">
-      {/* {loginModal} */}
       {/* 大頭照區域 */}
       <div className="col-lg-5 w-100">
         <div className="embed-responsive embed-responsive-1by1 avatar-info">
@@ -116,9 +117,12 @@ function PetInfo(props) {
             src={pet.image ? `${IMG_URL}${pet.image}` : defaultPet}
           />
         </div>
-        {/* 使用者姓名變數 */}
+        {/* 毛孩姓名變數 */}
         <div className="text-center pt-3 h4 text-secondary font-weight-bold">
           {pet.name ? pet.name : '未有資料'}
+        </div>
+        <div className="text-center text-muted">
+          {petStatusOptions[pet.valid]}
         </div>
       </div>
       {/* 個人資料表格 */}
