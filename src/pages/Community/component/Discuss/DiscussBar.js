@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../../utils/config'
@@ -10,6 +11,7 @@ import './style/DiscussBar.scss'
 import DiscussModal from './DiscussModal'
 // 插圖
 import rightArrow from './images/icon-right-arrow.svg'
+import pawpaw from './images/icon-float-paw.svg'
 
 function DiscussBar(props) {
   // 彈跳視窗
@@ -18,26 +20,61 @@ function DiscussBar(props) {
   const [bars, setBars] = useState([])
   const [barID, setBarID] = useState()
   console.log('barIDFU', barID)
+  // lastPage 為總頁，預設是1
+  const [lastPage, setLastPage] = useState(1) //預設是1
+  // 頁數
+  const { currentPage } = useParams()
+  const [page, setPage] = useState(parseInt(currentPage, 10) || 1)
+  console.log('CurrentPage:', currentPage, page)
   // 在打開卡片的Detail
   const openBarDetail = (findBarId) => {
     setBarID(findBarId)
     // setInputComment({ ...inputComment, cardID: findCardId })
   }
   // Bar-List API
+  // 抓頁數和資料的API
   useEffect(() => {
-    let getCardList = async () => {
-      try {
-        let BarResponse = await axios.get(`${API_URL}/discuss/bar-list`)
-        console.log('BarResponse', BarResponse.data)
-        setBars(BarResponse.data)
-        // console.log(tag)
-        console.log('所有資料.data:  ', BarResponse.data)
-      } catch (e) {
-        // console.error('Get card-list Error', e.CadListResponse.data)
-      }
+    let getPrices = async () => {
+      let response = await axios.get(
+        `${API_URL}/discuss/discuss-pages?page=${page}`
+      )
+      setBars(response.data.data)
+      setLastPage(response.data.pagination.lastPage)
     }
-    getCardList()
-  }, [])
+    getPrices()
+  }, [page]) //讓資料跟著page一起改變
+  // 插入分頁的JSX
+  const GetPages = () => {
+    let pages = []
+    for (let i = 1; i <= lastPage; i++) {
+      pages.push(
+        <li
+          style={{
+            display: 'inline-block',
+            margin: '2px',
+            backgroundColor: page === i ? '#F6BC54' : '',
+            borderColor: page === i ? '#00d1b2' : '#dbdbdb',
+            color: page === i ? '#fff' : '#363636',
+            borderWidth: '1px',
+            width: '28px',
+            height: '28px',
+            borderRadius: '3px',
+            textAlign: 'center',
+            cursor: 'pointer',
+          }}
+          key={i}
+          onClick={(e) => {
+            setPage(i)
+            // navigate(`/daily/${cardId}/${i}`)
+          }}
+        >
+          {i}
+        </li>
+      )
+    }
+    return pages
+  }
+
   return (
     <>
       {bars.map((bar) => {
@@ -59,15 +96,17 @@ function DiscussBar(props) {
               <img
                 className="discuss-avatar rounded-circle bg-secondary"
                 src={`${IMG_URL}${bar.avatar}`}
+                alt=""
               />
               <div className="bar-container">
                 <div className="bar-border">
                   {/* <div className="category">{bar.category}</div> */}
                   <div className="tags">{bar.category}</div>
-                  <div className="bar-title">{bar.tittle}</div>
-                  <div className="bar-title">{bar.content}</div>
+                  <div className="bar-title text-truncate">{bar.tittle}</div>
+                  <div className="bar-title text-truncate">{bar.content}</div>
                   <div className="arrowicon">
-                    <img src={rightArrow} alt="" />
+                    <img src={rightArrow} className="arrow" alt="" />
+                    <img src={pawpaw} className="d-none paw" alt="" />
                   </div>
                 </div>
               </div>
@@ -75,6 +114,7 @@ function DiscussBar(props) {
           </>
         )
       })}
+      <GetPages />
       <DiscussModal
         show={barModalShow}
         onHide={() => setBarModalShow(false)}

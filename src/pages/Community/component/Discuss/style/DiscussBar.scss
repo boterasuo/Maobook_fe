@@ -34,8 +34,8 @@
   // 頭像
 $avatar-length: 4rem;
 .discuss-avatar {
-  height: $avatar-length;
-  width: $avatar-length;
+  height: 65px;
+  width: 75px;
   border-radius: 50%;
   object-fit: cover;
   margin: 0 0.5rem;
@@ -44,8 +44,7 @@ $avatar-length: 4rem;
 .bar-container{
   width: 100%;
   &:hover .bar-border{
-    width: 40vw;
-    height: 80px;
+    width: 50vw;
     background: $primary;
     outline: 2px solid $primary;
     border: 2px solid white;
@@ -55,6 +54,14 @@ $avatar-length: 4rem;
       background: white;
       color: $secondary;
       border: skyblue;
+    }
+    &:hover .arrow{
+      color: white;
+
+    }
+    &:hover .paw{
+      color: white;
+      display: block;
     }
   }
   .bar-border {
@@ -71,9 +78,9 @@ $avatar-length: 4rem;
     margin-right: 30px;
     transition: 1s;
     // 文字截取
-    overflow:hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    // overflow:hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
     
     // 分類、標籤
     .category,
@@ -86,7 +93,6 @@ $avatar-length: 4rem;
       padding: 3px;
     }
 
-   
 
     .bar-title {
       width: 30%;
@@ -111,6 +117,13 @@ $avatar-length: 4rem;
 
     .pawicon {
       margin-right: 10px;
+      .arrow{
+      
+      }
+      .paw{
+       
+
+      }
     }
 
   }

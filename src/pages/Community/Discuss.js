@@ -24,18 +24,12 @@ function Discuss(props) {
           <Col className="">
             <img src={diccuss} />
           </Col>
-          <Col lg={3}>
-            <Button variant="outline-primary rounded-pill">
-              <HiPlus />
-              <a>發個文吧</a>
-            </Button>
-          </Col>
+          <Col lg={3}></Col>
         </Row>
         <div className="discuss-post-area  mao-rounded mt-lg-2 mt-md-2">
           <div className="dicuss-container">
             <div className="d-inline-block">
               <Bar />
-              <button className="Add-btn-discuss"> 查看更多</button>
             </div>
           </div>
         </div>

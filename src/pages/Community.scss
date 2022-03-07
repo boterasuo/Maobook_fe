@@ -17,10 +17,7 @@ $page-height: calc(100vh - $nav-height);
   ::-moz-placeholder { /* Firefox 19+ */
     color: $primary;
   }
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px #ffc9658e;
-  }
+ 
   
 }
   .Post-Page{
@@ -31,10 +28,6 @@ $page-height: calc(100vh - $nav-height);
   }
   ::-moz-placeholder { /* Firefox 19+ */
     color: white;
-  }
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(185, 219, 112, 0.849);
   }
   }
 

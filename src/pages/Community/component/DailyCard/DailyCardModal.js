@@ -19,32 +19,26 @@ import { API_URL, IMG_URL } from '../../../../utils/config'
 
 // 圖片
 import cardLeave from './images/ZoomOut.svg'
-import { Link } from 'react-router-dom'
+import pawNone from './images/icon-paw.svg'
+import pawFill from './images/icon-float-paw.svg'
 
 //\\ [[[彈出視窗]]] //\\
 function DailyCardModal(modalProps) {
-  const { cardID } = modalProps
-  // 處理會員
-  const { user, setUser } = useAuth()
-  // console.log('用戶', user)
-  // console.log('set用戶', user.id)
-  // console.log('用戶ID', )
+  const { cardID, page } = modalProps
   //   送出留言的state
   const [inputComment, setInputComment] = useState({
     id: '0',
-    cardID: '0',
-    memberID: '',
+    cardID: '',
+    memberID: '0',
     comment: '',
     // createdAt: ' ',
   })
-  // console.log('user.id', user.id)
   //   console.log('123', inputComment)
   // 卡片內容
   const [cards, setCards] = useState([])
   console.log('cards', cards)
   //  留言列表
   const [comments, setComments] = useState([])
-
   // 處理錯誤
   const [errMsg, setErrMsg] = useState({ msg: '' })
   console.log('cardID', cardID)
@@ -52,7 +46,7 @@ function DailyCardModal(modalProps) {
   // Card-List API
   useEffect(() => {
     let getCardList = async () => {
-      let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
+      let cardModalInfo = await axios.get(`${API_URL}/daily/card-list`)
       // console.log(cardModalInfo.data)
       // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
       let cardIDContent = cardModalInfo.data.filter((v) => {
@@ -66,17 +60,16 @@ function DailyCardModal(modalProps) {
     getCardList()
   }, [cardID])
 
+  let getCommentList = async () => {
+    let commentArr = await axios.get(`${API_URL}/daily/comment-list/${cardID}`)
+    setComments(commentArr.data)
+    console.log('留言列表', commentArr.data)
+    // console.log('CadListResponse.data:  ', cardModalInfo.data)
+  }
+
   // 抓留言列表API
   useEffect(() => {
     console.log('cardID', cardID)
-    let getCommentList = async () => {
-      let commentArr = await axios.get(
-        `${API_URL}/daily/comment-list/${cardID}`
-      )
-      setComments(commentArr.data)
-      console.log('留言列表', commentArr.data)
-      // console.log('CadListResponse.data:  ', cardModalInfo.data)
-    }
     getCommentList()
   }, [cardID])
 
@@ -84,6 +77,14 @@ function DailyCardModal(modalProps) {
   useEffect(() => {
     setInputComment({ ...inputComment, cardID: cardID })
   }, [cardID])
+  //   送出表單 (onSubmit)
+  //   const [inputComment, setInputComment] = useState({
+  //     id: '0',
+  //     cardID: `0`,
+  //     memberID: `0`,
+  //     comment: 'type sth..',
+  //     createdAt: `${new Date()}`,
+  //   })
 
   function handleChange(e) {
     setInputComment({ ...inputComment, [e.target.name]: e.target.value })
@@ -99,15 +100,24 @@ function DailyCardModal(modalProps) {
           withCredentials: true,
         }
       )
-
-      Swal.fire('已成功留言', '請重新整理', 'success')
+      Swal.fire('已成功留言', 'success')
       // 需要清空留言欄位
+      setInputComment({
+        id: '0',
+        cardID: '',
+        memberID: '0',
+        comment: '',
+      })
+      // 重新渲染
+      getCommentList()
+      
       console.log('測試', commentRes.data)
     } catch (e) {
       console.error('留言失敗', e.commentRes.data)
       setErrMsg({ ...errMsg, msg: e.commentRes.data.msg })
     }
   }
+  // 插入留言列表
 
   // 跳出來的視窗內容
   return (
@@ -182,8 +192,8 @@ function DailyCardModal(modalProps) {
                             md={{ span: 2, offset: 3 }}
                             className="text-center text-primary"
                           >
-                            {/* <img src={pawpaw} />
-                              收藏 */}
+                            <input type="checkbox" value={'123'} />
+                            收藏
                           </Col>
                         </Row>
                         <Row className="py-3">
@@ -199,61 +209,50 @@ function DailyCardModal(modalProps) {
                         <div className="comment-bar"></div>
                         <ul className="comment-list">
                           {/* 發文者 */}
-                          {user ? (
-                            <Form className="comment-list-rows">
-                              <div className="comment-no py-2 invisibility  mr-1 ">
-                                B0
-                              </div>
+                          <Form className="comment-list-rows">
+                            <div className="comment-no py-2 invisibility  mr-1 ">
+                              B0
+                            </div>
 
-                              <img
-                                className="commenter-avatar bd-highlight"
-                                alt={'card-avatar'}
-                                src={`${IMG_URL}${user.image}`}
-                              />
+                            <img
+                              className="commenter-avatar bd-highlight"
+                              alt={'card-avatar'}
+                              src={`${IMG_URL}${card.avatar}`}
+                            />
 
-                              {/* 發文者送出留言欄位 */}
-                              <input
-                                type="text"
-                                className="comment-border p-2 bd-highlight flex-fill text-wrap"
-                                // value={}
-                                onChange={handleChange}
-                                value={inputComment.comment}
-                                placeholder={'請留言'}
-                                name={'comment'}
-                                required
-                                pattern="1"
-                              />
-                              {/* 文章ID */}
-                              <input
-                                type="hidden"
-                                name="cardID"
-                                // onChange={handleChange}
-                                value={cardID}
-                              />
-                              {/* 貼文時間 */}
-                              <input
-                                type="hidden"
-                                name={`createdAt`}
-                                onChange={handleChange}
-                                value={inputComment.createdAt}
-                              />
-                              <button
-                                type="submit"
-                                className="btn btn-outline-primary rounded-pill py-1 my-1 "
-                                onClick={handleSubmit}
-                                // value={'送出'}
-                              >
-                                送出
-                              </button>
-                            </Form>
-                          ) : (
-                            <Link
-                              className="w-100 text-center btn btn-outline-primary text-decoration-none my-2 h-25"
-                              to="/login"
+                            {/* 發文者送出留言欄位 */}
+                            <input
+                              type="text"
+                              className="comment-border p-2 bd-highlight flex-fill text-wrap"
+                              // value={}
+                              onChange={handleChange}
+                              value={inputComment.comment}
+                              placeholder={inputComment.comment}
+                              name={'comment'}
+                              required={require}
+                            />
+                            {/* 文章ID */}
+                            <input
+                              type="hidden"
+                              name="cardID"
+                              // onChange={handleChange}
+                              value={cardID}
+                            />
+                            <input
+                              type="hidden"
+                              name={`createdAt`}
+                              onChange={handleChange}
+                              value={inputComment.createdAt}
+                            />
+                            <button
+                              type="submit"
+                              className="btn btn-outline-primary rounded-pill py-1 my-1 "
+                              onClick={handleSubmit}
+                              // value={'送出'}
                             >
-                              登入後即可留言
-                            </Link>
-                          )}
+                              送出
+                            </button>
+                          </Form>
                           {comments.map((comment) => {
                             return (
                               <>
@@ -270,9 +269,11 @@ function DailyCardModal(modalProps) {
                                   </div>
                                   <div className="comment-border px-3 py-2 bd-highlight flex-fill ">
                                     {/* 文字垂直置中 */}
-                                    <strong className="align-text-bottom text-dark">
+                                    <span className="align-text-bottom text-secondary">
                                       {comment.name}&ensp;
-                                    </strong>
+                                      <span className="text-middle">|</span>
+                                      &ensp;
+                                    </span>
                                     {/* 留言內容 */}
                                     <span className="align-text-bottom">
                                       {comment.comment}
