@@ -69,35 +69,6 @@ function HelpList(props) {
               <Dropdown.Item as="button" onClick={Tainan}>台南市</Dropdown.Item>
               <Dropdown.Item as="button" onClick={Kaohsiung}>高雄市</Dropdown.Item>
             </DropdownButton>
-            {/* <div class="dropdown">
-              <button
-                class="dropdown-toggle takemaoout"
-                type="button"
-                id="listdropdown"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                改變地區
-              </button>
-              <div class="dropdown-menu" aria-labelledby="listdropdown">
-                <button class="dropdown-item" type="button" onClick={Taipei}>
-                  台北市
-                </button>
-                <button class="dropdown-item" type="button" onClick={Taoyuan}>
-                  桃園市
-                </button>
-                <button class="dropdown-item" type="button" onClick={Taichung}>
-                  台中市
-                </button>
-                <button class="dropdown-item" type="button" onClick={Tainan}>
-                  台南市
-                </button>
-                <button class="dropdown-item" type="button" onClick={Kaohsiung}>
-                  高雄市
-                </button>
-              </div>
-            </div> */}
           </div>
         </div>
 
