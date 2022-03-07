@@ -39,15 +39,17 @@ function CartProductItem(props) {
       >
         <img src={deletIcon} alt="deletIcon" />
       </button>
-      <div>
-        <div className="cart-product mt-4">
-          <button onClick={() => setShow(true)}>
-            <img
-              className="Hill cover-fit"
-              src={`${IMG_URL}/static/products/${image}`}
-              alt="Hill"
-            />
-          </button>
+      <div className="d-flex flex-column justify-content-center">
+        <div className="cart-product mt-4 ">
+          <div className="d-flex justify-content-center">
+            <button className="" onClick={() => setShow(true)}>
+              <img
+                className="cover-fit "
+                src={`${IMG_URL}/static/products/${image}`}
+                alt="Hill"
+              />
+            </button>
+          </div>
           <ProductDetails
             setMycart={setMycart}
             show={show}
