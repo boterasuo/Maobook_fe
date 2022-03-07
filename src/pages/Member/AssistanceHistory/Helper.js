@@ -56,7 +56,8 @@ function Helper(props) {
           <div className="helper">
             <div className="helpPeople">
               <div className="helpPhoto">
-                <img />
+                {item.image}
+                {/* <img src={item.image} /> */}
               </div>
               <div className="helpName">
                 <h6 className="nameTextH3">{item.takerName}</h6>
