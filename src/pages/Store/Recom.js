@@ -97,11 +97,7 @@ function Recom() {
               <img
                 alt=""
                 className=" recom-avatar  "
-                src={
-                  pet !== null && pet.image
-                    ? `${IMG_URL}${pet.image}`
-                    : defaultPet
-                }
+                src={pet ? `${IMG_URL}${pet.image}` : defaultPet}
               />
             </div>
             <h3 className="recom-petname text-center mb-3 ">
