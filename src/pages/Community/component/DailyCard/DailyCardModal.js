@@ -13,16 +13,18 @@ import Hashtag from './HashTag'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 // 引入 context
-// import { useAuth } from '../../../../context/auth'
+import { useAuth } from '../../../../context/auth'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../../utils/config'
 
 // 圖片
 import cardLeave from './images/ZoomOut.svg'
+import pawNone from './images/icon-paw.svg'
+import pawFill from './images/icon-float-paw.svg'
 
 //\\ [[[彈出視窗]]] //\\
 function DailyCardModal(modalProps) {
-  const { cardID } = modalProps
+  const { cardID, page } = modalProps
   //   送出留言的state
   const [inputComment, setInputComment] = useState({
     id: '0',
@@ -41,18 +43,10 @@ function DailyCardModal(modalProps) {
   const [errMsg, setErrMsg] = useState({ msg: '' })
   console.log('cardID', cardID)
 
-  // 送出表單 (onSubmit)
-  const [comment, setComment] = useState({
-    comment: '',
-  })
-  // function handleChange(e) {
-  //   setComments({ ...comment, [e.target.name]: e.target.value })
-  // }
-
   // Card-List API
   useEffect(() => {
     let getCardList = async () => {
-      let cardModalInfo = await axios.get(`${API_URL}` + '/daily/card-list')
+      let cardModalInfo = await axios.get(`${API_URL}/daily/card-list`)
       // console.log(cardModalInfo.data)
       // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
       let cardIDContent = cardModalInfo.data.filter((v) => {
@@ -66,24 +60,23 @@ function DailyCardModal(modalProps) {
     getCardList()
   }, [cardID])
 
+  let getCommentList = async () => {
+    let commentArr = await axios.get(`${API_URL}/daily/comment-list/${cardID}`)
+    setComments(commentArr.data)
+    console.log('留言列表', commentArr.data)
+    // console.log('CadListResponse.data:  ', cardModalInfo.data)
+  }
+
   // 抓留言列表API
   useEffect(() => {
     console.log('cardID', cardID)
-    let getCommentList = async () => {
-      let commentArr = await axios.get(
-        `${API_URL}/daily/comment-list/${cardID}`
-      )
-      setComments(commentArr.data)
-      console.log('留言列表', commentArr.data)
-      // console.log('CadListResponse.data:  ', cardModalInfo.data)
-    }
     getCommentList()
   }, [cardID])
 
-  console.log(inputComment)
+  console.log('inputComment', inputComment)
   useEffect(() => {
-    setInputComment({ ...inputComment, cardID })
-  }, [])
+    setInputComment({ ...inputComment, cardID: cardID })
+  }, [cardID])
   //   送出表單 (onSubmit)
   //   const [inputComment, setInputComment] = useState({
   //     id: '0',
@@ -107,13 +100,24 @@ function DailyCardModal(modalProps) {
           withCredentials: true,
         }
       )
-      Swal.fire('已成功留言', '請重新整理', 'success')
+      Swal.fire('已成功留言', 'success')
+      // 需要清空留言欄位
+      setInputComment({
+        id: '0',
+        cardID: '',
+        memberID: '0',
+        comment: '',
+      })
+      // 重新渲染
+      getCommentList()
+      
       console.log('測試', commentRes.data)
     } catch (e) {
       console.error('留言失敗', e.commentRes.data)
       setErrMsg({ ...errMsg, msg: e.commentRes.data.msg })
     }
   }
+  // 插入留言列表
 
   // 跳出來的視窗內容
   return (
@@ -188,8 +192,8 @@ function DailyCardModal(modalProps) {
                             md={{ span: 2, offset: 3 }}
                             className="text-center text-primary"
                           >
-                            {/* <img src={pawpaw} />
-                              收藏 */}
+                            <input type="checkbox" value={'123'} />
+                            收藏
                           </Col>
                         </Row>
                         <Row className="py-3">
@@ -225,6 +229,7 @@ function DailyCardModal(modalProps) {
                               value={inputComment.comment}
                               placeholder={inputComment.comment}
                               name={'comment'}
+                              required={require}
                             />
                             {/* 文章ID */}
                             <input

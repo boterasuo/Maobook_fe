@@ -2,10 +2,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Button } from 'react-bootstrap'
-import Alert from 'react-bootstrap/Alert'
 // 引入 context
 import { useAuth } from '../../context/auth'
+
 // 引入 utils
 import { API_URL } from '../../utils/config'
 import Swal from 'sweetalert2'
@@ -74,6 +73,7 @@ function Post(props) {
           withCredentials: true,
         }
       )
+      //重新渲染
     } catch (e) {
       console.error('寫入行事曆失敗', e.response.data)
       setErrMsg({ ...errMsg, msg: e.response.data.msg })

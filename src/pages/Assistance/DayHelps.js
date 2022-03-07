@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { API_URL } from "../../utils/config"
+import { format } from 'date-fns'
+
 
 import './components/DayHelps.scss'
 import pawicon from './img/paw.svg'
@@ -40,9 +42,12 @@ function DayHelps({ HelpDate }) {
   return (
     <>
       <div className="dayhelps">
-        <div className="maintitle">該日的所有案件</div>
+        <div className="maintitle">{format(HelpDate, 'yyyy/MM/dd')}的所有案件</div>
         <div className="mainframe">
-          {data.map((data) => {
+          {data.length == 0 ? (
+                <div className="nodayhelp">這一天還沒有案件喔！</div>
+              ) : (        
+          data.map((data) => {
             return (
               <>
                 <div className="bars"
@@ -81,8 +86,8 @@ function DayHelps({ HelpDate }) {
                   </div>
                 </div>
               </>
-            )
-          })}
+            )}
+          ))}
           <HelpDetail
         show={showdetail}
         onHide={() => setShowdetail(false)}

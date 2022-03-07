@@ -3,7 +3,7 @@ import axios from 'axios'
 import { API_URL } from "../../utils/config"
 
 import PropTypes from 'prop-types'
-import { Form, FormControl, Button, Row, Col, Container } from 'react-bootstrap'
+import { Form, FormControl, Button, Row, Col, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 import { HiPlus } from 'react-icons/hi'
 
 import HelpDetail from './HelpDetail'
@@ -21,6 +21,7 @@ import userimage from './img/helpuserimage.svg'
 
 // 插圖
 import example from './img/helpexample.jpeg'
+import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 
 function HelpList(props) {
   const [data, setData] = useState([])
@@ -61,9 +62,16 @@ function HelpList(props) {
           <div className='listcurrentregion'>
             <span className='listregion'>{region}</span>的所有案件</div>
           <div className="listfilter">
-            <div className="dropdown">
+            <DropdownButton className="listdropdown" title="改變地區">
+              <Dropdown.Item as="button" onClick={Taipei}>台北市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Taoyuan}>桃園市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Taichung}>台中市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Tainan}>台南市</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={Kaohsiung}>高雄市</Dropdown.Item>
+            </DropdownButton>
+            {/* <div class="dropdown">
               <button
-                className="dropdown-toggle takemaoout"
+                class="dropdown-toggle takemaoout"
                 type="button"
                 id="listdropdown"
                 data-toggle="dropdown"
@@ -72,7 +80,7 @@ function HelpList(props) {
               >
                 改變地區
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu" aria-labelledby="listdropdown">
                 <button class="dropdown-item" type="button" onClick={Taipei}>
                   台北市
                 </button>
@@ -89,7 +97,7 @@ function HelpList(props) {
                   高雄市
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
