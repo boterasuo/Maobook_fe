@@ -83,6 +83,27 @@ $secondary: #6a5f4b;
     }
   }
 }
+@media only screen and (max-width: 992px) {
+  .pet-data {
+    padding: 3rem 3rem 1rem 3rem;
+    .pet-height-chart,
+    .pet-weight-chart {
+      padding: 0 2rem;
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .pet-data {
+    padding: 0;
+    .pet-data-card {
+      padding: 2rem 1.5rem;
+    }
+    .pet-height-chart,
+    .pet-weight-chart {
+      padding: 0;
+    }
+  }
+}
 
 // AddPetData 頁面
 .pet-data-edit {
