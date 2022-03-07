@@ -243,13 +243,22 @@ function PetData(props) {
           {/* 左欄: 毛孩資料 */}
           <div className="col-lg-6 align-self-center">
             {/* 大頭照 */}
-            <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
-              <img
-                alt=""
-                className="avatar-cover-fit embed-responsive-item"
-                src={petInfo.image ? `${IMG_URL}${petInfo.image}` : defaultPet}
-              />
-            </div>
+            <Link
+              to={{
+                pathname: `/member/pet/info`,
+                state: { selectedPet: petInfo.id },
+              }}
+            >
+              <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
+                <img
+                  alt=""
+                  className="avatar-cover-fit embed-responsive-item"
+                  src={
+                    petInfo.image ? `${IMG_URL}${petInfo.image}` : defaultPet
+                  }
+                />
+              </div>
+            </Link>
             {/* 毛孩姓名 */}
             <div>{petInfo.name ? petInfo.name : '未有資料'}</div>
             <div className="my-3">
