@@ -268,7 +268,7 @@ function DailyCardModal(modalProps) {
                               // value={}
                               onChange={handleChange}
                               value={inputComment.comment}
-                              placeholder={inputComment.comment}
+                              placeholder={'請留言'}
                               name={'comment'}
                               required={require}
                             />
