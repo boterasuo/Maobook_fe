@@ -55,7 +55,9 @@ function HelpDetail(props) {
                   <img
                     className="helpclosebutton"
                     src={helpclosebutton}
-                    alt=""
+                    onClick={props.onHide}
+                    tittle="關閉視窗"
+                    alt={'close'}
                   />
                 </div>
               </div>
