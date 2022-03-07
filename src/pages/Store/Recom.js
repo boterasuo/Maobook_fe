@@ -5,10 +5,12 @@ import { useState, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import axios from 'axios'
 import { API_URL, IMG_URL } from './../../utils/config'
+import { Link } from 'react-router-dom'
 //元件
 import ProductItem from './components/ProductItem'
 //圖片
 import weRecom from './storePic/weRecom.svg'
+import goadd from './storePic/goadd.svg'
 import defaultPet from '../../img/avatar_pet.png'
 // import Hill from "./productsImages/Hill’s id=2-1.png";
 // import productCartIcon from "./storePic/productCartIcon.svg";
@@ -32,18 +34,20 @@ function Recom() {
 
   //推薦商品
   useEffect(() => {
-    let getrecomProduct = async () => {
-      // http://localhost:3002/api/store//recomProduct
-      let response1 = await axios.get(
-        `${API_URL}/store/recomProduct?petID=${pet.id}`,
-        {
-          withCredentials: true,
-        }
-      )
-      setrecomProduct(response1.data)
+    if (pet) {
+      let getrecomProduct = async () => {
+        // http://localhost:3002/api/store//recomProduct
+        let response1 = await axios.get(
+          `${API_URL}/store/recomProduct?petID=${pet.id}`,
+          {
+            withCredentials: true,
+          }
+        )
+        setrecomProduct(response1.data)
+      }
+      console.log(recomProduct)
+      getrecomProduct()
     }
-    console.log(recomProduct)
-    getrecomProduct()
   }, [pet])
 
   const getlist = () => {
@@ -57,10 +61,10 @@ function Recom() {
             setPet(data[i]) //點下後針對index做寵物切換
           }}
         >
-          <button className="cover-fit mx-2  ">
+          <button className="cover-fit  mx-2  ">
             <img
               alt=""
-              className="  recom-pet  "
+              className="   recom-pet "
               src={data[i].image ? `${IMG_URL}${data[i].image}` : defaultPet}
             />
           </button>
@@ -70,12 +74,7 @@ function Recom() {
     return list
   }
 
-  // const showPet  = () => {
-
-  // };
-  //寵物清單API 結束
-
-  return (
+  const havePet = (
     <>
       <section className="d-flex justify-content-center">
         <div className="recom-yourpets d-flex">
@@ -89,6 +88,7 @@ function Recom() {
           </ul>
         </div>
       </section>
+      {/* {console.log('pet pet.image', pet, pet.image)} */}
       <section className="d-flex justify-content-center">
         <Row className="recomArea d-flex" md={12}>
           <Col className="mainpet" md={3}>
@@ -98,7 +98,7 @@ function Recom() {
                 alt=""
                 className=" recom-avatar  "
                 src={
-                  pet !== null && pet.image !== ''
+                  pet !== null && pet.image
                     ? `${IMG_URL}${pet.image}`
                     : defaultPet
                 }
@@ -155,6 +155,27 @@ function Recom() {
       </section>
     </>
   )
+
+  const nohavepet = (
+    <>
+      <section className="d-flex justify-content-center">
+        <div className="recom-yourpets ">
+          <p className="m-0 text-center">
+            趕快新增寶貝
+            <br />
+            讓我們推薦產品給您!
+          </p>
+          <div className="d-flex justify-content-center mt-2">
+            <Link to="/member/pet">
+              <img src={goadd} alt="doadd" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+
+  return <>{pet ? havePet : nohavepet}</>
 }
 
 export default Recom

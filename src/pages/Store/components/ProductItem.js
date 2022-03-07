@@ -3,6 +3,7 @@ import { useState } from 'react'
 // import { Col } from 'react-bootstrap';
 import './ProductItemStyle.scss'
 //元件
+import { IMG_URL } from './../../../utils/config'
 import ProductDetails from '../ProductDetails'
 //圖片
 import Hill from '../productsImages/Hill’s-001-1.png'
@@ -11,6 +12,8 @@ import productCartIcon from '../storePic/productCartIcon.svg'
 function ProductItem(props) {
   const { name, price, des, stock, id, image, item, ADDToLocalStorage } = props
   const [show, setShow] = useState(false) //Modal
+  console.log('image', image)
+
   return (
     <>
       {/* 商品*/}
@@ -19,7 +22,7 @@ function ProductItem(props) {
           <button onClick={() => setShow(true)}>
             <img
               className="Hill s-image cover-fit mb-4"
-              src={Hill}
+              src={`${IMG_URL}/static/products/${image}`}
               alt="Hill"
             />
           </button>
@@ -48,6 +51,7 @@ function ProductItem(props) {
             des: des,
             amount: 1,
             price: price,
+            image: image,
           })
         }}
       >

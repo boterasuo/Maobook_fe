@@ -176,6 +176,7 @@ function CartDetail() {
               return (
                 <Col className="p-0" key={item.id}>
                   <CartProductItem
+                    image={item.image}
                     item={item}
                     name={item.name}
                     price={item.price}
