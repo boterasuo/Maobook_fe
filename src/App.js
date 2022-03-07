@@ -16,7 +16,6 @@ import Home from './pages/Home'
 import Login from './pages/Home/Login'
 // [[[ 會員 Member     ]]]
 import Member from './pages/Member'
-import PetDataTest from './pages/PetDataTest.js'
 // [[[ 行事曆 Schedule ]]]
 import Schedule from './pages/Schedule'
 // [[[ 電商 Store      ]]]
@@ -62,9 +61,6 @@ function App() {
           <MyNav />
           <ScrollToTop>
             <Switch>
-              <Route path="/petdata">
-                <PetDataTest />
-              </Route>
               <Route path="/assistance">
                 <Assistance />
               </Route>

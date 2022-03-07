@@ -56,8 +56,6 @@ function AddPetData(props) {
         { withCredentials: true }
       )
       // console.log(heightResult.data);
-      // 用 Ref 只有剛開始有用, 後面還是會跟著 petHWInfo 跑??
-      // petHeightRef.current = heightResult.data.data;
       setPetHWInfo([...heightResult.data.data])
     } catch (e) {
       console.error('all height 錯誤', e.response.data)
@@ -72,7 +70,6 @@ function AddPetData(props) {
         { withCredentials: true }
       )
       // console.log(weightResult.data);
-      // petWeightRef.current = weightResult.data.data;
       setPetHWInfo([...weightResult.data.data])
     } catch (e) {
       console.error('all weight 錯誤', e.response.data)

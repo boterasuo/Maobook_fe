@@ -47,7 +47,7 @@ function EditPetInfo(props) {
   // 毛孩現況
   const petStatusValue = ['1', '2', '3', '4', '9']
   const petStatusOptions = [
-    '活耀中(預設)',
+    '活躍中(預設)',
     '已送養',
     '失蹤中',
     '在天堂',
