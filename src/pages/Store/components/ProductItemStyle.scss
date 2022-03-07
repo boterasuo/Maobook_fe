@@ -16,7 +16,7 @@
 .setbg {
   position: relative;
 }
-.setbg::before {
+.setbg::after{
   content: '';
   border: 1px solid#fcb736;
   border-radius: 30px;

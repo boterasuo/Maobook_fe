@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import './CartProductItemStyle.scss'
-
+import { IMG_URL } from './../../../utils/config'
 //元件
 import Counter from './Counter'
 import ProductDetails from '../ProductDetails'
@@ -21,8 +21,9 @@ function CartProductItem(props) {
     amount,
     updateCartToLocalStorage,
     deletItem,
+    image,
   } = props
-
+  console.log('item', item)
   //計算數量總和小計
   const [num, setNum] = useState(0)
   const [show, setShow] = useState(false) //Modal
@@ -41,7 +42,11 @@ function CartProductItem(props) {
       <div>
         <div className="cart-product mt-4">
           <button onClick={() => setShow(true)}>
-            <img className="Hill cover-fit" src={Hill} alt="Hill" />
+            <img
+              className="Hill cover-fit"
+              src={`${IMG_URL}/static/products/${image}`}
+              alt="Hill"
+            />
           </button>
           <ProductDetails
             setMycart={setMycart}

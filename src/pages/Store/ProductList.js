@@ -5,7 +5,7 @@ import { Col, Row, Accordion, Card, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import { API_URL } from "../../utils/config";
-// import { Link } from 'react-router-dom';
+
 
 //元件
 import ProductItem from "./components/ProductItem"
@@ -184,7 +184,7 @@ function ProductList(props) {
             {data.map((product) => {
                 return (
                     <Col className="mb-3" >
-                        <ProductItem  name={product.name} price={product.price} des={product.description} stock={product.stock_num} image={product.image} id={product.id} ADDToLocalStorage={ADDToLocalStorage} />
+                        <ProductItem  name={product.name} price={product.price} des={product.description} stock={product.stock_num} image={ product.image} id={product.id} ADDToLocalStorage={ADDToLocalStorage} />
                     </Col>
                 )
             })}

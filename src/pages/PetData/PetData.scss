@@ -12,7 +12,7 @@ $secondary: #6a5f4b;
     }
   }
   .pet-data-card {
-    padding: 2rem 6rem;
+    padding: 2rem 3.5rem;
     // border: 1px solid #ddd;
     border-radius: 5px;
     color: $secondary;
@@ -61,7 +61,8 @@ $secondary: #6a5f4b;
         }
       }
     }
-    .edit-icon {
+    .edit-icon,
+    .join-icon {
       position: absolute;
       bottom: 0;
       left: 50%;
@@ -74,6 +75,32 @@ $secondary: #6a5f4b;
       align-items: center;
       justify-content: center;
       border: none;
+      font-size: 1.3rem;
+      transition: 0.4s;
+    }
+    .join-icon:hover {
+      background-color: $secondary;
+    }
+  }
+}
+@media only screen and (max-width: 992px) {
+  .pet-data {
+    padding: 3rem 3rem 1rem 3rem;
+    .pet-height-chart,
+    .pet-weight-chart {
+      padding: 0 2rem;
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .pet-data {
+    padding: 0;
+    .pet-data-card {
+      padding: 2rem 1.5rem;
+    }
+    .pet-height-chart,
+    .pet-weight-chart {
+      padding: 0;
     }
   }
 }
