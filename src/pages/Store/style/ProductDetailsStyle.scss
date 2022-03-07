@@ -1,10 +1,16 @@
 .imgchange {
   background-color: #e2e8ec;
+ margin: auto;
 }
 .share {
   border-top: 1px solid #e2e8ec;
 }
 .imgarea {
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 400px;
+
+  img{
+    margin:auto;
+    height: 100%;
+  }
 }

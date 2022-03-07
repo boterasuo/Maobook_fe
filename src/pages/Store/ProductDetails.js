@@ -90,26 +90,20 @@ function ProductDetails(props) {
                 onSelect={handleSelect}
                 className="imgchange"
               >
+                <Carousel.Item>
+                  <div className="imgarea">
+                    <img className="d-block " src={Hill} alt="First slide" />
+                  </div>
+                </Carousel.Item>
                 <Carousel.Item className="imgarea">
-                  <img
-                    className="d-block img-fluid "
-                    src={Hill}
-                    alt="First slide"
-                  />
+                  <div className="imgarea">
+                    <img className="d-block " src={Hill} alt="First slide" />
+                  </div>
                 </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block img-fluid"
-                    src={Hill}
-                    alt="Second slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block img-fluid"
-                    src={Hill}
-                    alt="Third slide"
-                  />
+                <Carousel.Item className="imgarea">
+                  <div className="imgarea">
+                    <img className="d-block " src={Hill} alt="First slide" />
+                  </div>
                 </Carousel.Item>
               </Carousel>
             </Col>
@@ -121,7 +115,7 @@ function ProductDetails(props) {
                 <div className="d-flex justify-content-between align-items-center mr-5">
                   <h3>${price}</h3>
                   {/*加數器*/}
-                  <div className="mr-5 ">
+                  <div className="mr-5 d-flex">
                     <button
                       className="minusIcon"
                       onClick={() => {
@@ -130,7 +124,7 @@ function ProductDetails(props) {
                     >
                       <img src={minusIcon} alt="minusIcon" />
                     </button>
-                    <span className="num">{total}</span>
+                    <p className=" num">{total}</p>
                     <button
                       className="plusIcon"
                       onClick={() => {
