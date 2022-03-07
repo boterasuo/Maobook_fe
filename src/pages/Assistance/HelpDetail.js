@@ -1,4 +1,5 @@
 import { Modal, Button, Row, Col, Carousel } from 'react-bootstrap'
+import { Form, FormControl, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -92,9 +93,13 @@ function HelpDetail(props) {
 
                   <div className="takerpost">
                     <div className="contactchoice">
-                      <div className="choosetitle">聯絡方式</div>
+                    <DropdownButton className="contactdropdown" title="聯絡方式">
+              <Dropdown.Item as="button">提供手機</Dropdown.Item>
+              <Dropdown.Item as="button">提供信箱</Dropdown.Item>
+            </DropdownButton>
+                      {/* <div className="choosetitle">聯絡方式</div>
                       <div className="choosephone">提供手機</div>
-                      <div className="chooseemail">提供信箱</div>
+                      <div className="chooseemail">提供信箱</div> */}
                     </div>
 
                     <div className="textpost">
