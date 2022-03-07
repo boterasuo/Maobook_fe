@@ -89,8 +89,9 @@ function MyNav(props) {
               <NavDropdown title="會員專區" id="collasible-nav-dropdown">
                 <NavDropdown.Item>
                   <p>
-                    HI, {user.name} <br></br>
-                    您有 3 則提醒未讀
+                    Hi, {user.name} <br></br>
+                    歡迎來到毛毛日記！
+                    {/* 您有 3 則提醒未讀 */}
                   </p>
                 </NavDropdown.Item>
                 {/* 主要資訊功能 */}
@@ -115,7 +116,7 @@ function MyNav(props) {
                 </Nav.Link>
               </NavDropdown>
               <div className="d-inline-block"></div>
-              {/* 會員頭像: 暫時修改 by 歐 for 測試 Navbar */}
+              {/* 會員頭像*/}
               <Nav.Link as={NavLink} to="/member/data">
                 <div
                   className="rounded-circle embed-responsive embed-responsive-1by1"
@@ -134,10 +135,6 @@ function MyNav(props) {
                     }
                   />
                 </div>
-                {/* <div className="nav-avatar mx-2"> */}
-                {/* <img alt="" scr={user.image !== null ? `${IMG_URL}${user.image}` : defaultAvatar}/> */}
-                {/* <img alt="" className="img-fluid" scr={defaultAvatar}/> */}
-                {/* </div> */}
               </Nav.Link>
             </Form>
           )}

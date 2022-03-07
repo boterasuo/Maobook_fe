@@ -33,15 +33,42 @@
   }
   // 頭像
 $avatar-length: 4rem;
-.daily-avatar {
-  height: $avatar-length;
-  width: $avatar-length;
+.discuss-avatar {
+  height: 65px;
+  width: 75px;
+  border-radius: 50%;
+  object-fit: cover;
   margin: 0 0.5rem;
 }
 
-  .data-display {
+.bar-container{
+  width: 100%;
+  &:hover .bar-border{
+    width: 50vw;
+    background: $primary;
+    outline: 2px solid $primary;
+    border: 2px solid white;
+    left: 0;
+    &:hover .tags{
+      height: 30px;
+      background: white;
+      color: $secondary;
+      border: skyblue;
+    }
+    &:hover .arrow{
+      color: white;
+
+    }
+    &:hover .paw{
+      color: white;
+      display: block;
+    }
+  }
+  .bar-border {
     display: flex;
-    border: 1px $primary solid;
+    background: white;
+    border: 1px solid $primary;
+    outline: 1px solid white;
     width: 58vw;
     border-radius: 30px;
     padding-left: 15px;
@@ -49,6 +76,12 @@ $avatar-length: 4rem;
     position: relative;
     margin-left: 25px;
     margin-right: 30px;
+    transition: 1s;
+    // 文字截取
+    // overflow:hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    
     // 分類、標籤
     .category,
     .tags {
@@ -60,7 +93,6 @@ $avatar-length: 4rem;
       padding: 3px;
     }
 
-   
 
     .bar-title {
       width: 30%;
@@ -85,9 +117,17 @@ $avatar-length: 4rem;
 
     .pawicon {
       margin-right: 10px;
+      .arrow{
+      
+      }
+      .paw{
+       
+
+      }
     }
 
   }
+}
 }
 
 

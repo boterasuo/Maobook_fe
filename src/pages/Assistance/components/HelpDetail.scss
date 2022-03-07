@@ -1,11 +1,20 @@
+.helpdetailmodal{
+width: 800px;
+height: 453px;
+margin-left: -160px;
+border-radius: 10px;
+// background-color: #6a5f4b;
+}
+
 .helpdetails {
   position: relative;
   display: inline-block;
   clear: both;
   width: 880px;
-  margin-left: 280px;
+  margin-left: -30px;
   border-radius: 20px;
   border: 1px solid #f6bc54;
+  background-color: white;
 }
 
 .lefeside {

@@ -20,18 +20,43 @@
   top:0%;
 }
 
+.helpcalendar {
+  width: 100%;
+  height: 100%;
+}
+
 .dayhelps {
+  margin-top: -10px;
   margin-bottom: 10px;
 }
 
 .helplist {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 120px;
   margin-top: 50px;
 }
 
-.helpdetail {
-  margin-top: 30px;
-  margin-bottom: 100px;
-  position: relative;
+// .helpdetail {
+//   margin-top: 30px;
+//   margin-bottom: 100px;
+//   position: relative;
+// }
+
+.leadingdown {
+  position: absolute;
+  left: 47%;
+  top: 85%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: block;
+}
+
+.downarrow {
+  margin-top: 10px;
+}
+
+.arrowtext1,
+.arrowtext2{
+  color: #6a5f4b;
 }

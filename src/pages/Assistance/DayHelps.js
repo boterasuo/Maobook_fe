@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { API_URL } from "../../utils/config"
+import { format } from 'date-fns'
+
 
 import './components/DayHelps.scss'
 import pawicon from './img/paw.svg'
 import arrowright from './img/arrowright.svg'
 
 import HelpDetail from './HelpDetail'
+import Pagination from '../Store/components/Pagination';
+
 
 function DayHelps({ HelpDate }) {
   const [data, setData] = useState([])
@@ -14,8 +18,10 @@ function DayHelps({ HelpDate }) {
   const [showdetail, setShowdetail] = React.useState(false)
   const [detailid, setDetailid] = useState()
   const OpenHelpdetail = (detailid) => {
-    setDetailid(detailid)
-  }
+    setDetailid(detailid)}
+
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   useEffect(() => {
     let getDayHelps = async () => {
@@ -25,18 +31,23 @@ function DayHelps({ HelpDate }) {
         '/' +
         (HelpDate.getMonth() + 1) +
         '/' +
-        HelpDate.getDate())
-      setData(response.data)
+        HelpDate.getDate() +
+        `?page=${page}`)
+      setData(response.data.data);
+      setLastPage(response.data.pagination.lastPage);
     }
     getDayHelps()
-  }, [HelpDate])
+  }, [HelpDate, page])
 
   return (
     <>
       <div className="dayhelps">
-        <div className="maintitle">該日的所有案件</div>
+        <div className="maintitle">{format(HelpDate, 'yyyy/MM/dd')}的所有案件</div>
         <div className="mainframe">
-          {data.map((data) => {
+          {data.length == 0 ? (
+                <div className="nodayhelp">這一天還沒有案件喔！</div>
+              ) : (        
+          data.map((data) => {
             return (
               <>
                 <div className="bars"
@@ -75,13 +86,14 @@ function DayHelps({ HelpDate }) {
                   </div>
                 </div>
               </>
-            )
-          })}
+            )}
+          ))}
           <HelpDetail
         show={showdetail}
         onHide={() => setShowdetail(false)}
         detailid={detailid}
       />
+      <div className='dayhelppage'><Pagination page={page} lastPage={lastPage} setPage={setPage} /></div>
         </div>
       </div>
     </>
