@@ -61,7 +61,7 @@ function HelpPost(props) {
   }
 
   async function handleHelpSubmit(e) {
-    Swal.fire('發案成功', '請重新整理', 'success')
+    Swal.fire('發案成功', '', 'success')
     e.preventDefault() 
     try {
       let response = await axios.post(`${API_URL}/help/helppost`, helppost, {
@@ -172,7 +172,7 @@ function HelpPost(props) {
                   value={helppost.date}
                   onChange={handleHelpChange}
                 />
-              </div>
+              
 
 
                 <div className="helpdropdownregion">
@@ -209,6 +209,7 @@ function HelpPost(props) {
                     value={helppost.price}
                     onChange={handleHelpChange}
                   />
+                </div>
                 </div>
               
               <div className="helpposttag">
