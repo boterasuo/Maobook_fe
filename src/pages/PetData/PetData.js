@@ -5,13 +5,15 @@ import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import differenceInMonths from 'date-fns/differenceInMonths'
 import differenceInDays from 'date-fns/differenceInDays'
+// 引入 context
+import { useAuth } from '../../context/auth'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../utils/config'
-
 // 引入 圖片 icon
 import defaultPet from '../../img/avatar_pet.png'
 import { BsPencilSquare } from 'react-icons/bs'
-
+// 引入元件
+import PetDataDemo from './PetDataDemo'
 // 引入 chart 套件
 import {
   Chart as ChartJS,
@@ -24,6 +26,7 @@ import {
 import { Line } from 'react-chartjs-2'
 
 function PetData(props) {
+  const { user, setUser } = useAuth()
   // 毛孩列表 state
   const [petList, setPetList] = useState([])
   // 選到的毛孩 state
@@ -224,127 +227,141 @@ function PetData(props) {
     ],
   }
   return (
-    <div className="pet-data">
-      <Nav
-        variant="tabs"
-        activeKey={parseInt(selectedPet)}
-        onSelect={(selectedKey) => setSelectedPet(selectedKey)}
-      >
-        {petList.map((pet, i) => {
-          return (
-            <Nav.Item key={pet[0]}>
-              <Nav.Link eventKey={pet[0]}>{pet[1]}</Nav.Link>
-            </Nav.Item>
-          )
-        })}
-      </Nav>
-      <div className="pet-data-card">
-        <div className="row text-center">
-          {/* 左欄: 毛孩資料 */}
-          <div className="col-lg-6 align-self-center">
-            {/* 大頭照 */}
-            <Link
-              to={{
-                pathname: `/member/pet/info`,
-                state: { selectedPet: petInfo.id },
-              }}
-            >
-              <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
-                <img
-                  alt=""
-                  className="avatar-cover-fit embed-responsive-item"
-                  src={
-                    petInfo.image ? `${IMG_URL}${petInfo.image}` : defaultPet
-                  }
-                />
-              </div>
-            </Link>
-            {/* 毛孩姓名 */}
-            <div>{petInfo.name ? petInfo.name : '未有資料'}</div>
-            <div className="my-3">
-              {petInfo.birthday ? (
-                <>
-                  {`${petAgeY} 歲 ${petAgeM} 個月`}
-                  <br />
-                </>
-              ) : (
-                ''
-              )}
-              {petInfo.arrDay ? (
-                <span className="text-primary">已經陪伴你 {arrDays} 天</span>
-              ) : (
-                ''
-              )}
-            </div>
-            {petInfo.health.length ? (
-              <>
-                <div>這孩子有</div>
-                <div className="d-flex flex-column my-3 text-primary">
-                  {petInfo.health.map((v) => {
-                    return <div key={v}>{healthOptions[v]}</div>
-                  })}
-                </div>
-              </>
-            ) : (
-              ''
-            )}
-          </div>
-          {/* 右欄: 毛孩圖表 */}
-          <div className="col-lg-6">
-            <div className="pet-height-chart">
-              <div>身長 (cm)</div>
-              <div className="chart">
-                {petInfo.heightData.length ? (
-                  <>
-                    <span className="data-length">
-                      最新{petInfo.heightData.length}筆資料
-                    </span>
-                    {petInfo.heightData.length === 1 ? (
-                      <span className="one-data">試試新增更多資料吧！</span>
-                    ) : (
-                      ''
-                    )}
-                    <Line options={optionsHeight} data={dataHeight} />
-                  </>
-                ) : (
-                  <div className="no-data-word">未有資料，點擊下方立即新增</div>
-                )}
-              </div>
-            </div>
-            <div className="pet-weight-chart">
-              <div>體重 (kg)</div>
-              <div className="chart">
-                {petInfo.weightData.length ? (
-                  <>
-                    <span className="data-length">
-                      最新{petInfo.weightData.length}筆資料
-                    </span>
-                    {petInfo.weightData.length === 1 ? (
-                      <span className="one-data">試試新增更多資料吧！</span>
-                    ) : (
-                      ''
-                    )}
-                    <Line options={optionsWeight} data={dataWeight} />
-                  </>
-                ) : (
-                  <div className="no-data-word">未有資料，點擊下方立即新增</div>
-                )}
-              </div>
-            </div>
-          </div>
-          <Link
-            to={{
-              pathname: '/member/pet/data/edit',
-              state: { selectedPet: petInfo.id },
-            }}
+    <>
+      {user ? (
+        <div className="pet-data">
+          <Nav
+            variant="tabs"
+            activeKey={parseInt(selectedPet)}
+            onSelect={(selectedKey) => setSelectedPet(selectedKey)}
           >
-            <button className="edit-icon" title="新增/編輯毛孩數值">
-              <BsPencilSquare color="white" fontSize="1.3rem" />
-            </button>
-          </Link>
+            {petList.map((pet, i) => {
+              return (
+                <Nav.Item key={pet[0]}>
+                  <Nav.Link eventKey={pet[0]}>{pet[1]}</Nav.Link>
+                </Nav.Item>
+              )
+            })}
+          </Nav>
+          <div className="pet-data-card">
+            <div className="row text-center">
+              {/* 左欄: 毛孩資料 */}
+              <div className="col-lg-6 align-self-center">
+                {/* 大頭照 */}
+                <Link
+                  to={{
+                    pathname: `/member/pet/info`,
+                    state: { selectedPet: petInfo.id },
+                  }}
+                >
+                  <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
+                    <img
+                      alt=""
+                      className="avatar-cover-fit embed-responsive-item"
+                      src={
+                        petInfo.image
+                          ? `${IMG_URL}${petInfo.image}`
+                          : defaultPet
+                      }
+                    />
+                  </div>
+                </Link>
+                {/* 毛孩姓名 */}
+                <div>{petInfo.name ? petInfo.name : '未有資料'}</div>
+                <div className="my-3">
+                  {petInfo.birthday ? (
+                    <>
+                      {`${petAgeY} 歲 ${petAgeM} 個月`}
+                      <br />
+                    </>
+                  ) : (
+                    ''
+                  )}
+                  {petInfo.arrDay ? (
+                    <span className="text-primary">
+                      已經陪伴你 {arrDays} 天
+                    </span>
+                  ) : (
+                    ''
+                  )}
+                </div>
+                {petInfo.health.length ? (
+                  <>
+                    <div>這孩子有</div>
+                    <div className="d-flex flex-column my-3 text-primary">
+                      {petInfo.health.map((v) => {
+                        return <div key={v}>{healthOptions[v]}</div>
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  ''
+                )}
+              </div>
+              {/* 右欄: 毛孩圖表 */}
+              <div className="col-lg-6">
+                <div className="pet-height-chart">
+                  <div>身長 (cm)</div>
+                  <div className="chart">
+                    {petInfo.heightData.length ? (
+                      <>
+                        <span className="data-length">
+                          最新{petInfo.heightData.length}筆資料
+                        </span>
+                        {petInfo.heightData.length === 1 ? (
+                          <span className="one-data">試試新增更多資料吧！</span>
+                        ) : (
+                          ''
+                        )}
+                        <Line options={optionsHeight} data={dataHeight} />
+                      </>
+                    ) : (
+                      <div className="no-data-word">
+                        未有資料，點擊下方立即新增
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="pet-weight-chart">
+                  <div>體重 (kg)</div>
+                  <div className="chart">
+                    {petInfo.weightData.length ? (
+                      <>
+                        <span className="data-length">
+                          最新{petInfo.weightData.length}筆資料
+                        </span>
+                        {petInfo.weightData.length === 1 ? (
+                          <span className="one-data">試試新增更多資料吧！</span>
+                        ) : (
+                          ''
+                        )}
+                        <Line options={optionsWeight} data={dataWeight} />
+                      </>
+                    ) : (
+                      <div className="no-data-word">
+                        未有資料，點擊下方立即新增
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <Link
+                to={{
+                  pathname: '/member/pet/data/edit',
+                  state: { selectedPet: petInfo.id },
+                }}
+              >
+                <button className="edit-icon" title="新增/編輯毛孩數值">
+                  <BsPencilSquare color="white" fontSize="1.3rem" />
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <PetDataDemo />
+      )}
+    </>
   )
 }
 

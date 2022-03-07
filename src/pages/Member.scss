@@ -1,6 +1,10 @@
 // 顏色變數
 $primary: #f6bc54;
 $secondary: #6a5f4b;
+// navbar的高度
+$nav-height: 56px;
+// footer的高度
+$footer-height: 60px;
 
 // 共用模組
 .avatar-cover-fit {
@@ -15,7 +19,7 @@ $secondary: #6a5f4b;
 // member 區塊高度設定
 .member-content {
   margin-top: 80px;
-  min-height: calc(100vh - 130.4px);
+  min-height: calc(100vh - $nav-height - $footer-height);
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   > .container {
     > .row {
@@ -30,8 +34,8 @@ $secondary: #6a5f4b;
 }
 @media only screen and (max-width: 768px) {
   .member-content {
-    min-height: calc(100vh - 110.4px);
-    margin-top: -20px;
+    min-height: calc(100vh - $nav-height - $footer-height);
+    margin-top: 20px;
   }
 }
 
@@ -60,7 +64,7 @@ $secondary: #6a5f4b;
   .member-sidenav {
     padding: 0 0 0.5rem 0;
     border: none;
-    .nav {
+    nav {
       height: auto;
       font-size: 1.2rem;
     }
