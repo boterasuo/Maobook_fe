@@ -217,7 +217,7 @@ function ComPost() {
                           }}
                           className="com-PostCircle"
                         />
-                        <span className="com-PostButtontext">普 通</span>
+                        <span className="com-PostButtontext">日常分享</span>
                       </label>
                     </fieldset>
                   </div>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Button,
+  // Button,
   Container,
   Row,
   Col,
   Modal,
   Form,
-  Carousel,
+  // Carousel,
 } from 'react-bootstrap'
 import './style/DailyCard.scss'
-import Hashtag from './HashTag'
+// import Hashtag from './HashTag'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 // 引入 context
@@ -19,12 +19,13 @@ import { API_URL, IMG_URL } from '../../../../utils/config'
 
 // 圖片
 import cardLeave from './images/ZoomOut.svg'
-import pawNone from './images/icon-paw.svg'
-import pawFill from './images/icon-float-paw.svg'
+// import pawNone from './images/icon-paw.svg'
+// import pawFill from './images/icon-float-paw.svg'
 
 //\\ [[[彈出視窗]]] //\\
 function DailyCardModal(modalProps) {
   const { cardID, page } = modalProps
+  const { user, setUser } = useAuth()
   //   送出留言的state
   const [inputComment, setInputComment] = useState({
     id: '0',
@@ -39,6 +40,13 @@ function DailyCardModal(modalProps) {
   console.log('cards', cards)
   //  留言列表
   const [comments, setComments] = useState([])
+  //  按讚收藏
+  const [like, setLike] = useState([
+    {
+      userID: '0',
+      cardID: '0',
+    },
+  ])
   // 處理錯誤
   const [errMsg, setErrMsg] = useState({ msg: '' })
   console.log('cardID', cardID)
@@ -110,14 +118,25 @@ function DailyCardModal(modalProps) {
       })
       // 重新渲染
       getCommentList()
-      
+
       console.log('測試', commentRes.data)
     } catch (e) {
       console.error('留言失敗', e.commentRes.data)
       setErrMsg({ ...errMsg, msg: e.commentRes.data.msg })
     }
   }
-  // 插入留言列表
+  // 按讚比對
+  useEffect(() => {
+    let getLiketList = async () => {
+      let likeArr = await axios.get(
+        `${API_URL}/daily/like-list/${user.id}/${cardID}`
+      )
+      setLike(likeArr.data)
+      console.log('按讚列表', likeArr.data)
+      // console.log('CadListResponse.data: ', cardModalInfo.data)
+    }
+    getLiketList()
+  }, [cardID])
 
   // 跳出來的視窗內容
   return (
@@ -188,12 +207,34 @@ function DailyCardModal(modalProps) {
                             <h6 className="text-muted">{card.created_at}</h6>
                           </Col>
                           <Col
-                            sm={{ span: 2, offset: 3 }}
-                            md={{ span: 2, offset: 3 }}
+                            sm={{ span: 3, offset: 3 }}
+                            md={{ span: 3, offset: 3 }}
                             className="text-center text-primary"
                           >
-                            <input type="checkbox" value={'123'} />
-                            收藏
+                            {/* 按讚功能 */}
+                            {like.map((data) => {
+                              return (
+                                <>
+                                  <label
+                                    htmlFor="likeBtn"
+                                    className="like-btn"
+                                    tittle="收藏"
+                                    key={cardID}
+                                  >
+                                    {data.user_id ? (
+                                      <input
+                                        id="likeBtn"
+                                        type="checkbox"
+                                        checked
+                                      />
+                                    ) : (
+                                      <input id="likeBtn" type="checkbox" />
+                                    )}
+                                    <span>收藏</span>
+                                  </label>
+                                </>
+                              )
+                            })}
                           </Col>
                         </Row>
                         <Row className="py-3">
@@ -217,7 +258,7 @@ function DailyCardModal(modalProps) {
                             <img
                               className="commenter-avatar bd-highlight"
                               alt={'card-avatar'}
-                              src={`${IMG_URL}${card.avatar}`}
+                              src={`${IMG_URL}${user.image}`}
                             />
 
                             {/* 發文者送出留言欄位 */}

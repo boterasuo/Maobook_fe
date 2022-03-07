@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Button,
-  Container,
-  Row,
-  Col,
-  Modal,
-  Form,
-  Carousel,
-} from 'react-bootstrap'
+import { Container, Row, Col, Modal, Form } from 'react-bootstrap'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../../utils/config'
 import axios from 'axios'
@@ -26,7 +18,7 @@ function DiscussModal(props) {
     comment: '',
     // createdAt: ' ',
   })
-  //   console.log('123', inputComment)
+
   // 卡片內容
   const [cards, setCards] = useState([])
   console.log('cards', cards)
@@ -40,9 +32,6 @@ function DiscussModal(props) {
   const [comment, setComment] = useState({
     comment: '',
   })
-  // function handleChange(e) {
-  //   setComments({ ...comment, [e.target.name]: e.target.value })
-  // }
 
   // Card-List API
   useEffect(() => {
@@ -61,17 +50,16 @@ function DiscussModal(props) {
     getCardList()
   }, [barID])
 
+  let getCommentList = async () => {
+    let commentArr = await axios.get(`${API_URL}/discuss/comment-list/${barID}`)
+    setComments(commentArr.data)
+    console.log('留言列表', commentArr.data)
+    // console.log('CadListResponse.data:  ', cardModalInfo.data)
+  }
   // 抓留言列表API
   useEffect(() => {
     console.log('barID', barID)
-    let getCommentList = async () => {
-      let commentArr = await axios.get(
-        `${API_URL}/discuss/comment-list/${barID}`
-      )
-      setComments(commentArr.data)
-      console.log('留言列表', commentArr.data)
-      // console.log('CadListResponse.data:  ', cardModalInfo.data)
-    }
+
     getCommentList()
   }, [barID])
 
@@ -103,6 +91,7 @@ function DiscussModal(props) {
         }
       )
       Swal.fire('已成功留言', '請重新整理', 'success')
+
       console.log('測試', commentRes.data)
     } catch (e) {
       console.error('留言失敗', e.commentRes.data)

@@ -10,7 +10,13 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-
+  object-fit: contain;
+}
+.cover-fit {
+  width: auto;
+  height:auto;
+  max-height: 100%;
+  max-width: 100%
 }
 
 .recomArea {
@@ -52,10 +58,7 @@
   font-weight: 700;
   }
 }
-.cover-fit {
-  width: 100%;
-  object-fit: contain;
-}
+
 .weRecom {
   position: relative;
   left: 35%;
