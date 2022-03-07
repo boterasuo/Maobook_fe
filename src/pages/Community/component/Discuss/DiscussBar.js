@@ -77,6 +77,7 @@ function DiscussBar(props) {
 
   return (
     <>
+      <GetPages />
       {bars.map((bar) => {
         return (
           <>
@@ -114,7 +115,6 @@ function DiscussBar(props) {
           </>
         )
       })}
-      <GetPages />
       <DiscussModal
         show={barModalShow}
         onHide={() => setBarModalShow(false)}
