@@ -11,6 +11,8 @@ import {
   Tooltip,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+// 引入圖片
+import loading from '../../img/loading_paw.svg'
 
 function DetailChart(props) {
   const { petHWInfo } = props
@@ -80,9 +82,20 @@ function DetailChart(props) {
       },
     ],
   }
+  // 未有資料提醒
+  const loadingPaw = (
+    <div className="text-center mt-4">
+      <img alt="" className="my-2" src={loading} />
+      <p className="text-secondary">
+        尚未有資料
+        <br />
+        立即新增試試吧！
+      </p>
+    </div>
+  )
   return (
     <div className="detail-chart">
-      <Line options={options} data={data} />
+      {value.length > 0 ? <Line options={options} data={data} /> : loadingPaw}
     </div>
   )
 }

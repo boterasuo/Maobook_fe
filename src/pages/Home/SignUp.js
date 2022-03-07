@@ -7,8 +7,6 @@ import axios from 'axios'
 import { useAuth } from '../../context/auth'
 // 引入 utils
 import { API_URL } from '../../utils/config'
-import FacebookLogin from '@greatsumini/react-facebook-login'
-import GoogleLogin from 'react-google-login'
 // 引入圖片們
 import Logo from '../../img/SignUp/LOGO_no_word.svg'
 import SignupWord from '../../img/SignUp/signupWord.svg'
@@ -21,8 +19,10 @@ import { BsGoogle, BsFacebook } from 'react-icons/bs'
 // SweetAlert
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-// 引入函式
+// 引入第三方登入
 import { fbLogin, googleLogin } from '../../service/UserData'
+import FacebookLogin from '@greatsumini/react-facebook-login'
+import GoogleLogin from 'react-google-login'
 
 function SignUp(props) {
   // 註冊 input 輸入值
@@ -303,7 +303,6 @@ function SignUp(props) {
                 >
                   <BsFacebook color="white" fontSize="2.5rem" />
                 </FacebookLogin>
-                {/* </button> */}
               </div>
               <div className="d-none d-lg-block img-paws">
                 <img alt="" className="img-fluid" src={Paws} />

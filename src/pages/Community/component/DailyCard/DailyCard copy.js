@@ -11,124 +11,67 @@ import {
 import './style/DailyCard.scss'
 import axios from 'axios'
 import 'sweetalert2'
-// import { getDate } from 'date-fns'
-// import { id } from 'date-fns/locale'
+import { getDate } from 'date-fns'
+import { id } from 'date-fns/locale'
 // 引入 context
 import { useAuth } from '../../../../context/auth'
 // 引入 utils
 import { API_URL, IMG_URL } from '../../../../utils/config'
 // 元件
 import CardModal from './DailyCardModal'
-import { useParams } from 'react-router-dom'
 
 // 插圖
+import Hashtag from './HashTag'
 import photo from './images/card-photo.svg'
 import like from './images/icon-like.svg'
 import comment from './images/icon-comment.svg'
 
 // 卡片 card
 function DailyCard(modalProps) {
-  const { user, setUser } = useAuth()
   // 彈跳視窗
   const [modalShow, setModalShow] = React.useState(false)
   //卡片內容
   const [cards, setCards] = useState([])
   const [cardID, setCardID] = useState()
   console.log('cardID父元件', cardID)
+  //卡片數量
+  const [cardNum, setCardNum] = useState('')
   // 在打開卡片的Detail
   const openCardDetail = (findCardId) => {
     setCardID(findCardId)
+    // setInputComment({ ...inputComment, cardID: findCardId })
   }
   // 最新一筆留言
   const [addComment, setAddComment] = useState([])
 
-  // 按讚收藏
-  // const [like, setLike] = useState([])
-  // useEffect(() => {
-  //   let getPrices = async () => {
-  //     let response = await axios.get(`${API_URL}/daily/like-list/${user.id}`)
-  //     setLike(response.data)
-  //     console.log('按讚用戶：', response.data)
-  //   }
-  //   getPrices()
-  // }, [user.id])
-
-  // Card-List API 測試
-  const [error, setError] = useState(null)
-  // lastPage 為總頁，預設是1
-  const [lastPage, setLastPage] = useState(1) //預設是1
-  const { currentPage } = useParams()
-  const [page, setPage] = useState(parseInt(currentPage, 10) || 1)
-  console.log('CurrentPage:', currentPage, page)
-
-  // 抓頁數和資料的API
+  // Card-List API
   useEffect(() => {
-    let getPrices = async () => {
-      let response = await axios.get(`${API_URL}/daily/card-pages?page=${page}`)
-      setCards(response.data.data)
-      setLastPage(response.data.pagination.lastPage)
+    let getCardList = async () => {
+      try {
+        let CadListResponse = await axios.get(`${API_URL}/daily/card-list`)
+        // 欲取得後端 http://localhost:3005/api/daily/card-list 資料
+        // 只顯示四個卡片
+        let cardNum = 5
+        console.log('CadListResponse', CadListResponse.data)
+
+        let cardShow4 = CadListResponse.data.slice(0, cardNum)
+        // var cardAdd() {
+        //   cardNum += 4
+        // }
+        setCards(CadListResponse.data)
+        // setCards(CadListResponse.data)
+        // console.log('四張卡片', cardShow4)
+        // console.log(tag)
+        // console.log('所有資料.data:  ', CadListResponse.data)
+      } catch (e) {
+        // console.error('Get card-list Error', e.CadListResponse.data)
+      }
     }
-    getPrices()
-  }, [page]) //讓資料跟著page一起改變
-
-  // 插入分頁的JSX
-  const GetPages = () => {
-    let pages = []
-    for (let i = 1; i <= lastPage; i++) {
-      pages.push(
-        <li
-          style={{
-            display: 'inline-block',
-            margin: '2px',
-            backgroundColor: page === i ? '#F6BC54' : '',
-            borderColor: page === i ? '#00d1b2' : '#dbdbdb',
-            color: page === i ? '#fff' : '#363636',
-            borderWidth: '1px',
-            width: '28px',
-            height: '28px',
-            borderRadius: '3px',
-            textAlign: 'center',
-            cursor: 'pointer',
-          }}
-          key={i}
-          onClick={(e) => {
-            setPage(i)
-            // navigate(`/daily/${cardId}/${i}`)
-          }}
-        >
-          {i}
-        </li>
-      )
-    }
-    return pages
-  }
-
-  // 按讚收藏
-  // const PostLiker = (item) => {
-  //   const currentCart = JSON.parse(localStorage.getItem('cart')) || []
-
-  //   // find if the product in the localstorage with its id
-  //   const index = currentCart.findIndex((v) => v.id === item.id)
-  //   console.log('index', index)
-  //   // found: index! == -1
-  //   if (index > -1) {
-  //     //currentCart[index].amount++
-  //     // setProductName('這個商品已經加過了')
-  //     // handleShow()
-  //     return
-  //   } else {
-  //     currentCart.push(item)
-  //   }
-
-  //   localStorage.setItem('cart', JSON.stringify(currentCart))
-  // }
+    getCardList()
+  }, [])
 
   return (
     <>
-      <div className="w-100">
-        <GetPages />
-      </div>
-
       {cards.map((card) => {
         {
           /* console.log('標籤', [...hashtag]) */
@@ -203,7 +146,7 @@ function DailyCard(modalProps) {
           </>
         )
       })}
-
+      <button className="Add-btn"> 查看更多</button>
       <CardModal
         show={modalShow}
         onHide={() => setModalShow(false)}
