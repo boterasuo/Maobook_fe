@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { API_URL } from "../../utils/config"
+import { API_URL,  IMG_URL } from "../../utils/config"
 
 import PropTypes from 'prop-types'
 import { Form, FormControl, Button, Row, Col, Container, Dropdown, DropdownButton } from 'react-bootstrap'
@@ -87,7 +87,8 @@ function HelpList(props) {
                   <div className="helpcardtop">
                     <div className="carduserimage">
                       {/* {data.user_image} */}
-                      <img className="helpuserimage" src={userimage} alt="" />
+                      {/* <img className="listtitle" src={`${IMG_URL}${data.user_image}`} alt="" /> */}
+                      <img className="helpuserimage" src={`${IMG_URL}${data.user_image}`} alt="" />
                     </div>
 
                     <div className="cardcategoryandtag">

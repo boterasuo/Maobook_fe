@@ -18,14 +18,8 @@ function ComPost() {
   let [whichForm, setWhichForm] = useState('0')
 
   function handleChange(e) {
-    setWhichForm({ ...whichForm, [e.target.name]: e.target.value })
+    // setWhichForm({ ...whichForm, [e.target.name]: e.target.value })
   }
-
-  // const [formNo, setFormNo] = ['0', '1']
-
-  // function handleFormChange(e) {
-  //   setFormNo({ ...formNo, [e.target.name]: e.target.value })
-  // }
 
   // 卡片資訊
   const [cardInfo, setCardInfo] = useState('')
@@ -36,14 +30,14 @@ function ComPost() {
   // 日常貼文
   const [dailyPost, setDailyPost] = useState({
     id: '',
-    userID: user.id,
+    userID: '',
     image: '',
     tittle: '',
     content: '',
     createdAt: '',
-    fsTag: '',
-    mdTag: '',
-    lsTag: '',
+    fsTag: '輸入關鍵字',
+    mdTag: '輸入關鍵字',
+    lsTag: '輸入關鍵字',
   })
   // 討論貼文
   const [discussPost, setDiscussPost] = useState({
@@ -64,6 +58,16 @@ function ComPost() {
   }
 
   // 圖片預覽
+  function handleImage(e) {
+    setCardInfo({ ...cardInfo, image: e.target.files[0] })
+  }
+
+  const handleToDaily = () => {
+    setWhichForm('0')
+  }
+  const handleToDiscuss = () => {
+    setWhichForm('1')
+  }
   function handlePreview(e) {
     const file = e.target.files[0]
     e.target.value = null
@@ -80,35 +84,56 @@ function ComPost() {
       reader.readAsDataURL(file)
     }
   }
-  function handleImage(e) {
-    setCardInfo({ ...cardInfo, image: e.target.files[0] })
-  }
 
-  const handleToDaily = () => {
-    setWhichForm('0')
-  }
-  const handleToDiscuss = () => {
-    setWhichForm('1')
-  }
-
-  // 切換 日常/討論 送出表單
+  // 切換 日常/討論 [[[送出表單]]]
   async function handleSubmit(e) {
     e.preventDefault()
 
     try {
       if (whichForm === '0') {
-        let response = await axios.post(`${API_URL}/daily/Add`, dailyPost, {
+        let formData = new FormData()
+        formData.append('id', dailyPost.id)
+        // formData.append('userID', dailyPost.userID)
+        formData.append('image', cardInfo.image)
+        formData.append('tittle', dailyPost.tittle)
+        formData.append('content', dailyPost.content)
+        // formData.append('createdAt', dailyPost.createdAt)
+        formData.append('fsTag', dailyPost.fsTag)
+        formData.append('mdTag', dailyPost.mdTag)
+        formData.append('lsTag', dailyPost.lsTag)
+        let response = await axios.post(`${API_URL}/daily/Add`, formData, {
           withCredentials: true,
         })
 
-        setDailyPost(response.data)
+        // setDailyPost('response.data', response.data)
         console.log('日常切換文:', response.data)
         Swal.fire('已分享一篇日常')
+        setDailyPost({
+          id: '',
+          userID: '',
+          filename: '',
+          tittle: '',
+          content: '',
+          // createdAt: '',
+          fsTag: '',
+          mdTag: '',
+          lsTag: '',
+        })
+        // 討論
       } else if (whichForm === '1') {
         let response = await axios.post(`${API_URL}/discuss/Add`, discussPost, {
           withCredentials: true,
         })
-        setDiscussPost(response.data.data)
+        // setDiscussPost(response.data)
+        setDiscussPost({
+          id: '',
+          userID: '',
+          categoryID: '',
+          tittle: '',
+          content: '',
+          createdAt: '',
+          Tags: '',
+        })
         console.log('討論切換文:', response.data)
         Swal.fire('已送出一則討論')
       }
@@ -188,7 +213,7 @@ function ComPost() {
           <h2 className="post-h2">&emsp;想分享什麼嗎❓</h2>
           {/* 表單 */}
           {user ? (
-            <div className="post-controll mt-md-50 d-sm-inline-block d-md-inline-flex my-5">
+            <div className="post-controll mt-md-50 d-sm-inline-block d-md-inline-flex ">
               <div className="postinput ">
                 {/* 相片上傳區 */}
                 <label
@@ -214,7 +239,7 @@ function ComPost() {
                       handleImage(e)
                       handlePreview(e)
                     }}
-                    name="image"
+                    name="filename"
                   />
                 </label>
                 {/* 發文模式切換 */}
@@ -223,10 +248,16 @@ function ComPost() {
                   <div className="com-PostClass">
                     <div className="helppostcategory">
                       <buttongroup vertical>
-                        <button className="buttondog" onClick={handleToDaily}>
+                        <button
+                          className="post-button-top"
+                          onClick={handleToDaily}
+                        >
                           日常分享
                         </button>
-                        <button className="buttoncat" onClick={handleToDiscuss}>
+                        <button
+                          className="post-button-bottom"
+                          onClick={handleToDiscuss}
+                        >
                           社群討論
                         </button>
                       </buttongroup>

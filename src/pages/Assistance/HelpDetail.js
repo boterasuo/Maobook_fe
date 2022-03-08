@@ -2,8 +2,10 @@ import { Modal, Button, Row, Col, Carousel } from 'react-bootstrap'
 import { Form, FormControl, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 
 import React, { useState, useEffect } from 'react'
+import { useAuth } from '../../context/auth'
+import Swal from 'sweetalert2'
 import axios from 'axios'
-import { API_URL } from "../../utils/config"
+import { API_URL,  IMG_URL } from "../../utils/config"
 
 import './components/HelpDetail.scss'
 
@@ -17,6 +19,16 @@ function HelpDetail(props) {
   const { detailid } = props
   const [data, setData] = useState([])
 
+  const { user, setUser } = useAuth()
+  const [errMsg, setErrMsg] = useState({ msg: '' })
+
+  const [helpdetailpost, setHelpdetailpost] = useState({
+    caseid: detailid,
+    contact: 'phone',
+    content: '請輸入內容',
+  })
+
+
   useEffect(() => {
     let getHelpDetail = async () => {
       let response = await axios.get(
@@ -25,7 +37,30 @@ function HelpDetail(props) {
       setData(response.data)
     }
     getHelpDetail()
+    setHelpdetailpost({...helpdetailpost, caseid: detailid})
   }, [detailid])
+
+  function handleHelpDetailChange(e) {
+    setHelpdetailpost({ ...helpdetailpost, [e.target.name]: e.target.value })
+  }
+
+  async function handleHelpDetailSubmit(e) {
+    Swal.fire('應徵成功', '', 'success')
+    e.preventDefault() 
+    try {
+      let response = await axios.post(`${API_URL}/help/helptake`, helpdetailpost, {
+        withCredentials: true,
+      })
+      console.log('Add資料', response.data)
+    } catch (e) {
+      console.error('應徵失敗', e.response.data)
+      Swal.fire({
+        icon: 'error',
+        title: '應徵失敗',
+        text: { ...errMsg, msg: e.response.data.msg },
+      })
+    }
+  }
 
   return (
     <Modal
@@ -46,7 +81,8 @@ function HelpDetail(props) {
             <div className="rightside">
               <div className="righthead">
                 <div className="helpdetailuser">
-                  <img src={userimage} className="helpdetailuserimage" alt="" />
+                  {/* <img src={userimage} className="helpdetailuserimage" alt="" /> */}
+                  <img src={`${IMG_URL}${data.user_image}`} className="helpdetailuserimage" alt="" />
                 </div>
                 <div className="helpdetailusername">
                   {data.user_name}
@@ -93,12 +129,15 @@ function HelpDetail(props) {
 
                   <div className="takerpost">
                     <div className="contactchoice">
+                    <div className="choosetitle">聯絡方式</div>
                     <div class="dropdown">
                   <select
                       name="contact"
-                      title='聯絡方式'
+                      title="聯絡方式"
                       className="helpchoosecontact"
                       type="select"
+                      value={helpdetailpost.contact}
+                      onChange={handleHelpDetailChange}
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
@@ -115,11 +154,13 @@ function HelpDetail(props) {
 
                     <div className="textpost">
                       <div className="takercontenttitle">我要留言</div>
-                      <textarea className="takertextarea"></textarea>
+                      <textarea className="takertextarea" name="content" value={helpdetailpost.content}
+                    onChange={handleHelpDetailChange}>請輸入內容</textarea>
                     </div>
 
                     <div className="sendpost">
-                      <div className="takepostbutton">送出</div>
+                      <button className="takepostbutton" type="submit" onClick={handleHelpDetailSubmit}
+                data-dismiss="alert">送出</button>
                     </div>
                   </div>
                 </div>

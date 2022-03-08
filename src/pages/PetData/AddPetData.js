@@ -401,7 +401,8 @@ function AddPetData(props) {
                 <tr>
                   <th>{!switchBTN ? '身長 (cm)' : '體重 (kg)'}</th>
                   <th>
-                    資料時間 <BsFunnel type="button" className="sorting-icon" />{' '}
+                    資料時間
+                    {/* <BsFunnel type="button" className="sorting-icon" />{' '} */}
                   </th>
                   <th>操作</th>
                 </tr>

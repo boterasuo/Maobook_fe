@@ -11,7 +11,8 @@ import { useAuth } from '../../context/auth'
 import { API_URL, IMG_URL } from '../../utils/config'
 // 引入 圖片 icon
 import defaultPet from '../../img/avatar_pet.png'
-import { BsPencilSquare } from 'react-icons/bs'
+import loading from '../../img/loading_paw.svg'
+import { BsPencilSquare, BsPlusLg } from 'react-icons/bs'
 // 引入元件
 import PetDataDemo from './PetDataDemo'
 // 引入 chart 套件
@@ -57,6 +58,7 @@ function PetData(props) {
     '皮膚敏感',
     '心臟疾病',
     '心血管疾病',
+    '挑食',
   ]
 
   // 取得毛孩基資 & 數值資料
@@ -226,6 +228,17 @@ function PetData(props) {
       },
     ],
   }
+  // 未有資料提醒
+  const loadingPaw = (
+    <div className="text-center mt-4">
+      <img alt="" className="my-2" src={loading} />
+      <p className="text-secondary">
+        尚未有毛孩
+        <br />
+        立即新增試試吧！
+      </p>
+    </div>
+  )
   return (
     <>
       {user ? (
@@ -247,55 +260,61 @@ function PetData(props) {
             <div className="row text-center">
               {/* 左欄: 毛孩資料 */}
               <div className="col-lg-6 align-self-center">
-                {/* 大頭照 */}
-                <Link
-                  to={{
-                    pathname: `/member/pet/info`,
-                    state: { selectedPet: petInfo.id },
-                  }}
-                >
-                  <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
-                    <img
-                      alt=""
-                      className="avatar-cover-fit embed-responsive-item"
-                      src={
-                        petInfo.image
-                          ? `${IMG_URL}${petInfo.image}`
-                          : defaultPet
-                      }
-                    />
-                  </div>
-                </Link>
-                {/* 毛孩姓名 */}
-                <div>{petInfo.name ? petInfo.name : '未有資料'}</div>
-                <div className="my-3">
-                  {petInfo.birthday ? (
-                    <>
-                      {`${petAgeY} 歲 ${petAgeM} 個月`}
-                      <br />
-                    </>
-                  ) : (
-                    ''
-                  )}
-                  {petInfo.arrDay ? (
-                    <span className="text-primary">
-                      已經陪伴你 {arrDays} 天
-                    </span>
-                  ) : (
-                    ''
-                  )}
-                </div>
-                {petInfo.health.length ? (
+                {petList.length !== 0 ? (
                   <>
-                    <div>這孩子有</div>
-                    <div className="d-flex flex-column my-3 text-primary">
-                      {petInfo.health.map((v) => {
-                        return <div key={v}>{healthOptions[v]}</div>
-                      })}
+                    {/* 大頭照 */}
+                    <Link
+                      to={{
+                        pathname: `/member/pet/info`,
+                        state: { selectedPet: petInfo.id },
+                      }}
+                    >
+                      <div className="embed-responsive embed-responsive-1by1 pet-data-avatar">
+                        <img
+                          alt=""
+                          className="avatar-cover-fit embed-responsive-item"
+                          src={
+                            petInfo.image
+                              ? `${IMG_URL}${petInfo.image}`
+                              : defaultPet
+                          }
+                        />
+                      </div>
+                    </Link>
+                    {/* 毛孩姓名 */}
+                    <div>{petInfo.name ? petInfo.name : '未有資料'}</div>
+                    <div className="my-3">
+                      {petInfo.birthday ? (
+                        <>
+                          {`${petAgeY} 歲 ${petAgeM} 個月`}
+                          <br />
+                        </>
+                      ) : (
+                        ''
+                      )}
+                      {petInfo.arrDay ? (
+                        <span className="text-primary">
+                          已經陪伴你 {arrDays} 天
+                        </span>
+                      ) : (
+                        ''
+                      )}
                     </div>
+                    {petInfo.health.length ? (
+                      <>
+                        <div>這孩子有</div>
+                        <div className="d-flex flex-column my-3 text-primary">
+                          {petInfo.health.map((v) => {
+                            return <div key={v}>{healthOptions[v]}</div>
+                          })}
+                        </div>
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </>
                 ) : (
-                  ''
+                  loadingPaw
                 )}
               </div>
               {/* 右欄: 毛孩圖表 */}
@@ -345,16 +364,28 @@ function PetData(props) {
                   </div>
                 </div>
               </div>
-              <Link
-                to={{
-                  pathname: '/member/pet/data/edit',
-                  state: { selectedPet: petInfo.id },
-                }}
-              >
-                <button className="edit-icon" title="新增/編輯毛孩數值">
-                  <BsPencilSquare color="white" fontSize="1.3rem" />
-                </button>
-              </Link>
+              {petList.length !== 0 ? (
+                <>
+                  <Link
+                    to={{
+                      pathname: '/member/pet/data/edit',
+                      state: { selectedPet: petInfo.id },
+                    }}
+                  >
+                    <button className="edit-icon" title="新增/編輯毛孩數值">
+                      <BsPencilSquare color="white" fontSize="1.3rem" />
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/member/pet">
+                    <button className="join-icon" title="新增毛孩">
+                      <BsPlusLg color="white" />
+                    </button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

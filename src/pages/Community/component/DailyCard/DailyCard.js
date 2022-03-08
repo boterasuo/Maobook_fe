@@ -191,9 +191,9 @@ function DailyCard(modalProps) {
               {/* [[[統計]]] */}
               <div className="card-counter d-line-block text-center">
                 {/* 按讚數 */}
-                <a>
+                {/* <a>
                   {card.likes} <img src={like} />
-                </a>
+                </a> */}
                 {/* 留言數 */}
                 <a>
                   {card.comments} <img src={comment} />
