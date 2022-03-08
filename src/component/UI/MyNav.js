@@ -11,17 +11,32 @@ import defaultAvatar from '../../img/avatar_user.png'
 import cartIcon from '../../img/cartIcon.svg' //購物車ICON
 // 引入 global.scss
 import '../../style/UI/global.scss'
-
 // 要使用能有active css效果的NavLink元件
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
+// SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function MyNav(props) {
+  const history = useHistory()
   // 來自 context 的 user 狀態
   const { user, setUser } = useAuth()
+  // sweetalert
+  const MySwal = withReactContent(Swal)
   // 登出功能
   const handleLogout = async () => {
     await axios.get(`${API_URL}/auth/logout`, { withCredentials: true })
     setUser(null)
+  }
+
+  const handleLogin = () => {
+    MySwal.fire({
+      title: `請先註冊或登入!`,
+      icon: 'warning',
+      ConfirmButtonText: '確認',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    })
   }
 
   return (
@@ -52,9 +67,15 @@ function MyNav(props) {
               <Nav.Link as={NavLink} to="/schedule">
                 SCHEDULE
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/store">
-                STORE
-              </Nav.Link>
+              {user ? (
+                <Nav.Link as={NavLink} to="/store">
+                  STORE
+                </Nav.Link>
+              ) : (
+                <Nav.Link as={NavLink} to="/login" onClick={handleLogin}>
+                  STORE
+                </Nav.Link>
+              )}
               <Nav.Link as={NavLink} to="/community">
                 COMMUNITY
               </Nav.Link>
