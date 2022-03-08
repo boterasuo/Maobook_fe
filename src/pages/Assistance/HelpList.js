@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { API_URL } from "../../utils/config"
+import { API_URL,  IMG_URL } from "../../utils/config"
 
 import PropTypes from 'prop-types'
 import { Form, FormControl, Button, Row, Col, Container, Dropdown, DropdownButton } from 'react-bootstrap'
@@ -59,6 +59,7 @@ function HelpList(props) {
       <div className="helplist">
         <div className="helplisttopbar">
           <img className="listtitle" src={listtitle} alt="" />
+          {/* <img className="listtitle" src={`${IMG_URL}${data.user.image}`} alt="" /> */}
           <div className='listcurrentregion'>
             <span className='listregion'>{region}</span>的所有案件</div>
           <div className="listfilter">

@@ -58,6 +58,16 @@ function ComPost() {
   }
 
   // 圖片預覽
+  function handleImage(e) {
+    setCardInfo({ ...cardInfo, image: e.target.files[0] })
+  }
+
+  const handleToDaily = () => {
+    setWhichForm('0')
+  }
+  const handleToDiscuss = () => {
+    setWhichForm('1')
+  }
   function handlePreview(e) {
     const file = e.target.files[0]
     e.target.value = null
@@ -74,16 +84,6 @@ function ComPost() {
       reader.readAsDataURL(file)
     }
   }
-  function handleImage(e) {
-    setCardInfo({ ...cardInfo, image: e.target.files[0] })
-  }
-
-  const handleToDaily = () => {
-    setWhichForm('0')
-  }
-  const handleToDiscuss = () => {
-    setWhichForm('1')
-  }
 
   // 切換 日常/討論 [[[送出表單]]]
   async function handleSubmit(e) {
@@ -93,8 +93,8 @@ function ComPost() {
       if (whichForm === '0') {
         let formData = new FormData()
         formData.append('id', dailyPost.id)
-        formData.append('userID', dailyPost.userID)
-        formData.append('image', dailyPost.image)
+        // formData.append('userID', dailyPost.userID)
+        formData.append('image', cardInfo.image)
         formData.append('tittle', dailyPost.tittle)
         formData.append('content', dailyPost.content)
         // formData.append('createdAt', dailyPost.createdAt)
@@ -111,7 +111,7 @@ function ComPost() {
         setDailyPost({
           id: '',
           userID: '',
-          image: '',
+          filename: '',
           tittle: '',
           content: '',
           // createdAt: '',
@@ -239,7 +239,7 @@ function ComPost() {
                       handleImage(e)
                       handlePreview(e)
                     }}
-                    name="image"
+                    name="filename"
                   />
                 </label>
                 {/* 發文模式切換 */}

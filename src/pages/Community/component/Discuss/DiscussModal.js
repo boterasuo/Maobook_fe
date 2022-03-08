@@ -4,11 +4,13 @@ import { Container, Row, Col, Modal, Form } from 'react-bootstrap'
 import { API_URL, IMG_URL } from '../../../../utils/config'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-
+// 引入 context
+import { useAuth } from '../../../../context/auth'
 // 圖片
 import cardLeave from './images/ZoomOut.svg'
 
 function DiscussModal(props) {
+  const { user, setUser } = useAuth()
   const { barID } = props
   //   送出留言的state
   const [inputComment, setInputComment] = useState({
@@ -90,8 +92,10 @@ function DiscussModal(props) {
           withCredentials: true,
         }
       )
-      Swal.fire('已成功留言', '請重新整理', 'success')
-
+      Swal.fire('已成功留言', 'success')
+      setComment({
+        comment: '',
+      })
       console.log('測試', commentRes.data)
     } catch (e) {
       console.error('留言失敗', e.commentRes.data)
@@ -187,7 +191,7 @@ function DiscussModal(props) {
                         <img
                           className="commenter-avatar bd-highlight"
                           alt={'card-avatar'}
-                          src={`${IMG_URL}${bar.avatar}`}
+                          src={`${IMG_URL}${user.image}`}
                         />
 
                         {/* 發文者送出留言欄位 */}
