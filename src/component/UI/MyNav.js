@@ -33,9 +33,13 @@ function MyNav(props) {
     MySwal.fire({
       title: `請先註冊或登入!`,
       icon: 'warning',
-      ConfirmButtonText: '確認',
+      confirmButtonText: '確認',
       allowOutsideClick: false,
       allowEscapeKey: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push('/login')
+      }
     })
   }
 
@@ -64,24 +68,29 @@ function MyNav(props) {
               <Nav.Link as={NavLink} to="/">
                 HOME
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/schedule">
-                SCHEDULE
-              </Nav.Link>
               {user ? (
-                <Nav.Link as={NavLink} to="/store">
-                  STORE
-                </Nav.Link>
+                <>
+                  <Nav.Link as={NavLink} to="/schedule">
+                    SCHEDULE
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/store">
+                    STORE
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/community">
+                    COMMUNITY
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/assistance">
+                    ASSISTANCE
+                  </Nav.Link>
+                </>
               ) : (
-                <Nav.Link as={NavLink} to="/login" onClick={handleLogin}>
-                  STORE
-                </Nav.Link>
+                <>
+                  <Nav.Link onClick={handleLogin}>SCHEDULE</Nav.Link>
+                  <Nav.Link onClick={handleLogin}>STORE</Nav.Link>
+                  <Nav.Link onClick={handleLogin}>COMMUNITY</Nav.Link>
+                  <Nav.Link onClick={handleLogin}>ASSISTANCE</Nav.Link>
+                </>
               )}
-              <Nav.Link as={NavLink} to="/community">
-                COMMUNITY
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/assistance">
-                ASSISTANCE
-              </Nav.Link>
             </Nav>
           </Container>
 
