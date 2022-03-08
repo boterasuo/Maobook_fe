@@ -1,7 +1,6 @@
 import { Link, withRouter, useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
 import './ProductItemStyle.scss'
 //元件
 import { IMG_URL, API_URL } from './../../../utils/config'

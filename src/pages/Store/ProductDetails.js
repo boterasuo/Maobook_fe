@@ -93,25 +93,27 @@ function ProductDetails(props) {
                 className="imgchange"
               >
                 {/* 印圖片 */}
-                {img.map((d) => {
-                  return (
-                    <Carousel.Item>
-                      <div className="imgarea">
-                        <img
-                          className="d-block "
-                          src={`${IMG_URL}/static/products/${d.image}`}
-                          alt={d.image}
-                        />
-                      </div>
-                    </Carousel.Item>
-                  )
-                })}
+                {img
+                  ? img.map((d) => {
+                      return (
+                        <Carousel.Item>
+                          <div className="imgarea">
+                            <img
+                              className="d-block "
+                              src={`${IMG_URL}/static/products/${d.image}`}
+                              alt={d.image}
+                            />
+                          </div>
+                        </Carousel.Item>
+                      )
+                    })
+                  : ''}
               </Carousel>
             </Col>
             <Col xs={6} md={5} className="d-flex align-items-center">
-              <section>
-                <h1>{name}</h1>
-                <p>{des}</p>
+              <section className="pro-detail">
+                <h2>{name}</h2>
+                <p className="mt-3">{des}</p>
                 <p>庫存:{stock}</p>
                 <div className="d-flex justify-content-between align-items-center mr-5">
                   <h3>${price}</h3>

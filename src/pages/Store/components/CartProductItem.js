@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { IMG_URL, API_URL } from './../../../utils/config'
 import './CartProductItemStyle.scss'
-import { IMG_URL } from './../../../utils/config'
 //元件
 import Counter from './Counter'
 import ProductDetails from '../ProductDetails'
 //圖片
-import Hill from '../productsImages/Hill’s-001-1.png'
 import deletIcon from '../storePic/deletIcon.svg'
 
 function CartProductItem(props) {
@@ -27,6 +27,23 @@ function CartProductItem(props) {
   //計算數量總和小計
   const [num, setNum] = useState(0)
   const [show, setShow] = useState(false) //Modal
+  const [allimg, setallImg] = useState([]) //存商品細節用圖片
+
+  //抓商品細節用圖片
+  useEffect(() => {
+    let getProductImg = async () => {
+      // http://localhost:3002/api/store/productdetails?id=${id}
+      let response = await axios.get(
+        `${API_URL}/store/productdetails?id=${id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      setallImg(response.data)
+    }
+    getProductImg()
+  }, [show])
+  console.log('allimg', allimg)
 
   return (
     <>
@@ -53,6 +70,7 @@ function CartProductItem(props) {
           </button>
 
           <ProductDetails
+            img={allimg}
             setMycart={setMycart}
             show={show}
             setShow={setShow}
