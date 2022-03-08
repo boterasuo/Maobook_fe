@@ -425,4 +425,27 @@
   .com-PostButton2 label:focus {
     background-color: white;
     color: #f6bc54;
+   
+  }
+
+
+  .post-tag{
+    height: 30px;
+    margin: 5px 5px 3px 3px;
+    font-size: 15px;
+    width: 60px;
+    background-color: #f6bc54;
+    border-radius: 10px;
+    border: 2px white solid;
+    color: white;
+    transition-duration: 0.4s;
+    &:hover{
+        background-color: white;
+        color: #f6bc54;
+    }
+    &:focus{
+        background-color: white;
+        color: #f6bc54;
+    }
+ 
   }
