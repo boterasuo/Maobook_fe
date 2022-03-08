@@ -38,6 +38,7 @@ function Login(props) {
 
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value })
+    setErrMsg({ msg: '' })
   }
 
   async function handleSubmit(e) {
