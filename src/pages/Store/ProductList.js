@@ -184,7 +184,14 @@ function ProductList(props) {
             {data.map((product) => {
                 return (
                     <Col className="mb-3" >
-                        <ProductItem  name={product.name} price={product.price} des={product.description} stock={product.stock_num} image={ product.image} id={product.id} ADDToLocalStorage={ADDToLocalStorage} />
+                        <ProductItem  
+                        name={product.name} 
+                        price={product.price} 
+                        des={product.description} 
+                        stock={product.stock_num} 
+                        image={ product.image} 
+                        id={product.id} 
+                        ADDToLocalStorage={ADDToLocalStorage} />
                     </Col>
                 )
             })}
@@ -213,7 +220,7 @@ function ProductList(props) {
                     variant="primary"
                     size="sm" 
                     onClick={() => {
-                        props.history.push('/Store/CartDetail')
+                        props.history.push('/store/cart')
                     }}
                 >
                     前往購物車結帳

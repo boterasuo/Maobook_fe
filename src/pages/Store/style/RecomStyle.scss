@@ -10,13 +10,11 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  object-fit: contain;
 }
 .cover-fit {
-  width: auto;
-  height:auto;
-  max-height: 100%;
-  max-width: 100%
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .recomArea {
@@ -36,6 +34,7 @@
   position: relative;
   top: -60px;
   left: -13%;
+  
 }
 .text6 {
   font-size: 0.8rem;
@@ -51,8 +50,10 @@
   position: relative;
   top: -5%;
 }
+
 .recom-describe 
 {
+  font-size: 0.9rem;
   span {
   color: #f6bc54;
   font-weight: 700;
