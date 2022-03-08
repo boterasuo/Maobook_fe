@@ -18,7 +18,7 @@ function ComPost() {
   const [whichForm, setWhichForm] = useState('0')
 
   function handleChange(e) {
-    setWhichForm({ ...whichForm, [e.target.name]: e.target.value })
+    // setWhichForm({ ...whichForm, [e.target.name]: e.target.value })
   }
 
   // const [formNo, setFormNo] = ['0', '1']
