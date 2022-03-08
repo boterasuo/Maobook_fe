@@ -59,7 +59,6 @@ function HelpList(props) {
       <div className="helplist">
         <div className="helplisttopbar">
           <img className="listtitle" src={listtitle} alt="" />
-          {/* <img className="listtitle" src={`${IMG_URL}${data.user.image}`} alt="" /> */}
           <div className='listcurrentregion'>
             <span className='listregion'>{region}</span>的所有案件</div>
           <div className="listfilter">
@@ -88,7 +87,8 @@ function HelpList(props) {
                   <div className="helpcardtop">
                     <div className="carduserimage">
                       {/* {data.user_image} */}
-                      <img className="helpuserimage" src={userimage} alt="" />
+                      {/* <img className="listtitle" src={`${IMG_URL}${data.user_image}`} alt="" /> */}
+                      <img className="helpuserimage" src={`${IMG_URL}${data.user_image}`} alt="" />
                     </div>
 
                     <div className="cardcategoryandtag">
