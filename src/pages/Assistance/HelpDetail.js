@@ -93,10 +93,11 @@ function HelpDetail(props) {
 
                   <div className="takerpost">
                     <div className="contactchoice">
+                    <div className="choosetitle">聯絡方式</div>
                     <div class="dropdown">
                   <select
                       name="contact"
-                      title='聯絡方式'
+                      title="聯絡方式"
                       className="helpchoosecontact"
                       type="select"
                       data-toggle="dropdown"
@@ -115,11 +116,11 @@ function HelpDetail(props) {
 
                     <div className="textpost">
                       <div className="takercontenttitle">我要留言</div>
-                      <textarea className="takertextarea"></textarea>
+                      <textarea className="takertextarea">請輸入內容</textarea>
                     </div>
 
                     <div className="sendpost">
-                      <div className="takepostbutton">送出</div>
+                      <button className="takepostbutton">送出</button>
                     </div>
                   </div>
                 </div>
