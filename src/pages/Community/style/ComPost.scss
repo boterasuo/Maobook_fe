@@ -9,7 +9,7 @@
 .community-post {
   // margin: auto;
   width: 100%;
-  height: 100%;
+  height: 450px;
   margin: auto auto;
   text-align: center; //格字內元素置中
   .postinput {
@@ -377,49 +377,66 @@
     background-color: white;
     color: #f6bc54;
   }
-  &:focus {
-    background-color: white;
-    color: #f6bc54;
-  }
-  &.active {
-    background-color: white;
-    color: #f6bc54;
-  }
-}
-.com-PostButtontext {
-  font-size: 20px;
-  writing-mode: vertical-lr;
-  text-align: center;
-  margin-top: 37px;
-}
 
-.com-PostButton02 {
-  // -webkit-appearance: none;
-  z-index: 0.1;
-  display: none;
-}
-.com-PostButton2 {
-  background-color: #f6bc54;
-  color: white;
-  border: 2px solid white;
-  transition-duration: 0.4s;
-  height: 130px;
-  width: 60px;
-  border-radius: 0px 0px 20px 20px;
-  margin-top: -16px;
-
-  z-index: 1;
-  &:hover {
-    background-color: white;
-    color: #f6bc54;
+  // 討論標籤
+  .post-tag {
+    height: 30px;
+    margin: 5px 5px 3px 3px;
+    font-size: 15px;
+    width: 60px;
+    background-color: #f6bc54;
+    border-radius: 10px;
+    border: 2px white solid;
+    color: white;
+    transition-duration: 0.4s;
+    &:hover {
+      background-color: white;
+      color: #f6bc54;
+    }
+    &:focus {
+      background-color: white;
+      color: #f6bc54;
+    }
   }
-  &.active {
-    background-color: white;
-    color: #f6bc54;
-  }
-}
 
-.com-PostButton2 label:focus {
-  background-color: white;
-  color: #f6bc54;
+  //  日常按鈕
+  .post-button-top {
+    background-color: #f6bc54;
+    color: white;
+    border: 2px solid white;
+    transition-duration: 0.4s;
+    height: 125px;
+    width: 60px;
+    border: 2px white solid;
+    border-radius: 20px 20px 0px 0px;
+    font-size: 20px;
+    &:hover {
+      background-color: white;
+      color: #f6bc54;
+    }
+    &:focus {
+      background-color: white;
+      color: #f6bc54;
+    }
+  }
+
+  //  討論按鈕
+  .post-button-bottom {
+    background-color: #f6bc54;
+    color: white;
+    border: 2px solid white;
+    transition-duration: 0.4s;
+    height: 125px;
+    width: 60px;
+    border-radius: 0px 0px 20px 20px;
+    font-size: 20px;
+    &:hover {
+      background-color: white;
+      color: #f6bc54;
+    }
+    &:focus {
+      background-color: white;
+      color: #f6bc54;
+    }
+  }
 }

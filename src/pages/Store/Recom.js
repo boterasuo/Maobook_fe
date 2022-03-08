@@ -1,21 +1,19 @@
 // import { Card, Button } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
-import '../Store/style/RecomStyle.scss'
+import { Modal, Button, Row, Col } from 'react-bootstrap'
+import { Link, withRouter } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Col, Row } from 'react-bootstrap'
 import axios from 'axios'
-import { API_URL, IMG_URL } from './../../utils/config'
-import { Link } from 'react-router-dom'
+import { API_URL, IMG_URL } from '../../utils/config'
+import '../Store/style/RecomStyle.scss'
 //元件
 import ProductItem from './components/ProductItem'
 //圖片
 import weRecom from './storePic/weRecom.svg'
 import goadd from './storePic/goadd.svg'
 import defaultPet from '../../img/avatar_pet.png'
-// import Hill from "./productsImages/Hill’s id=2-1.png";
-// import productCartIcon from "./storePic/productCartIcon.svg";
 
-function Recom() {
+function Recom(props) {
   const [data, setData] = useState([]) //紀錄全部寵物資料
   const [pet, setPet] = useState(null) //紀錄單隻寵物因為要塞進去的資料是物件，不能設陣列
   const [recomProduct, setrecomProduct] = useState([]) //紀錄寵物專屬推薦商品用
@@ -50,6 +48,64 @@ function Recom() {
     }
   }, [pet])
 
+  //加入購物車
+  const [mycart, setMycart] = useState([])
+
+  //加入購物車訊息窗用
+  const [show, setShow] = useState(false)
+  const [productName, setProductName] = useState('')
+
+  //購物車判斷
+  const ADDToLocalStorage = (item) => {
+    const currentCart = JSON.parse(localStorage.getItem('cart')) || []
+
+    // find if the product in the localstorage with its id
+    const index = currentCart.findIndex((v) => v.id === item.id)
+    console.log('index', index)
+    // found: index! == -1
+    if (index > -1) {
+      //currentCart[index].amount++
+      setProductName('這個商品已經加過了')
+      handleShow()
+      return
+    } else {
+      currentCart.push(item)
+    }
+
+    localStorage.setItem('cart', JSON.stringify(currentCart))
+
+    // 設定資料
+    setMycart(currentCart)
+    setProductName(item.name + '\n已成功加入購物車')
+    handleShow()
+  }
+
+  //購物車加入視窗
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  const messageModal = (
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>{productName}</Modal.Title>
+      </Modal.Header>
+      <Modal.Footer>
+        <Button variant="secondary" size="sm" onClick={handleClose}>
+          繼續購物
+        </Button>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => {
+            props.history.push('/store/cart')
+          }}
+        >
+          前往購物車結帳
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  )
+
   const getlist = () => {
     //建立寵物清單元件
     let list = []
@@ -61,10 +117,10 @@ function Recom() {
             setPet(data[i]) //點下後針對index做寵物切換
           }}
         >
-          <button className="cover-fit  mx-2  ">
+          <button className="mx-2  recom-pet">
             <img
               alt=""
-              className="   recom-pet "
+              className=" cover-fit recom-pet"
               src={data[i].image ? `${IMG_URL}${data[i].image}` : defaultPet}
             />
           </button>
@@ -91,22 +147,18 @@ function Recom() {
       {/* {console.log('pet pet.image', pet, pet.image)} */}
       <section className="d-flex justify-content-center">
         <Row className="recomArea d-flex" md={12}>
-          <Col className="mainpet" md={3}>
-            <div className=" cover-fit">
+          <Col md={3}>
+            <div>
               {/*照片*/}
               <img
                 alt=""
-                className=" recom-avatar  "
-                src={
-                  pet !== null && pet.image
-                    ? `${IMG_URL}${pet.image}`
-                    : defaultPet
-                }
+                className="cover-fit recom-avatar"
+                src={pet && pet.image ? `${IMG_URL}${pet.image}` : defaultPet}
               />
             </div>
-            <h3 className="recom-petname text-center mb-3 ">
+            <h5 className="recom-petname text-center mb-3 ">
               {pet ? pet.name : ''}
-            </h3>
+            </h5>
             <div className="recom-describe text-center ">
               今年的牠
               <span className="introTag">{pet ? pet.birthday : ''}歲</span>
@@ -120,9 +172,7 @@ function Recom() {
                     return (
                       <>
                         <br />
-                        <span>
-                          {(index += 1)}：{data}
-                        </span>
+                        <span>{data}</span>
                       </>
                     )
                   })
@@ -145,6 +195,7 @@ function Recom() {
                       stock={product.stock_num}
                       image={product.image}
                       id={product.id}
+                      ADDToLocalStorage={ADDToLocalStorage}
                     />
                   </Col>
                 )
@@ -175,7 +226,12 @@ function Recom() {
     </>
   )
 
-  return <>{pet ? havePet : nohavepet}</>
+  return (
+    <>
+      {messageModal}
+      {pet ? havePet : nohavepet}
+    </>
+  )
 }
 
-export default Recom
+export default withRouter(Recom)

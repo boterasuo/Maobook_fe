@@ -70,13 +70,10 @@ function App() {
               <Route path="/member">
                 <Member />
               </Route>
-              <Route path="/ProductDetails">
-                <ProductDetails />
-              </Route>
-              <Route path="/Store/CartDetail/OrderDetail">
+              <Route path="/store/cart/orderdetail">
                 <OrderDetail />
               </Route>
-              <Route path="/Store/CartDetail">
+              <Route path="/store/cart">
                 <CartDetail />
               </Route>
               <Route path="/store">

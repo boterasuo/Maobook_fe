@@ -185,6 +185,18 @@ border-radius: 10px;
   margin: 0 2px;
 }
 
+.helpchoosecontact{
+  color: white;
+  background-color: #f6bc54;
+  border: 2px solid white;
+  transition-duration: 0.4s;
+  border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .choosetitle {
   margin: 5px 20px 0 0;
   font-size: 14px;
