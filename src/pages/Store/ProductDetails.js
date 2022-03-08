@@ -1,7 +1,9 @@
 import '../Store/style/ProductDetailsStyle.scss'
 import { Modal, Button, Row, Col, Carousel } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import { IMG_URL, API_URL } from '../../utils/config'
 //圖片
 import Hill from './productsImages/Hill’s-001-1.png'
 import minusIcon from './storePic/minusIcon.svg'
@@ -14,10 +16,10 @@ function ProductDetails(props) {
     setIndex(selectedIndex)
   }
   ////商品細節頁接收傳入值
-  const { name, price, des, stock, setMycart, id } = props
+  const { name, price, des, stock, setMycart, id, img } = props
   const { show, setShow } = props
   //計數器用
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(1)
 
   //加入購物車訊息窗用
   const [show1, setShow1] = useState(false)
@@ -90,21 +92,20 @@ function ProductDetails(props) {
                 onSelect={handleSelect}
                 className="imgchange"
               >
-                <Carousel.Item>
-                  <div className="imgarea">
-                    <img className="d-block " src={Hill} alt="First slide" />
-                  </div>
-                </Carousel.Item>
-                <Carousel.Item className="imgarea">
-                  <div className="imgarea">
-                    <img className="d-block " src={Hill} alt="First slide" />
-                  </div>
-                </Carousel.Item>
-                <Carousel.Item className="imgarea">
-                  <div className="imgarea">
-                    <img className="d-block " src={Hill} alt="First slide" />
-                  </div>
-                </Carousel.Item>
+                {/* 印圖片 */}
+                {img.map((d) => {
+                  return (
+                    <Carousel.Item>
+                      <div className="imgarea">
+                        <img
+                          className="d-block "
+                          src={`${IMG_URL}/static/products/${d.image}`}
+                          alt={d.image}
+                        />
+                      </div>
+                    </Carousel.Item>
+                  )
+                })}
               </Carousel>
             </Col>
             <Col xs={6} md={5} className="d-flex align-items-center">
@@ -166,4 +167,4 @@ function ProductDetails(props) {
   )
 }
 
-export default ProductDetails
+export default withRouter(ProductDetails)

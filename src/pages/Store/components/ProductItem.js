@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-// import { Col } from 'react-bootstrap';
+import { Link, withRouter, useHistory } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 import './ProductItemStyle.scss'
 //元件
-import { IMG_URL } from './../../../utils/config'
+import { IMG_URL, API_URL } from './../../../utils/config'
 import ProductDetails from '../ProductDetails'
 //圖片
 import Hill from '../productsImages/Hill’s-001-1.png'
@@ -14,19 +15,41 @@ function ProductItem(props) {
   const [show, setShow] = useState(false) //Modal
   console.log('image', image)
 
+  const [allimg, setallImg] = useState([]) //存商品細節用圖片
+
+  //抓商品細節用圖片
+  useEffect(() => {
+    let getProductImg = async () => {
+      // http://localhost:3002/api/store/productdetails?id=${id}
+      let response = await axios.get(
+        `${API_URL}/store/productdetails?id=${id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      setallImg(response.data)
+    }
+    getProductImg()
+  }, [show])
+  console.log('allimg', allimg)
+
   return (
     <>
       {/* 商品*/}
-      <div className="setbg">
-        <div className="product mt-4">
-          <button onClick={() => setShow(true)}>
+      <div className="setbg ">
+        <div className="product-img mt-4 ">
+          <button
+            className="d-flex justify-content-center"
+            onClick={() => setShow(true)}
+          >
             <img
-              className="Hill s-image cover-fit mb-4"
+              className="cover-fit "
               src={`${IMG_URL}/static/products/${image}`}
-              alt="Hill"
+              alt={image}
             />
           </button>
           <ProductDetails
+            img={allimg}
             show={show}
             setShow={setShow}
             id={id}
@@ -61,4 +84,4 @@ function ProductItem(props) {
   )
 }
 
-export default ProductItem
+export default withRouter(ProductItem)

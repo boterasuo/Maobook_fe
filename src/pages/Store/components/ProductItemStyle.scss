@@ -2,12 +2,17 @@
 .setbg {
   position: relative;
 }
-.setbg::after{
+.product-img{
+  width: 150px;
+  height: 170px;
+  margin: auto;
+}
+.setbg::after{ //框線
   content: '';
   border: 1px solid#fcb736;
   border-radius: 30px;
-  width: 150px;
-  height: 270px;
+  width: 160px;
+  height: 250px;
   background: none;
   position: absolute;
   top: 10%;
@@ -16,8 +21,8 @@
 }
 .productCartIcon {
   position: absolute;
-  top: 90%;
-  left: 75%;
+  top: 89%;
+  left: 78%;
   z-index: 0;
 }
 .s-title {
@@ -30,9 +35,6 @@
 .s-price {
   font-weight: 700;
   height: 50px;
-  padding: 10px 0 0 20px;
+  padding: 0 0 0 15px;
   color: #6a5f4b;
 }
-// .s-image {
-//   z-index: 4;
-// }

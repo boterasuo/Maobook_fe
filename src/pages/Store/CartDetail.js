@@ -171,7 +171,7 @@ function CartDetail() {
             清空購物車
           </Button>
           {/* 購物車商品區*/}
-          <Row className="pt-3 m-auto justify-content-center " xs={2} md={4}>
+          <Row className="pt-3 m-auto justify-content-center" xs={2} md={4}>
             {mycartDisplay.map((item, index) => {
               return (
                 <Col className="p-0" key={item.id}>
@@ -241,7 +241,7 @@ function CartDetail() {
                 seterrMsg(true)
               } else {
                 cartHistory.push({
-                  pathname: '/store/cartdetail/orderDetail',
+                  pathname: '/store/cart/orderdetail',
                   state: {
                     cart: mycartDisplay,
                     sum: total,
