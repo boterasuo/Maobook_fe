@@ -91,7 +91,17 @@ function ComPost() {
 
     try {
       if (whichForm === '0') {
-        let response = await axios.post(`${API_URL}/daily/Add`, dailyPost, {
+        let formData = new FormData()
+        formData.append('id', dailyPost.id)
+        formData.append('userID', dailyPost.userID)
+        formData.append('image', dailyPost.image)
+        formData.append('tittle', dailyPost.tittle)
+        formData.append('content', dailyPost.content)
+        // formData.append('createdAt', dailyPost.createdAt)
+        formData.append('fsTag', dailyPost.fsTag)
+        formData.append('mdTag', dailyPost.mdTag)
+        formData.append('lsTag', dailyPost.lsTag)
+        let response = await axios.post(`${API_URL}/daily/Add`, formData, {
           withCredentials: true,
         })
 
@@ -104,7 +114,7 @@ function ComPost() {
           image: '',
           tittle: '',
           content: '',
-          createdAt: '',
+          // createdAt: '',
           fsTag: '',
           mdTag: '',
           lsTag: '',
