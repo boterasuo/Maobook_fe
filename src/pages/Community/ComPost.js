@@ -21,12 +21,6 @@ function ComPost() {
     setWhichForm({ ...whichForm, [e.target.name]: e.target.value })
   }
 
-  // const [formNo, setFormNo] = ['0', '1']
-
-  // function handleFormChange(e) {
-  //   setFormNo({ ...formNo, [e.target.name]: e.target.value })
-  // }
-
   // 卡片資訊
   const [cardInfo, setCardInfo] = useState('')
   // 處理錯誤
@@ -36,14 +30,14 @@ function ComPost() {
   // 日常貼文
   const [dailyPost, setDailyPost] = useState({
     id: '',
-    userID: user.id,
+    userID: '',
     image: '',
     tittle: '',
     content: '',
     createdAt: '',
-    fsTag: '',
-    mdTag: '',
-    lsTag: '',
+    fsTag: '輸入關鍵字',
+    mdTag: '輸入關鍵字',
+    lsTag: '輸入關鍵字',
   })
   // 討論貼文
   const [discussPost, setDiscussPost] = useState({
@@ -91,7 +85,7 @@ function ComPost() {
     setWhichForm('1')
   }
 
-  // 切換 日常/討論 送出表單
+  // 切換 日常/討論 [[[送出表單]]]
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -101,14 +95,35 @@ function ComPost() {
           withCredentials: true,
         })
 
-        setDailyPost(response.data)
+        // setDailyPost('response.data', response.data)
         console.log('日常切換文:', response.data)
         Swal.fire('已分享一篇日常')
+        setDailyPost({
+          id: '',
+          userID: '',
+          image: '',
+          tittle: '',
+          content: '',
+          createdAt: '',
+          fsTag: '',
+          mdTag: '',
+          lsTag: '',
+        })
+        // 討論
       } else if (whichForm === '1') {
         let response = await axios.post(`${API_URL}/discuss/Add`, discussPost, {
           withCredentials: true,
         })
-        setDiscussPost(response.data.data)
+        // setDiscussPost(response.data)
+        setDiscussPost({
+          id: '',
+          userID: '',
+          categoryID: '',
+          tittle: '',
+          content: '',
+          createdAt: '',
+          Tags: '',
+        })
         console.log('討論切換文:', response.data)
         Swal.fire('已送出一則討論')
       }
@@ -188,7 +203,7 @@ function ComPost() {
           <h2 className="post-h2">&emsp;想分享什麼嗎❓</h2>
           {/* 表單 */}
           {user ? (
-            <div className="post-controll mt-md-50 d-sm-inline-block d-md-inline-flex my-5">
+            <div className="post-controll mt-md-50 d-sm-inline-block d-md-inline-flex ">
               <div className="postinput ">
                 {/* 相片上傳區 */}
                 <label
@@ -223,10 +238,16 @@ function ComPost() {
                   <div className="com-PostClass">
                     <div className="helppostcategory">
                       <buttongroup vertical>
-                        <button className="buttondog" onClick={handleToDaily}>
+                        <button
+                          className="post-button-top"
+                          onClick={handleToDaily}
+                        >
                           日常分享
                         </button>
-                        <button className="buttoncat" onClick={handleToDiscuss}>
+                        <button
+                          className="post-button-bottom"
+                          onClick={handleToDiscuss}
+                        >
                           社群討論
                         </button>
                       </buttongroup>
