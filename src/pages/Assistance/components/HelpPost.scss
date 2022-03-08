@@ -37,7 +37,6 @@
 .helppostimage {
   width: 175px;
   height: 250px;
-  border: 2px white solid;
   border-radius: 20px;
   margin-bottom: 10px;
   display: flex;
@@ -234,6 +233,9 @@
   border: none;
   border-bottom: 2px solid white;
   background-color: #f6bc54;
+  color: white;
+  margin-left: 5px;
+  padding-left: 5px;
 }
 
 .helppostpricetitle {
