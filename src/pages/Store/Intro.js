@@ -15,7 +15,7 @@ import maoselection from './storePic/maoselection.png'
 import carticon from './storePic/carticon.svg'
 import arrow from './storePic/arrow.svg'
 import playbtn from './storePic/playbtn.svg'
-
+import playarea from './storePic/playarea.svg'
 function Intro() {
   const history = useHistory()
 
@@ -30,7 +30,9 @@ function Intro() {
           <br />
           最適合牠的禮物
         </div>
-        <div className="playarea"></div>
+        <div>
+          <img className="playarea" src={playarea} alt="playarea" />
+        </div>
         <div>
           <img className="person" src={person} alt="person" />
         </div>
@@ -61,9 +63,9 @@ function Intro() {
         <div>
           <img className="arrow" src={arrow} alt="arrow" />
         </div>
-        <div>
+        {/* <div>
           <img className="playbtn" src={playbtn} alt="playbtn" />
-        </div>
+        </div> */}
       </section>
     </>
   )

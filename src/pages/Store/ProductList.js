@@ -5,7 +5,7 @@ import { Col, Row, Accordion, Card, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import { API_URL } from "../../utils/config";
-
+import Swal from 'sweetalert2'
 
 //元件
 import ProductItem from "./components/ProductItem"
@@ -44,7 +44,7 @@ function ProductList(props) {
     const [show, setShow] = useState(false)
     const [productName, setProductName] = useState("")
 
-    
+
     //購物車判斷
     const ADDToLocalStorage = (item) => {
         const currentCart = JSON.parse(localStorage.getItem('cart')) || []
@@ -55,8 +55,13 @@ function ProductList(props) {
         // found: index! == -1
         if (index > -1) {
             //currentCart[index].amount++
-            setProductName('這個商品已經加過了')
-            handleShow()
+            // setProductName('這個商品已經加過了')
+            // handleShow()
+            Swal.fire(
+                "這個商品已經加過了", //標題 
+                "", //訊息內容(可省略)
+                "warning" //圖示(可省略) success/info/warning/error/question
+            );
             return
         } else {
             currentCart.push(item)
@@ -66,8 +71,15 @@ function ProductList(props) {
 
         // 設定資料
         setMycart(currentCart)
-        setProductName( item.name +'\n已成功加入購物車' )
-        handleShow()
+        // setProductName( item.name +'\n已成功加入購物車' )
+        // handleShow()
+        Swal.fire(
+            '成功加入購物車!', //標題
+            '', //訊息內容(可省略)
+            'success' //圖示(可省略) success/info/warning/error/question
+          )
+               
+
     }
 
 
@@ -91,8 +103,8 @@ function ProductList(props) {
             if (checkedBrand) {
                 where.push(`brand_category_id IN (${checkedBrand})`)
             }
-            
-           let SQLL=""
+
+            let SQLL = ""
             SQLL += where.length > 0 ? 'WHERE ' + where.join(' AND ') : ''
             // SQLimage = SQLimage + ' ' + group
             console.log(SQLL)
@@ -110,7 +122,7 @@ function ProductList(props) {
             setFilterBrand(response.data.filterBrand);
         };
         Search();
-    }, [page, category, value1, filter, checkedPet, checkedProduct, checkedBrand,checkState]);
+    }, [page, category, value1, filter, checkedPet, checkedProduct, checkedBrand, checkState]);
 
     //四個按鈕分類
     const SearchFood = async () => {
@@ -184,14 +196,14 @@ function ProductList(props) {
             {data.map((product) => {
                 return (
                     <Col className="mb-3" >
-                        <ProductItem  
-                        name={product.name} 
-                        price={product.price} 
-                        des={product.description} 
-                        stock={product.stock_num} 
-                        image={ product.image} 
-                        id={product.id} 
-                        ADDToLocalStorage={ADDToLocalStorage} />
+                        <ProductItem
+                            name={product.name}
+                            price={product.price}
+                            des={product.description}
+                            stock={product.stock_num}
+                            image={product.image}
+                            id={product.id}
+                            ADDToLocalStorage={ADDToLocalStorage} />
                     </Col>
                 )
             })}
@@ -204,30 +216,30 @@ function ProductList(props) {
     );
 
     //購物車加入視窗
-   const handleClose = () => setShow(false)
-   const handleShow = () => setShow(true)
-   
-   const messageModal = (
-        <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-            <Modal.Header closeButton>
-                <Modal.Title>{productName}</Modal.Title>
-            </Modal.Header>
-            <Modal.Footer>
-                <Button variant="secondary" size="sm" onClick={handleClose}>
-                    繼續購物
-                </Button>
-                <Button
-                    variant="primary"
-                    size="sm" 
-                    onClick={() => {
-                        props.history.push('/store/cart')
-                    }}
-                >
-                    前往購物車結帳
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    )
+    // const handleClose = () => setShow(false)
+    // const handleShow = () => setShow(true)
+
+    // const messageModal = (
+    //     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    //         <Modal.Header closeButton>
+    //             <Modal.Title>{productName}</Modal.Title>
+    //         </Modal.Header>
+    //         <Modal.Footer>
+    //             <Button variant="secondary" size="sm" onClick={handleClose}>
+    //                 繼續購物
+    //             </Button>
+    //             <Button
+    //                 variant="primary"
+    //                 size="sm"
+    //                 onClick={() => {
+    //                     props.history.push('/store/cart')
+    //                 }}
+    //             >
+    //                 前往購物車結帳
+    //             </Button>
+    //         </Modal.Footer>
+    //     </Modal>
+    // )
 
 
 
@@ -235,7 +247,7 @@ function ProductList(props) {
 
     return (
         <>
-            {messageModal}
+            {/* {messageModal} */}
             <div>
                 <section className='wrap1'>
                     <div className='btnarea mb-5 d-flex justify-content-between'>

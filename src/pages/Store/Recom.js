@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { API_URL, IMG_URL } from '../../utils/config'
 import '../Store/style/RecomStyle.scss'
+import Swal from 'sweetalert2'
 //元件
 import ProductItem from './components/ProductItem'
 //圖片
@@ -65,8 +66,13 @@ function Recom(props) {
     // found: index! == -1
     if (index > -1) {
       //currentCart[index].amount++
-      setProductName('這個商品已經加過了')
-      handleShow()
+      // setProductName('這個商品已經加過了')
+      // handleShow()
+      Swal.fire(
+        '這個商品已經加過了', //標題
+        '', //訊息內容(可省略)
+        'warning' //圖示(可省略) success/info/warning/error/question
+      )
       return
     } else {
       currentCart.push(item)
@@ -76,8 +82,13 @@ function Recom(props) {
 
     // 設定資料
     setMycart(currentCart)
-    setProductName(item.name + '\n已成功加入購物車')
-    handleShow()
+    // setProductName(item.name + '\n已成功加入購物車')
+    // handleShow()
+    Swal.fire(
+      '成功加入購物車!', //標題
+      '', //訊息內容(可省略)
+      'success' //圖示(可省略) success/info/warning/error/question
+    )
   }
 
   //購物車加入視窗
