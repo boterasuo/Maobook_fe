@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { IMG_URL, API_URL } from '../../utils/config'
+import Swal from 'sweetalert2'
 //圖片
 import Hill from './productsImages/Hill’s-001-1.png'
 import minusIcon from './storePic/minusIcon.svg'
@@ -33,14 +34,24 @@ function ProductDetails(props) {
     if (index > -1) {
       //如果index!=0，代表陣列裡有這個產品
       currentCart[index].amount += total //直接加上計數器數量
-      setProductName(
-        item.name + '數量更新，目前數量：' + currentCart[index].amount
+      // setProductName(
+      //   item.name + '數量更新，目前數量：' + currentCart[index].amount
+      // )
+      // handleShow()
+      Swal.fire(
+        '加入成功!', //標題
+        '數量更新，目前數量：' + currentCart[index].amount, //訊息內容(可省略)
+        'success' //圖示(可省略) success/info/warning/error/question
       )
-      handleShow()
     } else {
       currentCart.push(item) //若找不到直接加入購物車
-      setProductName(item.name + '\n已成功加入購物車')
-      handleShow()
+      // setProductName(item.name + '\n已成功加入購物車')
+      // handleShow()
+      Swal.fire(
+        '成功加入購物車!', //標題
+        '', //訊息內容(可省略)
+        'success' //圖示(可省略) success/info/warning/error/question
+      )
     }
     localStorage.setItem('cart', JSON.stringify(currentCart)) //設定回去localStorage
     setMycart(currentCart)
@@ -112,9 +123,12 @@ function ProductDetails(props) {
             </Col>
             <Col xs={6} md={5} className="d-flex align-items-center">
               <section className="pro-detail">
-                <h2>{name}</h2>
-                <p className="mt-3">{des}</p>
-                <p>庫存:{stock}</p>
+                <h2 dangerouslySetInnerHTML={{ __html: name }}></h2>
+                <p
+                  className="mt-3"
+                  dangerouslySetInnerHTML={{ __html: des }}
+                ></p>
+                {/* <p>庫存:{stock}</p> */}
                 <div className="d-flex justify-content-between align-items-center mr-5">
                   <h3>${price}</h3>
                   {/*加數器*/}

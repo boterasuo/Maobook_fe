@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../context/auth'
 import Swal from 'sweetalert2'
 import axios from 'axios'
-import { API_URL } from "../../utils/config"
+import { API_URL,  IMG_URL } from "../../utils/config"
 
 import './components/HelpDetail.scss'
 
@@ -81,7 +81,8 @@ function HelpDetail(props) {
             <div className="rightside">
               <div className="righthead">
                 <div className="helpdetailuser">
-                  <img src={userimage} className="helpdetailuserimage" alt="" />
+                  {/* <img src={userimage} className="helpdetailuserimage" alt="" /> */}
+                  <img src={`${IMG_URL}${data.user_image}`} className="helpdetailuserimage" alt="" />
                 </div>
                 <div className="helpdetailusername">
                   {data.user_name}

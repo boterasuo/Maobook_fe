@@ -6,6 +6,7 @@ import { withRouter, Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../../utils/config'
 import { useAuth } from '../../context/auth'
+import Swal from 'sweetalert2'
 //圖片
 import MaoStore from './storePic/MaoStore.png'
 import prolistBG from './storePic/prolistBG.svg'
@@ -37,7 +38,7 @@ function OrderDetail(props) {
   //接支付方式用
   const [Pay, setPay] = useState([])
   //送出成功提視窗用
-  const [show, setShow] = useState(false)
+  // const [show, setShow] = useState(false)
   // input 輸入值
   const [Order, setOrder] = useState({
     name: '',
@@ -74,12 +75,12 @@ function OrderDetail(props) {
       let response = await axios.post(`${API_URL}/order`, Order)
       console.log(response.data.message)
       if (response.data.message === 'ok') {
-        // 客製化 Modal
-        setShow(true)
+        Swal.fire('訂單已送出', '回到商店頁', 'success')
+        history.push('/store')
         localStorage.removeItem('cart')
       }
     } catch (e) {
-      setShow(false)
+      // setShow(false)
       console.error('error', e.response.data)
       // 後端驗證
       setOrderErr({
@@ -93,23 +94,23 @@ function OrderDetail(props) {
     }
   }
 
-  const handleCloseModal = () => {
-    setShow(false)
-    history.push('/member/order')
-  }
+  // const handleCloseModal = () => {
+  //   setShow(false)
+  //   history.push('/member/order')
+  // }
 
-  const successModal = (
-    <Modal show={show} onHide={handleCloseModal}>
-      <Modal.Header>
-        <Modal.Title>訂單已送出</Modal.Title>
-      </Modal.Header>
-      <Modal.Footer>
-        <Button variant="secondary" size="sm" onClick={handleCloseModal}>
-          確定
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  )
+  // const successModal = (
+  //   <Modal show={show} onHide={handleCloseModal}>
+  //     <Modal.Header>
+  //       <Modal.Title>訂單已送出</Modal.Title>
+  //     </Modal.Header>
+  //     <Modal.Footer>
+  //       <Button variant="secondary" size="sm" onClick={handleCloseModal}>
+  //         確定
+  //       </Button>
+  //     </Modal.Footer>
+  //   </Modal>
+  // )
 
   return (
     <Container>
@@ -117,7 +118,7 @@ function OrderDetail(props) {
         <img className="MaoStore3 img-fluid" src={MaoStore} alt="MaoStore" />
         <img className="prolistBG img-fluid" src={prolistBG} alt="prolistBG" />
       </section>
-      {successModal}
+
       <section className="orderdetailArea p-2">
         <OrderDetailTable cart={cart} />
 

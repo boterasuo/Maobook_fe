@@ -44,7 +44,7 @@ function AddPet(props) {
   const vaccineOptions = ['三合一', '五合一', '狂犬病']
   const [vaccineList, setVaccineList] = useState([])
   // 健康狀態 checkbox
-  const healthValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+  const healthValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
   const healthOptions = [
     '慢性腎衰竭',
     '糖尿病',
@@ -55,7 +55,8 @@ function AddPet(props) {
     '皮膚敏感',
     '心臟疾病',
     '心血管疾病',
-    '挑食',
+    '挑嘴',
+    '眼疾',
   ]
   const [healthList, setHealthList] = useState([])
   // sweetalert
