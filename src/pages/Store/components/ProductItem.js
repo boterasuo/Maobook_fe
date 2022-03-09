@@ -15,7 +15,6 @@ function ProductItem(props) {
   console.log('image', image)
 
   const [allimg, setallImg] = useState([]) //存商品細節用圖片
-
   //抓商品細節用圖片
   useEffect(() => {
     let getProductImg = async () => {
@@ -59,7 +58,10 @@ function ProductItem(props) {
           />
         </div>
         <div>
-          <h6 className=" s-title">{name}</h6>
+          <h6
+            className=" s-title"
+            dangerouslySetInnerHTML={{ __html: name }}
+          ></h6>
           <div className="s-price">${price}</div>
         </div>
       </div>

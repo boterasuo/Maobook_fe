@@ -34,9 +34,9 @@ function Helper(props) {
 
   // 修改案件狀態API
   async function handleSubmit(e) {
-    Swal.fire('確定回覆', '已寄信通知對方您的選擇', 'success')
     e.preventDefault() //關掉預設行為
     try {
+      Swal.fire('確定回覆', '已寄信通知並寫入行事曆', 'success')
       let response = await axios.post(
         `${API_URL}/history/caseState/`,
         schedule,
@@ -49,6 +49,44 @@ function Helper(props) {
       setErrMsg({ ...errMsg, msg: e.response.data.msg })
     }
   }
+
+  // 媒合成功寫入API  從這裡開始複製
+  const [schedule2, setSchedule2] = useState({
+    date: '2022-05-07 00:00:00', // 看一下案子是哪天
+    important: '1',
+    pets: '0', // 看一下寵物編號
+    tagOne: '接案',
+    tagTwo: '互助',
+    category: '4',
+    textareaValue: '您有接案互助的委託要完成喔！',
+  })
+
+  function handleChange(e) {
+    setSchedule2({ ...schedule2, [e.target.name]: e.target.value })
+  }
+
+  async function handleSubmitSchedual(e) {
+    e.preventDefault() //關掉預設行為
+
+    try {
+      // Swal.fire('已成功建立行事曆', '請重新整理', 'success')
+      let response = await axios.post(
+        `${API_URL}/calenderForm/register`,
+        schedule2,
+        {
+          withCredentials: true,
+        }
+      )
+      //重新渲染
+    } catch (e) {
+      console.error('寫入行事曆失敗', e.response.data)
+      setErrMsg({ ...errMsg, msg: e.response.data.msg })
+    }
+    // alert('已成功建立行事曆')
+    // Swal.fire('Any fool can use a computer')
+  }
+  // 到這裡結束
+
   return (
     <>
       {data.map((item, i) => {
@@ -139,6 +177,7 @@ function Helper(props) {
                           noteDate: item.case_id,
                           category: e.target.value,
                         })
+                        handleSubmitSchedual(e)
                       }}
                       className="inputCircle"
                     />

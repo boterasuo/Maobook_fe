@@ -8,6 +8,8 @@ import Swal from 'sweetalert2'
 import { useAuth } from '../../../../context/auth'
 // 圖片
 import cardLeave from './images/ZoomOut.svg'
+// 樣式
+import './style/DiscussBar.scss'
 
 function DiscussModal(props) {
   const { user, setUser } = useAuth()
@@ -55,7 +57,7 @@ function DiscussModal(props) {
   let getCommentList = async () => {
     let commentArr = await axios.get(`${API_URL}/discuss/comment-list/${barID}`)
     setComments(commentArr.data)
-    console.log('留言列表', commentArr.data)
+    console.log('討論文留言列表', commentArr.data)
     // console.log('CadListResponse.data:  ', cardModalInfo.data)
   }
   // 抓留言列表API
@@ -67,8 +69,8 @@ function DiscussModal(props) {
 
   console.log(inputComment)
   useEffect(() => {
-    setInputComment({ ...inputComment, barID })
-  }, [])
+    setInputComment({ ...inputComment, barID: barID })
+  }, [barID])
   //   送出表單 (onSubmit)
   //   const [inputComment, setInputComment] = useState({
   //     id: '0',
@@ -86,16 +88,24 @@ function DiscussModal(props) {
     e.preventDefault() //關掉預設行為
     try {
       let commentRes = await axios.post(
-        'http://localhost:3005/api/discuss/AddComment',
+        `${API_URL}/discuss/AddComment`,
         inputComment,
         {
           withCredentials: true,
         }
       )
       Swal.fire('已成功留言', 'success')
+      setInputComment({
+        id: '',
+        barID: '',
+        memberID: '',
+        comment: '',
+      })
+      // 重新渲染留言列表
       setComment({
         comment: '',
       })
+      getCommentList()
       console.log('測試', commentRes.data)
     } catch (e) {
       console.error('留言失敗', e.commentRes.data)
@@ -159,7 +169,10 @@ function DiscussModal(props) {
                     {/* 內文標題 */}
                     <Row className="pt-2">
                       <Col>
-                        <h4>{bar.tittle}</h4>
+                        <span className="btn-primary rounded-pill p-1 my-2 mr-3">
+                          {bar.category}
+                        </span>
+                        <span className="h4">{bar.tittle}</span>
                       </Col>
                       <Col
                         sm={{ span: 2, offset: 3 }}

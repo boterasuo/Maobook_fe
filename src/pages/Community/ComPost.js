@@ -12,7 +12,8 @@ import { API_URL, IMG_URL } from '../../utils/config'
 // 引入圖片
 import 'react-icons'
 
-function ComPost() {
+function ComPost(modalProps) {
+  const { cardID, getPages } = modalProps
   const { user, setUser } = useAuth()
   // 日常 || 討論 //
   let [whichForm, setWhichForm] = useState('0')
@@ -35,9 +36,9 @@ function ComPost() {
     tittle: '',
     content: '',
     createdAt: '',
-    fsTag: '輸入關鍵字',
-    mdTag: '輸入關鍵字',
-    lsTag: '輸入關鍵字',
+    fsTag: '',
+    mdTag: '',
+    lsTag: '',
   })
   // 討論貼文
   const [discussPost, setDiscussPost] = useState({
@@ -68,6 +69,7 @@ function ComPost() {
   const handleToDiscuss = () => {
     setWhichForm('1')
   }
+  // 圖片預覽
   function handlePreview(e) {
     const file = e.target.files[0]
     e.target.value = null
@@ -111,10 +113,10 @@ function ComPost() {
         setDailyPost({
           id: '',
           userID: '',
-          filename: '',
+          image: '',
           tittle: '',
           content: '',
-          // createdAt: '',
+          createdAt: '',
           fsTag: '',
           mdTag: '',
           lsTag: '',
@@ -213,9 +215,13 @@ function ComPost() {
           <h2 className="post-h2">&emsp;想分享什麼嗎❓</h2>
           {/* 表單 */}
           {user ? (
-            <div className="post-controll mt-md-50 d-sm-inline-block d-md-inline-flex ">
+            <div
+              className={`post-controll mt-md-50 d-sm-inline-block d-md-inline-flex `}
+            >
               <div className="postinput ">
                 {/* 相片上傳區 */}
+                {/* 圖片 */}
+
                 <label
                   htmlFor="fileUploader"
                   className="img-uploader"
@@ -224,43 +230,82 @@ function ComPost() {
                   value={handleDailyChange}
                 >
                   {/*圖片預覽 | 無圖隱藏 */}
-                  <img
-                    className={preview ? 'previewer' : 'd-none'}
-                    src={preview}
-                    alt=""
-                  />
+                  {whichForm === '0' ? (
+                    <>
+                      <img
+                        className={preview ? 'previewer' : 'd-none'}
+                        src={preview}
+                        alt=""
+                      />
 
-                  {/* 圖片 */}
-                  <input
-                    type="file"
-                    id="fileUploader"
-                    className="d-none w-100"
-                    onChange={(e) => {
-                      handleImage(e)
-                      handlePreview(e)
-                    }}
-                    name="filename"
-                  />
+                      {/* 圖片 */}
+                      <input
+                        type="file"
+                        id="fileUploader"
+                        className="d-none w-100"
+                        onChange={(e) => {
+                          handleImage(e)
+                          handlePreview(e)
+                        }}
+                        name="filename"
+                      />
+                    </>
+                  ) : (
+                    <img
+                      className={preview ? 'previewer' : 'd-none'}
+                      src={preview}
+                      alt=""
+                    />
+                  )}
                 </label>
                 {/* 發文模式切換 */}
                 <div className="postClass ">
                   {/* 重要與普通radio */}
                   <div className="com-PostClass">
                     <div className="helppostcategory">
-                      <buttongroup vertical>
-                        <button
-                          className="post-button-top"
-                          onClick={handleToDaily}
+                      <fieldset id="category">
+                        <label
+                          for="Daily"
+                          className={`categoryPostButton1 lg ${
+                            whichForm === '0' ? 'active' : ''
+                          }`}
                         >
-                          日常分享
-                        </button>
-                        <button
-                          className="post-button-bottom"
-                          onClick={handleToDiscuss}
+                          <input
+                            type="radio"
+                            id="Daily"
+                            name="category"
+                            value="日常分享"
+                            check={'0' === whichForm}
+                            onChange={(e) => {
+                              setWhichForm()
+                              handleToDaily()
+                            }}
+                            className="helpPostCircle"
+                          />
+                          <span className="com-PostButtontext">日常分享</span>
+                        </label>
+
+                        <label
+                          for="Discuss"
+                          className={`categoryPostButton2 lg ${
+                            whichForm === '1' ? 'active' : ''
+                          }`}
                         >
-                          社群討論
-                        </button>
-                      </buttongroup>
+                          <input
+                            type="radio"
+                            id="Discuss"
+                            name="category"
+                            value="社群討論"
+                            check={'1' === whichForm}
+                            onChange={(e) => {
+                              setWhichForm()
+                              handleToDiscuss(e.target.value)
+                            }}
+                            className="helpPostCircle"
+                          />
+                          <span className="com-PostButtontext">社群討論</span>
+                        </label>
+                      </fieldset>
                     </div>
                   </div>
                 </div>
@@ -277,6 +322,7 @@ function ComPost() {
                         id="fsTag"
                         name="fsTag"
                         onChange={handleDailyChange}
+                        required="required"
                       />
                       <br />
                       <label htmlFor="midTag" className="postLabel">
@@ -338,6 +384,7 @@ function ComPost() {
                           placeholder={'寫一些內容吧!'}
                           onChange={handleDailyChange}
                           name="content"
+                          required="required"
                         ></textarea>
                       </Form>
                     ) : (
@@ -353,6 +400,7 @@ function ComPost() {
                           placeholder={'寫一些內容吧!'}
                           onChange={handleDisChange}
                           name="content"
+                          required="required"
                         ></textarea>
                       </Form>
                     )}

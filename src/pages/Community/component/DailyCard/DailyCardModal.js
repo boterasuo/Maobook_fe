@@ -116,7 +116,7 @@ function DailyCardModal(modalProps) {
         memberID: '0',
         comment: '',
       })
-      // 重新渲染
+      // 重新渲染留言列表
       getCommentList()
 
       console.log('測試', commentRes.data)

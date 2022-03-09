@@ -3,8 +3,12 @@
 // border弧度
 $mao-border: 33px;
 
+.get-pages{
+  text-align: start;
+  
+}
 // 固定頭貼比例 1:1
-$avatar-length: 3.5rem;
+$avatar-length: 63px;
 // 最外層
 .daily-card {
   cursor: pointer;
@@ -21,7 +25,8 @@ $avatar-length: 3.5rem;
   }
   // 發文者頭貼
   .daily-avatar {
-    background: $secondary;
+    // border: 3px solid ;
+    border: 2px solid rgba(255, 236, 173, 0.651);
     height: $avatar-length;
     width: $avatar-length;
   }
@@ -29,8 +34,11 @@ $avatar-length: 3.5rem;
   .card-tittle{
     height: 65px;
     margin: auto 0;
-    .hash-tag{
-      font-size: small;
+    .hash-tags{
+      text-align: start;
+      .hash-tag{
+        font-size: small;
+      }
     }
   }
 
@@ -54,7 +62,7 @@ $avatar-length: 3.5rem;
     }
     // 內文預覽
     .card-content {
-      height: 30%;
+      height: 72px;
       margin: 1.3rem 1.2rem;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -79,6 +87,13 @@ $avatar-length: 3.5rem;
 @media (max-width: 767px) {
   .daily-card {
     width: 260px;
+    // height: 425.775px;
+  }
+  .card-body {
+    height: 320.6px;
+    width: 60%;
+    margin: 0 auto;
+    padding: 0;
   }
 }
 

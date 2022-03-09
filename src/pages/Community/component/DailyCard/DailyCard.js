@@ -57,18 +57,19 @@ function DailyCard(modalProps) {
   const [error, setError] = useState(null)
   // lastPage 為總頁，預設是1
   const [lastPage, setLastPage] = useState(1) //預設是1
+
   const { currentPage } = useParams()
   const [page, setPage] = useState(parseInt(currentPage, 10) || 1)
   console.log('CurrentPage:', currentPage, page)
 
+  let getPages = async () => {
+    let response = await axios.get(`${API_URL}/daily/card-pages?page=${page}`)
+    setCards(response.data.data)
+    setLastPage(response.data.pagination.lastPage)
+  }
   // 抓頁數和資料的API
   useEffect(() => {
-    let getPrices = async () => {
-      let response = await axios.get(`${API_URL}/daily/card-pages?page=${page}`)
-      setCards(response.data.data)
-      setLastPage(response.data.pagination.lastPage)
-    }
-    getPrices()
+    getPages()
   }, [page]) //讓資料跟著page一起改變
 
   // 插入分頁的JSX
@@ -81,7 +82,7 @@ function DailyCard(modalProps) {
             display: 'inline-block',
             margin: '2px',
             backgroundColor: page === i ? '#F6BC54' : '',
-            borderColor: page === i ? '#00d1b2' : '#dbdbdb',
+            borderColor: page === i ? '#ccc' : '#dbdbdb',
             color: page === i ? '#fff' : '#363636',
             borderWidth: '1px',
             width: '28px',
@@ -103,29 +104,10 @@ function DailyCard(modalProps) {
     return pages
   }
 
-  // 按讚收藏
-  // const PostLiker = (item) => {
-  //   const currentCart = JSON.parse(localStorage.getItem('cart')) || []
-
-  //   // find if the product in the localstorage with its id
-  //   const index = currentCart.findIndex((v) => v.id === item.id)
-  //   console.log('index', index)
-  //   // found: index! == -1
-  //   if (index > -1) {
-  //     //currentCart[index].amount++
-  //     // setProductName('這個商品已經加過了')
-  //     // handleShow()
-  //     return
-  //   } else {
-  //     currentCart.push(item)
-  //   }
-
-  //   localStorage.setItem('cart', JSON.stringify(currentCart))
-  // }
-
+  // TODO: 按讚功能
   return (
     <>
-      <div className="w-100">
+      <div className="get-pages">
         <GetPages />
       </div>
 
@@ -150,7 +132,7 @@ function DailyCard(modalProps) {
               <Container className="px-2">
                 <Row className="card-tittle">
                   {/* <Col sm={1} md={1} lg={1}></Col> */}
-                  <Col xs={4} sm={4} md={4} lg={4}>
+                  <Col sm={3} md={3}>
                     <img
                       className="daily-avatar rounded-circle bg-secondary"
                       src={`${IMG_URL}${card.avatar}`}
@@ -158,12 +140,16 @@ function DailyCard(modalProps) {
                     />
                   </Col>
                   {/* <Col xs={1} sm={1} md={1} lg={1}></Col> */}
-                  <Col sm={8} md={8} className="hash-tags">
+                  <Col
+                    sm={{ span: 7, offset: 2 }}
+                    md={{ span: 7, offset: 2 }}
+                    className="hash-tags"
+                  >
                     {card.tags ? (
                       card.tags.split(',').map((tag, i) => {
                         return (
                           <div className="hash-tag " key={card.id}>
-                            # {tag}
+                            {tag ? `#${tag}` : ''}
                           </div>
                         )
                       })
@@ -180,6 +166,7 @@ function DailyCard(modalProps) {
                   className="card-img"
                   src={`${card.image}` ? `${IMG_URL}${card.image}` : photo}
                   // { photo }
+                  alt="card-img"
                 />
 
                 {/* 內文 */}

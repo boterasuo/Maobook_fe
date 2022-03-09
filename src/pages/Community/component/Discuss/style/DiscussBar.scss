@@ -20,63 +20,65 @@
 //   border-radius: 10px;
 // }
 
-.bars {
+.post-bars {
+  height: 67px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0px;
+  margin: 1.2rem 0px;
   // 日期
-  .head-date {
+  .post-date {
+    width: 50px;
     color: $primary;
     font-size: 20px;
     margin-left: 15px;
   }
   // 頭像
-$avatar-length: 4rem;
-.discuss-avatar {
-  height: 65px;
-  width: 75px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 0.5rem;
+  $avatar-length: 50px;
+  .discuss-avatar {
+    height: $avatar-length;
+    width: $avatar-length;
+    margin-left: 1rem;
+    padding: 0;
+    object-fit: cover;
+}
+
 }
 
 .bar-container{
   width: 100%;
   &:hover .bar-border{
-    width: 50vw;
     background: $primary;
     outline: 2px solid $primary;
     border: 2px solid white;
     left: 0;
+}
     &:hover .tags{
-      height: 30px;
+      // height: 30px;
       background: white;
-      color: $secondary;
-      border: skyblue;
+      color: white;
     }
     &:hover .arrow{
-      color: white;
+      stroke: currentColor;
 
     }
-    &:hover .paw{
-      color: white;
-      display: block;
-    }
-  }
+    // &:hover .paw{
+    //   color: white;
+    //   display: block;
+    // }
   .bar-border {
     display: flex;
     background: white;
     border: 1px solid $primary;
     outline: 1px solid white;
-    width: 58vw;
+    width: 52vw;
     border-radius: 30px;
     padding-left: 15px;
     padding-right: 15px;
     position: relative;
     margin-left: 25px;
     margin-right: 30px;
-    transition: 1s;
+    transition: .4s;
     // 文字截取
     // overflow:hidden;
     // white-space: nowrap;
@@ -128,7 +130,6 @@ $avatar-length: 4rem;
 
   }
 }
-}
 
 
 
@@ -137,4 +138,26 @@ $avatar-length: 4rem;
   width: 95%;
   overflow: hidden;
   margin: 0 auto;
+}
+
+.comment-border{
+  max-width: 965px;
+}
+
+
+
+// RWD
+@media (max-width: 768px){
+  // 討論文 //
+  // 隱藏頭貼&日期
+  .discuss-avatar{
+    display: none;
+  }
+
+  .post-date{
+    display: none;
+  }
+.zoomOut-btn{
+ 
+}
 }

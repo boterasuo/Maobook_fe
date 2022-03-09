@@ -84,7 +84,11 @@ function CartProductItem(props) {
           />
         </div>
         <div>
-          <h6 className="cart-title">{name}</h6>
+          <h6
+            className="cart-title"
+            dangerouslySetInnerHTML={{ __html: name }}
+          ></h6>{' '}
+          {/* dangerouslySetInnerHTML={{ __html: name }} = 吃到資料庫裡的HTML語法，針對{name}變數*/}
           <p className="cart-price">${price}</p>
           <p className="cart-price2">小計 NT${price * amount}</p>
         </div>

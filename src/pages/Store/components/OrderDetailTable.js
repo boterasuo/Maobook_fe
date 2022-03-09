@@ -20,7 +20,7 @@ function OrderDetailTable(props) {
             return (
               <tr>
                 <td>{index}</td>
-                <td>{cart.name}</td>
+                <td dangerouslySetInnerHTML={{ __html: cart.name }}></td>
                 <td>{cart.price}</td>
                 <td>{cart.amount}</td>
                 <td>{cart.price * cart.amount}</td>
