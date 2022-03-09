@@ -107,8 +107,8 @@ function Helper(props) {
 
             <div className="helpInfo">
               <div className="helpInfoUp">
-                <h6>電話：{item.takerEmail} </h6>
-                <h6>信箱：{item.takerMobile}</h6>
+                <h6>信箱：{item.takerEmail} </h6>
+                <h6>電話：{item.takerMobile}</h6>
               </div>
               <div className="helpInfoDown">
                 <div className="helpInfoIcon">
