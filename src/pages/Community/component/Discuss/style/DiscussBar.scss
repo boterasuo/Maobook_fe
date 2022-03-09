@@ -47,25 +47,45 @@
 
 .bar-container{
   width: 100%;
+  
   &:hover .bar-border{
+    width: 900px;
     background: $primary;
     outline: 2px solid $primary;
     border: 2px solid white;
     left: 0;
+
 }
     &:hover .tags{
       // height: 30px;
       background: white;
       color: white;
     }
-    &:hover .arrow{
-      stroke: currentColor;
-
+    &:hover .bar-title1{
+      }
+    &:hover .bar-title2{
+    width: 50%;
     }
-    // &:hover .paw{
-    //   color: white;
-    //   display: block;
-    // }
+   
+    .bar-title1 {
+      width: 30%;
+      margin: 12px 40px 12px 20px;
+      padding: 5px 5px 3px 2px;
+      overflow:hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      transition: .6s;
+    }
+    .bar-title2 {
+      width: 30%;
+      margin: 12px 40px 12px 20px;
+      padding: 5px 5px 3px 2px;
+      overflow:hidden;
+      white-space: nowrap;
+      transition: .6s;
+      text-overflow: ellipsis;
+    }
+
   .bar-border {
     display: flex;
     background: white;
@@ -96,12 +116,7 @@
     }
 
 
-    .bar-title {
-      width: 30%;
-      margin: 12px 40px 12px 20px;
-      padding: 5px 5px 3px 2px;
-    }
-
+   
     .arrowicon {
       max-width: 10%;
       margin: 12px 10px;

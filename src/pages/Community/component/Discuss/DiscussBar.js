@@ -104,8 +104,8 @@ function DiscussBar(props) {
                 <div className="bar-border">
                   {/* <div className="category">{bar.category}</div> */}
                   <div className="tags">{bar.category}</div>
-                  <div className="bar-title text-truncate">{bar.tittle}</div>
-                  <div className="bar-title text-truncate">{bar.content}</div>
+                  <div className="bar-title1 ">{bar.tittle}</div>
+                  <div className="bar-title2 ">{bar.content}</div>
                   <div className="arrowicon">
                     <img src={rightArrow} className="arrow" alt="" />
                     <img src={pawpaw} className="d-none paw" alt="" />
