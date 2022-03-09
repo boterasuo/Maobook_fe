@@ -129,7 +129,8 @@ $footer-height: 60px;
 // 會員資料區塊的 RWD for pad
 @media only screen and (max-width: 992px) {
   .member-info {
-    > div {
+    .info-card {
+      margin-left: 0;
       padding: 0.5rem;
     }
     .avatar {
@@ -148,6 +149,7 @@ $footer-height: 60px;
   .member-info {
     padding: 0 1rem 1.5rem 1rem;
     .info-card {
+      margin-left: 0;
       padding: 0.1rem;
     }
     .avatar {

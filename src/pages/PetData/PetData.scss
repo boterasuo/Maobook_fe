@@ -190,3 +190,20 @@ $secondary: #6a5f4b;
   padding: 2.2rem 0;
   height: 400px;
 }
+@media only screen and (max-width: 768px) {
+  .pet-data-select {
+    margin-top: 0.5rem;
+  }
+  .pet-data-table {
+    > thead {
+      > tr {
+        > th:first-child {
+          width: 117px;
+        }
+        > th:last-child {
+          width: 129px;
+        }
+      }
+    }
+  }
+}
