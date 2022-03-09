@@ -82,7 +82,7 @@ function DiscussBar(props) {
         return (
           <>
             <div
-              className="bars pointer"
+              className="post-bars pointer"
               key={bar.id}
               id={bar.id}
               onClick={() => {
@@ -91,9 +91,10 @@ function DiscussBar(props) {
                 setBarID(bar.id)
               }}
             >
-              <div className="head-date">
+              <div className="post-date">
                 {bar.month}/{bar.date}
               </div>
+
               <img
                 className="discuss-avatar rounded-circle bg-secondary"
                 src={`${IMG_URL}${bar.avatar}`}

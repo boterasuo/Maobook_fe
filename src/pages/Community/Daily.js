@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Form, FormControl, Button, Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import { HiPlus } from 'react-icons/hi'
 // 樣式
 import './style/Daily.scss'
