@@ -52,13 +52,13 @@ function Helper(props) {
 
   // 媒合成功寫入API  從這裡開始複製
   const [schedule2, setSchedule2] = useState({
-    date: '2022-05-07 00:00:00', // 看一下案子是哪天
+    date: '2022-05-16 00:00:00', // 看一下案子是哪天
     important: '1',
     pets: '0', // 看一下寵物編號
-    tagOne: '接案',
-    tagTwo: '互助',
+    tagOne: '巧虎',
+    tagTwo: '互助接案',
     category: '4',
-    textareaValue: '您有接案互助的委託要完成喔！',
+    textareaValue: '您有與許巧虎的接案互助的委託要進行喔！',
   })
 
   function handleChange(e) {
