@@ -62,7 +62,7 @@ function Post(props) {
   }
 
   async function handleSubmit(e) {
-    Swal.fire('已成功建立行事曆', '請重新整理', 'success')
+    Swal.fire('新增成功', '已成功建立行事曆', 'success')
     e.preventDefault() //關掉預設行為
 
     try {
