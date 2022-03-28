@@ -3,7 +3,7 @@
 ### 專案說明
 
 ![image](https://i.imgur.com/Bon5q2q.png)  
-資展國際期末小組專題  
+`資展國際期末小組專題`  
 以前後端分離方式使用 React.js 和 Node.js （Express 框架）製作 SPA 動態網頁，撰寫 RESTful API 串接資料庫
 
 ### 使用技術
@@ -18,7 +18,7 @@
 
 [boterasuo](https://github.com/boterasuo)：
 
-- 資料庫 table-schema 設計
+- 資料庫 table-schema 設計 [ref-1](https://drawsql.app/maobook/diagrams/maobook-users-ecommerce) [ref-2](https://drawsql.app/maobook/diagrams/maobook-pet-data-schedule) [ref-3](https://drawsql.app/maobook/diagrams/maobook-users-social-case)
 - 會員註冊 / 登入 (含第三方 Facebook / Google 登入)
 - 會員資料 CRUD
 - 寵物資料 CRUD
@@ -28,12 +28,11 @@
 主要使用套件：
 
 - 前端：react-bootstrap、chart.js、sweetalert2、axios...等
-- 後端：express-session、express-validator、fs、multer、moment、passport 第三方登入相關套件...等
+- 後端：express-session、express-validator、fs、multer、moment、passport 第三方登入相關套件...等  
+  **有使用 try catch 以及 async await 處理非同步資料 (call API)**
 
 寵物數據管理功能 demo：
 ![Alt Text](https://i.imgur.com/rAdzKEy.gif)
-
-**有使用 try catch 以及 async await 處理非同步資料 (call API)**
 
 [Sinmei](https://github.com/Jonawonabanana)：
 
