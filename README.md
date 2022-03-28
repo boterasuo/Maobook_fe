@@ -31,7 +31,7 @@
 - 後端：express-session、express-validator、fs、multer、moment、passport 第三方登入相關套件...等
 
 寵物數據管理功能 demo：
-<img alt="data_management" src="https://imgur.com/rAdzKEy">
+![Alt Text](https://i.imgur.com/rAdzKEy.gif)
 
 **有使用 try catch 以及 async await 處理非同步資料 (call API)**
 
