@@ -33,6 +33,8 @@
 
 寵物數據管理功能 demo：
 ![Alt Text](https://i.imgur.com/rAdzKEy.gif)
+頁面 RWD demo：
+![image](https://i.imgur.com/GqcQpMw.png)
 
 [Sinmei](https://github.com/Jonawonabanana)：
 
