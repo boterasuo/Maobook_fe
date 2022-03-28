@@ -2,7 +2,7 @@
 
 ### 專案說明
 
-![image](https://imgur.com/Bon5q2q)  
+![image](https://i.imgur.com/Bon5q2q.png)  
 資展國際期末小組專題  
 以前後端分離方式使用 React.js 和 Node.js （Express 框架）製作 SPA 動態網頁，撰寫 RESTful API 串接資料庫
 
