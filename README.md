@@ -1,4 +1,4 @@
-# Maobook 爪爪日記
+# Maobook 爪爪日記 (front-end)
 
 ### 專案說明
 
