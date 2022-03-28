@@ -2,9 +2,9 @@
 
 ### 專案說明
 
-<img alt="homepage" src="C:\Users\boter\Documents\履歷\作品\Final\final_project_home.png">
+![image](https://imgur.com/Bon5q2q)  
 資展國際期末小組專題  
-以前後端分離方式使用 React.js 和 Node.js （Express 框架）製作 SPA 動態網頁，撰寫RESTful API 串接資料庫
+以前後端分離方式使用 React.js 和 Node.js （Express 框架）製作 SPA 動態網頁，撰寫 RESTful API 串接資料庫
 
 ### 使用技術
 
