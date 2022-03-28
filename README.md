@@ -50,20 +50,20 @@
 - 互助媒合系統 email 功能串接
 - 頁面 RWD
 
-[Anun](https://github.com/Ben-Buli)
+[Anun](https://github.com/Ben-Buli)：
 
 - 日常心得文發文 / 留言
 - 討論文章發文 / 留言
 - 頁面 RWD
 
-[syuan](https://github.com/dummiss)
+[syuan](https://github.com/dummiss)：
 
 - 商品呈現 / 篩選 / 搜尋
 - 商品推薦 (根據會員寵物資料)
 - 購物車
 - 結帳付款流程 (至填寫收件資料)
 
-[Chris Tang](https://github.com/Tangent0610)
+[Chris Tang](https://github.com/Tangent0610)：
 
 - 互助平台功能 (建立案件、接案、案件搜尋)
 - 頁面 RWD
