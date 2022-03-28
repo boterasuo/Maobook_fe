@@ -45,6 +45,7 @@
 
 [Eutene](https://github.com/Eutene)：
 
+- 整體視覺設計
 - 新增行事曆提醒
 - 行事曆事件查詢 (by 日期)
 - 互助媒合系統 email 功能串接
@@ -65,5 +66,6 @@
 
 [Chris Tang](https://github.com/Tangent0610)：
 
+- Logo 設計
 - 互助平台功能 (建立案件、接案、案件搜尋)
 - 頁面 RWD
