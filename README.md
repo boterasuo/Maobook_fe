@@ -16,7 +16,7 @@
 
 ### 協作者
 
-[boterasuo](https://github.com/boterasuo)：
+[boterasuo](https://github.com/boterasuo) (本帳)：
 
 - 資料庫 table-schema 設計 [ref-1](https://drawsql.app/maobook/diagrams/maobook-users-ecommerce) [ref-2](https://drawsql.app/maobook/diagrams/maobook-pet-data-schedule) [ref-3](https://drawsql.app/maobook/diagrams/maobook-users-social-case)
 - 會員註冊 / 登入 (含第三方 Facebook / Google 登入)
